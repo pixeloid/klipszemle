@@ -1,0 +1,8 @@
+pixeloid_app:
+    resource: "@PixeloidAppBundle/Resources/config/routing.yml"
+
+pixeloid_user_manager:
+    resource: "@PixeloidUserBundle/Resources/config/routing.yml"
+    prefix:   /user
+
+

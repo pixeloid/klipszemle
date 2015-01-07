@@ -1,0 +1,40 @@
+pixeloid_app_accomodation:
+    resource: "@PixeloidAppBundle/Resources/config/routing/accomodation.yml"
+    prefix:   /accomodation
+
+pixeloid_app_event:
+    resource: "@PixeloidAppBundle/Resources/config/routing/event.yml"
+    prefix:   /event
+
+pixeloid_app_eventregistration:
+    resource: "@PixeloidAppBundle/Resources/config/routing/eventregistration.yml"
+    prefix:   /eventregistration
+
+pixeloid_app_presentation:
+    resource: "@PixeloidAppBundle/Resources/config/routing/presentation.yml"
+    prefix:   /presentation
+
+
+pixeloid_app_index:
+    path:     /
+    defaults: { _controller: PixeloidAppBundle:Default:index, event: "ESCPR" }
+
+pixeloid_app_map:
+    path:     /map
+    defaults: { _controller: PixeloidAppBundle:Default:map }
+
+
+pixeloid_app_info:
+    path:     /info
+    defaults: { _controller: PixeloidAppBundle:Default:info }
+
+
+pixeloid_app_programme:
+    path:     /programme
+    defaults: { _controller: PixeloidAppBundle:Default:programme }
+
+
+pixeloid_app_abstract_submission:
+    path:     /abstract-submission/{step}
+    defaults: { _controller: PixeloidAppBundle:Default:abstractSubmission, step: '1' }
+

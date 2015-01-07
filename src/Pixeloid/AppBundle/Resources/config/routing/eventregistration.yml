@@ -1,0 +1,40 @@
+eventregistration:
+    path:     /
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:index" }
+
+eventregistration_show:
+    path:     /{id}/show
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:show" }
+
+eventregistration_new:
+    path:     /new
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:new" }
+
+eventregistration_success:
+    path:     /{id}/success
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:registrationSuccess" }
+
+eventregistration_create:
+    path:     /create
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:create" }
+    requirements: { _method: post }
+
+eventregistration_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:edit" }
+
+eventregistration_update:
+    path:     /{id}/update
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:update" }
+    requirements: { _method: post|put }
+
+eventregistration_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:delete" }
+    requirements: { _method: post|delete }
+
+eventregistration_calculate:
+    path:     /calculate
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:calculate" }
+    requirements: { _method: post }
+

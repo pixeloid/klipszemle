@@ -1,0 +1,146 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    translator:      { fallback: "%locale%" }
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
+
+# Assetic Configuration
+assetic:
+    filters:
+        less:
+            node: /usr/local/bin/node
+            node_paths: [/usr/local/lib/node_modules]
+            apply_to: "\.less$"
+        cssrewrite: ~
+    assets:
+        # bootstrap_css:
+        #     inputs:
+        #         - @PixeloidAppBundle/Resources/public/less/styles.less
+        #         - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/less/form.less
+        #     filters:
+        #         - less
+        #         - cssrewrite
+        #     output: @PixeloidAppBundle/Resources/public/css/styles.css
+        bootstrap_js:
+            inputs:
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/alert.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/button.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/carousel.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/collapse.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/dropdown.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/modal.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/tooltip.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/popover.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/scrollspy.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/tab.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/affix.js
+                - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/js/bc-bootstrap-collection.js
+        jquery:
+            inputs:
+                - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+
+braincrafted_bootstrap:
+    less_filter: less
+    customize:
+        variables_file: %kernel.root_dir%/../src/Pixeloid/AppBundle/Resources/public/less/variables.less
+        bootstrap_output: @PixeloidAppBundle/Pixeloid/AppBundle/Resources/public/less/bootstrap.less
+    auto_configure:
+        knp_paginator: false
+        assetic: false
+
+
+knp_menu:
+    twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
+        template: BraincraftedBootstrapBundle:Menu:bootstrap.html.twig
+    templating: false # if true, enables the helper for PHP templates
+    default_renderer: twig # The renderer to use, list is also available by default
+
+knp_paginator:
+    template:
+        pagination: BraincraftedBootstrapBundle:Pagination:bootstrap.html.twig
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    encryption: tls
+    auth_mode:  login
+    # spool:     { type: memory }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Pixeloid\UserBundle\Entity\User
+
+ewz_recaptcha:
+    public_key:  6Le1_P8SAAAAAB0HURyMWLC1DMeuUQlRrUGOr4md
+    private_key: 6Le1_P8SAAAAAN6zUXEK0bWKTtSQvoA32e2VK0ea
+    locale_key:  %kernel.default_locale%
+
+deploy:
+  prod:
+    rsync-options: '-azC --force --delete --progress -h --checksum'
+    host: virt1.acoline.hu
+    dir: ./espcr
+    user: sshvu2024
+    port: 2022
+    timeout: 120 # Connection timeout in seconds. 0 for no timeout.
+    post_deploy_operations: 
+        - app/console cache:clear --env=prod
+        - app/console assets:install --env=prod
+        - app/console assetic:dump --env=prod    
+        - app/console doctrine:schema:update --force --env=prod    

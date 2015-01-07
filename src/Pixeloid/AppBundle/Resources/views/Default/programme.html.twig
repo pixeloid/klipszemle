@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<h1><span>Download our latest brochure</span></h1>
+
+<div class="row">
+	<div class="col-sm-4 col-sm-offset-4">
+	<a href="https://www.dropbox.com/s/z5dzso4yjnhjbaa/ESPCR_2014_24th_meeting_first_announcement.pdf?dl=1">
+		{% image '@PixeloidAppBundle/Resources/public/images/espcr_first_announcment.jpg'
+		    filter='' output='/images/espcr_first_announcment.jpg' %}
+		    <img src="{{ asset_url }}" class="img-responsive"  alt="ESPCR First Announcment"/>
+		{% endimage %}
+	</a>
+	</div>
+</div>
+   
+{% endblock %}
