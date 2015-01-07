@@ -1,0 +1,172 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1><span>Event Registration</span></h1>
+
+    <div>
+        Steps:
+        {% include 'CraueFormFlowBundle:FormFlow:stepList.html.twig' %}
+    </div>
+
+{{ form_start(form, {attr: {'data-calculate-url': path('eventregistration_calculate') }}) }}
+
+{% if flow.getCurrentStepNumber() == 1 %}
+<div class="row">
+    <div class="col-sm-1">
+        {{ form_row(form.title) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.firstname) }}
+    </div>
+
+    <div class="col-sm-3">
+        {{ form_row(form.lastname) }}
+    </div>
+    <div class="col-sm-5">
+        {{ form_row(form.institution) }}
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        {{ form_row(form.country) }}
+    </div>
+    <div class="col-sm-2">
+        {{ form_row(form.postal) }}
+    </div>
+
+    <div class="col-sm-3">
+        {{ form_row(form.city) }}
+    </div>
+    <div class="col-sm-5">
+        {{ form_row(form.address) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="col-sm-4">
+        {{ form_row(form.phone) }}
+    </div>
+
+    <div class="col-sm-4">
+        {{ form_row(form.fax) }}
+    </div>
+</div>
+
+{% elseif flow.getCurrentStepNumber() == 2 %}
+
+
+        <h2>Available accomodation options</h2>
+<div class="row">
+    <div class="col-sm-7">
+        <table class="table table-condensed table-decorated">
+            <tbody>
+                <tr>
+                    <th class="text-right">Hotel</th>
+                    <th valign="bottom">Map</th>
+                    <th><b>Single room</b><br>EUR / night</th>
+                    <th><b>Double room</b><br>EUR / night</th>
+                </tr>
+
+
+                {% for acc in accomodations %}
+                    <tr>
+                        <td class="name"><b>{{acc.name}}</b> <br> <small>({{acc.address}})</small></td>
+                        <td><a href="#" data-toggle="modal" data-target="#mapModal" class="show-map">Show map</a></td>
+                        <td>{{acc.priceSingle}} EUR</td>
+                        <td>{{acc.priceDouble}} EUR</td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="col-sm-5">
+        
+        {{ form_row(form.reservation.accomodation) }}
+
+        <div class="row  accomodation-selected">
+            <div class="col-sm-6">
+                        <div class="bootstrap-date">
+                            {{ form_row(form.reservation.checkIn) }}
+                        </div>
+            </div>
+
+            <div class="col-sm-6">
+                        <div class="bootstrap-date">
+                            {{ form_row(form.reservation.checkOut) }}
+                        </div>
+            </div>
+
+
+        </div>
+
+        <div class="row  accomodation-selected">
+            <div class="col-sm-6">
+                    {{ form_row(form.reservation.roomType) }}
+            </div>
+
+            <div class="col-sm-6">
+                    {{ form_row(form.reservation.persons) }}
+            </div>
+        </div>
+        
+
+        <div class="panel panel-default accomodation-selected">
+            <div class="panel-body">
+                <h3>Total: <span class="num-nights"></span> nights, <span class="price-total">0</span> EUR</h3>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        {{ form_row(form.recaptcha) }}
+    </div>
+    <div class="col-sm-8">
+    </div>
+</div>     
+{% endif %}
+
+{{ form_rest(form) }}
+
+{% include 'CraueFormFlowBundle:FormFlow:buttons.html.twig' %}
+
+
+
+
+
+
+{{ form_end(form) }}
+
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="mapModalLabel">New message</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--         <ul class="record_actions">
+    <li>
+        <a href="{{ path('eventregistration') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+ -->{% endblock %}

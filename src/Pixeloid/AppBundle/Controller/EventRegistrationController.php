@@ -41,51 +41,61 @@ class EventRegistrationController extends Controller
     {
         $entity = new EventRegistration();
 
+        $flow = $this->createCreateForm($entity);
+
+        $form = $flow->createForm();
+
+
+        if ($flow->isValid($form)) {
+            
+            $flow->saveCurrentStepData($form);
+
+            if ($flow->nextStep()) {
+                // form for the next step
+                $form = $flow->createForm();
+            } else {
+                // flow finished
+                $userManager = $this->get('fos_user.user_manager');
+                $em = $this->getDoctrine()->getManager();
+
+                $user = $userManager->findUserByEmail($entity->getEmail());
+
+                if (!$user) {
+                    $user = $userManager->createUser();
+                    $user->setEmail($entity->getEmail());
+                    $user->setUsername($entity->getEmail());
+                    $user->setPassword($this->generatePassword());
+                }
+
+                $entity->setUser($user);
+                $em->persist($user);
+
+                if ($entity->getReservation()->getAccomodation()) {
+                    $entity->getReservation()->setEventRegistration($entity);
+                }else{
+                    $entity->setReservation(null);
+                }
+
+                $em->persist($entity);
+                $em->flush();
+                $flow->reset(); // remove step data from the session
+
+                return $this->redirect($this->generateUrl('eventregistration_success', array('id' => $entity->getId())));
+            }
+
+        }
+
         $em = $this->getDoctrine()->getManager();
         $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->findAll();
 
 
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-
-        if ($form->isValid()) {
-            
-            $userManager = $this->get('fos_user.user_manager');
-            $em = $this->getDoctrine()->getManager();
-
-            $user = $userManager->findUserByEmail($entity->getEmail());
-
-            if (!$user) {
-                $user = $userManager->createUser();
-                $user->setEmail($entity->getEmail());
-                $user->setUsername($entity->getEmail());
-                $user->setPassword($this->generatePassword());
-            }
-
-            $entity->setUser($user);
-            $em->persist($user);
-
-            if ($entity->getReservation()->getAccomodation()) {
-                $entity->getReservation()->setEventRegistration($entity);
-            }else{
-                $entity->setReservation(null);
-            }
-
-            $em->persist($entity);
-            $em->flush();
-
-
-
-            return $this->redirect($this->generateUrl('eventregistration_success', array('id' => $entity->getId())));
-        }
-
-        return $this->render('PixeloidAppBundle:EventRegistration:new.html.twig', array(
+        return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'flow'   => $flow,
             'accomodations' => $accomodations
-
         ));
+
     }
 
     /**
@@ -97,20 +107,24 @@ class EventRegistrationController extends Controller
      */
     private function createCreateForm(EventRegistration $entity)
     {
-        $em = $this->getDoctrine()->getManager();
+        // $em = $this->getDoctrine()->getManager();
 
+        $flow = $this->get('pixeloid_app.flow.eventRegistration'); // must match the flow's service id
+        $flow->bind($entity);
 
        // $reservation = new AccomodationReservation;
      //   $entity->setReservation($reservation);
 
-        $form = $this->createForm(new EventRegistrationType(), $entity, array(
+
+        $flow->setGenericFormOptions(array(
             'action' => $this->generateUrl('eventregistration_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Confirm registration'));
 
-        return $form;
+      //  $form->add('submit', 'submit', array('label' => 'Confirm registration'));
+
+        return $flow;
     }
 
     /**
@@ -119,16 +133,19 @@ class EventRegistrationController extends Controller
     public function newAction()
     {
         $entity = new EventRegistration();
-        $form   = $this->createCreateForm($entity);
+
+        $flow = $this->createCreateForm($entity);
+
+        $form = $flow->createForm();
 
         $em = $this->getDoctrine()->getManager();
-
         $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->findAll();
 
 
-        return $this->render('PixeloidAppBundle:EventRegistration:new.html.twig', array(
+        return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'flow'   => $flow,
             'accomodations' => $accomodations
         ));
     }

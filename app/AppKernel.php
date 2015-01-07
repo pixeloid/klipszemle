@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Fkr\CssURLRewriteBundle\FkrCssURLRewriteBundle(),
             new Hpatoio\DeployBundle\DeployBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+            new Craue\FormFlowBundle\CraueFormFlowBundle(),
 
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),

@@ -27,7 +27,8 @@
         "jquery/jquery":  "1.10.*",
         "fkr/cssurlrewrite-bundle": "1.0.0",
         "hpatoio/deploy-bundle": "~1.5",
-        "excelwebzone/recaptcha-bundle": "dev-master"
+        "excelwebzone/recaptcha-bundle": "dev-master",
+        "craue/formflow-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

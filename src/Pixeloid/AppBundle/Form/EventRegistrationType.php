@@ -16,32 +16,43 @@ class EventRegistrationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('firstname', null, array('label' => 'First name'))
-            ->add('lastname', null, array('label' => 'Last name'))
-            ->add('title', 'choice', array(
-                'choices'   => array(
-                    'Mr.' => 'Mr.', 
-                    'Mrs.' => 'Mrs.', 
-                    'Ms.' => 'Ms.',
-                    'Dr.' => 'Dr.',
-                    'Prof.' => 'Prof',
-                    'dr.' => 'dr.'
-                ),
-                'required'  => true,
-            ))
-            ->add('institution')
-            ->add('country', 'country')
-            ->add('city')
-            ->add('address')
-            ->add('phone')
-            ->add('fax')
-            ->add('email')
-            ->add('postal')
-            ->add('recaptcha', 'ewz_recaptcha')
-            ->add('reservation', new AccomodationReservationType(), array(
-                'data_class' => 'Pixeloid\AppBundle\Entity\AccomodationReservation'
-            ))
+
+
+        switch ($options['flow_step']) {
+            case 1:
+                $builder
+                    ->add('firstname', null, array('label' => 'First name'))
+                    ->add('lastname', null, array('label' => 'Last name'))
+                    ->add('title', 'choice', array(
+                        'choices'   => array(
+                            'Mr.' => 'Mr.', 
+                            'Mrs.' => 'Mrs.', 
+                            'Ms.' => 'Ms.',
+                            'Dr.' => 'Dr.',
+                            'Prof.' => 'Prof',
+                            'dr.' => 'dr.'
+                        ),
+                        'required'  => true,
+                    ))
+                    ->add('institution')
+                    ->add('country', 'country')
+                    ->add('city')
+                    ->add('address')
+                    ->add('phone')
+                    ->add('fax')
+                    ->add('email')
+                    ->add('postal');
+
+                break;
+            case 2:
+                $builder->add('recaptcha', 'ewz_recaptcha')
+                        ->add('reservation', new AccomodationReservationType(), array(
+                            'data_class' => 'Pixeloid\AppBundle\Entity\AccomodationReservation'
+                        ));
+
+                break;
+        }
+
 
         ;
     }

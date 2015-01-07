@@ -1,4 +1,12 @@
 services:
-#    pixeloid_app.example:
-#        class: Pixeloid\AppBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+  pixeloid_app.form.eventRegistration:
+    class: Pixeloid\AppBundle\Form\EventRegistrationType
+    tags:
+      - { name: form.type, alias: eventRegistration }
+
+  pixeloid_app.flow.eventRegistration:
+    class: Pixeloid\AppBundle\Form\EventRegistrationFlow
+    parent: craue.form.flow
+    scope: request
+    calls:
+      - [ setFormType, [ "@pixeloid_app.form.eventRegistration" ] ]
