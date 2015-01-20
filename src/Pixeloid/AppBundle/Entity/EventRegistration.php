@@ -28,7 +28,7 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     private $firstname;
 
@@ -36,7 +36,7 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     private $lastname;
 
@@ -44,7 +44,7 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=10)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     private $title;
 
@@ -52,7 +52,7 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="institution", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     private $institution;
 
@@ -60,7 +60,7 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=2)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     private $country;
 
@@ -68,7 +68,7 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     private $address;
 
@@ -76,7 +76,7 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     private $city;
 
@@ -84,7 +84,7 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=20)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     private $phone;
 
@@ -99,13 +99,14 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=100)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+     * @Assert\Email(groups={"flow_eventRegistration_step1"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", name="postal", length=10, unique=false, nullable=false)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
      */
     protected $postal = null;
     
