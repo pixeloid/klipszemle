@@ -124,7 +124,7 @@ class EventRegistration
     protected $reservation;
 
     /**
-     * @Recaptcha\True
+     * @Recaptcha\True(groups={"flow_eventRegistration_step2"})
      */
     protected $recaptcha;
 

@@ -1499,7 +1499,11 @@ th {
 .table-bordered > thead > tr > td {
   border-bottom-width: 2px;
 }
+<<<<<<< Updated upstream
 .table-striped > tbody > tr:nth-of-type(odd) {
+=======
+.table-striped > tbody > tr:nth-child(odd) {
+>>>>>>> Stashed changes
   background-color: #f9f9f9;
 }
 .table-hover > tbody > tr:hover {
@@ -1786,21 +1790,29 @@ input[type="search"] {
   input[type="date"].input-sm,
   input[type="time"].input-sm,
   input[type="datetime-local"].input-sm,
+<<<<<<< Updated upstream
   input[type="month"].input-sm,
   .input-group-sm input[type="date"],
   .input-group-sm input[type="time"],
   .input-group-sm input[type="datetime-local"],
   .input-group-sm input[type="month"] {
+=======
+  input[type="month"].input-sm {
+>>>>>>> Stashed changes
     line-height: 33px;
   }
   input[type="date"].input-lg,
   input[type="time"].input-lg,
   input[type="datetime-local"].input-lg,
+<<<<<<< Updated upstream
   input[type="month"].input-lg,
   .input-group-lg input[type="date"],
   .input-group-lg input[type="time"],
   .input-group-lg input[type="datetime-local"],
   .input-group-lg input[type="month"] {
+=======
+  input[type="month"].input-lg {
+>>>>>>> Stashed changes
     line-height: 49px;
   }
 }
@@ -1878,6 +1890,7 @@ fieldset[disabled] .checkbox label {
   padding-left: 0;
   padding-right: 0;
 }
+<<<<<<< Updated upstream
 .input-sm {
   height: 33px;
   padding: 5px 10px;
@@ -1893,6 +1906,9 @@ textarea.input-sm,
 select[multiple].input-sm {
   height: auto;
 }
+=======
+.input-sm,
+>>>>>>> Stashed changes
 .form-group-sm .form-control {
   height: 33px;
   padding: 5px 10px;
@@ -1900,10 +1916,15 @@ select[multiple].input-sm {
   line-height: 1.5;
   border-radius: 3px;
 }
+<<<<<<< Updated upstream
+=======
+select.input-sm,
+>>>>>>> Stashed changes
 select.form-group-sm .form-control {
   height: 33px;
   line-height: 33px;
 }
+<<<<<<< Updated upstream
 textarea.form-group-sm .form-control,
 select[multiple].form-group-sm .form-control {
   height: auto;
@@ -1929,6 +1950,15 @@ textarea.input-lg,
 select[multiple].input-lg {
   height: auto;
 }
+=======
+textarea.input-sm,
+textarea.form-group-sm .form-control,
+select[multiple].input-sm,
+select[multiple].form-group-sm .form-control {
+  height: auto;
+}
+.input-lg,
+>>>>>>> Stashed changes
 .form-group-lg .form-control {
   height: 49px;
   padding: 10px 16px;
@@ -1936,10 +1966,15 @@ select[multiple].input-lg {
   line-height: 1.33;
   border-radius: 6px;
 }
+<<<<<<< Updated upstream
+=======
+select.input-lg,
+>>>>>>> Stashed changes
 select.form-group-lg .form-control {
   height: 49px;
   line-height: 49px;
 }
+<<<<<<< Updated upstream
 textarea.form-group-lg .form-control,
 select[multiple].form-group-lg .form-control {
   height: auto;
@@ -1950,6 +1985,14 @@ select[multiple].form-group-lg .form-control {
   font-size: 20px;
   line-height: 1.33;
 }
+=======
+textarea.input-lg,
+textarea.form-group-lg .form-control,
+select[multiple].input-lg,
+select[multiple].form-group-lg .form-control {
+  height: auto;
+}
+>>>>>>> Stashed changes
 .has-feedback {
   position: relative;
 }
@@ -2592,7 +2635,11 @@ tbody.collapse.in {
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('../fonts/glyphicons-halflings-regular.eot');
+<<<<<<< Updated upstream
   src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+=======
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+>>>>>>> Stashed changes
 }
 .glyphicon {
   position: relative;
@@ -3206,6 +3253,7 @@ tbody.collapse.in {
 .glyphicon-tree-deciduous:before {
   content: "\e200";
 }
+<<<<<<< Updated upstream
 .glyphicon-cd:before {
   content: "\e201";
 }
@@ -3380,6 +3428,8 @@ tbody.collapse.in {
 .glyphicon-menu-up:before {
   content: "\e260";
 }
+=======
+>>>>>>> Stashed changes
 .caret {
   display: inline-block;
   width: 0;
@@ -3390,7 +3440,10 @@ tbody.collapse.in {
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
+<<<<<<< Updated upstream
 .dropup,
+=======
+>>>>>>> Stashed changes
 .dropdown {
   position: relative;
 }
@@ -3508,7 +3561,11 @@ tbody.collapse.in {
 .navbar-fixed-bottom .dropdown .dropdown-menu {
   top: auto;
   bottom: 100%;
+<<<<<<< Updated upstream
   margin-bottom: 2px;
+=======
+  margin-bottom: 1px;
+>>>>>>> Stashed changes
 }
 @media (min-width: 768px) {
   .navbar-right .dropdown-menu {
@@ -3580,12 +3637,21 @@ tbody.collapse.in {
 .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
   border-radius: 0;
 }
+<<<<<<< Updated upstream
 .btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,
 .btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 .btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
+=======
+.btn-group > .btn-group:first-child > .btn:last-child,
+.btn-group > .btn-group:first-child > .dropdown-toggle {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+.btn-group > .btn-group:last-child > .btn:first-child {
+>>>>>>> Stashed changes
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -4322,7 +4388,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-top-left-radius: 0;
 }
 .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
+<<<<<<< Updated upstream
   margin-bottom: 0;
+=======
+>>>>>>> Stashed changes
   border-top-right-radius: none;
   border-top-left-radius: none;
   border-bottom-right-radius: 0;
@@ -5053,6 +5122,7 @@ a.thumbnail.active {
 .media:first-child {
   margin-top: 0;
 }
+<<<<<<< Updated upstream
 .media,
 .media-body {
   zoom: 1;
@@ -5064,6 +5134,8 @@ a.thumbnail.active {
 .media-object {
   display: block;
 }
+=======
+>>>>>>> Stashed changes
 .media-right,
 .media > .pull-right {
   padding-left: 10px;
@@ -5288,11 +5360,15 @@ a.list-group-item-danger.active:focus {
   font-size: 18px;
   color: inherit;
 }
+<<<<<<< Updated upstream
 .panel-title > a,
 .panel-title > small,
 .panel-title > .small,
 .panel-title > small > a,
 .panel-title > .small > a {
+=======
+.panel-title > a {
+>>>>>>> Stashed changes
   color: inherit;
 }
 .panel-footer {
@@ -6016,6 +6092,7 @@ button.close {
 }
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
+<<<<<<< Updated upstream
     -webkit-transition: -webkit-transform 0.6s ease-in-out;
     -moz-transition: -moz-transform 0.6s ease-in-out;
     -o-transition: -o-transform 0.6s ease-in-out;
@@ -6025,24 +6102,37 @@ button.close {
     backface-visibility: hidden;
     -webkit-perspective: 1000;
     -moz-perspective: 1000;
+=======
+    transition: transform 0.6s ease-in-out;
+    backface-visibility: hidden;
+>>>>>>> Stashed changes
     perspective: 1000;
   }
   .carousel-inner > .item.next,
   .carousel-inner > .item.active.right {
+<<<<<<< Updated upstream
     -webkit-transform: translate3d(100%, 0, 0);
+=======
+>>>>>>> Stashed changes
     transform: translate3d(100%, 0, 0);
     left: 0;
   }
   .carousel-inner > .item.prev,
   .carousel-inner > .item.active.left {
+<<<<<<< Updated upstream
     -webkit-transform: translate3d(-100%, 0, 0);
+=======
+>>>>>>> Stashed changes
     transform: translate3d(-100%, 0, 0);
     left: 0;
   }
   .carousel-inner > .item.next.left,
   .carousel-inner > .item.prev.right,
   .carousel-inner > .item.active {
+<<<<<<< Updated upstream
     -webkit-transform: translate3d(0, 0, 0);
+=======
+>>>>>>> Stashed changes
     transform: translate3d(0, 0, 0);
     left: 0;
   }
@@ -6138,7 +6228,10 @@ button.close {
   width: 20px;
   height: 20px;
   margin-top: -10px;
+<<<<<<< Updated upstream
   line-height: 1;
+=======
+>>>>>>> Stashed changes
   font-family: serif;
 }
 .carousel-control .icon-prev:before {
@@ -6567,6 +6660,7 @@ button.close {
 .btn-breadcrumb .btn.btn-default:hover:not(:last-child):before {
   border-left: 10px solid #adadad;
 }
+<<<<<<< Updated upstream
 /** Primary button **/
 .btn-breadcrumb .btn.btn-primary:not(:last-child):after {
   border-left: 10px solid #c81a3a;
@@ -6632,6 +6726,8 @@ button.close {
 .btn-breadcrumb .btn.btn-info:hover:not(:last-child):before {
   border-left: 10px solid #269abc;
 }
+=======
+>>>>>>> Stashed changes
 h1 {
   margin-bottom: 40px;
   text-align: center;
