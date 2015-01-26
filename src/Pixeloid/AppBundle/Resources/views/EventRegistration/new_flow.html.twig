@@ -3,10 +3,11 @@
 {% block body -%}
     <h1><span>Event Registration</span></h1>
 
-    <div>
-        Steps:
-        {% include 'CraueFormFlowBundle:FormFlow:stepList.html.twig' %}
+    <div class="clearfix">
+        {% include 'PixeloidAppBundle:FormFlow:stepList.html.twig' %}
     </div>
+
+    <hr>
 
 {{ form_start(form, {attr: {'data-calculate-url': path('eventregistration_calculate') }}) }}
 
@@ -137,7 +138,7 @@
 
 {{ form_rest(form) }}
 
-{% include 'CraueFormFlowBundle:FormFlow:buttons.html.twig' %}
+{% include 'PixeloidAppBundle:FormFlow:buttons.html.twig' %}
 
 
 
