@@ -21,6 +21,15 @@ class EventRegistrationType extends AbstractType
         switch ($options['flow_step']) {
             case 1:
                 $builder
+                    ->add('registrantType', 'entity', array(
+                        'class' => 'PixeloidAppBundle:RegistrantType',
+                        'property' => 'name',
+                        'required'    => false,
+                        'placeholder' => 'Válasszon...',
+                        'empty_data'  => null
+                    ))
+
+                    ->add('reg_number', null, array('label' => 'Pecsétszám'))
                     ->add('firstname', null, array('label' => 'First name'))
                     ->add('lastname', null, array('label' => 'Last name'))
                     ->add('title', 'choice', array(
@@ -41,7 +50,46 @@ class EventRegistrationType extends AbstractType
                     ->add('phone')
                     ->add('fax')
                     ->add('email')
-                    ->add('postal');
+                    ->add('postal')
+                    ->add('extra1', 'choice', array(
+                        'choices'   => array(
+                            1   => 'Részt veszek',
+                            0 => 'Nem veszek részt',
+                        ),
+                        'preferred_choices' => array(1), //1 is item number
+                        'multiple'  => false,
+                        'expanded'  => true,
+                        'mapped' => false,
+                        'label' => 'A továbbképző napon'
+                    ))
+
+                    ->add('extra2', 'choice', array(
+                        'choices'   => array(
+                            1   => 'Részt veszek',
+                            0 => 'Nem veszek részt',
+                        ),
+                        'preferred_choices' => array(1), //1 is item number
+                        'multiple'  => false,
+                        'expanded'  => true,
+                        'mapped' => false,
+                        'label' => 'Mentő oktatópont workshopon'
+                    ))
+
+                    ->add('extra3', 'choice', array(
+                        'choices'   => array(
+                            1   => 'Részt veszek',
+                            0 => 'Nem veszek részt',
+                        ),
+                        'preferred_choices' => array(1), //1 is item number
+                        'multiple'  => false,
+                        'expanded'  => true,
+                        'mapped' => false,
+                        'label' => 'UH oktatás workshopon'
+                    ))
+
+
+
+                    ;
 
                 break;
             case 2:

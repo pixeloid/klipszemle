@@ -112,10 +112,23 @@ class EventRegistration
     
 
     /**
+     * @ORM\Column(type="string", name="regnumber", length=50, unique=false, nullable=true)
+     */
+    protected $regnumber = null;
+    
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="Pixeloid\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")
+     * @ORM\JoinColumn(name="registrant_type_id", referencedColumnName="id")
+     */
+    protected $registrantType;
     
 
     /**
@@ -127,6 +140,8 @@ class EventRegistration
      * @Recaptcha\True(groups={"flow_eventRegistration_step2"})
      */
     protected $recaptcha;
+
+    
 
     /**
      * Get id
@@ -447,4 +462,50 @@ class EventRegistration
         $this->recaptcha = $recaptcha;
     }
 
+
+    /**
+     * Set regnumber
+     *
+     * @param string $regnumber
+     * @return EventRegistration
+     */
+    public function setRegnumber($regnumber)
+    {
+        $this->regnumber = $regnumber;
+
+        return $this;
+    }
+
+    /**
+     * Get regnumber
+     *
+     * @return string 
+     */
+    public function getRegnumber()
+    {
+        return $this->regnumber;
+    }
+
+    /**
+     * Set registrantType
+     *
+     * @param \Pixeloid\UserBundle\Entity\RegistrantType $registrantType
+     * @return EventRegistration
+     */
+    public function setRegistrantType(\Pixeloid\UserBundle\Entity\RegistrantType $registrantType = null)
+    {
+        $this->registrantType = $registrantType;
+
+        return $this;
+    }
+
+    /**
+     * Get registrantType
+     *
+     * @return \Pixeloid\UserBundle\Entity\RegistrantType 
+     */
+    public function getRegistrantType()
+    {
+        return $this->registrantType;
+    }
 }
