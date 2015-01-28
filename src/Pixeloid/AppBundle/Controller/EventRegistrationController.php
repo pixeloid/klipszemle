@@ -86,7 +86,20 @@ class EventRegistrationController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->findAll();
+
+
+        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
+
+        $qb = $em->createQueryBuilder();
+        $qb->select('a, r')
+            ->from('PixeloidAppBundle:Accomodation', 'a')
+            ->join('a.rooms', 'r')
+            ->where('r.event = :event')
+            ->setParameter('event', $event)
+            ->distinct(true)
+        ;
+
+        $accomodations =$qb->getQuery()->getResult();
 
 
         return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(

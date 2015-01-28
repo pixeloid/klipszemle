@@ -30,7 +30,6 @@ class EventRegistrationFlow extends FormFlow {
             array(
                 'label' => 'Accomodation reservation',
                 'type' => $this->formType,
-              //  'skip' => true,
             ),
             array(
                 'label' => 'confirmation',

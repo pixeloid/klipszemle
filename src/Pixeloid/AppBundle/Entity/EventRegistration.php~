@@ -128,9 +128,9 @@ class EventRegistration
     protected $registrantType;
 
     /**
-	 * @ORM\OneToOne(targetEntity="AccomodationReservation",mappedBy="eventRegistration", cascade={"persist"})
+	 * @ORM\OneToOne(targetEntity="RoomReservation",mappedBy="eventRegistration", cascade={"persist"})
 	 */
-    protected $reservation;
+    protected $roomReservation;
 
     /**
 	 * @Recaptcha\True(groups={"flow_eventRegistration_step2"})
@@ -144,23 +144,22 @@ class EventRegistration
     protected $eventId;
 
 
-
     /**
-	 * Get id
-	 *
-	 * @return integer
-	 */
+     * Get id
+     *
+     * @return integer 
+     */
     public function getId()
     {
         return $this->id;
     }
 
     /**
-	 * Set firstname
-	 *
-	 * @param string $firstname
-	 * @return EventRegistration
-	 */
+     * Set firstname
+     *
+     * @param string $firstname
+     * @return EventRegistration
+     */
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
@@ -169,21 +168,21 @@ class EventRegistration
     }
 
     /**
-	 * Get firstname
-	 *
-	 * @return string
-	 */
+     * Get firstname
+     *
+     * @return string 
+     */
     public function getFirstname()
     {
         return $this->firstname;
     }
 
     /**
-	 * Set lastname
-	 *
-	 * @param string $lastname
-	 * @return EventRegistration
-	 */
+     * Set lastname
+     *
+     * @param string $lastname
+     * @return EventRegistration
+     */
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
@@ -192,21 +191,21 @@ class EventRegistration
     }
 
     /**
-	 * Get lastname
-	 *
-	 * @return string
-	 */
+     * Get lastname
+     *
+     * @return string 
+     */
     public function getLastname()
     {
         return $this->lastname;
     }
 
     /**
-	 * Set title
-	 *
-	 * @param string $title
-	 * @return EventRegistration
-	 */
+     * Set title
+     *
+     * @param string $title
+     * @return EventRegistration
+     */
     public function setTitle($title)
     {
         $this->title = $title;
@@ -215,21 +214,21 @@ class EventRegistration
     }
 
     /**
-	 * Get title
-	 *
-	 * @return string
-	 */
+     * Get title
+     *
+     * @return string 
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
     /**
-	 * Set institution
-	 *
-	 * @param string $institution
-	 * @return EventRegistration
-	 */
+     * Set institution
+     *
+     * @param string $institution
+     * @return EventRegistration
+     */
     public function setInstitution($institution)
     {
         $this->institution = $institution;
@@ -238,21 +237,21 @@ class EventRegistration
     }
 
     /**
-	 * Get institution
-	 *
-	 * @return string
-	 */
+     * Get institution
+     *
+     * @return string 
+     */
     public function getInstitution()
     {
         return $this->institution;
     }
 
     /**
-	 * Set country
-	 *
-	 * @param string $country
-	 * @return EventRegistration
-	 */
+     * Set country
+     *
+     * @param string $country
+     * @return EventRegistration
+     */
     public function setCountry($country)
     {
         $this->country = $country;
@@ -261,21 +260,21 @@ class EventRegistration
     }
 
     /**
-	 * Get country
-	 *
-	 * @return string
-	 */
+     * Get country
+     *
+     * @return string 
+     */
     public function getCountry()
     {
         return $this->country;
     }
 
     /**
-	 * Set address
-	 *
-	 * @param string $address
-	 * @return EventRegistration
-	 */
+     * Set address
+     *
+     * @param string $address
+     * @return EventRegistration
+     */
     public function setAddress($address)
     {
         $this->address = $address;
@@ -284,159 +283,21 @@ class EventRegistration
     }
 
     /**
-	 * Get address
-	 *
-	 * @return string
-	 */
+     * Get address
+     *
+     * @return string 
+     */
     public function getAddress()
     {
         return $this->address;
     }
 
     /**
-	 * Set phone
-	 *
-	 * @param string $phone
-	 * @return EventRegistration
-	 */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-	 * Get phone
-	 *
-	 * @return string
-	 */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-	 * Set fax
-	 *
-	 * @param string $fax
-	 * @return EventRegistration
-	 */
-    public function setFax($fax)
-    {
-        $this->fax = $fax;
-
-        return $this;
-    }
-
-    /**
-	 * Get fax
-	 *
-	 * @return string
-	 */
-    public function getFax()
-    {
-        return $this->fax;
-    }
-
-    /**
-	 * Set email
-	 *
-	 * @param string $email
-	 * @return EventRegistration
-	 */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-	 * Get email
-	 *
-	 * @return string
-	 */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-	 * Set postal
-	 *
-	 * @param string $postal
-	 * @return EventRegistration
-	 */
-    public function setPostal($postal)
-    {
-        $this->postal = $postal;
-
-        return $this;
-    }
-
-    /**
-	 * Get postal
-	 *
-	 * @return string
-	 */
-    public function getPostal()
-    {
-        return $this->postal;
-    }
-
-    /**
-	 * Set user
-	 *
-	 * @param \Pixeloid\UserBundle\Entity\User $user
-	 * @return EventRegistration
-	 */
-    public function setUser(\Pixeloid\UserBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-	 * Get user
-	 *
-	 * @return \Pixeloid\UserBundle\Entity\User
-	 */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-	 * Set reservation
-	 *
-	 * @param \Pixeloid\AppBundle\Entity\AccomodationReservation $reservation
-	 * @return EventRegistration
-	 */
-    public function setReservation(\Pixeloid\AppBundle\Entity\AccomodationReservation $reservation = null)
-    {
-        $this->reservation = $reservation;
-
-        return $this;
-    }
-
-    /**
-	 * Get reservation
-	 *
-	 * @return \Pixeloid\AppBundle\Entity\AccomodationReservation
-	 */
-    public function getReservation()
-    {
-        return $this->reservation;
-    }
-
-    /**
-	 * Set city
-	 *
-	 * @param string $city
-	 * @return EventRegistration
-	 */
+     * Set city
+     *
+     * @param string $city
+     * @return EventRegistration
+     */
     public function setCity($city)
     {
         $this->city = $city;
@@ -445,31 +306,113 @@ class EventRegistration
     }
 
     /**
-	 * Get city
-	 *
-	 * @return string
-	 */
+     * Get city
+     *
+     * @return string 
+     */
     public function getCity()
     {
         return $this->city;
     }
 
-    public function getRecaptcha()
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return EventRegistration
+     */
+    public function setPhone($phone)
     {
-        return $this->recaptcha;
-    }
+        $this->phone = $phone;
 
-    public function setRecaptcha($recaptcha)
-    {
-        $this->recaptcha = $recaptcha;
+        return $this;
     }
 
     /**
-	 * Set regnumber
-	 *
-	 * @param string $regnumber
-	 * @return EventRegistration
-	 */
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     * @return EventRegistration
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string 
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return EventRegistration
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set postal
+     *
+     * @param string $postal
+     * @return EventRegistration
+     */
+    public function setPostal($postal)
+    {
+        $this->postal = $postal;
+
+        return $this;
+    }
+
+    /**
+     * Get postal
+     *
+     * @return string 
+     */
+    public function getPostal()
+    {
+        return $this->postal;
+    }
+
+    /**
+     * Set regnumber
+     *
+     * @param string $regnumber
+     * @return EventRegistration
+     */
     public function setRegnumber($regnumber)
     {
         $this->regnumber = $regnumber;
@@ -478,22 +421,45 @@ class EventRegistration
     }
 
     /**
-	 * Get regnumber
-	 *
-	 * @return string
-	 */
+     * Get regnumber
+     *
+     * @return string 
+     */
     public function getRegnumber()
     {
         return $this->regnumber;
     }
 
     /**
-	 * Set registrantType
-	 *
-	 * @param \Pixeloid\UserBundle\Entity\RegistrantType $registrantType
-	 * @return EventRegistration
-	 */
-    public function setRegistrantType(\Pixeloid\UserBundle\Entity\RegistrantType $registrantType = null)
+     * Set user
+     *
+     * @param \Pixeloid\UserBundle\Entity\User $user
+     * @return EventRegistration
+     */
+    public function setUser(\Pixeloid\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Pixeloid\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set registrantType
+     *
+     * @param \Pixeloid\AppBundle\Entity\RegistrantType $registrantType
+     * @return EventRegistration
+     */
+    public function setRegistrantType(\Pixeloid\AppBundle\Entity\RegistrantType $registrantType = null)
     {
         $this->registrantType = $registrantType;
 
@@ -501,13 +467,36 @@ class EventRegistration
     }
 
     /**
-	 * Get registrantType
-	 *
-	 * @return \Pixeloid\UserBundle\Entity\RegistrantType
-	 */
+     * Get registrantType
+     *
+     * @return \Pixeloid\AppBundle\Entity\RegistrantType 
+     */
     public function getRegistrantType()
     {
         return $this->registrantType;
+    }
+
+    /**
+     * Set roomReservation
+     *
+     * @param \Pixeloid\AppBundle\Entity\RoomReservation $roomReservation
+     * @return EventRegistration
+     */
+    public function setRoomReservation(\Pixeloid\AppBundle\Entity\RoomReservation $roomReservation = null)
+    {
+        $this->roomReservation = $roomReservation;
+
+        return $this;
+    }
+
+    /**
+     * Get roomReservation
+     *
+     * @return \Pixeloid\AppBundle\Entity\RoomReservation 
+     */
+    public function getRoomReservation()
+    {
+        return $this->roomReservation;
     }
 
     /**
@@ -531,45 +520,5 @@ class EventRegistration
     public function getEventId()
     {
         return $this->eventId;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->registrantTypes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add registrantTypes
-     *
-     * @param \Pixeloid\AppBundle\Entity\RegistrantType $registrantTypes
-     * @return EventRegistration
-     */
-    public function addRegistrantType(\Pixeloid\AppBundle\Entity\RegistrantType $registrantTypes)
-    {
-        $this->registrantTypes[] = $registrantTypes;
-
-        return $this;
-    }
-
-    /**
-     * Remove registrantTypes
-     *
-     * @param \Pixeloid\AppBundle\Entity\RegistrantType $registrantTypes
-     */
-    public function removeRegistrantType(\Pixeloid\AppBundle\Entity\RegistrantType $registrantTypes)
-    {
-        $this->registrantTypes->removeElement($registrantTypes);
-    }
-
-    /**
-     * Get registrantTypes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getRegistrantTypes()
-    {
-        return $this->registrantTypes;
     }
 }

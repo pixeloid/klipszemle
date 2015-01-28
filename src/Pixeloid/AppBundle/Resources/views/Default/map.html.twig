@@ -14,7 +14,7 @@
    		</div>
    		<div class="col-md-4">
 
-   		<ul class="nav nav-pills nav-stacked">
+<!--    		<ul class="nav nav-pills nav-stacked">
    			<li>
    				<h3>Venue</h3>
    			</li>
@@ -37,14 +37,15 @@
 
    		</ul>
 
-
+ -->
    			<ul class="nav nav-pills nav-stacked">
    			<li><h3>Accomodation</h3></li>
-   			<li><a href="#">Corvin Hotel Budapest <br><small>(H-1094 Budapest, Angyal utca 31.)</small></a></li>
-   			<li><a href="#">Hotel Sissi Budapest*** <br><small>(H-1094 Budapest, Angyal utca 33.)</small></a></li>
-   			<li><a href="#">Hotel Thomas Budapest*** <br><small>(H-1094 Budapest, Liliom utca 44.)</small></a></li>
-   			<li><a href="#">Leonardo Hotel Budapest**** <br><small>(1094 Budapest, Tompa u. 30-34.)</small></a></li>
-   			<li><a href="#">Hotel Palazzo Zichy**** <br><small>(1088 Budapest, Lőrinc pap tér 2.)</small></a></li>
+            {% for acc in accomodations %}
+
+            <li><a href="#">{{acc.name}} <br><small>({{acc.address}})</small></a></li>
+
+            {% endfor %}
+
    			</ul>
 
    		</div>

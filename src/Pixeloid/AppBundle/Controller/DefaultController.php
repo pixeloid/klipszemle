@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Pixeloid\AppBundle\Entity\Accomodation;
+use Pixeloid\AppBundle\Entity\Room as Room;
 
 
 class DefaultController extends Controller
@@ -21,7 +22,19 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->findAll();
+
+        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
+
+        $qb = $em->createQueryBuilder();
+        $qb->select('a, r')
+            ->from('PixeloidAppBundle:Accomodation', 'a')
+            ->join('a.rooms', 'r')
+            ->where('r.event = :event')
+            ->setParameter('event', $event)
+            ->distinct(true)
+        ;
+
+        $accomodations =$qb->getQuery()->getResult();
 
         return $this->render('PixeloidAppBundle:Default:info.html.twig', array(
             'accomodations' => $accomodations));
@@ -29,10 +42,27 @@ class DefaultController extends Controller
 
     public function mapAction()
     {
+        $em = $this->getDoctrine()->getManager();
 
         $map = $this->get('ivory_google_map.map');
 
-        return $this->render('PixeloidAppBundle:Default:map.html.twig', array('map' => $map));
+        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
+
+        $qb = $em->createQueryBuilder();
+        $qb->select('a, r')
+            ->from('PixeloidAppBundle:Accomodation', 'a')
+            ->join('a.rooms', 'r')
+            ->where('r.event = :event')
+            ->setParameter('event', $event)
+            ->distinct(true)
+        ;
+
+        $accomodations =$qb->getQuery()->getResult();
+
+        return $this->render('PixeloidAppBundle:Default:map.html.twig', array(
+            'map' => $map,
+            'accomodations' => $accomodations
+        ));
     }
 
     public function registerAction()

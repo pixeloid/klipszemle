@@ -93,11 +93,19 @@ class EventRegistrationType extends AbstractType
 
                 break;
             case 2:
-                $builder->add('recaptcha', 'ewz_recaptcha')
-                        ->add('reservation', new AccomodationReservationType(), array(
-                            'data_class' => 'Pixeloid\AppBundle\Entity\AccomodationReservation'
-                        ));
+                $builder
 
+                        ->add('accomodation', new Type\AccomodationType(), array(
+                            'mapped' => false,
+                        ))
+                        ->add('recaptcha', 'ewz_recaptcha')
+                        // ->add('roomReservation', 'entity', array(
+                        //     //'data_class' => 'Pixeloid\AppBundle\Entity\Room'
+                        //     'class' => 'Pixeloid\AppBundle\Entity\Room',
+                        //     'property' => 'roomType.name',
+                        //     'expanded' => true
+                        // ));
+                        ;
                 break;
         }
 

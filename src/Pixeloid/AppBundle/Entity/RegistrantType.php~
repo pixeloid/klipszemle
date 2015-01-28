@@ -51,6 +51,14 @@ class RegistrantType
 
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -127,46 +135,6 @@ class RegistrantType
     public function getPriceAfter()
     {
         return $this->priceAfter;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->registrations = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add registrations
-     *
-     * @param \Pixeloid\AppBundle\Entity\EventRegistration $registrations
-     * @return RegistrantType
-     */
-    public function addRegistration(\Pixeloid\AppBundle\Entity\EventRegistration $registrations)
-    {
-        $this->registrations[] = $registrations;
-
-        return $this;
-    }
-
-    /**
-     * Remove registrations
-     *
-     * @param \Pixeloid\AppBundle\Entity\EventRegistration $registrations
-     */
-    public function removeRegistration(\Pixeloid\AppBundle\Entity\EventRegistration $registrations)
-    {
-        $this->registrations->removeElement($registrations);
-    }
-
-    /**
-     * Get registrations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getRegistrations()
-    {
-        return $this->registrations;
     }
 
     /**

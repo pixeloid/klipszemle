@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "605c740ea5e1cd716c94a13e3baaecb1",
+    "hash": "dc2eb4c596a90d46a56a9d1c97cd0c04",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -73,12 +73,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/craue/CraueFormFlowBundle.git",
-                "reference": "f743abcabe95cadf1b4b095524f923864fc86597"
+                "reference": "a88ecba527e289293e7058d4d7a255ee3cdb2899"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/f743abcabe95cadf1b4b095524f923864fc86597",
-                "reference": "f743abcabe95cadf1b4b095524f923864fc86597",
+                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/a88ecba527e289293e7058d4d7a255ee3cdb2899",
+                "reference": "a88ecba527e289293e7058d4d7a255ee3cdb2899",
                 "shasum": ""
             },
             "require": {
@@ -125,7 +125,7 @@
                 "Symfony2",
                 "form"
             ],
-            "time": "2015-01-19 13:46:43"
+            "time": "2014-10-09 10:17:40"
         },
         {
             "name": "doctrine/annotations",
@@ -412,6 +412,62 @@
             "time": "2014-05-21 19:28:51"
         },
         {
+            "name": "doctrine/data-fixtures",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/data-fixtures.git",
+                "reference": "b4a135c7db56ecc4602b54a2184368f440cac33e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/b4a135c7db56ecc4602b54a2184368f440cac33e",
+                "reference": "b4a135c7db56ecc4602b54a2184368f440cac33e",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": ">=2.2,<2.5-dev",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/orm": ">=2.2,<2.5-dev"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
+                "doctrine/orm": "For loading ORM fixtures",
+                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\DataFixtures": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/",
+                    "role": "Creator"
+                }
+            ],
+            "description": "Data Fixtures for all Doctrine Object Managers",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database"
+            ],
+            "time": "2013-07-10 17:04:07"
+        },
+        {
             "name": "doctrine/dbal",
             "version": "v2.5.1",
             "source": {
@@ -644,6 +700,66 @@
                 "caching"
             ],
             "time": "2014-11-28 09:43:36"
+        },
+        {
+            "name": "doctrine/doctrine-fixtures-bundle",
+            "version": "v2.2.0",
+            "target-dir": "Doctrine/Bundle/FixturesBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
+                "reference": "c811f96f0cf83b997e3a3ed037cac729bbe3e803"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/c811f96f0cf83b997e3a3ed037cac729bbe3e803",
+                "reference": "c811f96f0cf83b997e3a3ed037cac729bbe3e803",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/data-fixtures": "~1.0",
+                "doctrine/doctrine-bundle": "~1.0",
+                "php": ">=5.3.2",
+                "symfony/doctrine-bridge": "~2.1"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Bundle\\FixturesBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org"
+                }
+            ],
+            "description": "Symfony DoctrineFixturesBundle",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "Fixture",
+                "persistence"
+            ],
+            "time": "2013-09-05 11:23:37"
         },
         {
             "name": "doctrine/inflector",
@@ -1008,12 +1124,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/excelwebzone/EWZRecaptchaBundle.git",
-                "reference": "3d502fa78c452c0486f12f3cbac3b2460857f289"
+                "reference": "8bb84941d12852a0551e0959893ae8497e5888c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/3d502fa78c452c0486f12f3cbac3b2460857f289",
-                "reference": "3d502fa78c452c0486f12f3cbac3b2460857f289",
+                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/8bb84941d12852a0551e0959893ae8497e5888c7",
+                "reference": "8bb84941d12852a0551e0959893ae8497e5888c7",
                 "shasum": ""
             },
             "require": {
@@ -1041,7 +1157,7 @@
             "keywords": [
                 "recaptcha"
             ],
-            "time": "2015-01-21 13:55:15"
+            "time": "2014-12-27 16:21:08"
         },
         {
             "name": "fkr/cssurlrewrite-bundle",
@@ -1097,12 +1213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "f54031a652846cd8e7b12119fe713eae90e24cf9"
+                "reference": "4ceecb62f8bfbee56a5ec83f5ab6124710cf89d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/f54031a652846cd8e7b12119fe713eae90e24cf9",
-                "reference": "f54031a652846cd8e7b12119fe713eae90e24cf9",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/4ceecb62f8bfbee56a5ec83f5ab6124710cf89d1",
+                "reference": "4ceecb62f8bfbee56a5ec83f5ab6124710cf89d1",
                 "shasum": ""
             },
             "require": {
@@ -1156,7 +1272,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-01-20 09:35:03"
+            "time": "2014-12-29 10:27:58"
         },
         {
             "name": "hpatoio/deploy-bundle",
@@ -1315,6 +1431,53 @@
                 "shasum": null
             },
             "type": "library"
+        },
+        {
+            "name": "jupeter/doctrine-dump-fixtures-bundle",
+            "version": "dev-master",
+            "target-dir": "TeamLab/Bundle/FixturesBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jupeter/DoctrineDumpFixturesBundle.git",
+                "reference": "1f6770e8f16d4557fa2a68d5c70002b79eed30a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jupeter/DoctrineDumpFixturesBundle/zipball/1f6770e8f16d4557fa2a68d5c70002b79eed30a1",
+                "reference": "1f6770e8f16d4557fa2a68d5c70002b79eed30a1",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-fixtures-bundle": "*",
+                "php": ">=5.3.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "TeamLab\\Bundle\\FixturesBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Piotr Plenik",
+                    "email": "piotr.plenik@gmail.com"
+                }
+            ],
+            "description": "Symfony DoctrineDumpFixturesBundle",
+            "keywords": [
+                "Fixture",
+                "persistence"
+            ],
+            "time": "2014-12-04 19:41:40"
         },
         {
             "name": "knplabs/knp-components",
@@ -1956,28 +2119,29 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle.git",
-                "reference": "ab3d73839939a77592f4c56fb1f6ce6b6d0eef1e"
+                "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/ab3d73839939a77592f4c56fb1f6ce6b6d0eef1e",
-                "reference": "ab3d73839939a77592f4c56fb1f6ce6b6d0eef1e",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/422b0add2110f0cf9bc7a873a386ea053f4a89f0",
+                "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0",
                 "shasum": ""
             },
             "require": {
                 "kriswallsmith/assetic": "~1.2",
                 "php": ">=5.3.0",
-                "symfony/console": "~2.1",
-                "symfony/framework-bundle": "~2.1",
-                "symfony/yaml": "~2.1"
+                "symfony/console": "~2.3",
+                "symfony/dependency-injection": "~2.3",
+                "symfony/framework-bundle": "~2.3",
+                "symfony/yaml": "~2.3"
             },
             "require-dev": {
                 "kriswallsmith/spork": "~0.2",
                 "patchwork/jsqueeze": "~1.0",
-                "symfony/class-loader": "~2.1",
-                "symfony/css-selector": "~2.1",
-                "symfony/dom-crawler": "~2.1",
-                "symfony/twig-bundle": "~2.1"
+                "symfony/class-loader": "~2.3",
+                "symfony/css-selector": "~2.3",
+                "symfony/dom-crawler": "~2.3",
+                "symfony/twig-bundle": "~2.3"
             },
             "suggest": {
                 "kriswallsmith/spork": "to be able to dump assets in parallel",
@@ -2012,7 +2176,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2015-01-02 21:26:11"
+            "time": "2015-01-27 12:45:16"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2463,9 +2627,11 @@
         "symfony/assetic-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
         "excelwebzone/recaptcha-bundle": 20,
-        "craue/formflow-bundle": 20
+        "craue/formflow-bundle": 20,
+        "jupeter/doctrine-dump-fixtures-bundle": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

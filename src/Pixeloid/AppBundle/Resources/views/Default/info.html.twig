@@ -49,22 +49,29 @@
 <p>	 Accommodation with reduced prices for the meeting is possible in one of the below-mentioned hotels, located in the immediate vicinity of the conference venue. Please indicate you will be attending “ESPCR meeting 2014”. 
 </p>
 
+{% for acc in accomodations %}
+
 <table class="table table-condensed table-decorated">
 	<tr>
-		<th></th>
-		<th>Single room<br>EUR / night</th>
-		<th>double room<br>EUR / night</th>
+		<th class="">{{acc.name}} <br> ({{acc.address}})</th>
+		<th>EUR / night</th>
 	</tr>
+		
+		{% for room in acc.getRooms() %}
+		    <tr>
+		    	<td>
+		    		{{room.getRoomType.getName}}
+		    	</td>
+		    	<td>
+		    		{{room.getPrice}}
+		    	</td>
+		    </tr>
 
-	{% for acc in accomodations %}
-	    <tr>
-	    	<td>{{acc.name}} <br> ({{acc.address}})</td>
-	    	<td>{{acc.priceSingle}}</td>
-	    	<td>{{acc.priceDouble}}</td>
-	    </tr>
+		{% endfor %}
 
-	{% endfor %}
 </table>
+
+{% endfor %}
 
 
 

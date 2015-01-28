@@ -5,12 +5,12 @@ namespace Pixeloid\AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AccomodationRoom
+ * Room
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class AccomodationRoom
+class Room
 {
     /**
      * @var integer
@@ -30,7 +30,7 @@ class AccomodationRoom
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Event")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="rooms")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
      */
     protected $event;
@@ -48,6 +48,8 @@ class AccomodationRoom
      */
     protected $accomodation;
 
+   
+
     /**
      * Get id
      *
@@ -62,7 +64,7 @@ class AccomodationRoom
      * Set price
      *
      * @param float $price
-     * @return AccomodationRoom
+     * @return Room
      */
     public function setPrice($price)
     {
@@ -80,52 +82,12 @@ class AccomodationRoom
     {
         return $this->price;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->event = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add event
-     *
-     * @param \Pixeloid\AppBundle\Entity\Event $event
-     * @return AccomodationRoom
-     */
-    public function addEvent(\Pixeloid\AppBundle\Entity\Event $event)
-    {
-        $this->event[] = $event;
-
-        return $this;
-    }
-
-    /**
-     * Remove event
-     *
-     * @param \Pixeloid\AppBundle\Entity\Event $event
-     */
-    public function removeEvent(\Pixeloid\AppBundle\Entity\Event $event)
-    {
-        $this->event->removeElement($event);
-    }
-
-    /**
-     * Get event
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
 
     /**
      * Set event
      *
      * @param \Pixeloid\AppBundle\Entity\Event $event
-     * @return AccomodationRoom
+     * @return Room
      */
     public function setEvent(\Pixeloid\AppBundle\Entity\Event $event = null)
     {
@@ -135,10 +97,20 @@ class AccomodationRoom
     }
 
     /**
+     * Get event
+     *
+     * @return \Pixeloid\AppBundle\Entity\Event 
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
      * Set roomType
      *
      * @param \Pixeloid\AppBundle\Entity\RoomType $roomType
-     * @return AccomodationRoom
+     * @return Room
      */
     public function setRoomType(\Pixeloid\AppBundle\Entity\RoomType $roomType = null)
     {
@@ -161,7 +133,7 @@ class AccomodationRoom
      * Set accomodation
      *
      * @param \Pixeloid\AppBundle\Entity\Accomodation $accomodation
-     * @return AccomodationRoom
+     * @return Room
      */
     public function setAccomodation(\Pixeloid\AppBundle\Entity\Accomodation $accomodation = null)
     {

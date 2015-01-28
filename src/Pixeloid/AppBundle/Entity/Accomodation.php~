@@ -45,11 +45,18 @@ class Accomodation
 
 
     /**
-     * @ORM\OneToMany(targetEntity="AccomodationRoom", mappedBy="accomodation")
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="accomodation")
      */
-    protected $accomodationRooms;
+    protected $rooms;
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->rooms = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -108,125 +115,6 @@ class Accomodation
     }
 
     /**
-     * Set priceSingle
-     *
-     * @param float $priceSingle
-     * @return Accomodation
-     */
-    public function setPriceSingle($priceSingle)
-    {
-        $this->priceSingle = $priceSingle;
-
-        return $this;
-    }
-
-    /**
-     * Get priceSingle
-     *
-     * @return float 
-     */
-    public function getPriceSingle()
-    {
-        return $this->priceSingle;
-    }
-
-    /**
-     * Set priceDouble
-     *
-     * @param float $priceDouble
-     * @return Accomodation
-     */
-    public function setPriceDouble($priceDouble)
-    {
-        $this->priceDouble = $priceDouble;
-
-        return $this;
-    }
-
-    /**
-     * Get priceDouble
-     *
-     * @return float 
-     */
-    public function getPriceDouble()
-    {
-        return $this->priceDouble;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add events
-     *
-     * @param \Pixeloid\AppBundle\Entity\Event $events
-     * @return Accomodation
-     */
-    public function addEvent(\Pixeloid\AppBundle\Entity\Event $events)
-    {
-        $this->events[] = $events;
-
-        return $this;
-    }
-
-    /**
-     * Remove events
-     *
-     * @param \Pixeloid\AppBundle\Entity\Event $events
-     */
-    public function removeEvent(\Pixeloid\AppBundle\Entity\Event $events)
-    {
-        $this->events->removeElement($events);
-    }
-
-    /**
-     * Get events
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEvents()
-    {
-        return $this->events;
-    }
-
-    /**
-     * Add roomTypes
-     *
-     * @param \Pixeloid\AppBundle\Entity\RoomTypes $roomTypes
-     * @return Accomodation
-     */
-    public function addRoomType(\Pixeloid\AppBundle\Entity\RoomTypes $roomTypes)
-    {
-        $this->roomTypes[] = $roomTypes;
-
-        return $this;
-    }
-
-    /**
-     * Remove roomTypes
-     *
-     * @param \Pixeloid\AppBundle\Entity\RoomTypes $roomTypes
-     */
-    public function removeRoomType(\Pixeloid\AppBundle\Entity\RoomTypes $roomTypes)
-    {
-        $this->roomTypes->removeElement($roomTypes);
-    }
-
-    /**
-     * Get roomTypes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getRoomTypes()
-    {
-        return $this->roomTypes;
-    }
-
-    /**
      * Set url
      *
      * @param string $url
@@ -250,35 +138,35 @@ class Accomodation
     }
 
     /**
-     * Add accomodationRooms
+     * Add rooms
      *
-     * @param \Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRooms
+     * @param \Pixeloid\AppBundle\Entity\Room $rooms
      * @return Accomodation
      */
-    public function addAccomodationRoom(\Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRooms)
+    public function addRoom(\Pixeloid\AppBundle\Entity\Room $rooms)
     {
-        $this->accomodationRooms[] = $accomodationRooms;
+        $this->rooms[] = $rooms;
 
         return $this;
     }
 
     /**
-     * Remove accomodationRooms
+     * Remove rooms
      *
-     * @param \Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRooms
+     * @param \Pixeloid\AppBundle\Entity\Room $rooms
      */
-    public function removeAccomodationRoom(\Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRooms)
+    public function removeRoom(\Pixeloid\AppBundle\Entity\Room $rooms)
     {
-        $this->accomodationRooms->removeElement($accomodationRooms);
+        $this->rooms->removeElement($rooms);
     }
 
     /**
-     * Get accomodationRooms
+     * Get rooms
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getAccomodationRooms()
+    public function getRooms()
     {
-        return $this->accomodationRooms;
+        return $this->rooms;
     }
 }

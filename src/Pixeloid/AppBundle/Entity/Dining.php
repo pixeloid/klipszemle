@@ -21,12 +21,6 @@ class Dining
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100)
-     */
-    private $name;
 
     /**
      * @var string
@@ -44,6 +38,20 @@ class Dining
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="Event")
+     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     */
+    protected $event;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DiningType")
+     * @ORM\JoinColumn(name="dining_type_id", referencedColumnName="id")
+     */
+    protected $diningType;
+            
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -51,29 +59,6 @@ class Dining
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Dining
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -120,5 +105,51 @@ class Dining
     public function getDates()
     {
         return $this->dates;
+    }
+
+    /**
+     * Set event
+     *
+     * @param \Pixeloid\AppBundle\Entity\Event $event
+     * @return Dining
+     */
+    public function setEvent(\Pixeloid\AppBundle\Entity\Event $event = null)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * Get event
+     *
+     * @return \Pixeloid\AppBundle\Entity\Event 
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * Set diningType
+     *
+     * @param \Pixeloid\AppBundle\Entity\DiningType $diningType
+     * @return Dining
+     */
+    public function setDiningType(\Pixeloid\AppBundle\Entity\DiningType $diningType = null)
+    {
+        $this->diningType = $diningType;
+
+        return $this;
+    }
+
+    /**
+     * Get diningType
+     *
+     * @return \Pixeloid\AppBundle\Entity\DiningType 
+     */
+    public function getDiningType()
+    {
+        return $this->diningType;
     }
 }

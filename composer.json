@@ -28,7 +28,8 @@
         "fkr/cssurlrewrite-bundle": "1.0.0",
         "hpatoio/deploy-bundle": "~1.5",
         "excelwebzone/recaptcha-bundle": "dev-master",
-        "craue/formflow-bundle": "dev-master"
+        "craue/formflow-bundle": "dev-master",
+        "jupeter/doctrine-dump-fixtures-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

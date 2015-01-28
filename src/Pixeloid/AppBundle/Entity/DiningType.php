@@ -5,12 +5,12 @@ namespace Pixeloid\AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RoomType
+ * DiningType
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class RoomType
+class DiningType
 {
     /**
      * @var integer
@@ -29,16 +29,17 @@ class RoomType
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Room", mappedBy="accomodation")
+     * @ORM\OneToMany(targetEntity="Dining", mappedBy="diningType")
      */
-    protected $rooms;
+    protected $dinings;
+
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->rooms = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dinings = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -55,7 +56,7 @@ class RoomType
      * Set name
      *
      * @param string $name
-     * @return RoomType
+     * @return DiningType
      */
     public function setName($name)
     {
@@ -75,35 +76,35 @@ class RoomType
     }
 
     /**
-     * Add rooms
+     * Add dinings
      *
-     * @param \Pixeloid\AppBundle\Entity\Room $rooms
-     * @return RoomType
+     * @param \Pixeloid\AppBundle\Entity\Dining $dinings
+     * @return DiningType
      */
-    public function addRoom(\Pixeloid\AppBundle\Entity\Room $rooms)
+    public function addDining(\Pixeloid\AppBundle\Entity\Dining $dinings)
     {
-        $this->rooms[] = $rooms;
+        $this->dinings[] = $dinings;
 
         return $this;
     }
 
     /**
-     * Remove rooms
+     * Remove dinings
      *
-     * @param \Pixeloid\AppBundle\Entity\Room $rooms
+     * @param \Pixeloid\AppBundle\Entity\Dining $dinings
      */
-    public function removeRoom(\Pixeloid\AppBundle\Entity\Room $rooms)
+    public function removeDining(\Pixeloid\AppBundle\Entity\Dining $dinings)
     {
-        $this->rooms->removeElement($rooms);
+        $this->dinings->removeElement($dinings);
     }
 
     /**
-     * Get rooms
+     * Get dinings
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRooms()
+    public function getDinings()
     {
-        return $this->rooms;
+        return $this->dinings;
     }
 }

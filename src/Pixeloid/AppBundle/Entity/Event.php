@@ -43,90 +43,103 @@ class Event {
 	private $end;
 
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="RegistrantType", mappedBy="events")
-	 **/
-	protected $registrantTypes;
+    /**
+     * @ORM\ManyToMany(targetEntity="RegistrantType", mappedBy="events")
+     **/
+    protected $registrantTypes;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="event")
+     **/
+    protected $rooms;
 
 		
-
-	/**
-	 * Get id
-	 *
-	 * @return integer
-	 */
-	public function getId() {
-		return $this->id;
-	}
-
-	/**
-	 * Set name
-	 *
-	 * @param string $name
-	 * @return Event
-	 */
-	public function setName($name) {
-		$this->name = $name;
-
-		return $this;
-	}
-
-	/**
-	 * Get name
-	 *
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
-
-	/**
-	 * Set start
-	 *
-	 * @param \DateTime $start
-	 * @return Event
-	 */
-	public function setStart($start) {
-		$this->start = $start;
-
-		return $this;
-	}
-
-	/**
-	 * Get start
-	 *
-	 * @return \DateTime
-	 */
-	public function getStart() {
-		return $this->start;
-	}
-
-	/**
-	 * Set end
-	 *
-	 * @param \DateTime $end
-	 * @return Event
-	 */
-	public function setEnd($end) {
-		$this->end = $end;
-
-		return $this;
-	}
-
-	/**
-	 * Get end
-	 *
-	 * @return \DateTime
-	 */
-	public function getEnd() {
-		return $this->end;
-	}
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->registrantTypes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Event
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set start
+     *
+     * @param \DateTime $start
+     * @return Event
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    /**
+     * Get start
+     *
+     * @return \DateTime 
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set end
+     *
+     * @param \DateTime $end
+     * @return Event
+     */
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    /**
+     * Get end
+     *
+     * @return \DateTime 
+     */
+    public function getEnd()
+    {
+        return $this->end;
     }
 
     /**
@@ -163,91 +176,35 @@ class Event {
     }
 
     /**
-     * Add accomodations
+     * Add rooms
      *
-     * @param \Pixeloid\AppBundle\Entity\Accomodation $accomodations
+     * @param \Pixeloid\AppBundle\Entity\Room $rooms
      * @return Event
      */
-    public function addAccomodation(\Pixeloid\AppBundle\Entity\Accomodation $accomodations)
+    public function addRoom(\Pixeloid\AppBundle\Entity\Room $rooms)
     {
-        $this->accomodations[] = $accomodations;
+        $this->rooms[] = $rooms;
 
         return $this;
     }
 
     /**
-     * Remove accomodations
+     * Remove rooms
      *
-     * @param \Pixeloid\AppBundle\Entity\Accomodation $accomodations
+     * @param \Pixeloid\AppBundle\Entity\Room $rooms
      */
-    public function removeAccomodation(\Pixeloid\AppBundle\Entity\Accomodation $accomodations)
+    public function removeRoom(\Pixeloid\AppBundle\Entity\Room $rooms)
     {
-        $this->accomodations->removeElement($accomodations);
+        $this->rooms->removeElement($rooms);
     }
 
     /**
-     * Get accomodations
+     * Get rooms
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getAccomodations()
+    public function getRooms()
     {
-        return $this->accomodations;
-    }
-
-    /**
-     * Set accomodationRooms
-     *
-     * @param \Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRooms
-     * @return Event
-     */
-    public function setAccomodationRooms(\Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRooms = null)
-    {
-        $this->accomodationRooms = $accomodationRooms;
-
-        return $this;
-    }
-
-    /**
-     * Get accomodationRooms
-     *
-     * @return \Pixeloid\AppBundle\Entity\AccomodationRoom 
-     */
-    public function getAccomodationRooms()
-    {
-        return $this->accomodationRooms;
-    }
-
-    /**
-     * Add accomodationRoom
-     *
-     * @param \Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRoom
-     * @return Event
-     */
-    public function addAccomodationRoom(\Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRoom)
-    {
-        $this->accomodationRoom[] = $accomodationRoom;
-
-        return $this;
-    }
-
-    /**
-     * Remove accomodationRoom
-     *
-     * @param \Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRoom
-     */
-    public function removeAccomodationRoom(\Pixeloid\AppBundle\Entity\AccomodationRoom $accomodationRoom)
-    {
-        $this->accomodationRoom->removeElement($accomodationRoom);
-    }
-
-    /**
-     * Get accomodationRoom
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAccomodationRoom()
-    {
-        return $this->accomodationRoom;
+        return $this->rooms;
     }
 }

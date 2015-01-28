@@ -33,6 +33,9 @@ twig:
     form:
         resources:
             - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
+    form_themes:
+        - 'PixeloidAppBundle:Form:fields.html.twig'
+
 
 # Assetic Configuration
 assetic:

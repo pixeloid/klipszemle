@@ -1,5 +1,5 @@
 {% set renderBackButton = flow.getFirstStepNumber() < flow.getLastStepNumber() and flow.getCurrentStepNumber() in (flow.getFirstStepNumber() + 1) .. flow.getLastStepNumber() %}
-<div class="craue_formflow_buttons craue_formflow_button_count_{% if renderBackButton %}3{% else %}2{% endif %}">
+<div class="craue_formflow_buttons craue_formflow_button_count_{% if renderBackButton %}3{% else %}2{% endif %} pull-right">
 	{#
 		Default button (the one trigged by pressing the enter/return key) must be defined first.
 		Thus, all buttons are defined in reverse order and will be reversed again via CSS.
