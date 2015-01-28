@@ -73,12 +73,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/craue/CraueFormFlowBundle.git",
-                "reference": "a88ecba527e289293e7058d4d7a255ee3cdb2899"
+                "reference": "f743abcabe95cadf1b4b095524f923864fc86597"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/a88ecba527e289293e7058d4d7a255ee3cdb2899",
-                "reference": "a88ecba527e289293e7058d4d7a255ee3cdb2899",
+                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/f743abcabe95cadf1b4b095524f923864fc86597",
+                "reference": "f743abcabe95cadf1b4b095524f923864fc86597",
                 "shasum": ""
             },
             "require": {
@@ -125,7 +125,7 @@
                 "Symfony2",
                 "form"
             ],
-            "time": "2014-10-09 10:17:40"
+            "time": "2015-01-19 13:46:43"
         },
         {
             "name": "doctrine/annotations",
@@ -1124,12 +1124,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/excelwebzone/EWZRecaptchaBundle.git",
-                "reference": "8bb84941d12852a0551e0959893ae8497e5888c7"
+                "reference": "e1e7d098e530caddc2fa3d4f61d644e43fabe722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/8bb84941d12852a0551e0959893ae8497e5888c7",
-                "reference": "8bb84941d12852a0551e0959893ae8497e5888c7",
+                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/e1e7d098e530caddc2fa3d4f61d644e43fabe722",
+                "reference": "e1e7d098e530caddc2fa3d4f61d644e43fabe722",
                 "shasum": ""
             },
             "require": {
@@ -1157,7 +1157,7 @@
             "keywords": [
                 "recaptcha"
             ],
-            "time": "2014-12-27 16:21:08"
+            "time": "2015-01-27 17:20:37"
         },
         {
             "name": "fkr/cssurlrewrite-bundle",
@@ -1213,12 +1213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "4ceecb62f8bfbee56a5ec83f5ab6124710cf89d1"
+                "reference": "f54031a652846cd8e7b12119fe713eae90e24cf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/4ceecb62f8bfbee56a5ec83f5ab6124710cf89d1",
-                "reference": "4ceecb62f8bfbee56a5ec83f5ab6124710cf89d1",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/f54031a652846cd8e7b12119fe713eae90e24cf9",
+                "reference": "f54031a652846cd8e7b12119fe713eae90e24cf9",
                 "shasum": ""
             },
             "require": {
@@ -1272,7 +1272,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2014-12-29 10:27:58"
+            "time": "2015-01-20 09:35:03"
         },
         {
             "name": "hpatoio/deploy-bundle",
@@ -2018,16 +2018,16 @@
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "5b4eb4743ebe68276c911c84101ecdf4a9ae76ee"
+                "reference": "134cecf1c61256bd8e973e11376891a724543820"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/5b4eb4743ebe68276c911c84101ecdf4a9ae76ee",
-                "reference": "5b4eb4743ebe68276c911c84101ecdf4a9ae76ee",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/134cecf1c61256bd8e973e11376891a724543820",
+                "reference": "134cecf1c61256bd8e973e11376891a724543820",
                 "shasum": ""
             },
             "require": {
@@ -2059,7 +2059,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2014-07-19 10:52:35"
+            "time": "2015-01-26 16:25:19"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2631,7 +2631,6 @@
         "jupeter/doctrine-dump-fixtures-bundle": 20
     },
     "prefer-stable": false,
-    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

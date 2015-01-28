@@ -82,27 +82,32 @@
 {% elseif flow.getCurrentStepNumber() == 2 %}
 
 
-        <h2>Available accomodation options</h2>
-<div class="row">
+<!--         <h2>Available accomodation options</h2>
+ --><div class="row">
     <div class="col-sm-7">
 
 
     {% for acc in accomodations %}
     
-    <h4>{{acc.name}} <br> ({{acc.address}})</h4>
+    <h4>{{acc.name}} ({{acc.address}})</h4>
+    <table class="table">
+    <tr>
+        <td></td>
+        <td></td>
+        <td>{{acc.getRooms.0.getEvent.getStart.format('Y-m-d')}}</td>
+        <td>{{acc.getRooms.0.getEvent.getEnd.format('Y-m-d')}}</td>
+    </tr>
     {% for room in acc.getRooms() %}
-
-    <div class="row">
-        <div class="col-sm-8"><b>{{room.getRoomType.getName}}</b> ({{room.getPrice}})</div>
-        <div class="col-sm-2">
-            <input type="checkbox" class="checkbox">
-        </div>
-        <div class="col-sm-2">
-            <input type="checkbox" class="checkbox">
-        </div>
-    </div>
+    
+        <tr>
+            <th>{{room.getRoomType.getName}}</th>
+            <td>{{room.getPrice|number_format(0,'', ' ')}} Ft / éjszaka</td>
+            <td class="text-center"><input type="checkbox" class="checkbox"></td>
+            <td><input type="checkbox" class="checkbox"></td>
+        </tr>
 
     {% endfor %}
+    </table>
 
     {% endfor %}
 
