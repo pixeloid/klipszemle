@@ -16,7 +16,7 @@ class DiningReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('diningDate', 'entity', array(
+            ->add('dinings', 'entity', array(
                 'class' => 'PixeloidAppBundle:DiningDate',
                 'mapped' => false,
                 'property' => 'dining.diningType.name',
@@ -36,7 +36,10 @@ class DiningReservationType extends AbstractType
 
                 }
             ))
-        ;
+
+
+
+            ;
 
 
     }

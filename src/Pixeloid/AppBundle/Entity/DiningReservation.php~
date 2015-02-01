@@ -22,12 +22,6 @@ class DiningReservation
     private $id;
 
 
-    /**
-     * @ORM\Column(type="string", name="special", length=100, unique=false, nullable=true)
-     */
-    protected $special = null;
-    
-
 
     /**
      * @ORM\ManyToOne(targetEntity="EventRegistration", inversedBy="diningReservations")
@@ -153,38 +147,5 @@ class DiningReservation
     public function getDiningDates()
     {
         return $this->diningDates;
-    }
-
-    /**
-     * Add dinings
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningReservationDining $dinings
-     * @return DiningReservation
-     */
-    public function addDining(\Pixeloid\AppBundle\Entity\DiningReservationDining $dinings)
-    {
-        $this->dinings[] = $dinings;
-
-        return $this;
-    }
-
-    /**
-     * Remove dinings
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningReservationDining $dinings
-     */
-    public function removeDining(\Pixeloid\AppBundle\Entity\DiningReservationDining $dinings)
-    {
-        $this->dinings->removeElement($dinings);
-    }
-
-    /**
-     * Get dinings
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDinings()
-    {
-        return $this->dinings;
     }
 }

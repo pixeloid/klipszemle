@@ -1,0 +1,48 @@
+<?php
+
+namespace Pixeloid\AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * DiningReservationDining
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class DiningReservationDining
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DiningReservation", inversedBy="dinings")
+     * @ORM\JoinColumn(name="dining_reservation_id", referencedColumnName="id")
+     */
+    private $diningReservation;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="DiningDate")
+     * @ORM\JoinColumn(name="dining_date_id", referencedColumnName="id")
+     */
+    private $diningDate;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

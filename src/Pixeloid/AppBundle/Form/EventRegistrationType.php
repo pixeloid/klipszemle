@@ -62,6 +62,7 @@ class EventRegistrationType extends AbstractType
                         'multiple'  => false,
                         'expanded'  => true,
                         'mapped' => false,
+                        'data' => 1,
                         'label' => 'A továbbképző napon'
                     ))
 
@@ -74,6 +75,7 @@ class EventRegistrationType extends AbstractType
                         'multiple'  => false,
                         'expanded'  => true,
                         'mapped' => false,
+                        'data' => 1,
                         'label' => 'Mentő oktatópont workshopon'
                     ))
 
@@ -86,6 +88,7 @@ class EventRegistrationType extends AbstractType
                         'multiple'  => false,
                         'expanded'  => true,
                         'mapped' => false,
+                        'data' => 1,
                         'label' => 'UH oktatás workshopon'
                     ))
 
@@ -117,32 +120,9 @@ class EventRegistrationType extends AbstractType
                 break;
             case 3:
 
-                $builder
+                $builder->add('diningReservation', new DiningReservationType())
+                ;
 
-                ->add('diningDates', 'entity', array(
-                        'class' => 'PixeloidAppBundle:DiningDate',
-                        'mapped' => true,
-                        'property' => 'dining.diningType.name',
-                        'group_by' => 'dining.id',
-                        'multiple' => true,
-                        'expanded' => true,
-                        'query_builder' => function(EntityRepository $er){
-                            return $er->createQueryBuilder('dd')
-                                ->join('dd.dining', 'd')
-                                ->join('d.diningType', 't')
-                                ->join('d.event', 'e')
-                                ->where('e.id = :event_id')
-                                ->setParameter('event_id', 2)
-                                ->orderBy('dd.date', 'ASC')
-                                ->distinct(true)
-                            ;
-
-                        }
-                    ))
-
-
-
-                    ;
                 break;
             case 4:
                 break;

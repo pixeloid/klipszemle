@@ -140,44 +140,8 @@
         <div class="row">
             <div class="col-sm-8">
 
+            {{ form_row(form.diningReservation.dinings) }}
 
-            {% set datesArray = [] %}
-
-
-            {% for diningGroup in form.diningDates.vars.choices %}
-                {% for dining in diningGroup %}
-                    {% if dining.data.date not in datesArray %}
-                     {% set datesArray = datesArray|merge([dining.data.date])  %}
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            <table class="table">
-                <tr>
-                    <th></th>
-
-                    {% for date in datesArray %}
-                        <th>{{ date }}</th>
-                    {% endfor %}
-
-
-                </tr>
-
-                {% for dining in form.diningDates.vars.choices %}
-                    <tr>
-                        <th>{{ dining|first.data.dining.diningType.name }}  ({{dining|first.data.dining.price}},-Ft/fő/alkalom)</th>
-                        {% for date in datesArray %}
-                            <td>
-                                {% for d in dining %}
-
-                                    {% if d.data.date == date %}
-                                        {{form_widget(form.diningDates.children[d.data.id])}}
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                        {% endfor %}
-
-                    </tr>
-                {% endfor %}
 
 
             </table>

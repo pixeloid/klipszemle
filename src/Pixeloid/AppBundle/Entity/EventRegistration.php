@@ -124,6 +124,7 @@ class EventRegistration
     /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")
 	 * @ORM\JoinColumn(name="registrant_type_id", referencedColumnName="id")
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
 	 */
     private $registrantType;
 
@@ -132,11 +133,11 @@ class EventRegistration
      */
     private $roomReservation;
 
-
     /**
-     * @ORM\OneToMany(targetEntity="Pixeloid\AppBundle\Entity\DiningDate", mappedBy="eventRegistration")
+     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\DiningReservation", mappedBy="eventRegistration")
      */
-    private $diningDates;
+    private $diningReservation;
+
 
     /**
 	 * @Recaptcha\True(groups={"flow_eventRegistration_step4"})
@@ -161,7 +162,7 @@ class EventRegistration
 
         $diningtotal = 0;
 
-        foreach ($this->getDiningDates() as $diningdate) {
+        foreach ($this->getDiningReservation()->getDiningDates() as $diningdate) {
             $diningtotal += $diningdate->getDining()->getPrice();
         }
 
@@ -659,5 +660,28 @@ class EventRegistration
     public function getDiningDates()
     {
         return $this->diningDates;
+    }
+
+    /**
+     * Set diningReservation
+     *
+     * @param \Pixeloid\AppBundle\Entity\DiningReservation $diningReservation
+     * @return EventRegistration
+     */
+    public function setDiningReservation(\Pixeloid\AppBundle\Entity\DiningReservation $diningReservation = null)
+    {
+        $this->diningReservation = $diningReservation;
+
+        return $this;
+    }
+
+    /**
+     * Get diningReservation
+     *
+     * @return \Pixeloid\AppBundle\Entity\DiningReservation 
+     */
+    public function getDiningReservation()
+    {
+        return $this->diningReservation;
     }
 }
