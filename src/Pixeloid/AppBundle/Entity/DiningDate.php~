@@ -34,6 +34,10 @@ class DiningDate
      */
     protected $dining;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="DiningReservation", inversedBy="diningDates")
+     */
+    private $diningReservations;
 
     /**
      * Get id
@@ -112,5 +116,45 @@ class DiningDate
     public function getDining()
     {
         return $this->dining;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->diningReservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add diningReservations
+     *
+     * @param \Pixeloid\AppBundle\Entity\DiningReservation $diningReservations
+     * @return DiningDate
+     */
+    public function addDiningReservation(\Pixeloid\AppBundle\Entity\DiningReservation $diningReservations)
+    {
+        $this->diningReservations[] = $diningReservations;
+
+        return $this;
+    }
+
+    /**
+     * Remove diningReservations
+     *
+     * @param \Pixeloid\AppBundle\Entity\DiningReservation $diningReservations
+     */
+    public function removeDiningReservation(\Pixeloid\AppBundle\Entity\DiningReservation $diningReservations)
+    {
+        $this->diningReservations->removeElement($diningReservations);
+    }
+
+    /**
+     * Get diningReservations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDiningReservations()
+    {
+        return $this->diningReservations;
     }
 }

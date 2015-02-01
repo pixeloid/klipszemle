@@ -60,7 +60,6 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $map = $this->get('ivory_google_map.map');
 
         $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
 
@@ -76,7 +75,6 @@ class DefaultController extends Controller
         $accomodations =$qb->getQuery()->getResult();
 
         return $this->render('PixeloidAppBundle:Default:map.html.twig', array(
-            'map' => $map,
             'accomodations' => $accomodations
         ));
     }

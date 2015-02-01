@@ -90,6 +90,24 @@ extend(ESPCR, {
 
 extend(ESPCR, {
 
+  gmapsAutocomplete:{
+  
+
+
+    init: function(){
+      if(!$('.gmaps-autocomplete').length) return false;
+
+      var input = $('.gmaps-autocomplete').get(0);
+      var autocomplete = new google.maps.places.Autocomplete(input);
+
+
+    }
+  }
+})
+
+
+extend(ESPCR, {
+
   registrationForm:{
   
 
@@ -187,6 +205,9 @@ extend(ESPCR, {
         },
         success: function(data, textStatus, xhr) {
                 $('.price-total').text(data.total);
+                $('.price-registration').text(data.registration);
+                $('.price-accomodation').text(data.accomodation);
+                $('.price-dining').text(data.dining);
                 $('.num-nights').text(data.nights);
 
         },
@@ -213,7 +234,7 @@ $(document).ready(function(){
 
   ESPCR.locationsMap.init();
   ESPCR.registrationForm.init();
-
+  ESPCR.gmapsAutocomplete.init()
 
 
 });

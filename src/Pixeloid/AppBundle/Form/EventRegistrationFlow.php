@@ -41,6 +41,8 @@ class EventRegistrationFlow extends FormFlow {
             ),
             array(
                 'label' => 'Ellenőrzés',
+                'type' => $this->formType,
+
             ),
         );
     }

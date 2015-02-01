@@ -122,6 +122,29 @@ class EventRegistration
     private $user;
 
     /**
+     * @ORM\Column(type="integer", name="paymentmethod", unique=false, nullable=false)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     */
+    protected $paymentMethod = null;
+    
+    /**
+     * @ORM\Column(type="integer", name="invoicetype", unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     */
+    protected $invoiceType = null;
+    
+    /**
+     * @ORM\Column(type="string", name="billingName", length=255, unique=false, nullable=true)
+     */
+    protected $billingName = null;
+    
+    /**
+     * @ORM\Column(type="string", name="billingAddress", length=255, unique=false, nullable=true)
+     */
+    protected $billingAddress = null;
+    
+
+    /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")
 	 * @ORM\JoinColumn(name="registrant_type_id", referencedColumnName="id")
      * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
@@ -154,20 +177,10 @@ class EventRegistration
 
     public function getTotalCost()
     {
-        $total = $this->getRoomReservation()->getRoom()->getPrice();
-        $total *= $this->getRoomReservation()->getPersons();
-        $numDays = $this->getRoomReservation()->getNumDays();
-        $total *= $numDays;
-
-
-        $diningtotal = 0;
-
-        foreach ($this->getDiningReservation()->getDiningDates() as $diningdate) {
-            $diningtotal += $diningdate->getDining()->getPrice();
-        }
-
-
-        $total += $diningtotal;
+        $total = 0;
+        $total += $this->getRegistrantType()->getPriceBefore();
+        $total += $this->getRoomReservation() ? $this->getRoomReservation()->getTotalCost() : 0;
+        $total += $this->getDiningReservation() ? $this->getDiningReservation()->getTotalCost() : 0;
 
         return $total;
 
@@ -203,7 +216,6 @@ class EventRegistration
      */
     public function __construct()
     {
-        $this->diningDates = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -684,4 +696,5 @@ class EventRegistration
     {
         return $this->diningReservation;
     }
+
 }

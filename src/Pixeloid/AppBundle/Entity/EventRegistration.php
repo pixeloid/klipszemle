@@ -122,6 +122,31 @@ class EventRegistration
     private $user;
 
     /**
+     * @ORM\Column(type="integer", name="paymentmethod", unique=false, nullable=false)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     */
+    protected $paymentMethod = null;
+    
+    /**
+     * @ORM\Column(type="integer", name="invoicetype", unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     */
+    protected $invoiceType = null;
+    
+    /**
+     * @ORM\Column(type="string", name="billingName", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     */
+    protected $billingName = null;
+    
+    /**
+     * @ORM\Column(type="string", name="billingAddress", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     */
+    protected $billingAddress = null;
+    
+
+    /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")
 	 * @ORM\JoinColumn(name="registrant_type_id", referencedColumnName="id")
      * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
@@ -140,7 +165,7 @@ class EventRegistration
 
 
     /**
-	 * @Recaptcha\True(groups={"flow_eventRegistration_step4"})
+	 * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
 	 */
     private $recaptcha;
 
@@ -154,20 +179,10 @@ class EventRegistration
 
     public function getTotalCost()
     {
-        $total = $this->getRoomReservation()->getRoom()->getPrice();
-        $total *= $this->getRoomReservation()->getPersons();
-        $numDays = $this->getRoomReservation()->getNumDays();
-        $total *= $numDays;
-
-
-        $diningtotal = 0;
-
-        foreach ($this->getDiningReservation()->getDiningDates() as $diningdate) {
-            $diningtotal += $diningdate->getDining()->getPrice();
-        }
-
-
-        $total += $diningtotal;
+        $total = 0;
+        $total += $this->getRegistrantType()->getPriceBefore();
+        $total += $this->getRoomReservation() ? $this->getRoomReservation()->getTotalCost() : 0;
+        $total += $this->getDiningReservation() ? $this->getDiningReservation()->getTotalCost() : 0;
 
         return $total;
 
@@ -203,7 +218,6 @@ class EventRegistration
      */
     public function __construct()
     {
-        $this->diningDates = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -683,5 +697,98 @@ class EventRegistration
     public function getDiningReservation()
     {
         return $this->diningReservation;
+    }
+
+
+    /**
+     * Set paymentMethod
+     *
+     * @param integer $paymentMethod
+     * @return EventRegistration
+     */
+    public function setPaymentMethod($paymentMethod)
+    {
+        $this->paymentMethod = $paymentMethod;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentMethod
+     *
+     * @return integer 
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    /**
+     * Set invoiceType
+     *
+     * @param integer $invoiceType
+     * @return EventRegistration
+     */
+    public function setInvoiceType($invoiceType)
+    {
+        $this->invoiceType = $invoiceType;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceType
+     *
+     * @return integer 
+     */
+    public function getInvoiceType()
+    {
+        return $this->invoiceType;
+    }
+
+    /**
+     * Set billingName
+     *
+     * @param string $billingName
+     * @return EventRegistration
+     */
+    public function setBillingName($billingName)
+    {
+        $this->billingName = $billingName;
+
+        return $this;
+    }
+
+    /**
+     * Get billingName
+     *
+     * @return string 
+     */
+    public function getBillingName()
+    {
+        return $this->billingName;
+    }
+
+    /**
+     * Set billingAddress
+     *
+     * @param string $billingAddress
+     * @return EventRegistration
+     */
+    public function setBillingAddress($billingAddress)
+    {
+        $this->billingAddress = $billingAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get billingAddress
+     *
+     * @return string 
+     */
+    public function getBillingAddress()
+    {
+        return $this->billingAddress;
     }
 }

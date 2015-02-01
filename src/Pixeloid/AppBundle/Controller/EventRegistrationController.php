@@ -71,11 +71,11 @@ class EventRegistrationController extends Controller
                 $entity->setUser($user);
                 $em->persist($user);
 
-                if ($entity->getReservation()->getAccomodation()) {
-                    $entity->getReservation()->setEventRegistration($entity);
-                }else{
-                    $entity->setReservation(null);
-                }
+                // if ($entity->getReservation()->getAccomodation()) {
+                //     $entity->getReservation()->setEventRegistration($entity);
+                // }else{
+                //     $entity->setReservation(null);
+                // }
 
                 $em->persist($entity);
                 $em->flush();
@@ -85,7 +85,7 @@ class EventRegistrationController extends Controller
             }
 
         }else{
-            // var_dump(($form->getErrorsAsString()));
+             var_dump(($form->getErrorsAsString()));
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -342,8 +342,11 @@ class EventRegistrationController extends Controller
 
 
         return new JsonResponse(array(
+            'nights' => $entity->getRoomReservation() ? $entity->getRoomReservation()->getNumDays() : 0,
+            'accomodation' => $entity->getRoomReservation() ? $entity->getRoomReservation()->getTotalCost() : 0,
+            'dining' =>  $entity->getDiningReservation() ? $entity->getDiningReservation()->getTotalCost() : 0,
+            'registration' => (int) $entity->getRegistrantType()->getPriceBefore(),
             'total' => (int) $entity->getTotalCost(),
-            'nights' => (int) $entity->getRoomReservation()->getNumDays()
         ));
     }
 

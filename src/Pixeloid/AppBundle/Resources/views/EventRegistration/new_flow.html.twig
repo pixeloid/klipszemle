@@ -6,12 +6,11 @@
 <div class="row">
     <div class="col-sm-9">
         
-        <h1><span>Event Registration</span></h1>
-
+<!--         <h1><span>Event Registration</span></h1>
+ -->
         <div class="">
             {% include 'PixeloidAppBundle:FormFlow:stepList.html.twig' %}
         </div>
-
 
         <hr>
 
@@ -26,7 +25,6 @@
                 {{ form_row(form.reg_number) }}
             </div>
 
-
         </div>
         <div class="row">
             <div class="col-sm-1">
@@ -40,7 +38,7 @@
                 {{ form_row(form.lastname) }}
             </div>
             <div class="col-sm-5">
-                {{ form_row(form.institution) }}
+                {{ form_row(form.institution, { 'attr': {'class': 'gmaps-autocomplete'} }) }}
             </div>
 
         </div>
@@ -137,24 +135,109 @@
 
         {% elseif flow.getCurrentStepNumber() == 3 %}
 
-        <div class="row">
-            <div class="col-sm-8">
 
-            {{ form_row(form.diningReservation.dinings) }}
+                       {% set datesArray = [] %}
+            
+            
+                       {% for diningGroup in form.diningReservation.diningDates.vars.choices %}
+                           {% for dining in diningGroup %}
+                               {% if dining.data.date not in datesArray %}
+                                {% set datesArray = datesArray|merge([dining.data.date])  %}
+                               {% endif %}
+                           {% endfor %}
+                       {% endfor %}
+                       <table class="table">
+                           <tr>
+                               <th></th>
+            
+                               {% for date in datesArray %}
+                                   <th>{{ date }}</th>
+                               {% endfor %}
+            
+            
+                           </tr>
+            
+                           {% for dining in form.diningReservation.diningDates.vars.choices %}
+                               <tr>
+                                   
+                                   <th>
+                                    {{ dining|first.data.dining.diningType.name }}  
+                                    ({{dining|first.data.dining.price}},-Ft/fő/alkalom)</th>
 
+                                  {% for date in datesArray %}
+                                      <td>
+                                          {% for d in dining %}
+           
+                                              {% if d.data.date == date %}
+                                                  {{form_widget(form.diningReservation.diningDates.children[d.data.id])}}
+                                              {% endif %}
+                                          {% endfor %}
+                                      </td>
+                                  {% endfor %}
+           
+                              </tr>
+                          {% endfor %}
+           
+           
+                      </table>
 
+                      {{form_row(form.diningReservation.special)}}
 
-            </table>
-        </div>
-        </div>
 
 
 
         {% elseif flow.getCurrentStepNumber() == 4 %}
 
-        {{dump(form.vars.data)}}
+        {{form_row(form.paymentMethod)}}
+        {{form_row(form.invoiceType)}}
+        {{form_row(form.billingName)}}
+        {{form_row(form.billingAddress)}}
+
 
         {% elseif flow.getCurrentStepNumber() == 5 %}
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <dl class="dl-horizontal">
+                        <dt>Név: </dt>
+                        <dd>{{ form.vars.data.firstname }} {{ form.vars.data.lastname }}</dd>
+                        <dt>Pecsétszám: </dt>
+                        <dd>{{ form.vars.data.regnumber }}</dd>
+                        <dt>Munkahely: </dt>
+                        <dd>{{ form.vars.data.institution }}</dd>
+                        <dt>Levelezési cím: </dt>
+                        <dd>{{ form.vars.data.postal }} {{ form.vars.data.city }}<br>{{ form.vars.data.address }}</dd>
+                        <dt>Tel: </dt>
+                        <dd>{{ form.vars.data.phone }}</dd>
+                        <dt>Fax: </dt>
+                        <dd>{{ form.vars.data.fax }}</dd>
+                        <dt>Email: </dt>
+                        <dd>{{ form.vars.data.email }}</dd>
+                    </dl>
+                </div>
+                <div class="col-sm-6">
+
+                <dl class="dl-horizontal">
+                    <dt>Regisztrációs díj<br> ({{ form.vars.data.getRegistrantType.getName }}): </dt>
+                    <dd>{{ form.vars.data.getRegistrantType.getPriceAfter }}</dd>
+                    <dt>Pecsétszám: </dt>
+                    <dd>{{ form.vars.data.regnumber }}</dd>
+                    <dt>Munkahely: </dt>
+                    <dd>{{ form.vars.data.institution }}</dd>
+                    <dt>Levelezési cím: </dt>
+                    <dd>{{ form.vars.data.postal }} {{ form.vars.data.city }}<br>{{ form.vars.data.address }}</dd>
+                    <dt>Tel: </dt>
+                    <dd>{{ form.vars.data.phone }}</dd>
+                    <dt>Fax: </dt>
+                    <dd>{{ form.vars.data.fax }}</dd>
+                    <dt>Email: </dt>
+                    <dd>{{ form.vars.data.email }}</dd>
+                </dl>
+
+
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-sm-4">
                     {{ form_row(form.recaptcha) }}
@@ -172,11 +255,31 @@
 
     </div>
     <div class="col-sm-3">
-            <div class="panel panel-default accomodation-selected">
-                <div class="panel-body">
-                    <h3>Total: <span class="num-nights"></span> nights, <span class="price-total">0</span> EUR</h3>
-                </div>
-            </div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="pull-right"><span class="price-registration"></span>  Ft</span>
+            Regisztrációs díj
+
+          </li>
+          <li class="list-group-item">
+            <span class="pull-right "><span class="price-accomodation"></span> Ft</span>
+            Szállás (<span class="num-nights"></span> éjszaka)
+          </li>
+          <li class="list-group-item">
+            <span class="pull-right "><span class="price-dining"></span> Ft</span>
+            Étkezés
+          </li>
+          <li class="list-group-item">
+              <b>
+            <span class="pull-right"><span class="price-total"></span> Ft</span>
+            Összesen fizetendő</b>
+          </li>
+        </ul>
+            
+        <p>Az árak az általános forgalmi adót tartalmazzák - regisztráció, étkezések: 27%, szállás:18%</p>
+        <p>A megrendelt szolgáltatásokról a Mis & Bos Kft. visszaigazolást küld. A szálláshelyeket a beérkezett foglalások sorrendjében tudjuk csak visszaigazolni.</p>
+        <p>
+        A részvételt, az étkezést és a szállás foglalást csak akkor tekintjük véglegesnek, ha a részvételi díj, az étkezés és szállás díja bankszámlánkra beérkezett.</p>
 
     </div>
 </div>

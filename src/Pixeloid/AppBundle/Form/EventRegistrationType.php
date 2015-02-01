@@ -125,6 +125,27 @@ class EventRegistrationType extends AbstractType
 
                 break;
             case 4:
+
+                $builder
+                    ->add('paymentMethod', 'choice', array(
+                        'choices'   => array(
+                            'transfer' => 'Banki átutalás', 
+                            'sponsored' => 'Szponzorált részvétel', 
+                        ),
+                        'expanded'  => true,
+                        'data' => 'transfer'
+                    ))
+                    ->add('invoiceType', 'choice', array(
+                        'choices'   => array(
+                            'elolegszamla' => 'Előleg számla', 
+                            'elolegbekero' => 'Előlegbekérő', 
+                        ),
+                        'expanded'  => true,
+                        'data' => 'elolegszamla'
+                    ))
+                    ->add('billingName')
+                    ->add('billingAddress');
+
                 break;
             case 5:
                 $builder

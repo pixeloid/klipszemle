@@ -36,27 +36,30 @@ class DiningReservation
     private $eventRegistration;
             
     /**
-     * @ORM\OneToMany(targetEntity="Pixeloid\AppBundle\Entity\DiningReservationDining", mappedBy="diningReservation")
+     * @ORM\ManyToMany(targetEntity="Pixeloid\AppBundle\Entity\DiningDate", mappedBy="diningReservations")
      */
-    private $dinings;
+    private $diningDates;
 
             
 
 
     public function getTotalCost()
     {
-        // $total = ($this->getRoomType() == 'single') ? $this->getAccomodation()->getPriceSingle() : $this->getAccomodation()->getPriceDouble();
-        // $total *= $this->getPersons();
+        $total = 0;
+        foreach ($this->diningDates as $date) {
+            $total += $date->getDining()->getPrice();
+        }
 
-        // $numDays = $this->getNumDays();
-
-        // $total *= $numDays;
-
-        // return $total;
-
+        return $total;
     }
 
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->diningDates = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -66,6 +69,29 @@ class DiningReservation
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set special
+     *
+     * @param string $special
+     * @return DiningReservation
+     */
+    public function setSpecial($special)
+    {
+        $this->special = $special;
+
+        return $this;
+    }
+
+    /**
+     * Get special
+     *
+     * @return string 
+     */
+    public function getSpecial()
+    {
+        return $this->special;
     }
 
     /**
@@ -92,57 +118,26 @@ class DiningReservation
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->diningDate = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add diningDate
+     * Add diningDates
      *
-     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDate
+     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDates
      * @return DiningReservation
      */
-    public function addDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDate)
+    public function addDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDates)
     {
-        $this->diningDate[] = $diningDate;
+        $this->diningDates[] = $diningDates;
 
         return $this;
     }
 
     /**
-     * Remove diningDate
+     * Remove diningDates
      *
-     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDate
+     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDates
      */
-    public function removeDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDate)
+    public function removeDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDates)
     {
-        $this->diningDate->removeElement($diningDate);
-    }
-
-    /**
-     * Get diningDate
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDiningDate()
-    {
-        return $this->diningDate;
-    }
-
-    /**
-     * Set diningDate
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDate
-     * @return DiningReservation
-     */
-    public function setDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDate = null)
-    {
-        $this->diningDate = $diningDate;
-
-        return $this;
+        $this->diningDates->removeElement($diningDates);
     }
 
     /**
@@ -153,38 +148,5 @@ class DiningReservation
     public function getDiningDates()
     {
         return $this->diningDates;
-    }
-
-    /**
-     * Add dinings
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningReservationDining $dinings
-     * @return DiningReservation
-     */
-    public function addDining(\Pixeloid\AppBundle\Entity\DiningReservationDining $dinings)
-    {
-        $this->dinings[] = $dinings;
-
-        return $this;
-    }
-
-    /**
-     * Remove dinings
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningReservationDining $dinings
-     */
-    public function removeDining(\Pixeloid\AppBundle\Entity\DiningReservationDining $dinings)
-    {
-        $this->dinings->removeElement($dinings);
-    }
-
-    /**
-     * Get dinings
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDinings()
-    {
-        return $this->dinings;
     }
 }
