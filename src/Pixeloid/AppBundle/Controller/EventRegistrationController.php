@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Pixeloid\AppBundle\Entity\AccomodationReservation;
 use Pixeloid\AppBundle\Entity\EventRegistration;
 use Pixeloid\AppBundle\Form\EventRegistrationType;
+use Pixeloid\AppBundle\Entity\RoomReservation;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -83,23 +84,15 @@ class EventRegistrationController extends Controller
                 return $this->redirect($this->generateUrl('eventregistration_success', array('id' => $entity->getId())));
             }
 
+        }else{
+            var_dump(($form->getErrorsAsString()));
         }
 
         $em = $this->getDoctrine()->getManager();
 
 
-        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
+        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(2);
 
-        $qb = $em->createQueryBuilder();
-        $qb->select('a, r')
-            ->from('PixeloidAppBundle:Accomodation', 'a')
-            ->join('a.rooms', 'r')
-            ->where('r.event = :event')
-            ->setParameter('event', $event)
-            ->distinct(true)
-        ;
-
-        $accomodations =$qb->getQuery()->getResult();
 
 
         return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
@@ -152,7 +145,9 @@ class EventRegistrationController extends Controller
         $form = $flow->createForm();
 
         $em = $this->getDoctrine()->getManager();
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->findAll();
+
+        
+        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(2);
 
 
         return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
@@ -340,13 +335,15 @@ class EventRegistrationController extends Controller
         $entity = new EventRegistration();
 
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createCreateForm($entity);
+
+        $flow = $this->createCreateForm($entity);
+        $form = $flow->createForm();
         $form->handleRequest($request);
 
 
         return new JsonResponse(array(
-            'total' => (int) $entity->getReservation()->getTotalCost(),
-            'nights' => (int) $entity->getReservation()->getNumDays()
+            'total' => (int) $entity->getTotalCost(),
+            'nights' => (int) $entity->getRoomReservation()->getNumDays()
         ));
     }
 

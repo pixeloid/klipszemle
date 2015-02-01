@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class AccomodationRepository extends EntityRepository
 {
+
+	public function getAccomodationsByEvent($eventId)
+	{
+	    $qb = $this->_em->createQueryBuilder();
+	    $qb->select('a, r')
+	        ->from('PixeloidAppBundle:Accomodation', 'a')
+	        ->join('a.rooms', 'r')
+	        ->join('r.event', 'e')
+	        ->where('e.id = :event_id')
+	        ->setParameter('event_id', $eventId)
+	        ->distinct(true)
+	    ;
+
+	    return $qb->getQuery()->getResult();
+	}
+
 }

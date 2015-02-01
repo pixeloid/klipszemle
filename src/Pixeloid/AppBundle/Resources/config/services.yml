@@ -10,3 +10,10 @@ services:
     scope: request
     calls:
       - [ setFormType, [ "@pixeloid_app.form.eventRegistration" ] ]
+
+  # pixeloid_app.form.type.room:
+  #     class: Pixeloid\AppBundle\Form\Type\RoomType
+  #     arguments:
+  #       entityManager: "@doctrine.orm.entity_manager"
+  #     tags:
+  #         - { name: form.type, alias: room }

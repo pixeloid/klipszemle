@@ -1,13 +1,9 @@
-{% block acccomodation_widget %}
+{% block room_widget %}
     {% spaceless %}
 
-            <ul {{ block('widget_container_attributes') }}>
+    {{dump(form)}}
             {% for child in form %}
-                <li>
-                    {{ form_label(child) }}
-                    {{ form_widget(child) }}
-                </li>
+                    {{ form_row(child) }}
             {% endfor %}
-            </ul>
     {% endspaceless %}
 {% endblock %}

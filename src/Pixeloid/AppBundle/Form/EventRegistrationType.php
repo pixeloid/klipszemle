@@ -6,7 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Pixeloid\AppBundle\Entity\Accomodation;
-use Pixeloid\AppBundle\Entity\AccomodationReservation;
+use Pixeloid\AppBundle\Entity\RoomReservation;
+use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
+use Doctrine\ORM\EntityRepository;
 
 class EventRegistrationType extends AbstractType
 {
@@ -87,6 +89,18 @@ class EventRegistrationType extends AbstractType
                         'label' => 'UH oktatás workshopon'
                     ))
 
+                    // ->add('roomReservations', 'collection', array(
+                    //     'type' => new RoomReservationType,
+                    //   //  'mapped'   => false,
+
+                    // ))
+                    // ->add('gender', 'choice', array(
+                    //     'choices'   => array('m' => 'Male', 'f' => 'Female'),
+                    //     'required'  => false,
+                    //     'mapped' => false,
+                    //     'expanded' => true,
+                    //     'multiple' => true
+                    // ));
 
 
                     ;
@@ -95,16 +109,47 @@ class EventRegistrationType extends AbstractType
             case 2:
                 $builder
 
-                        ->add('accomodation', new Type\AccomodationType(), array(
-                            'mapped' => false,
+                        ->add('roomReservation', new RoomReservationType(), array(
+                            'data_class' => 'Pixeloid\AppBundle\Entity\RoomReservation'
                         ))
+
+                        ;
+                break;
+            case 3:
+
+                $builder
+
+                ->add('diningDates', 'entity', array(
+                        'class' => 'PixeloidAppBundle:DiningDate',
+                        'mapped' => true,
+                        'property' => 'dining.diningType.name',
+                        'group_by' => 'dining.id',
+                        'multiple' => true,
+                        'expanded' => true,
+                        'query_builder' => function(EntityRepository $er){
+                            return $er->createQueryBuilder('dd')
+                                ->join('dd.dining', 'd')
+                                ->join('d.diningType', 't')
+                                ->join('d.event', 'e')
+                                ->where('e.id = :event_id')
+                                ->setParameter('event_id', 2)
+                                ->orderBy('dd.date', 'ASC')
+                                ->distinct(true)
+                            ;
+
+                        }
+                    ))
+
+
+
+                    ;
+                break;
+            case 4:
+                break;
+            case 5:
+                $builder
+
                         ->add('recaptcha', 'ewz_recaptcha')
-                        // ->add('roomReservation', 'entity', array(
-                        //     //'data_class' => 'Pixeloid\AppBundle\Entity\Room'
-                        //     'class' => 'Pixeloid\AppBundle\Entity\Room',
-                        //     'property' => 'roomType.name',
-                        //     'expanded' => true
-                        // ));
                         ;
                 break;
         }

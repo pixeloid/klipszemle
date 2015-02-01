@@ -5,8 +5,9 @@ namespace Pixeloid\AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
-class AccomodationReservationType extends AbstractType
+class RoomReservationType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,12 +16,6 @@ class AccomodationReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('roomType', 'choice', array(
-                'choices' => array(
-                     'single' => 'Single room',
-                     'double' => 'Double room'
-                    )
-                ))
             ->add('persons','choice', array(
                 'choices' => array(
                     '1' => 1,
@@ -38,12 +33,21 @@ class AccomodationReservationType extends AbstractType
                 'years' => array('2015'),
                 'data' => new \DateTime('2015-06-21')
             ))
-            ->add('accomodation', 'entity', array(
-                'class' => 'PixeloidAppBundle:Accomodation',
-                'property' => 'name',
-                'required'    => false,
-                'placeholder' => 'No need accomodation',
-                'empty_data'  => null
+            ->add('room', 'entity', array(
+                'class' => 'PixeloidAppBundle:Room',
+                'mapped' => true,
+                'property' => 'roomType.name',
+                'group_by' => 'accomodation.name',
+                'query_builder' => function(EntityRepository $er){
+                    return $er->createQueryBuilder('r')
+                        ->join('r.accomodation', 'a')
+                        ->join('r.event', 'e')
+                        ->where('e.id = :event_id')
+                        ->setParameter('event_id', 2)
+                        ->distinct(true)
+                    ;
+
+                }
             ))
         ;
     }
@@ -54,7 +58,7 @@ class AccomodationReservationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Pixeloid\AppBundle\Entity\AccomodationReservation',
+            'data_class' => 'Pixeloid\AppBundle\Entity\RoomReservation',
         ));
     }
 
@@ -63,6 +67,6 @@ class AccomodationReservationType extends AbstractType
      */
     public function getName()
     {
-        return 'pixeloid_appbundle_accomodationreservation';
+        return 'pixeloid_appbundle_roomreservation';
     }
 }

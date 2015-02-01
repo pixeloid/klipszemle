@@ -40,13 +40,13 @@ class RoomReservation
     private $checkOut = null;
 
     /**
-     * @ORM\OneToOne(targetEntity="EventRegistration", inversedBy="reservation", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="EventRegistration", inversedBy="roomReservation")
      * @ORM\JoinColumn(name="event_registration_id", referencedColumnName="id")
      */
     private $eventRegistration;
             
     /**
-     * @ORM\ManyToOne(targetEntity="Room")
+     * @ORM\OneToOne(targetEntity="Room")
      * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
      */
     private $room;
@@ -55,7 +55,7 @@ class RoomReservation
 
     public function getTotalCost()
     {
-        $total = ($this->getRoomType() == 'single') ? $this->getAccomodation()->getPriceSingle() : $this->getAccomodation()->getPriceDouble();
+        $total = $this->getRoom()->getPrice();
         $total *= $this->getPersons();
 
         $numDays = $this->getNumDays();

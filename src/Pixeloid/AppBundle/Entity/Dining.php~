@@ -29,12 +29,6 @@ class Dining
      */
     private $price;
 
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="dates", type="simple_array")
-     */
-    private $dates;
 
 
     /**
@@ -49,6 +43,11 @@ class Dining
      */
     protected $diningType;
             
+
+    /**
+     * @ORM\OneToMany(targetEntity="DiningDate", mappedBy="dining")
+     */
+    protected $diningDates;
 
 
     /**
@@ -151,5 +150,68 @@ class Dining
     public function getDiningType()
     {
         return $this->diningType;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Dining
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->diningDates = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add diningDates
+     *
+     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDates
+     * @return Dining
+     */
+    public function addDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDates)
+    {
+        $this->diningDates[] = $diningDates;
+
+        return $this;
+    }
+
+    /**
+     * Remove diningDates
+     *
+     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDates
+     */
+    public function removeDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDates)
+    {
+        $this->diningDates->removeElement($diningDates);
+    }
+
+    /**
+     * Get diningDates
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDiningDates()
+    {
+        return $this->diningDates;
     }
 }

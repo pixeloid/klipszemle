@@ -24,15 +24,23 @@ class EventRegistrationFlow extends FormFlow {
     protected function loadStepsConfig() {
         return array(
             array(
-                'label' => 'Personal details',
+                'label' => 'Személyes adatok',
                 'type' => $this->formType,
             ),
             array(
-                'label' => 'Accomodation reservation',
+                'label' => 'Szállás foglalás',
                 'type' => $this->formType,
             ),
             array(
-                'label' => 'confirmation',
+                'label' => 'Étkezés',
+                'type' => $this->formType,
+            ),
+            array(
+                'label' => 'Fizetési feltételek',
+                'type' => $this->formType,
+            ),
+            array(
+                'label' => 'Ellenőrzés',
             ),
         );
     }

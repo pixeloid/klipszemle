@@ -99,6 +99,7 @@ extend(ESPCR, {
 
       $('#mapModal').on('shown.bs.modal', this.onModalShown);
       $('form[name=pixeloid_appbundle_eventregistration] select').on('change', this.onPriceChanged);
+      $('form[name=pixeloid_appbundle_eventregistration] input[type=checkbox]').on('change', this.onPriceChanged);
       $('#pixeloid_appbundle_eventregistration_reservation_accomodation').on('change', this.onAccomodationSelected).change()
 
       this.onPriceChanged();

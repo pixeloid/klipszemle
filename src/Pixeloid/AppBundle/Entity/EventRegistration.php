@@ -108,41 +108,102 @@ class EventRegistration
 	 * @ORM\Column(type="string", name="postal", length=10, unique=false, nullable=false)
 	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
 	 */
-    protected $postal = null;
+    private $postal = null;
 
     /**
 	 * @ORM\Column(type="string", name="regnumber", length=50, unique=false, nullable=true)
 	 */
-    protected $regnumber = null;
+    private $regnumber = null;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\UserBundle\Entity\User")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 	 */
-    protected $user;
+    private $user;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")
 	 * @ORM\JoinColumn(name="registrant_type_id", referencedColumnName="id")
 	 */
-    protected $registrantType;
+    private $registrantType;
 
     /**
-	 * @ORM\OneToOne(targetEntity="RoomReservation",mappedBy="eventRegistration", cascade={"persist"})
-	 */
-    protected $roomReservation;
+     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\RoomReservation", mappedBy="eventRegistration")
+     */
+    private $roomReservation;
+
 
     /**
-	 * @Recaptcha\True(groups={"flow_eventRegistration_step2"})
+     * @ORM\OneToMany(targetEntity="Pixeloid\AppBundle\Entity\DiningDate", mappedBy="eventRegistration")
+     */
+    private $diningDates;
+
+    /**
+	 * @Recaptcha\True(groups={"flow_eventRegistration_step4"})
 	 */
-    protected $recaptcha;
+    private $recaptcha;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Event")
 	 * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
 	 */
-    protected $eventId;
+    private $eventId;
 
+
+
+    public function getTotalCost()
+    {
+        $total = $this->getRoomReservation()->getRoom()->getPrice();
+        $total *= $this->getRoomReservation()->getPersons();
+        $numDays = $this->getRoomReservation()->getNumDays();
+        $total *= $numDays;
+
+
+        $diningtotal = 0;
+
+        foreach ($this->getDiningDates() as $diningdate) {
+            $diningtotal += $diningdate->getDining()->getPrice();
+        }
+
+
+        $total += $diningtotal;
+
+        return $total;
+
+    }
+
+
+    /**
+     * Gets the value of recaptcha.
+     *
+     * @return mixed
+     */
+    public function getRecaptcha()
+    {
+        return $this->recaptcha;
+    }
+
+    /**
+     * Sets the value of recaptcha.
+     *
+     * @param mixed $recaptcha the recaptcha
+     *
+     * @return self
+     */
+    protected function setRecaptcha($recaptcha)
+    {
+        $this->recaptcha = $recaptcha;
+
+        return $this;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->diningDates = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -500,6 +561,51 @@ class EventRegistration
     }
 
     /**
+     * Add diningReservations
+     *
+     * @param \Pixeloid\AppBundle\Entity\DiningReservation $diningReservations
+     * @return EventRegistration
+     */
+    public function addDiningReservation(\Pixeloid\AppBundle\Entity\DiningReservation $diningReservations)
+    {
+        $this->diningReservations[] = $diningReservations;
+
+        return $this;
+    }
+
+    /**
+     * Remove diningReservations
+     *
+     * @param \Pixeloid\AppBundle\Entity\DiningReservation $diningReservations
+     */
+    public function removeDiningReservation(\Pixeloid\AppBundle\Entity\DiningReservation $diningReservations)
+    {
+        $this->diningReservations->removeElement($diningReservations);
+    }
+
+    /**
+     * Get diningReservations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDiningReservations()
+    {
+        return $this->diningReservations;
+    }
+
+    /**
+     * Get diningReservations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function setDiningReservations(\Doctrine\Common\Collections\Collection $diningReservations = null)
+    {
+        $this->diningReservations = $diningReservations;
+    
+        return $this;
+    }
+
+    /**
      * Set eventId
      *
      * @param \Pixeloid\AppBundle\Entity\Event $eventId
@@ -522,28 +628,36 @@ class EventRegistration
         return $this->eventId;
     }
 
-    
     /**
-     * Gets the value of recaptcha.
+     * Add diningDates
      *
-     * @return mixed
+     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDates
+     * @return EventRegistration
      */
-    public function getRecaptcha()
+    public function addDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDates)
     {
-        return $this->recaptcha;
+        $this->diningDates[] = $diningDates;
+
+        return $this;
     }
 
     /**
-     * Sets the value of recaptcha.
+     * Remove diningDates
      *
-     * @param mixed $recaptcha the recaptcha
-     *
-     * @return self
+     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDates
      */
-    protected function setRecaptcha($recaptcha)
+    public function removeDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDates)
     {
-        $this->recaptcha = $recaptcha;
+        $this->diningDates->removeElement($diningDates);
+    }
 
-        return $this;
+    /**
+     * Get diningDates
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDiningDates()
+    {
+        return $this->diningDates;
     }
 }

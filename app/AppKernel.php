@@ -27,6 +27,8 @@ class AppKernel extends Kernel
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new TeamLab\Bundle\FixturesBundle\DoctrineDumpFixturesBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+
 
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),

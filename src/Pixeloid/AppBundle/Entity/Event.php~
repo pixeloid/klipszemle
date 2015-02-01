@@ -50,7 +50,7 @@ class Event {
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Room", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="Room", mappedBy="event")
      **/
     protected $rooms;
 
@@ -173,5 +173,38 @@ class Event {
     public function getRegistrantTypes()
     {
         return $this->registrantTypes;
+    }
+
+    /**
+     * Add rooms
+     *
+     * @param \Pixeloid\AppBundle\Entity\Room $rooms
+     * @return Event
+     */
+    public function addRoom(\Pixeloid\AppBundle\Entity\Room $rooms)
+    {
+        $this->rooms[] = $rooms;
+
+        return $this;
+    }
+
+    /**
+     * Remove rooms
+     *
+     * @param \Pixeloid\AppBundle\Entity\Room $rooms
+     */
+    public function removeRoom(\Pixeloid\AppBundle\Entity\Room $rooms)
+    {
+        $this->rooms->removeElement($rooms);
+    }
+
+    /**
+     * Get rooms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRooms()
+    {
+        return $this->rooms;
     }
 }
