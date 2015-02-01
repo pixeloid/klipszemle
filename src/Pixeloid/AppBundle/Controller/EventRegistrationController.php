@@ -85,7 +85,7 @@ class EventRegistrationController extends Controller
             }
 
         }else{
-            var_dump(($form->getErrorsAsString()));
+            // var_dump(($form->getErrorsAsString()));
         }
 
         $em = $this->getDoctrine()->getManager();
