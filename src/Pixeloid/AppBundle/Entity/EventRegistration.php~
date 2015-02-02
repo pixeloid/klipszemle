@@ -135,13 +135,19 @@ class EventRegistration
     
     /**
      * @ORM\Column(type="string", name="billingName", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
      */
     protected $billingName = null;
     
     /**
      * @ORM\Column(type="string", name="billingAddress", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
      */
     protected $billingAddress = null;
+    /**
+     * @ORM\Column(type="string", name="billingContactPerson", length=255, unique=false, nullable=true)
+     */
+    protected $billingContactPerson = null;
     
 
     /**
@@ -163,7 +169,7 @@ class EventRegistration
 
 
     /**
-	 * @Recaptcha\True(groups={"flow_eventRegistration_step4"})
+	 * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
 	 */
     private $recaptcha;
 
@@ -697,4 +703,119 @@ class EventRegistration
         return $this->diningReservation;
     }
 
+
+    /**
+     * Set paymentMethod
+     *
+     * @param integer $paymentMethod
+     * @return EventRegistration
+     */
+    public function setPaymentMethod($paymentMethod)
+    {
+        $this->paymentMethod = $paymentMethod;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentMethod
+     *
+     * @return integer 
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    /**
+     * Set invoiceType
+     *
+     * @param integer $invoiceType
+     * @return EventRegistration
+     */
+    public function setInvoiceType($invoiceType)
+    {
+        $this->invoiceType = $invoiceType;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceType
+     *
+     * @return integer 
+     */
+    public function getInvoiceType()
+    {
+        return $this->invoiceType;
+    }
+
+    /**
+     * Set billingName
+     *
+     * @param string $billingName
+     * @return EventRegistration
+     */
+    public function setBillingName($billingName)
+    {
+        $this->billingName = $billingName;
+
+        return $this;
+    }
+
+    /**
+     * Get billingName
+     *
+     * @return string 
+     */
+    public function getBillingName()
+    {
+        return $this->billingName;
+    }
+
+    /**
+     * Set billingAddress
+     *
+     * @param string $billingAddress
+     * @return EventRegistration
+     */
+    public function setBillingAddress($billingAddress)
+    {
+        $this->billingAddress = $billingAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get billingAddress
+     *
+     * @return string 
+     */
+    public function getBillingAddress()
+    {
+        return $this->billingAddress;
+    }
+
+    /**
+     * Set billingContactPerson
+     *
+     * @param string $billingContactPerson
+     * @return EventRegistration
+     */
+    public function setBillingContactPerson($billingContactPerson)
+    {
+        $this->billingContactPerson = $billingContactPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get billingContactPerson
+     *
+     * @return string 
+     */
+    public function getBillingContactPerson()
+    {
+        return $this->billingContactPerson;
+    }
 }

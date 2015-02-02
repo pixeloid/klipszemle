@@ -40,6 +40,12 @@ class RoomReservation
     private $checkOut = null;
 
     /**
+     * @ORM\Column(type="string", name="roommate", length=255, unique=false, nullable=true)
+     */
+    protected $roommate = null;
+    
+
+    /**
      * @ORM\OneToOne(targetEntity="EventRegistration", inversedBy="roomReservation")
      * @ORM\JoinColumn(name="event_registration_id", referencedColumnName="id")
      */

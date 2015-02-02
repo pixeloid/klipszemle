@@ -40,6 +40,12 @@ class RoomReservation
     private $checkOut = null;
 
     /**
+     * @ORM\Column(type="string", name="roommate", length=255, unique=false, nullable=true)
+     */
+    protected $roommate = null;
+    
+
+    /**
      * @ORM\OneToOne(targetEntity="EventRegistration", inversedBy="roomReservation")
      * @ORM\JoinColumn(name="event_registration_id", referencedColumnName="id")
      */
@@ -195,5 +201,28 @@ class RoomReservation
     public function getRoom()
     {
         return $this->room;
+    }
+
+    /**
+     * Set roommate
+     *
+     * @param string $roommate
+     * @return RoomReservation
+     */
+    public function setRoommate($roommate)
+    {
+        $this->roommate = $roommate;
+
+        return $this;
+    }
+
+    /**
+     * Get roommate
+     *
+     * @return string 
+     */
+    public function getRoommate()
+    {
+        return $this->roommate;
     }
 }

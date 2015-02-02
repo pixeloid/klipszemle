@@ -103,7 +103,7 @@
                 
                     <tr>
                         <td>{{room.getRoomType.getName}}</td>
-                        <td>{{room.getPrice|number_format(0,'', ' ')}} Ft / éjszaka</td>
+                        <td>{{room.getPrice|number_format(0,'', ' ')}} Ft / fő /éjszaka</td>
             <!--             <td class="text-center"><input type="checkbox" class="checkbox"></td>
                         <td><input type="checkbox" class="checkbox"></td>
              -->        <td><input type="radio" name="selectedroom" value="{{room.id}}"></td>    
@@ -126,7 +126,7 @@
                     <div class="bootstrap-date">
                         {{ form_row(form.roomReservation.checkOut) }}
                     </div>
-                    {{ form_row(form.roomReservation.persons) }}
+                    {{ form_row(form.roomReservation.roommate) }}
 
             </div>
 
@@ -193,6 +193,7 @@
         {{form_row(form.billingName)}}
         {{form_row(form.billingAddress)}}
 
+        {{form_row(form.billingContactPerson)}}
 
         {% elseif flow.getCurrentStepNumber() == 5 %}
 

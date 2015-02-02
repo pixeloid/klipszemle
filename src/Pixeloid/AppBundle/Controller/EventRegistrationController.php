@@ -85,7 +85,7 @@ class EventRegistrationController extends Controller
             }
 
         }else{
-             var_dump(($form->getErrorsAsString()));
+            // var_dump(($form->getErrorsAsString()));
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -103,7 +103,6 @@ class EventRegistrationController extends Controller
         ));
 
     }
-
     /**
      * Creates a form to create a EventRegistration entity.
      *

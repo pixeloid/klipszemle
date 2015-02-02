@@ -44,6 +44,22 @@ class Event {
 
 
     /**
+     * @ORM\Column(type="string", name="tagline", length=255, unique=false, nullable=true)
+     */
+    protected $tagline = null;
+    
+    /**
+     * @ORM\Column(type="string", name="location", length=255, unique=false, nullable=true)
+     */
+    protected $location = null;
+    
+    /**
+     * @ORM\Column(type="string", name="slug", length=20, unique=true, nullable=false)
+     */
+    protected $slug = null;
+    
+
+    /**
      * @ORM\ManyToMany(targetEntity="RegistrantType", mappedBy="events")
      **/
     protected $registrantTypes;
@@ -206,5 +222,74 @@ class Event {
     public function getRooms()
     {
         return $this->rooms;
+    }
+
+    /**
+     * Set tagline
+     *
+     * @param string $tagline
+     * @return Event
+     */
+    public function setTagline($tagline)
+    {
+        $this->tagline = $tagline;
+
+        return $this;
+    }
+
+    /**
+     * Get tagline
+     *
+     * @return string 
+     */
+    public function getTagline()
+    {
+        return $this->tagline;
+    }
+
+    /**
+     * Set location
+     *
+     * @param string $location
+     * @return Event
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return string 
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Event
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

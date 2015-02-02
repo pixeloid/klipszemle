@@ -144,6 +144,10 @@ class EventRegistration
      * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
      */
     protected $billingAddress = null;
+    /**
+     * @ORM\Column(type="string", name="billingContactPerson", length=255, unique=false, nullable=true)
+     */
+    protected $billingContactPerson = null;
     
 
     /**
@@ -790,5 +794,28 @@ class EventRegistration
     public function getBillingAddress()
     {
         return $this->billingAddress;
+    }
+
+    /**
+     * Set billingContactPerson
+     *
+     * @param string $billingContactPerson
+     * @return EventRegistration
+     */
+    public function setBillingContactPerson($billingContactPerson)
+    {
+        $this->billingContactPerson = $billingContactPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get billingContactPerson
+     *
+     * @return string 
+     */
+    public function getBillingContactPerson()
+    {
+        return $this->billingContactPerson;
     }
 }

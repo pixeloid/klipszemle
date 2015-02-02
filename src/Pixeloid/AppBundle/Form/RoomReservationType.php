@@ -16,23 +16,24 @@ class RoomReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('persons','choice', array(
-                'choices' => array(
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                    '5' => 5,
-                )
-                ))
+            // ->add('persons','choice', array(
+            //     'choices' => array(
+            //         '1' => 1,
+            //         '2' => 2,
+            //         '3' => 3,
+            //         '4' => 4,
+            //         '5' => 5,
+            //     )
+            //     ))
             ->add('checkIn', 'date', array(
                 'years' => array('2015'),
-                'data' => new \DateTime('2015-06-18')
+                'data' => new \DateTime('2015-05-23')
             ))
             ->add('checkOut', 'date', array(
                 'years' => array('2015'),
-                'data' => new \DateTime('2015-06-21')
+                'data' => new \DateTime('2015-05-24')
             ))
+            ->add('roommate')
             ->add('room', 'entity', array(
                 'class' => 'PixeloidAppBundle:Room',
                 'mapped' => true,

@@ -139,12 +139,14 @@ class EventRegistrationType extends AbstractType
                         'choices'   => array(
                             'elolegszamla' => 'Előleg számla', 
                             'elolegbekero' => 'Előlegbekérő', 
+                            'eloreutalas' => 'Előre utalás', 
                         ),
                         'expanded'  => true,
                         'data' => 'elolegszamla'
                     ))
                     ->add('billingName')
-                    ->add('billingAddress');
+                    ->add('billingAddress')
+                    ->add('billingContactPerson');
 
                 break;
             case 5:
