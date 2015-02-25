@@ -6,7 +6,18 @@ use Craue\FormFlowBundle\Form\FormFlow;
 use Craue\FormFlowBundle\Form\FormFlowInterface;
 use Symfony\Component\Form\FormTypeInterface;
 
-class EventRegistrationFlow extends FormFlow {
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Craue\FormFlowBundle\Form\FormFlowEvents;
+use Craue\FormFlowBundle\Event\GetStepsEvent;
+use Craue\FormFlowBundle\Event\PostBindFlowEvent;
+use Craue\FormFlowBundle\Event\PostBindRequestEvent;
+use Craue\FormFlowBundle\Event\PostBindSavedDataEvent;
+use Craue\FormFlowBundle\Event\PostValidateEvent;
+use Craue\FormFlowBundle\Event\PreBindEvent;
+
+
+class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface{
 
     /**
      * @var FormTypeInterface
@@ -36,7 +47,7 @@ class EventRegistrationFlow extends FormFlow {
                 'type' => $this->formType,
             ),
             array(
-                'label' => 'Fizetési feltételek',
+                'label' => 'Fizetési adatok',
                 'type' => $this->formType,
             ),
             array(
@@ -46,4 +57,48 @@ class EventRegistrationFlow extends FormFlow {
             ),
         );
     }
+
+    public function setEventDispatcher(EventDispatcherInterface $dispatcher) {
+        parent::setEventDispatcher($dispatcher);
+        $dispatcher->addSubscriber($this);
+    }
+
+    public static function getSubscribedEvents() {
+        return array(
+            FormFlowEvents::PRE_BIND => 'onPreBind',
+            FormFlowEvents::GET_STEPS => 'onGetSteps',
+            FormFlowEvents::POST_BIND_SAVED_DATA => 'onPostBindSavedData',
+            FormFlowEvents::POST_BIND_FLOW => 'onPostBindFlow',
+            FormFlowEvents::POST_BIND_REQUEST => 'onPostBindRequest',
+            FormFlowEvents::POST_VALIDATE => 'onPostValidate',
+        );
+    }
+
+    public function onPreBind(PreBindEvent $event) {
+        // ...
+
+
+        
+    }
+
+    public function onGetSteps(GetStepsEvent $event) {
+        // ...
+    }
+
+    public function onPostBindSavedData(PostBindSavedDataEvent $event) {
+        // ...
+    }
+
+    public function onPostBindFlow(PostBindFlowEvent $event) {
+        // ...
+    }
+
+    public function onPostBindRequest(PostBindRequestEvent $event) {
+        // ...
+    }
+
+    public function onPostValidate(PostValidateEvent $event) {
+    }
+
+
 }

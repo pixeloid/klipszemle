@@ -43,7 +43,7 @@ class Room
             
 
     /**
-     * @ORM\ManyToOne(targetEntity="Accomodation")
+     * @ORM\ManyToOne(targetEntity="Accomodation", inversedBy="rooms")
      * @ORM\JoinColumn(name="accomodation_id", referencedColumnName="id")
      */
     protected $accomodation;

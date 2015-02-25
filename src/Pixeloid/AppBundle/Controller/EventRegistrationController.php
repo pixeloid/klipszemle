@@ -339,7 +339,6 @@ class EventRegistrationController extends Controller
         $form = $flow->createForm();
         $form->handleRequest($request);
 
-
         return new JsonResponse(array(
             'nights' => $entity->getRoomReservation() ? $entity->getRoomReservation()->getNumDays() : 0,
             'accomodation' => $entity->getRoomReservation() ? $entity->getRoomReservation()->getTotalCost() : 0,

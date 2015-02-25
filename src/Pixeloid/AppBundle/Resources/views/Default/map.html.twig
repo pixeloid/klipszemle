@@ -2,11 +2,11 @@
 
 {% block body %}
 
-<h1><span>Map</span></h1>
+<h1><span>Térkép</span></h1>
    
    <div class="row page-map">
    		<div class="col-md-8">
-	   		<div id="map-canvas" style="width: 100%; height: 600px;"></div>
+	   		<div id="map-canvas" style="width: 100%; height: 450px;"></div>
 
 
 
@@ -39,7 +39,7 @@
 
  -->
    			<ul class="nav nav-pills nav-stacked">
-   			<li><h3>Accomodation</h3></li>
+   			<li><h3>Helyszínek</h3></li>
             {% for acc in accomodations %}
 
             <li><a href="#">{{acc.name}} <br><small>({{acc.address}})</small></a></li>

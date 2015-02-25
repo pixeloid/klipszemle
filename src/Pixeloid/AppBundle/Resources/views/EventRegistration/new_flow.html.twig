@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+
 {% block body -%}
 
 
@@ -14,7 +15,7 @@
 
         <hr>
 
-        {{ form_start(form, {attr: {'data-calculate-url': path('eventregistration_calculate') }}) }}
+        {{ form_start(form, {attr: {'data-calculate-url': path('eventregistration_calculate'), 'class': 'eventregistration-form' }}) }}
 
         {% if flow.getCurrentStepNumber() == 1 %}
         <div class="row">
@@ -91,30 +92,32 @@
             <div class="col-sm-8">
 
 
-                <table class="table table-condensed table-decorated">
+                <table class="table table-condensed table-decorated room-table">
 
                 {% for acc in accomodations %}
                 
                 <tr>
-                    <th colspan="2">{{acc.name}} ({{acc.address}})</th>
-                    <th><a href="#" class="btn btn-xs btn-info">Bővebb információ </a></th>
+                    <th>{{acc.name}} ({{acc.address}}) <a href="#" class="btn btn-xs btn-info pull-right">Bővebb információ </a></th>
                 </tr>
                 {% for room in acc.getRooms() %}
                 
-                    <tr>
-                        <td>{{room.getRoomType.getName}}</td>
-                        <td>{{room.getPrice|number_format(0,'', ' ')}} Ft / fő /éjszaka</td>
-            <!--             <td class="text-center"><input type="checkbox" class="checkbox"></td>
-                        <td><input type="checkbox" class="checkbox"></td>
-             -->        <td><input type="radio" name="selectedroom" value="{{room.id}}"></td>    
+                    <tr class="room" data-id="{{room.id}}">
+                        <td>{{room.getRoomType.getName}} 
+                            <span class="pull-right">
+                              {{room.getPrice|number_format(0,'', ' ')}} Ft / fő /éjszaka
+                            </span>
+                        </td>
                     </tr>
 
                 {% endfor %}
 
                 {% endfor %}
                 </table>
-
-                {{ form_row(form.roomReservation.room) }}
+                
+                <div class="hidden">
+                {{ form_widget(form.roomReservation.room) }}
+                {{ form_widget(form.roomReservation.persons) }}
+                </div>
 
 
             </div>
@@ -146,9 +149,9 @@
                                {% endif %}
                            {% endfor %}
                        {% endfor %}
-                       <table class="table">
+                       <table class="table table-decorated">
                            <tr>
-                               <th></th>
+                               <th>Étkezés</th>
             
                                {% for date in datesArray %}
                                    <th>{{ date }}</th>
@@ -160,9 +163,9 @@
                            {% for dining in form.diningReservation.diningDates.vars.choices %}
                                <tr>
                                    
-                                   <th>
+                                   <td>
                                     {{ dining|first.data.dining.diningType.name }}  
-                                    ({{dining|first.data.dining.price}},-Ft/fő/alkalom)</th>
+                                    ({{dining|first.data.dining.price}},-Ft/fő/alkalom)</td>
 
                                   {% for date in datesArray %}
                                       <td>
@@ -188,12 +191,50 @@
 
         {% elseif flow.getCurrentStepNumber() == 4 %}
 
-        {{form_row(form.paymentMethod)}}
-        {{form_row(form.invoiceType)}}
-        {{form_row(form.billingName)}}
-        {{form_row(form.billingAddress)}}
+        <div role="tabpanel" class="payment-method-tabs">
 
-        {{form_row(form.billingContactPerson)}}
+        {{form_row(form.paymentMethod)}}
+
+        {{form_row(form.billingNameTransfer)}}
+        {{form_row(form.billingAddressTransfer)}}
+
+          {{form_row(form.invoiceTypeSponsored)}}
+          {{form_row(form.billingContactPersonSponsored)}}
+          {{form_row(form.billingNameSponsored)}}
+          {{form_row(form.billingAddressSponsored)}}
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+                
+
+              <li role="presentation" class="active"><a href="#paymentmethod-{{form.paymentMethod.vars.choices.0.value}}" aria-controls="paymentmethod-{{form.paymentMethod.vars.choices.0.value}}" data-value="{{form.paymentMethod.vars.choices.0.value}}" role="tab" data-toggle="tab">{{(form.paymentMethod.vars.choices.0.label)}}</a></li>
+              <li role="presentation"><a href="#paymentmethod-{{form.paymentMethod.vars.choices.1.value}}" data-value="{{form.paymentMethod.vars.choices.1.value}}" aria-controls="paymentmethod-{{form.paymentMethod.vars.choices.1.value}}" role="tab" data-toggle="tab">{{form.paymentMethod.vars.choices.1.label}}</a></li>
+                
+
+
+          </ul>
+
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="paymentmethod-{{form.paymentMethod.vars.choices.0.value}}">
+
+            {{form_row(form.billingNameTransfer)}}
+            {{form_row(form.billingAddressTransfer)}}
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="paymentmethod-{{form.paymentMethod.vars.choices.1.value}}">
+              {{form_row(form.invoiceTypeSponsored)}}
+              {{form_row(form.billingContactPersonSponsored)}}
+              {{form_row(form.billingNameSponsored)}}
+              {{form_row(form.billingAddressSponsored)}}
+
+            </div>
+          </div>
+
+        </div>
+
+
 
         {% elseif flow.getCurrentStepNumber() == 5 %}
 
@@ -276,12 +317,14 @@
             Összesen fizetendő</b>
           </li>
         </ul>
-            
-        <p>Az árak az általános forgalmi adót tartalmazzák - regisztráció, étkezések: 27%, szállás:18%</p>
-        <p>A megrendelt szolgáltatásokról a Mis & Bos Kft. visszaigazolást küld. A szálláshelyeket a beérkezett foglalások sorrendjében tudjuk csak visszaigazolni.</p>
-        <p>
-        A részvételt, az étkezést és a szállás foglalást csak akkor tekintjük véglegesnek, ha a részvételi díj, az étkezés és szállás díja bankszámlánkra beérkezett.</p>
+<div class="small">
+      
+  <p>Az árak az általános forgalmi adót tartalmazzák - regisztráció, étkezések: 27%, szállás:18%</p>
+  <p>A megrendelt szolgáltatásokról a Mis & Bos Kft. visszaigazolást küld. A szálláshelyeket a beérkezett foglalások sorrendjében tudjuk csak visszaigazolni.</p>
+  <p>
+  A részvételt, az étkezést és a szállás foglalást csak akkor tekintjük véglegesnek, ha a részvételi díj, az étkezés és szállás díja bankszámlánkra beérkezett.</p>
 
+</div>
     </div>
 </div>
 

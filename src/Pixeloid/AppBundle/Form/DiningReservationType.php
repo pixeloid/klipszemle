@@ -36,7 +36,7 @@ class DiningReservationType extends AbstractType
 
                 }
             ))
-            ->add('special')
+            ->add('special', null, ['label' => 'form.label.specialdining'])
 
 
             ;
@@ -52,6 +52,7 @@ class DiningReservationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Pixeloid\AppBundle\Entity\DiningReservation',
+            'trans_domain' => 'form',
         ));
 
     }

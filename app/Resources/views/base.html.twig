@@ -10,7 +10,10 @@
   {% stylesheets  '@PixeloidAppBundle/Resources/public/fonts/font.css' filter='less, css_url_rewrite' output='css/fonts.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
   {% endstylesheets %}
-  {% stylesheets '@BraincraftedBootstrapBundle/Resources/less/form.less'  '@PixeloidAppBundle/Resources/public/less/styles.less' filter='less, css_url_rewrite' output='css/styles.css' %}
+  {% stylesheets 
+    '@BraincraftedBootstrapBundle/Resources/less/form.less'  
+    '@PixeloidAppBundle/Resources/public/less/styles.less' 
+    filter='less, css_url_rewrite' output='css/styles.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
   {% endstylesheets %}
 {% endblock %}
@@ -48,7 +51,7 @@
 
     </div>
 
-    <footer>
+<!--     <footer>
         <div class="footer-inner">
             <div class="container">
                 <div class="footer-content">
@@ -59,10 +62,10 @@
             </div>     
         </div>   
     </footer>
-
+ -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=places"></script>
 
-    {% javascripts  '@jquery' '@bootstrap_js' '@PixeloidAppBundle/Resources/public/js/*' %}
+    {% javascripts  '@jquery' '@bootstrap_js' '@PixeloidAppBundle/Resources/public/js/*' '@PixeloidAppBundle/Resources/public/lib/iCheck/icheck.min.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 

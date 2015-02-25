@@ -12290,6 +12290,22 @@ extend(ESPCR, {
 });
 
 
+extend(ESPCR, {
+
+  customFormElements:{
+  
+
+
+    init: function(){
+      $('input').iCheck({
+        checkboxClass: 'icheckbox_minimal-grey',
+        radioClass: 'iradio_minimal-grey',
+      });
+
+
+    }
+  }
+})
 
 
 extend(ESPCR, {
@@ -12321,8 +12337,14 @@ extend(ESPCR, {
 
       $('#mapModal').on('shown.bs.modal', this.onModalShown);
       $('form[name=pixeloid_appbundle_eventregistration] select').on('change', this.onPriceChanged);
-      $('form[name=pixeloid_appbundle_eventregistration] input[type=checkbox]').on('change', this.onPriceChanged);
-      $('#pixeloid_appbundle_eventregistration_reservation_accomodation').on('change', this.onAccomodationSelected).change()
+      $('form[name=pixeloid_appbundle_eventregistration] input[type=checkbox]').on('ifChanged', this.onPriceChanged);
+      $('#pixeloid_appbundle_eventregistration_reservation_accomodation').on('ifChanged', this.onAccomodationSelected).change()
+      $('input[name=selectedroom]').on('ifChanged', this.onRoomRadioChanged).trigger('ifChanged')
+      $('table.room-table tr.room').click(this.onRoomTableRowClicked)
+      $('.payment-method-tabs a[data-toggle="tab"]').on('shown.bs.tab', this.onPaymentTabShown)
+
+      var selectedRoomId = $('#pixeloid_appbundle_eventregistration_roomReservation_room').val();
+      $('table.room-table tr.room[data-id='+selectedRoomId+']').click()
 
       this.onPriceChanged();
 
@@ -12385,6 +12407,13 @@ extend(ESPCR, {
 
     },
 
+
+    onRoomTableRowClicked: function(){
+      $('#pixeloid_appbundle_eventregistration_roomReservation_room').val($(this).data('id')).change()
+      $('tr', $(this).closest('table')).removeClass('selected')
+      $(this).addClass('selected')
+    },
+
     onAccomodationSelected:function() {
 
       if($(this).val())
@@ -12392,6 +12421,11 @@ extend(ESPCR, {
       else
         $('.accomodation-selected').hide()
 
+    },
+
+    onPaymentTabShown: function(){
+      console.log($('input[name="pixeloid_appbundle_eventregistration[paymentMethod]"][value='+$(this).data('value')+']'))
+      $('input[name="pixeloid_appbundle_eventregistration[paymentMethod]"][value='+$(this).data('value')+']').prop('checked', true)
     },
 
     onPriceChanged: function(){
@@ -12438,7 +12472,9 @@ $(document).ready(function(){
 
   ESPCR.locationsMap.init();
   ESPCR.registrationForm.init();
-  ESPCR.gmapsAutocomplete.init()
+  ESPCR.gmapsAutocomplete.init();
+  ESPCR.customFormElements.init();
+
 
 
 });

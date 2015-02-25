@@ -1,8 +1,17 @@
 @import 'bootstrap';
-//@import "variables";
-//@import 'breadcrumbs';
+//@import '../bootswatch/readable/variables';
+//@import '../bootswatch/readable/bootswatch';
+@import "variables";
+@import 'breadcrumbs';
+@import 'icheck';
 
-/*
+
+body{
+}
+
+.container{
+}
+
 h1{
 	margin-bottom: 40px;
 	text-align: center;
@@ -16,16 +25,15 @@ h1{
 .table.table-decorated > tbody{
 	 tr{
 		> th{
-			background: @brand-primary;
-			color: #fff;
-			text-align: center;
+			background: #ddd;
+			text-align: left;
 			border: none;
 			font-weight: normal
 
 		}
 
 		> td{
-			text-align: center;
+			text-align: left;
 			vertical-align: middle;
 			&.name{
 			text-align: right;
@@ -36,12 +44,14 @@ h1{
 
 
 header{
-	background: @brand-primary url(../images/head_pattern.png);
-	color: #fff;
+	background: #fff;
+	.container{
+		background: transparent;
+	}
 	h2{
-		color: #fff;
 		.clearfix;
 		>b{
+
 			font-size: 86px;
 			line-height: 86px;
 			display: block;
@@ -54,23 +64,24 @@ header{
 			display: block;
 			font-size: 22px;
 			line-height: 32px;
+			color: #000;
 			@media (min-width: @screen-md) {
-				padding-left: 20px;
-				margin-left: 20px;
-				border-left: 1px solid #fff;
 			}
 
 			b{
+				font-family: Bemio;
 				display: block;
 				float: none;
 				font-size: 40px;
 				line-height: 45px;
 				font-weight: 700;
+				color: @brand-primary;
 			}
 		}
 	}
 
 	.date{
+		margin-top: 12px;
 		text-align: left;
 		@media (min-width: @screen-md) {
 			text-align: right;
@@ -85,31 +96,54 @@ header{
 }
 
 .homepage-menu{
-	background: @brand-primary;
-	font-family: 'United Sans';
-	padding: 15px 0;
-	li{
-		padding: 0 15px;
-		font-size: 1.4em;
-		a{
-			color: #fff;
-			border-bottom: 1px solid #fff;
-			&:hover{
-				background: darken(@brand-primary, 5%);
-			}
-		}
+	// background: @brand-primary;
+	// padding: 15px 0;
+	// li{
+	// 	padding: 0 15px;
+	// 	font-size: 1.4em;
+	// 	a{
+	// 		color: #fff;
+	// 		border-bottom: 1px solid #fff;
+	// 		&:hover{
+	// 			background: darken(@brand-primary, 5%);
+	// 		}
+	// 	}
 
-		&:last-child a{
-			border: none;
-		}
+	// 	&:last-child a{
+	// 		border: none;
+	// 	}
 
-	}
+	// }
 }
 .navbar-default .navbar-nav > li > a{
-	font-size: 22px;
-	font-weight: bold;
-	font-family: 'United Sans';
+	font-size: 20px;
 }
+
+
+.eventregistration-form{
+
+	.room-table{
+		tr.room{
+			cursor: pointer;
+			&:hover{
+				background: #f5f5f5;
+			}
+			&.selected{
+				background: @brand-primary;
+				color: #fff;
+			}
+
+			td{
+				text-align: left !important;
+			}
+		}
+	}
+
+	.help-block{
+		font-size: 14px;
+	}
+}
+
 
 .page-information{
 	section{
@@ -118,11 +152,9 @@ header{
 
 		h3{
 			.make-md-column(4);
-			font-family: 'United Sans Cond';
 			margin-top: 2em;
 			color: @brand-primary;
 			font-size: 24px;
-			font-weight: bold;
 			text-align: center;
 			@media (min-width: @screen-md) {
 				text-align: right;
@@ -165,8 +197,5 @@ footer{
 	color: #ffffff;
 	margin-top: 80px;
 	.footer-inner{
-		background: url(../images/footer.png) no-repeat top center;
 	}
 }
-
-*/

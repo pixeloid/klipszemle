@@ -1,0 +1,20 @@
+form:
+  label:
+    registranttype:	Regisztráció tipusa
+    regnumber:		Pecsétszám
+    lastname:		Keresztnév
+    firstname:		Vezetéknév
+    title:			Cím
+    institution:	Intézmény
+    country:		Ország
+    city:			Város
+    address:		'Utca, házszám, emelet, ajtó'
+    postal:			Irányítószám
+    email:			E-mail cím
+    phone:			Telefonszám
+    fax:			Fax
+    checkin:		Érkezés
+    checkout:		Elutazás
+    roommate:		Szobatárs neve
+    roomtype:		Szoba tipusa
+    specialdining:	Speciális igény

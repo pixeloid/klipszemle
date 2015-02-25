@@ -128,27 +128,39 @@ class EventRegistration
     protected $paymentMethod = null;
     
     /**
-     * @ORM\Column(type="integer", name="invoicetype", unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     * @ORM\Column(type="integer", name="invoiceType_sponsored", unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
      */
-    protected $invoiceType = null;
+    protected $invoiceTypeSponsored = null;
     
     /**
-     * @ORM\Column(type="string", name="billingName", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     * @ORM\Column(type="string", name="billingName_sponsored", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
      */
-    protected $billingName = null;
+    protected $billingNameSponsored = null;
     
     /**
-     * @ORM\Column(type="string", name="billingAddress", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     * @ORM\Column(type="string", name="billingAddress_sponsored", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodSponsored","flow_eventRegistration_step4"})
      */
-    protected $billingAddress = null;
+    protected $billingAddressSponsored = null;
     /**
-     * @ORM\Column(type="string", name="billingContactPerson", length=255, unique=false, nullable=true)
+     * @ORM\Column(type="string", name="billingContactPerson_sponsored", length=255, unique=false, nullable=true)
      */
-    protected $billingContactPerson = null;
+    protected $billingContactPersonSponsored = null;
     
+
+    /**
+     * @ORM\Column(type="string", name="billingName_transfer", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodTransfer"})
+     */
+    protected $billingNameTransfer = null;
+    
+    /**
+     * @ORM\Column(type="string", name="billingAddress_transfer", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodTransfer", "flow_eventRegistration_step4"})
+     */
+    protected $billingAddressTransfer = null;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")
@@ -817,5 +829,143 @@ class EventRegistration
     public function getBillingContactPerson()
     {
         return $this->billingContactPerson;
+    }
+
+    /**
+     * Set invoiceTypeSponsored
+     *
+     * @param integer $invoiceTypeSponsored
+     * @return EventRegistration
+     */
+    public function setInvoiceTypeSponsored($invoiceTypeSponsored)
+    {
+        $this->invoiceTypeSponsored = $invoiceTypeSponsored;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceTypeSponsored
+     *
+     * @return integer 
+     */
+    public function getInvoiceTypeSponsored()
+    {
+        return $this->invoiceTypeSponsored;
+    }
+
+    /**
+     * Set billingNameSponsored
+     *
+     * @param string $billingNameSponsored
+     * @return EventRegistration
+     */
+    public function setBillingNameSponsored($billingNameSponsored)
+    {
+        $this->billingNameSponsored = $billingNameSponsored;
+
+        return $this;
+    }
+
+    /**
+     * Get billingNameSponsored
+     *
+     * @return string 
+     */
+    public function getBillingNameSponsored()
+    {
+        return $this->billingNameSponsored;
+    }
+
+    /**
+     * Set billingAddressSponsored
+     *
+     * @param string $billingAddressSponsored
+     * @return EventRegistration
+     */
+    public function setBillingAddressSponsored($billingAddressSponsored)
+    {
+        $this->billingAddressSponsored = $billingAddressSponsored;
+
+        return $this;
+    }
+
+    /**
+     * Get billingAddressSponsored
+     *
+     * @return string 
+     */
+    public function getBillingAddressSponsored()
+    {
+        return $this->billingAddressSponsored;
+    }
+
+    /**
+     * Set billingContactPersonSponsored
+     *
+     * @param string $billingContactPersonSponsored
+     * @return EventRegistration
+     */
+    public function setBillingContactPersonSponsored($billingContactPersonSponsored)
+    {
+        $this->billingContactPersonSponsored = $billingContactPersonSponsored;
+
+        return $this;
+    }
+
+    /**
+     * Get billingContactPersonSponsored
+     *
+     * @return string 
+     */
+    public function getBillingContactPersonSponsored()
+    {
+        return $this->billingContactPersonSponsored;
+    }
+
+    /**
+     * Set billingNameTransfer
+     *
+     * @param string $billingNameTransfer
+     * @return EventRegistration
+     */
+    public function setBillingNameTransfer($billingNameTransfer)
+    {
+        $this->billingNameTransfer = $billingNameTransfer;
+
+        return $this;
+    }
+
+    /**
+     * Get billingNameTransfer
+     *
+     * @return string 
+     */
+    public function getBillingNameTransfer()
+    {
+        return $this->billingNameTransfer;
+    }
+
+    /**
+     * Set billingAddressTransfer
+     *
+     * @param string $billingAddressTransfer
+     * @return EventRegistration
+     */
+    public function setBillingAddressTransfer($billingAddressTransfer)
+    {
+        $this->billingAddressTransfer = $billingAddressTransfer;
+
+        return $this;
+    }
+
+    /**
+     * Get billingAddressTransfer
+     *
+     * @return string 
+     */
+    public function getBillingAddressTransfer()
+    {
+        return $this->billingAddressTransfer;
     }
 }

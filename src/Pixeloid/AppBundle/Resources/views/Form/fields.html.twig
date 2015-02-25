@@ -1,7 +1,5 @@
 {% block room_widget %}
     {% spaceless %}
-
-    {{dump(form)}}
             {% for child in form %}
                     {{ form_row(child) }}
             {% endfor %}

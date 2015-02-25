@@ -128,27 +128,39 @@ class EventRegistration
     protected $paymentMethod = null;
     
     /**
-     * @ORM\Column(type="integer", name="invoicetype", unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     * @ORM\Column(type="integer", name="invoiceType_sponsored", unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
      */
-    protected $invoiceType = null;
+    protected $invoiceTypeSponsored = null;
     
     /**
-     * @ORM\Column(type="string", name="billingName", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     * @ORM\Column(type="string", name="billingName_sponsored", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
      */
-    protected $billingName = null;
+    protected $billingNameSponsored = null;
     
     /**
-     * @ORM\Column(type="string", name="billingAddress", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
+     * @ORM\Column(type="string", name="billingAddress_sponsored", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
      */
-    protected $billingAddress = null;
+    protected $billingAddressSponsored = null;
     /**
-     * @ORM\Column(type="string", name="billingContactPerson", length=255, unique=false, nullable=true)
+     * @ORM\Column(type="string", name="billingContactPerson_sponsored", length=255, unique=false, nullable=true)
      */
-    protected $billingContactPerson = null;
+    protected $billingContactPersonSponsored = null;
     
+
+    /**
+     * @ORM\Column(type="string", name="billingName_transfer", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodTransfer"})
+     */
+    protected $billingNameTransfer = null;
+    
+    /**
+     * @ORM\Column(type="string", name="billingAddress_transfer", length=255, unique=false, nullable=true)
+     * @Assert\NotBlank(groups={"paymentMethodTransfer"})
+     */
+    protected $billingAddressTransfer = null;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")

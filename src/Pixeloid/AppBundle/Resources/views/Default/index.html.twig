@@ -2,23 +2,33 @@
 
 {% block body %}
 	
-	<div class="text-center">
-	<h1><span>Welcome!</span></h1>
-	<p><b>European Society of Paediatric Clinical Research (ES-PCR)</b> is the traditional meeting of young researchers and their professors from different fields of pediatrics. On behalf of the Hungarian Conference Organizing Committee, we cordially invite you to the 24th Scientific Meeting of European Society of Paediatric Clinical Research (ES-PCR), which is organized by the <b>1st Dept of Pediatrics, Semmelweis University.</b></p>
-	</div>
-
-	<hr />
-
 	<div class="row">
 		<div class="col-md-8">
-		{% image '@PixeloidAppBundle/Resources/public/images/EOK_kulso_este_slide.jpg'
-		    filter='' output='/images/EOK_kulso_este_slide.jpg' %}
-		    <img src="{{ asset_url }}" class="img-responsive" width="900" alt="EOK"/>
-		{% endimage %}
+			<h1><span>Kedves Kollégák!</span></h1>
+			<p>Ezúton tisztelettel meghívjuk Önöket Kecskemétre, a Magyar Gyermekaneszteziológia és Intenzív Terápiás Társaság 2015. április 24-25-én rendezendő tudományos ülésére.</p>
+
+		<p>A programot igyekeztünk úgy összeállítani, hogy hasznos legyen a gyermekaneszteziológiát és intenzív terápiát mindennap végző kollégák számára, ugyanakkor szeretnénk egy áttekintő képet nyújtani azon kollégák számára is, akiknek mindennapi munkájához szorosan nem tartozik hozzá egy gyermek altatása/érzéstelenítése, illetve a súlyos állapotú gyermek ellátása.</p>
+
+		<p>A hagyományoktól eltérően külön szekciót szervezünk a szakdolgozók számára, illetve a tudományos ülés keretében workshopot tervezünk az egyre inkább térhódító UH vezérelt technikák (CV kanülálás, regionális anesztézia) megismertetése céljából.</p>
+
+		<p>A kerekasztal beszélgetés keretében pedig a meghívott vendégekkel mindnyájunkat feszítő kérdésekre szeretnék választ találni.</p>
+
+		<p>Reméljük, a mellékelt tervezett programot nem csak a társaságunk tagjai találják hasznosnak, hanem a csecsemő-és gyermekgyógyász, aneszteziológus, illetve a sürgősségi betegellátásban dolgozó kollégák is. 
+		</p>
 
 		</div>
 		<div class="col-md-4">
-			{{ knp_menu_render('PixeloidAppBundle:Builder:homepageMenu', {'currentClass': 'active', 'currentAsLink': true}) }}
+		{% image '@PixeloidAppBundle/Resources/public/images/kecskemet_fourpoints.jpg'
+		    filter='' %}
+		    <img src="{{ asset_url }}" class="img-responsive" width="900" alt="EOK"/>
+		{% endimage %}
+<hr>
+		{% image '@PixeloidAppBundle/Resources/public/images/kecskemet_fourpoints2.jpg'
+		    filter='' %}
+		    <img src="{{ asset_url }}" class="img-responsive" width="900" alt="EOK"/>
+		{% endimage %}
+<hr>
+			<!-- {{ knp_menu_render('PixeloidAppBundle:Builder:homepageMenu', {'currentClass': 'active', 'currentAsLink': true}) }} -->
 		</div>
 	</div>
 

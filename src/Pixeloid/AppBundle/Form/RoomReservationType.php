@@ -16,29 +16,27 @@ class RoomReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('persons','choice', array(
-            //     'choices' => array(
-            //         '1' => 1,
-            //         '2' => 2,
-            //         '3' => 3,
-            //         '4' => 4,
-            //         '5' => 5,
-            //     )
-            //     ))
+            ->add('persons','hidden', array(
+                'data' => 1
+                ))
             ->add('checkIn', 'date', array(
                 'years' => array('2015'),
-                'data' => new \DateTime('2015-05-23')
+                'data' => new \DateTime('2015-05-23'),
+                'label' => 'form.label.checkin'
             ))
             ->add('checkOut', 'date', array(
                 'years' => array('2015'),
-                'data' => new \DateTime('2015-05-24')
+                'data' => new \DateTime('2015-05-24'),
+                'label' => 'form.label.checkout'
+
             ))
-            ->add('roommate')
+            ->add('roommate', null, ['label' => 'form.label.roommate'])
             ->add('room', 'entity', array(
                 'class' => 'PixeloidAppBundle:Room',
                 'mapped' => true,
                 'property' => 'roomType.name',
                 'group_by' => 'accomodation.name',
+                'label' => 'form.label.roomtype',
                 'query_builder' => function(EntityRepository $er){
                     return $er->createQueryBuilder('r')
                         ->join('r.accomodation', 'a')
@@ -60,6 +58,7 @@ class RoomReservationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Pixeloid\AppBundle\Entity\RoomReservation',
+            'translation_domain'     => 'form'
         ));
     }
 
