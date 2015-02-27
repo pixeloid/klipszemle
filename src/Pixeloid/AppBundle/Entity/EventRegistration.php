@@ -129,7 +129,6 @@ class EventRegistration
     
     /**
      * @ORM\Column(type="integer", name="invoiceType_sponsored", unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
      */
     protected $invoiceTypeSponsored = null;
     
@@ -141,7 +140,7 @@ class EventRegistration
     
     /**
      * @ORM\Column(type="string", name="billingAddress_sponsored", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodSponsored","flow_eventRegistration_step4"})
+     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
      */
     protected $billingAddressSponsored = null;
     /**
@@ -158,7 +157,7 @@ class EventRegistration
     
     /**
      * @ORM\Column(type="string", name="billingAddress_transfer", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodTransfer", "flow_eventRegistration_step4"})
+     * @Assert\NotBlank(groups={"paymentMethodTransfer"})
      */
     protected $billingAddressTransfer = null;
 

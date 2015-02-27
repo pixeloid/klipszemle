@@ -170,18 +170,14 @@ class EventRegistrationType extends AbstractType
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    {   
+
         $resolver->setDefaults(array(
             'data_class' => 'Pixeloid\AppBundle\Entity\EventRegistration',
-            'translation_domain'     => 'form',
-            'validation_groups' => function(FormInterface $form) {
-                $data = $form->getData();
-
-                return array($data['type'], 'Default');
-            },
-
-
+            'translation_domain'     => 'form'
        ));
+
+
     }
 
 

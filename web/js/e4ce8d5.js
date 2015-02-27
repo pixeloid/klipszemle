@@ -12342,7 +12342,7 @@ extend(ESPCR, {
       $('input[name=selectedroom]').on('ifChanged', this.onRoomRadioChanged).trigger('ifChanged')
       $('table.room-table tr.room').click(this.onRoomTableRowClicked)
       $('.payment-method-tabs a[data-toggle="tab"]').on('shown.bs.tab', this.onPaymentTabShown)
-      $('input[name="pixeloid_appbundle_eventregistration[paymentMethod]"]').on('ifChanged', this.onPaymentMethodRadioChanged).trigger('ifChanged')
+      $('input[name="pixeloid_appbundle_eventregistration[paymentMethod]"]').on('ifChanged', this.onPaymentMethodRadioChanged)
       var selectedRoomId = $('#pixeloid_appbundle_eventregistration_roomReservation_room').val();
       $('table.room-table tr.room[data-id='+selectedRoomId+']').click()
 

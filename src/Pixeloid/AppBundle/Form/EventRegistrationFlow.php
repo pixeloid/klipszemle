@@ -5,6 +5,7 @@ namespace Pixeloid\AppBundle\Form;
 use Craue\FormFlowBundle\Form\FormFlow;
 use Craue\FormFlowBundle\Form\FormFlowInterface;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\FormInterface;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,6 +28,18 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
     public function setFormType(FormTypeInterface $formType) {
         $this->formType = $formType;
     }
+
+    public function getFormOptions($step, array $options = array()) {
+        $options = parent::getFormOptions($step, $options);
+
+        $options['cascade_validation'] = true;
+        $options['validation_groups'] = function(FormInterface $form) use ($step){
+            $data = $form->getData();
+            return array('paymentMethod' . ucfirst($data->getPaymentMethod()));
+        };
+        return $options;
+    }
+
 
     public function getName() {
         return 'eventRegistration';
