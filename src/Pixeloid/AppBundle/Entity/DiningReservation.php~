@@ -30,7 +30,7 @@ class DiningReservation
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="EventRegistration", inversedBy="diningReservation")
+     * @ORM\OneToOne(targetEntity="EventRegistration", inversedBy="diningReservation")
      * @ORM\JoinColumn(name="event_registration_id", referencedColumnName="id")
      */
     private $eventRegistration;

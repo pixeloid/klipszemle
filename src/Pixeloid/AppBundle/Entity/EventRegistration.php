@@ -178,12 +178,33 @@ class EventRegistration
      */
     private $diningReservation;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Pixeloid\AppBundle\Entity\ExtraProgram")
+     */
+    private $extraPrograms;
+
 
     /**
 	 * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
 	 */
     private $recaptcha;
 
+    /**
+     * @ORM\Column(type="boolean", name="extra1", nullable=true)
+     */
+    private $extra1;
+    /**
+     * @ORM\Column(type="boolean", name="extra2", nullable=true)
+     */
+    private $extra2;
+    /**
+     * @ORM\Column(type="boolean", name="extra3", nullable=true)
+     */
+    private $extra3;
+    /**
+     * @ORM\Column(type="boolean", name="extra4", nullable=true)
+     */
+    private $extra4;
     /**
 	 * @ORM\ManyToOne(targetEntity="Event")
 	 * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
@@ -966,5 +987,130 @@ class EventRegistration
     public function getBillingAddressTransfer()
     {
         return $this->billingAddressTransfer;
+    }
+
+    /**
+     * Add extraPrograms
+     *
+     * @param \Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms
+     * @return EventRegistration
+     */
+    public function addExtraProgram(\Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms)
+    {
+        $this->extraPrograms[] = $extraPrograms;
+
+        return $this;
+    }
+
+    /**
+     * Remove extraPrograms
+     *
+     * @param \Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms
+     */
+    public function removeExtraProgram(\Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms)
+    {
+        $this->extraPrograms->removeElement($extraPrograms);
+    }
+
+    /**
+     * Get extraPrograms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExtraPrograms()
+    {
+        return $this->extraPrograms;
+    }
+
+    /**
+     * Set extra1
+     *
+     * @param boolean $extra1
+     * @return EventRegistration
+     */
+    public function setExtra1($extra1)
+    {
+        $this->extra1 = $extra1;
+
+        return $this;
+    }
+
+    /**
+     * Get extra1
+     *
+     * @return boolean 
+     */
+    public function getExtra1()
+    {
+        return $this->extra1;
+    }
+
+    /**
+     * Set extra2
+     *
+     * @param boolean $extra2
+     * @return EventRegistration
+     */
+    public function setExtra2($extra2)
+    {
+        $this->extra2 = $extra2;
+
+        return $this;
+    }
+
+    /**
+     * Get extra2
+     *
+     * @return boolean 
+     */
+    public function getExtra2()
+    {
+        return $this->extra2;
+    }
+
+    /**
+     * Set extra3
+     *
+     * @param boolean $extra3
+     * @return EventRegistration
+     */
+    public function setExtra3($extra3)
+    {
+        $this->extra3 = $extra3;
+
+        return $this;
+    }
+
+    /**
+     * Get extra3
+     *
+     * @return boolean 
+     */
+    public function getExtra3()
+    {
+        return $this->extra3;
+    }
+
+    /**
+     * Set extra4
+     *
+     * @param boolean $extra4
+     * @return EventRegistration
+     */
+    public function setExtra4($extra4)
+    {
+        $this->extra4 = $extra4;
+
+        return $this;
+    }
+
+    /**
+     * Get extra4
+     *
+     * @return boolean 
+     */
+    public function getExtra4()
+    {
+        return $this->extra4;
     }
 }

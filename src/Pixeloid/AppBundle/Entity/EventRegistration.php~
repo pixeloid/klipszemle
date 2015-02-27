@@ -129,7 +129,6 @@ class EventRegistration
     
     /**
      * @ORM\Column(type="integer", name="invoiceType_sponsored", unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
      */
     protected $invoiceTypeSponsored = null;
     
@@ -179,12 +178,33 @@ class EventRegistration
      */
     private $diningReservation;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Pixeloid\AppBundle\Entity\ExtraProgram")
+     */
+    private $extraPrograms;
+
 
     /**
 	 * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
 	 */
     private $recaptcha;
 
+    /**
+     * @ORM\Column(type="boolean", name="extra1", nullable=true)
+     */
+    private $extra1;
+    /**
+     * @ORM\Column(type="boolean", name="extra2", nullable=true)
+     */
+    private $extra2;
+    /**
+     * @ORM\Column(type="boolean", name="extra3", nullable=true)
+     */
+    private $extra3;
+    /**
+     * @ORM\Column(type="boolean", name="extra4", nullable=true)
+     */
+    private $extra4;
     /**
 	 * @ORM\ManyToOne(targetEntity="Event")
 	 * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
@@ -829,5 +849,176 @@ class EventRegistration
     public function getBillingContactPerson()
     {
         return $this->billingContactPerson;
+    }
+
+    /**
+     * Set invoiceTypeSponsored
+     *
+     * @param integer $invoiceTypeSponsored
+     * @return EventRegistration
+     */
+    public function setInvoiceTypeSponsored($invoiceTypeSponsored)
+    {
+        $this->invoiceTypeSponsored = $invoiceTypeSponsored;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceTypeSponsored
+     *
+     * @return integer 
+     */
+    public function getInvoiceTypeSponsored()
+    {
+        return $this->invoiceTypeSponsored;
+    }
+
+    /**
+     * Set billingNameSponsored
+     *
+     * @param string $billingNameSponsored
+     * @return EventRegistration
+     */
+    public function setBillingNameSponsored($billingNameSponsored)
+    {
+        $this->billingNameSponsored = $billingNameSponsored;
+
+        return $this;
+    }
+
+    /**
+     * Get billingNameSponsored
+     *
+     * @return string 
+     */
+    public function getBillingNameSponsored()
+    {
+        return $this->billingNameSponsored;
+    }
+
+    /**
+     * Set billingAddressSponsored
+     *
+     * @param string $billingAddressSponsored
+     * @return EventRegistration
+     */
+    public function setBillingAddressSponsored($billingAddressSponsored)
+    {
+        $this->billingAddressSponsored = $billingAddressSponsored;
+
+        return $this;
+    }
+
+    /**
+     * Get billingAddressSponsored
+     *
+     * @return string 
+     */
+    public function getBillingAddressSponsored()
+    {
+        return $this->billingAddressSponsored;
+    }
+
+    /**
+     * Set billingContactPersonSponsored
+     *
+     * @param string $billingContactPersonSponsored
+     * @return EventRegistration
+     */
+    public function setBillingContactPersonSponsored($billingContactPersonSponsored)
+    {
+        $this->billingContactPersonSponsored = $billingContactPersonSponsored;
+
+        return $this;
+    }
+
+    /**
+     * Get billingContactPersonSponsored
+     *
+     * @return string 
+     */
+    public function getBillingContactPersonSponsored()
+    {
+        return $this->billingContactPersonSponsored;
+    }
+
+    /**
+     * Set billingNameTransfer
+     *
+     * @param string $billingNameTransfer
+     * @return EventRegistration
+     */
+    public function setBillingNameTransfer($billingNameTransfer)
+    {
+        $this->billingNameTransfer = $billingNameTransfer;
+
+        return $this;
+    }
+
+    /**
+     * Get billingNameTransfer
+     *
+     * @return string 
+     */
+    public function getBillingNameTransfer()
+    {
+        return $this->billingNameTransfer;
+    }
+
+    /**
+     * Set billingAddressTransfer
+     *
+     * @param string $billingAddressTransfer
+     * @return EventRegistration
+     */
+    public function setBillingAddressTransfer($billingAddressTransfer)
+    {
+        $this->billingAddressTransfer = $billingAddressTransfer;
+
+        return $this;
+    }
+
+    /**
+     * Get billingAddressTransfer
+     *
+     * @return string 
+     */
+    public function getBillingAddressTransfer()
+    {
+        return $this->billingAddressTransfer;
+    }
+
+    /**
+     * Add extraPrograms
+     *
+     * @param \Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms
+     * @return EventRegistration
+     */
+    public function addExtraProgram(\Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms)
+    {
+        $this->extraPrograms[] = $extraPrograms;
+
+        return $this;
+    }
+
+    /**
+     * Remove extraPrograms
+     *
+     * @param \Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms
+     */
+    public function removeExtraProgram(\Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms)
+    {
+        $this->extraPrograms->removeElement($extraPrograms);
+    }
+
+    /**
+     * Get extraPrograms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExtraPrograms()
+    {
+        return $this->extraPrograms;
     }
 }

@@ -35,7 +35,7 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
         $options['cascade_validation'] = true;
         $options['validation_groups'] = function(FormInterface $form) use ($step){
             $data = $form->getData();
-            return array('paymentMethod' . ucfirst($data->getPaymentMethod()));
+            return array('paymentMethod' . ucfirst($data->getPaymentMethod()), 'flow_eventRegistration_step'.$step);
         };
         return $options;
     }

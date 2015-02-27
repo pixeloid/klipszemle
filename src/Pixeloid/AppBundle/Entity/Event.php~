@@ -63,6 +63,10 @@ class Event {
      * @ORM\ManyToMany(targetEntity="RegistrantType", mappedBy="events")
      **/
     protected $registrantTypes;
+    /**
+     * @ORM\OneToMany(targetEntity="ExtraProgram", mappedBy="events")
+     **/
+    protected $extraPrograms;
 
 
     /**
@@ -291,5 +295,38 @@ class Event {
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add extraPrograms
+     *
+     * @param \Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms
+     * @return Event
+     */
+    public function addExtraProgram(\Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms)
+    {
+        $this->extraPrograms[] = $extraPrograms;
+
+        return $this;
+    }
+
+    /**
+     * Remove extraPrograms
+     *
+     * @param \Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms
+     */
+    public function removeExtraProgram(\Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms)
+    {
+        $this->extraPrograms->removeElement($extraPrograms);
+    }
+
+    /**
+     * Get extraPrograms
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExtraPrograms()
+    {
+        return $this->extraPrograms;
     }
 }

@@ -64,7 +64,6 @@ class EventRegistrationType extends AbstractType
                         'preferred_choices' => array(1), //1 is item number
                         'multiple'  => false,
                         'expanded'  => true,
-                        'mapped' => false,
                         'data' => 1,
                         'label' => 'A továbbképző napon'
                     ))
@@ -77,7 +76,6 @@ class EventRegistrationType extends AbstractType
                         'preferred_choices' => array(1), //1 is item number
                         'multiple'  => false,
                         'expanded'  => true,
-                        'mapped' => false,
                         'data' => 1,
                         'label' => 'Mentő oktatópont workshopon'
                     ))
@@ -90,7 +88,6 @@ class EventRegistrationType extends AbstractType
                         'preferred_choices' => array(1), //1 is item number
                         'multiple'  => false,
                         'expanded'  => true,
-                        'mapped' => false,
                         'data' => 1,
                         'label' => 'UH oktatás workshopon'
                     ))
@@ -136,7 +133,8 @@ class EventRegistrationType extends AbstractType
                             'sponsored' => 'Szponzorált részvétel', 
                         ),
                         'expanded'  => true,
-                        'data' => 'transfer'
+                        'data' => 'transfer',
+                        'label' => 'form.label.paymentmethod'
                     ))
                     ->add('invoiceTypeSponsored', 'choice', array(
                         'choices'   => array(
@@ -144,13 +142,14 @@ class EventRegistrationType extends AbstractType
                             'elolegbekero' => 'Előlegbekérő', 
                         ),
                         'expanded'  => true,
-                        'data' => 'elolegszamla'
+                        'data' => 'elolegszamla',
+                        'label' => 'form.label.invoicetype'
                     ))
-                    ->add('billingNameSponsored')
-                    ->add('billingAddressSponsored')
-                    ->add('billingContactPersonSponsored')
-                    ->add('billingNameTransfer')
-                    ->add('billingAddressTransfer');
+                    ->add('billingNameSponsored', null, array('label' => 'form.label.billingnamesponsored'))
+                    ->add('billingAddressSponsored', null, array('label' => 'form.label.billingaddresssponsored'))
+                    ->add('billingContactPersonSponsored', null, array('label' => 'form.label.billingcontactpersonsponsored'))
+                    ->add('billingNameTransfer', null, array('label' => 'form.label.billingnametransfer'))
+                    ->add('billingAddressTransfer', null, array('label' => 'form.label.billingaddresstransfer'));
 
                 break;
             case 5:

@@ -1,0 +1,95 @@
+<h4>Személyes adatok:</h4>
+<div class="row">
+    <div class="col-sm-6">
+        <dl class="dl-horizontal">
+            <dt>Név: </dt>
+            <dd>{{ form.vars.data.firstname }} {{ form.vars.data.lastname }}</dd>
+            <dt>Pecsétszám: </dt>
+            <dd>{{ form.vars.data.regnumber }}</dd>
+            <dt>Munkahely: </dt>
+            <dd>{{ form.vars.data.institution }}</dd>
+            <dt>Levelezési cím: </dt>
+            <dd>{{ form.vars.data.postal }} {{ form.vars.data.city }}<br>{{ form.vars.data.address }}</dd>
+        </dl>
+    </div>
+    <div class="col-sm-6">
+        <dl class="dl-horizontal">
+            <dt>Telefonszám: </dt>
+            <dd>{{ form.vars.data.phone }}</dd>
+            <dt>Fax: </dt>
+            <dd>{{ form.vars.data.fax }}</dd>
+            <dt>Email: </dt>
+            <dd>{{ form.vars.data.email }}</dd>
+            <dt>Regisztráció tipusa:</dt>
+            <dd>{{ form.vars.data.getRegistrantType.getName }}</dd>
+            <dt>Regisztrációs díj: </dt>
+            <dd>{{ form.vars.data.getRegistrantType.getPriceBefore|number_format(0, ' ', ' ' ) }} Ft</dd>
+        </dl>
+    </div>
+</div>
+
+<h4>Regisztráció</h4>
+    
+
+    <div class="row">
+        <div class="col-sm-4">
+            <p>
+                <b>Továbbképző nap:</b>
+                    {% if form.vars.data.extra1 %}
+                        Rész veszek 
+                    {% else %}
+                        Nem veszek részt
+                    {% endif %}
+            </p>
+
+        </div>
+        <div class="col-sm-4">
+            <p>
+                <b>Mentő oktatópont workshop:</b>
+                    {% if form.vars.data.extra2 %}
+                        Rész veszek 
+                    {% else %}
+                        Nem veszek részt
+                    {% endif %}
+            </p>
+
+        </div>
+        <div class="col-sm-4">
+            <p>
+                <b>UH oktatás workshop:</b>
+                    {% if form.vars.data.extra3 %}
+                        Rész veszek 
+                    {% else %}
+                        Nem veszek részt
+                    {% endif %}
+            </p>
+
+        </div>
+    </div>
+    
+    <div class="row">
+
+     {% set datesArray = [] %}
+    
+    {{dump(form)}}
+     {% for date in form.vars.data.diningReservation.diningDates %}
+             {% if date.date not in datesArray %}
+              {% set datesArray = datesArray|merge([date.date])  %}
+             {% endif %}
+     {% endfor %}
+     <table class="table table-decorated">
+         {% for date in form.vars.data.diningReservation.diningDates %}
+             <tr>
+                 
+                
+                  <td> {{ date.date }}  </td>
+                   <td>{{ date.dining.diningType.name }}  </td>
+                  <td> {{date.dining.price|number_format(0, ' ', ' ')}} Ft</td>
+
+            </tr>
+        {% endfor %}
+    
+    
+    </table>
+    </div>
+

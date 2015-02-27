@@ -18,3 +18,10 @@ form:
     roommate:		Szobatárs neve
     roomtype:		Szoba tipusa
     specialdining:	Speciális igény
+    paymentmethod:    Fizetési mód
+    invoicetype:    A teljesítés módja
+    billingnamesponsored: Költségvállaló neve
+    billingaddresssponsored: Költségvállaló címe
+    billingcontactpersonsponsored: Kapcsolattartó neve és elérhetősége
+    billingnametransfer: Számlázási név
+    billingaddresstransfer: Számlázási cím

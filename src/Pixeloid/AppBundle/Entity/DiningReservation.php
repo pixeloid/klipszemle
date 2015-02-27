@@ -30,14 +30,15 @@ class DiningReservation
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="EventRegistration", inversedBy="diningReservation")
+     * @ORM\OneToOne(targetEntity="EventRegistration", inversedBy="diningReservation")
      * @ORM\JoinColumn(name="event_registration_id", referencedColumnName="id")
      */
     private $eventRegistration;
             
     /**
      * @ORM\ManyToMany(targetEntity="Pixeloid\AppBundle\Entity\DiningDate", mappedBy="diningReservations")
-     */
+     * @ORM\OrderBy({"id" = "DESC"})
+    */
     private $diningDates;
 
             
