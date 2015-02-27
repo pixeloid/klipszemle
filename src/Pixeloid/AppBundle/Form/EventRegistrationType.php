@@ -49,7 +49,7 @@ class EventRegistrationType extends AbstractType
                         'required'  => true,
                     ))
                     ->add('institution', null, array('label' => 'form.label.institution'))
-                    ->add('country', 'country', array('label' => 'form.label.country'))
+                    ->add('country', 'country', array('label' => 'form.label.country', 'data' => 'HU'))
                     ->add('city', null, array('label' => 'form.label.city'))
                     ->add('address', null, array('label' => 'form.label.address'))
                     ->add('phone', null, array('label' => 'form.label.phone'))

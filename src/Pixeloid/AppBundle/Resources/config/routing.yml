@@ -34,6 +34,11 @@ pixeloid_app_programme:
     defaults: { _controller: PixeloidAppBundle:Default:programme }
 
 
+pixeloid_app_important:
+    path:     /important
+    defaults: { _controller: PixeloidAppBundle:Default:important }
+
+
 pixeloid_app_abstract_submission:
     path:     /abstract-submission/{step}
     defaults: { _controller: PixeloidAppBundle:Default:abstractSubmission, step: '1' }

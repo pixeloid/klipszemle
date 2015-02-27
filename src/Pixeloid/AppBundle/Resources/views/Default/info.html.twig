@@ -20,7 +20,7 @@ Heim Pál Gyermekkórház főigazgatója<br>
 <section>
 <h3>Tudományos Bizottság:</h3> 
 <div class="details">
-	<ul class="list">
+	<ul class="list-unstyled">
 <li>		Hauser Balázs</li>
 <li>Hirsch Tibor</li>
 <li>Katona Márta</li>
@@ -33,109 +33,49 @@ Heim Pál Gyermekkórház főigazgatója<br>
 	</ul>
 </div>
 </section>
-<!-- 
+
 <section>
-	<h3>Conference bureau:</h3>
+	<h3>Szervező bizottság</h3>
+	
 	<div class="details">
-		<b>Mis & Bos Ltd. -  Veres Emese, Szabó Bernadett</b></br>
-		Phone: +36 1 999 0780 <br>	
-		<a href="mailto:espcr@misandbos.hu">espcr@misandbos.hu</a> <br>	
-		<a href="http://www.misandbos.hu" target="_blank">www.misandbos.hu</a>
+		<ul class="list-unstyled">
+			<li>Kiss Gabriella</li>
+			<li>Szentirmai Réka</li>
+			<li>Márai Katalin</li>
+			<li>Koncz Ilona</li>
+			<li>Ivády Balázs</li>
+			<li>Schnur János</li>
+
+		</ul>
+	</div>
+
+
+</section>
+<section>
+	<h3>Szakmai információ</h3>
+	
+	<div class="details">
+		<p>Szentirmai Réka – <a href="mailto:szentirmai.reka@hotmail.com">szentirmai.reka@hotmail.com</a></p>
 	</div>
 
 
 </section>
 
 <section>
-<h3>Social event: <br>
-<small>(for all participants, please, indicate your presence on the registration form)</small></h3>
-<div class="details"><b>Nu – Bor és Bisztronómia </b><br>
-(H-1062 Budapet, Teréz krt. 55.) June, 19, 2015, 6.30 pm. </div>
-</section> -->
-<section>
-<h3>Szállás:</h3>
-<div class="details">
-<!-- <p>	 Accommodation with reduced prices for the meeting is possible in one of the below-mentioned hotels, located in the immediate vicinity of the conference venue. Please indicate you will be attending “ESPCR meeting 2014”. 
-</p>
- -->
-{% for acc in accomodations %}
+	<h3>Kongresszusi iroda:</h3>
+	<div class="details">
+		<p><b>Mis & Bos Kft. – Szabó Bernadett</b></br>
+		1149 Budapest, Pillangó park 7. fszt. 1-2.</p>
+		<ul class="list-unstyled">
+			<li>Tel.: +36 1 999 0780</li>
+			<li>Fax: +36 1 700 1597</li>
+			<li><a href="mailto:info@misandbos.hu">info@misandbos.hu</a></li>
+			<li><a href="http://www.misandbos.hu" target="_blank">www.misandbos.hu</a></li>
+		</ul>
+	</div>
 
-<table class="table table-condensed table-decorated">
-	<tr>
-		<th class="">{{acc.name}} <br> ({{acc.address}})</th>
-		<th>Ft / éj / fő</th>
-	</tr>
-		
-		{% for room in acc.getRooms() %}
-		    <tr>
-		    	<td>
-		    		{{room.getRoomType.getName}}
-		    	</td>
-		    	<td>
-		    		{{room.getPrice}}
-		    	</td>
-		    </tr>
-
-		{% endfor %}
-
-</table>
-
-{% endfor %}
-
-
-
-</div>
 
 </section>
-<!-- <section>
-<h3>Electricity</h3>
-<div class="details">The electricity is 230 V, 50 Hz. Japanese, UK, USA and other visitors: please note that in Hungary Continental European German-style CEE7/4 sockets ("Schuko sockets") are used, which also accepts CEE7/16 "Europlugs".</div>
-
-</section>
-<section>
-<h3>Foreign exchange, banking facilities</h3>
-<div class="details">The official national Hungarian currency is the Hungarian Forint (HUF). All the major credit cards are accepted in Hungary in places displaying the emblem at the entrance. Though Hungary is a member of the European Union, only a few shops and restaurants accept Euros (EUR) for payment (1 EUR 315 HUF). Currency exchange booths are available in Budapest at the airport terminals, railway stations, travel agencies, banks and various places in the city. The exchange rates applied may vary.</div>
-</section>
-<section>
-<h3>Liability and insurance</h3>
-<div class="details">The organizers cannot accept liability for any personal accidents, loss of belongings or damage to private property of participants and accompanying persons that may occur during the Congress. Participants are advised to make their own arrangements to obtain health, travel and property insurance before their departure to the 23rd Semmelweis Symposium 2014.</div>
-</section>
-<section>
-<h3>Taxis in Budapest</h3>
-<div class="details">Budapest taxis have yellow number plates and a taxi sign in yellow. Any vehicle without these features is operating illegally. It's a good idea to avoid drivers who volunteer their services but don't have a registered taxi sticker on their car. This can prevent unpleasant surprises when it comes time to pay. All cars must have a taximeter installed, and these also print out a receipt. Taxi drivers are required to give an invoice on request. Tipping: in general 10% of the fare is acceptable. The total charge that has to be paid by the passenger is made up of three separate parts: the basic charge, which is irrespective of how far the journey is, presently HUF 450 during day and night, a per kilometre charge which depends on how many kilometres are covered during the journey HUF 280/km, and the waiting charge which is HUF 70/min. </div>
-</section>
-<section>
-<h3>Telephone</h3>
-<div class="details">The international code for Hungary is 36, the area code for Budapest is 1. To call a number within Hungary, first dial 06. Budapest telephone numbers have seven digits, all other areas have six digits (in addition to the area codes). To make an international call from Hungary, first dial 00, then the country code followed by the area code and the subscriber's telephone number. Public telephones accept either coins (20, 50, and 100 HUF) or phone cards (available from tobacconists, newsagents, post offices, and petrol stations). To call a (Hungarian) mobile phone, from a public telephone first dial 06, followed by the subscriber's seven-digit number starting with 20-, 30- or 70-.</div>
-</section>
-<section>
-<h3>Important phone numbers <br>	
-<small>(English is usually spoken at the emergency numbers listed below. In case English is not spoken, dial 112)</small></h3>
-<div class="details">
-	<dl class="_dl-horizontal">
-		<dt>Ambulance:</dt><dd> 104 </dd>
-		<dt>Fire brigade:</dt><dd> 105</dd>
-		 <dt>Police:</dt><dd> 107 </dd>
-		<dt>Central help number:</dt><dd> 112</dd>
-		 <dt>Inland enquiries: </dt><dd>1188</dd>
-		 <dt>International enquiries:</dt><dd> 199</dd>
-		 <dt>Hungarian Automobile Club help number: </dt><dd>188</dd>
-	</dl>
-</div>
-</section>
-<section>
-<h3>Time</h3>
-<div class="details">Hungary is in the Central European Time Zone. In the winter months clocks are set at GMT + 1 hours.</div>
-</section>
-<section>
-<h3>Weather</h3>
-<div class="details">Check the weather forecast for Budapest at <a href="http://weather.yahoo.com">weather.yahoo.com</a>, or at <a href="http://weather.com">weather.com</a>. For other regions of Hungary check <a href="http://weatherinhungary.com">weatherinhungary.com</a>.   
-</div>
-
-</section>
-
- -->
-
 </div>
 
 {% endblock %}

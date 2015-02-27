@@ -93,5 +93,9 @@ class DefaultController extends Controller
     {
         return $this->render('PixeloidAppBundle:Default:programme.html.twig');
     }
+    public function importantAction()
+    {
+        return $this->render('PixeloidAppBundle:Default:important.html.twig');
+    }
 
 }

@@ -41,6 +41,7 @@ class Builder extends ContainerAware
         $menu->addChild('Általános információ', array('route' => 'pixeloid_app_info', 'routeParameters' => array()));
         $menu->addChild('Regisztráció a rendezvényre', array('route' => 'eventregistration_new', 'routeParameters' => array()));
         $menu->addChild('A rendezvény programja', array('route' => 'pixeloid_app_programme', 'routeParameters' => array()));
+        $menu->addChild('Fontos dátumok', array('route' => 'pixeloid_app_important', 'routeParameters' => array(), 'class' => 'inverse'));
      //   $menu->addChild('Abstract submission', array('route' => 'presentation_new', 'routeParameters' => array('step' => 1)));
 
         // $securityContext = $this->container->get('security.context');
