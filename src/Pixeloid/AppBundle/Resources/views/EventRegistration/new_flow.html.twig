@@ -247,10 +247,13 @@
             {% include 'PixeloidAppBundle:EventRegistration:registration_check.html.twig' %}
 
             <div class="row">
-                <div class="col-sm-4">
-                    {{ form_row(form.recaptcha) }}
-                </div>
                 <div class="col-sm-8">
+                </div>
+                <div class="col-sm-4">
+                <div class="pull-right">
+                {{ form_widget(form.recaptcha) }}
+                {{ form_errors(form.recaptcha) }}
+                </div>
                 </div>
             </div>     
         {% endif %}

@@ -30,7 +30,7 @@ class RoomReservationType extends AbstractType
                 'label' => 'form.label.checkout'
 
             ))
-            ->add('roommate', null, ['label' => 'form.label.roommate'])
+            ->add('roommate', null, array('label' => 'form.label.roommate'))
             ->add('room', 'entity', array(
                 'class' => 'PixeloidAppBundle:Room',
                 'mapped' => true,

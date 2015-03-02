@@ -169,7 +169,7 @@ class EventRegistration
     private $registrantType;
 
     /**
-     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\RoomReservation", mappedBy="eventRegistration")
+     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\RoomReservation", mappedBy="eventRegistration", cascade={"persist"})
      */
     private $roomReservation;
 

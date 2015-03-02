@@ -92,12 +92,14 @@ class EventRegistrationController extends Controller
 
 
         $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
+        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(2);
 
 
         return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'flow'   => $flow,
+            'accomodations' => $accomodations,
             'event' => $event
         ));
 
