@@ -216,7 +216,7 @@ class EventRegistration
     public function getTotalCost()
     {
         $total = 0;
-        $total += $this->getRegistrantType()->getPriceBefore();
+        $total += $this->getRegistrantType() ? $this->getRegistrantType()->getPriceBefore() : 0;
         $total += $this->getRoomReservation() ? $this->getRoomReservation()->getTotalCost() : 0;
         $total += $this->getDiningReservation() ? $this->getDiningReservation()->getTotalCost() : 0;
 

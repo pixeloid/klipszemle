@@ -64,7 +64,11 @@ class Event {
      **/
     protected $registrantTypes;
     /**
-     * @ORM\OneToMany(targetEntity="ExtraProgram", mappedBy="events")
+     * @ORM\OneToMany(targetEntity="Dining", mappedBy="event")
+     **/
+    protected $dinings;
+    /**
+     * @ORM\OneToMany(targetEntity="ExtraProgram", mappedBy="event")
      **/
     protected $extraPrograms;
 
@@ -81,6 +85,7 @@ class Event {
     public function __construct()
     {
         $this->registrantTypes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dinigs = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -328,5 +333,38 @@ class Event {
     public function getExtraPrograms()
     {
         return $this->extraPrograms;
+    }
+
+    /**
+     * Add dinings
+     *
+     * @param \Pixeloid\AppBundle\Entity\Dining $dinings
+     * @return Event
+     */
+    public function addDining(\Pixeloid\AppBundle\Entity\Dining $dinings)
+    {
+        $this->dinings[] = $dinings;
+
+        return $this;
+    }
+
+    /**
+     * Remove dinings
+     *
+     * @param \Pixeloid\AppBundle\Entity\Dining $dinings
+     */
+    public function removeDining(\Pixeloid\AppBundle\Entity\Dining $dinings)
+    {
+        $this->dinings->removeElement($dinings);
+    }
+
+    /**
+     * Get dinings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDinings()
+    {
+        return $this->dinings;
     }
 }

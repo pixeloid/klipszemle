@@ -91,15 +91,14 @@ class EventRegistrationController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(2);
-
+        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
 
 
         return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'flow'   => $flow,
-            'accomodations' => $accomodations
+            'event' => $event
         ));
 
     }
@@ -343,7 +342,7 @@ class EventRegistrationController extends Controller
             'nights' => $entity->getRoomReservation() ? $entity->getRoomReservation()->getNumDays() : 0,
             'accomodation' => $entity->getRoomReservation() ? $entity->getRoomReservation()->getTotalCost() : 0,
             'dining' =>  $entity->getDiningReservation() ? $entity->getDiningReservation()->getTotalCost() : 0,
-            'registration' => (int) $entity->getRegistrantType()->getPriceBefore(),
+            'registration' => $entity->getRegistrantType() ? $entity->getRegistrantType()->getPriceBefore() : 0,
             'total' => (int) $entity->getTotalCost(),
         ));
     }

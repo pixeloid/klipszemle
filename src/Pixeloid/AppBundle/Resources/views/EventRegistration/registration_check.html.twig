@@ -27,8 +27,8 @@
         </dl>
     </div>
 </div>
-
-<h4>Regisztráció</h4>
+<hr>
+<h4>Kiegészítő események</h4>
     
 
     <div class="row">
@@ -36,9 +36,9 @@
             <p>
                 <b>Továbbképző nap:</b>
                     {% if form.vars.data.extra1 %}
-                        Rész veszek 
+                        <span class="glyphicon glyphicon-ok text-success"></span> 
                     {% else %}
-                        Nem veszek részt
+                        <span class="glyphicon glyphicon-remove text-danger"></span> 
                     {% endif %}
             </p>
 
@@ -47,9 +47,9 @@
             <p>
                 <b>Mentő oktatópont workshop:</b>
                     {% if form.vars.data.extra2 %}
-                        Rész veszek 
+                        <span class="glyphicon glyphicon-ok text-success"></span> 
                     {% else %}
-                        Nem veszek részt
+                        <span class="glyphicon glyphicon-remove text-danger"></span> 
                     {% endif %}
             </p>
 
@@ -58,38 +58,73 @@
             <p>
                 <b>UH oktatás workshop:</b>
                     {% if form.vars.data.extra3 %}
-                        Rész veszek 
+                        <span class="glyphicon glyphicon-ok text-success"></span> 
                     {% else %}
-                        Nem veszek részt
+                        <span class="glyphicon glyphicon-remove text-danger"></span> 
                     {% endif %}
             </p>
 
         </div>
     </div>
-    
-    <div class="row">
+    <hr>
+
+    <h4>Étkezés</h4>
 
      {% set datesArray = [] %}
     
-    {{dump(form)}}
-     {% for date in form.vars.data.diningReservation.diningDates %}
-             {% if date.date not in datesArray %}
-              {% set datesArray = datesArray|merge([date.date])  %}
-             {% endif %}
-     {% endfor %}
+    {% for dining in event.getDinings %}
+        {% for date in dining.diningDates %}
+                {% if date.date not in datesArray %}
+                 {% set datesArray = datesArray|merge([date.date])  %}
+                {% endif %}
+        {% endfor %}
+
+
+    {% endfor %}
+    {% set datesArray = datesArray|sort %}
+
+
      <table class="table table-decorated">
-         {% for date in form.vars.data.diningReservation.diningDates %}
+        
+        <tr>
+            <th></th>
+            {% for date in datesArray %}
+                <th>{{date}}</th>
+            {% endfor %}
+        </tr>
+
+         {% for dining in event.getDinings %}
              <tr>
                  
                 
-                  <td> {{ date.date }}  </td>
-                   <td>{{ date.dining.diningType.name }}  </td>
-                  <td> {{date.dining.price|number_format(0, ' ', ' ')}} Ft</td>
+                  <td> {{ dining.diningType.name }} ({{dining.price|number_format(0, ' ', ' ')}} Ft / fő)</td>
+
+                  {% for date in datesArray %}
+                      <td class="text-center">
+                          {% for diningDate in form.vars.data.getDiningReservation.getDiningDates %}
+                                {% if diningDate.date == date and diningDate.getDining == dining %} <span class="glyphicon glyphicon-ok text-success"></span>  {% endif %}
+                          {% endfor %}
+                      </td>
+                  {% endfor %}
+
 
             </tr>
         {% endfor %}
     
     
     </table>
-    </div>
 
+    {% if form.vars.data.getDiningReservation.getSpecial %}
+    <p>Speciális igény: {{form.vars.data.getDiningReservation.getSpecial}}</p>
+    {% endif %}
+<hr>
+    <h4>Szállás</h4>
+
+    {{form.vars.data.getRoomReservation.getRoom.getAccomodation.getName}}
+    {{form.vars.data.getRoomReservation.getRoom.getRoomType.getName}}
+    {{form.vars.data.getRoomReservation.getRoom.getPrice|number_format(0, ' ', ' ')}} Ft / fő / éj
+
+        <div class="row">
+
+    </div>
+    

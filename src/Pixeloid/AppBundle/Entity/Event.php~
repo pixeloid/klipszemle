@@ -64,6 +64,10 @@ class Event {
      **/
     protected $registrantTypes;
     /**
+     * @ORM\OneToMany(targetEntity="Dining", mappedBy="event")
+     **/
+    protected $dinings;
+    /**
      * @ORM\OneToMany(targetEntity="ExtraProgram", mappedBy="events")
      **/
     protected $extraPrograms;

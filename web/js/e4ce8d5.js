@@ -12319,6 +12319,11 @@ extend(ESPCR, {
 
       var input = $('.gmaps-autocomplete').get(0);
       var autocomplete = new google.maps.places.Autocomplete(input);
+      google.maps.event.addDomListener(input, 'keydown', function(e) { 
+        if (e.keyCode == 13) { 
+            e.preventDefault(); 
+        }
+      }); 
 
 
     }
@@ -12345,6 +12350,10 @@ extend(ESPCR, {
       $('input[name="pixeloid_appbundle_eventregistration[paymentMethod]"]').on('ifChanged', this.onPaymentMethodRadioChanged)
       var selectedRoomId = $('#pixeloid_appbundle_eventregistration_roomReservation_room').val();
       $('table.room-table tr.room[data-id='+selectedRoomId+']').click()
+
+
+      $("form[name=pixeloid_appbundle_eventregistration] input").keypress(this.onEnterHit);
+
 
       this.onPriceChanged();
 
@@ -12432,6 +12441,20 @@ extend(ESPCR, {
       $('.payment-method-tabs a[data-value="'+$(this).val()+'"]').tab('show')
     },
 
+    onEnterHit: function(event){
+            if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)) {
+
+            $(".btn-success").click();
+
+            return false;
+
+            } else {
+
+            return true;
+
+            }
+
+    },
     onPriceChanged: function(){
 
       var data = $('form[name=pixeloid_appbundle_eventregistration]').serializeArray();

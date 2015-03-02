@@ -32,7 +32,7 @@ class Dining
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Event")
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="dinings")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
      */
     protected $event;

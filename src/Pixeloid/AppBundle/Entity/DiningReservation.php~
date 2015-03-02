@@ -37,7 +37,8 @@ class DiningReservation
             
     /**
      * @ORM\ManyToMany(targetEntity="Pixeloid\AppBundle\Entity\DiningDate", mappedBy="diningReservations")
-     */
+     * @ORM\OrderBy({"id" = "DESC"})
+    */
     private $diningDates;
 
             

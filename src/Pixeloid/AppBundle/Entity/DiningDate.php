@@ -29,7 +29,7 @@ class DiningDate
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dining")
+     * @ORM\ManyToOne(targetEntity="Dining", inversedBy="diningDates")
      * @ORM\JoinColumn(name="dining_id", referencedColumnName="id")
      */
     protected $dining;
