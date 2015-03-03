@@ -5,6 +5,7 @@ namespace Pixeloid\AppBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 use Pixeloid\AppBundle\Entity\AccomodationReservation;
 use Pixeloid\AppBundle\Entity\EventRegistration;
@@ -41,6 +42,11 @@ class EventRegistrationController extends Controller
     public function createAction(Request $request)
     {
         $entity = new EventRegistration();
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
+        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(2);
+
 
         $flow = $this->createCreateForm($entity);
 
@@ -60,26 +66,53 @@ class EventRegistrationController extends Controller
                 $em = $this->getDoctrine()->getManager();
 
                 $user = $userManager->findUserByEmail($entity->getEmail());
+                $plainpass = null;
 
                 if (!$user) {
+                    $plainpass = $this->generatePassword();
                     $user = $userManager->createUser();
                     $user->setEmail($entity->getEmail());
                     $user->setUsername($entity->getEmail());
-                    $user->setPassword($this->generatePassword());
+                    $user->setPlainPassword($plainpass);
                 }
 
                 $entity->setUser($user);
                 $em->persist($user);
 
-                // if ($entity->getReservation()->getAccomodation()) {
-                //     $entity->getReservation()->setEventRegistration($entity);
-                // }else{
-                //     $entity->setReservation(null);
-                // }
+                $entity->setEvent($event);
+                $entity->getRoomReservation()->setEventRegistration($entity);
+                $entity->getDiningReservation()->setEventRegistration($entity);
 
+                foreach ($entity->getDiningReservation()->getDiningDates() as $date) {
+                   $date->addDiningReservation($entity->getDiningReservation());                    # code...
+                }
+                
                 $em->persist($entity);
                 $em->flush();
+
+
                 $flow->reset(); // remove step data from the session
+
+                $userManager = $this->get('fos_user.user_manager');
+
+                $user = $userManager->findUserByEmail($entity->getUser()->getEmail());
+                $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
+                $this->get("security.context")->setToken($token);
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Regisztráció visszaigazolás – Magyar Gyermekaneszteziológiai és Intenzív Terápiás Társaság 2015. évi Tudományos Ülése')
+                    ->setFrom('noreply@misandbos.hu')
+                    ->setTo(array($entity->getUser()->getEmail(), 'info@misandbos.hu', 'olah.gergely@pixeloid.hu'))
+                    ->setBody(
+                        $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
+                            'entity'      => $entity,
+                            'plainpass' => $plainpass,
+                        )), 'text/html'
+                    );
+
+                $this->get('mailer')->send($message);
+
+
 
                 return $this->redirect($this->generateUrl('eventregistration_success', array('id' => $entity->getId())));
             }
@@ -88,11 +121,8 @@ class EventRegistrationController extends Controller
             // var_dump(($form->getErrorsAsString()));
         }
 
-        $em = $this->getDoctrine()->getManager();
 
 
-        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(2);
 
 
         return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
@@ -182,6 +212,7 @@ class EventRegistrationController extends Controller
     public function registrationSuccessAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
 
         $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->find($id);
 
@@ -189,30 +220,14 @@ class EventRegistrationController extends Controller
             throw $this->createNotFoundException('Unable to find EventRegistration entity.');
         }
 
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Registration confirmation – European Society of Paediatric Clinical Research – 24th Meeting')
-            ->setFrom('noreply@misandbos.hu')
-            ->setTo(array('info@misandbos.hu', 'olah.gergely@pixeloid.hu'))
-            ->setBody(
-                $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
-                    'entity'      => $entity,
-                )), 'text/html'
-            );
-
-        $this->get('mailer')->send($message);
-
-
-        $userManager = $this->get('fos_user.user_manager');
-
-        $user = $userManager->findUserByEmail($entity->getUser()->getEmail());
-        $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
-        $this->get("security.context")->setToken($token);
-
-
-        return $this->render('PixeloidAppBundle:EventRegistration:success.html.twig', array(
-            'entity'      => $entity,
+        $page = $this->render('PixeloidAppBundle:EventRegistration:success.html.twig', array(
+            'reg'      => $entity,
+            'event'      => $event,
         ));
+
+
+        return $page;
+
     }
 
     /**

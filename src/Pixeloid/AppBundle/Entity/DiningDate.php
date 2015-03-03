@@ -35,7 +35,7 @@ class DiningDate
     protected $dining;
 
     /**
-     * @ORM\ManyToMany(targetEntity="DiningReservation", inversedBy="diningDates")
+     * @ORM\ManyToMany(targetEntity="DiningReservation", inversedBy="diningDates", cascade={"persist"})
      */
     private $diningReservations;
 

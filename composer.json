@@ -28,9 +28,11 @@
         "fkr/cssurlrewrite-bundle": "1.0.0",
         "hpatoio/deploy-bundle": "~1.5",
         "excelwebzone/recaptcha-bundle": "dev-master",
-        "craue/formflow-bundle": "~3.0@dev",
         "jupeter/doctrine-dump-fixtures-bundle": "dev-master",
-        "knplabs/knp-snappy-bundle": "dev-master"
+        "knplabs/knp-snappy-bundle": "dev-master",
+        "spraed/pdf-generator-bundle": "v1.0",
+        "ensepar/html2pdf-bundle" : "~2.0",
+        "craue/formflow-bundle": "~3.0@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

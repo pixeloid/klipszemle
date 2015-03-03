@@ -169,7 +169,7 @@ class EventRegistration
     private $registrantType;
 
     /**
-     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\RoomReservation", mappedBy="eventRegistration", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\RoomReservation", mappedBy="eventRegistration", cascade={"all"})
      */
     private $roomReservation;
 
@@ -185,7 +185,7 @@ class EventRegistration
 
 
     /**
-     * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
+     * @Recaptcha\True(groups={"flow_eventRegistration_step5_"})
      */
     private $recaptcha;
 
@@ -209,7 +209,7 @@ class EventRegistration
 	 * @ORM\ManyToOne(targetEntity="Event")
 	 * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
 	 */
-    private $eventId;
+    private $event;
 
 
 
@@ -1112,5 +1112,28 @@ class EventRegistration
     public function getExtra4()
     {
         return $this->extra4;
+    }
+
+    /**
+     * Set event
+     *
+     * @param \Pixeloid\AppBundle\Entity\Event $event
+     * @return EventRegistration
+     */
+    public function setEvent(\Pixeloid\AppBundle\Entity\Event $event = null)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * Get event
+     *
+     * @return \Pixeloid\AppBundle\Entity\Event 
+     */
+    public function getEvent()
+    {
+        return $this->event;
     }
 }

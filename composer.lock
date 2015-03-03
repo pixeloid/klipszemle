@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2f6bd3949f8f4769de38996ffd961c14",
+    "hash": "d5ed3daa4a82f790aa76d8ec626c8f3d",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -68,34 +68,41 @@
         },
         {
             "name": "craue/formflow-bundle",
-            "version": "2.1.6",
+            "version": "dev-master",
             "target-dir": "Craue/FormFlowBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/craue/CraueFormFlowBundle.git",
-                "reference": "1c408addc01d44425abc219dcddb723d6f7909bc"
+                "reference": "1b0920e2137e80ab1d2a2bd9d067ed4b8532dc6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/1c408addc01d44425abc219dcddb723d6f7909bc",
-                "reference": "1c408addc01d44425abc219dcddb723d6f7909bc",
+                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/1b0920e2137e80ab1d2a2bd9d067ed4b8532dc6b",
+                "reference": "1b0920e2137e80ab1d2a2bd9d067ed4b8532dc6b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/form": "~2.1",
-                "symfony/framework-bundle": "~2.1"
+                "symfony/form": "~2.3",
+                "symfony/http-kernel": "~2.3",
+                "symfony/translation": "~2.3",
+                "symfony/yaml": "~2.3"
             },
             "require-dev": {
                 "doctrine/common": "~2.3",
                 "phpunit/phpunit": "~4.1",
                 "sensio/framework-extra-bundle": "~2.1|~3.0",
-                "symfony/symfony": "~2.1"
+                "symfony/symfony": "~2.3"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
-                    "Craue\\FormFlowBundle": ""
+                    "Craue\\FormFlowBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -118,7 +125,7 @@
                 "Symfony2",
                 "form"
             ],
-            "time": "2015-02-02 10:58:58"
+            "time": "2015-03-02 12:48:52"
         },
         {
             "name": "doctrine/annotations",
@@ -1107,6 +1114,158 @@
                 "json"
             ],
             "time": "2014-11-08 10:51:34"
+        },
+        {
+            "name": "ensepar/html2pdf",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OwlyCode/html2pdf.git",
+                "reference": "b53a27430cc35b29bbe2faaa55ed4a7d5c156cd3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OwlyCode/html2pdf/zipball/b53a27430cc35b29bbe2faaa55ed4a7d5c156cd3",
+                "reference": "b53a27430cc35b29bbe2faaa55ed4a7d5c156cd3",
+                "shasum": ""
+            },
+            "require": {
+                "ensepar/tcpdf": "5.0.003",
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTML2PDF": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Spipu",
+                    "homepage": "http://sourceforge.net/users/spipu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "OwlyCode",
+                    "homepage": "http://www.github.com/OwlyCode",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Unofficial fork of 'html2pdf' with Composer support. (Fixed composer dependency problem)",
+            "homepage": "https://github.com/jwronsky/html2pdf",
+            "keywords": [
+                "html",
+                "html2pdf",
+                "pdf"
+            ],
+            "time": "2013-09-13 12:23:43"
+        },
+        {
+            "name": "ensepar/html2pdf-bundle",
+            "version": "v2.0.0",
+            "target-dir": "Ensepar/Html2pdfBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OwlyCode/EnseparHtml2pdfBundle.git",
+                "reference": "25666fa8349b55acb2f958f45eb96fd74f9f058b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OwlyCode/EnseparHtml2pdfBundle/zipball/25666fa8349b55acb2f958f45eb96fd74f9f058b",
+                "reference": "25666fa8349b55acb2f958f45eb96fd74f9f058b",
+                "shasum": ""
+            },
+            "require": {
+                "ensepar/html2pdf": "1.0.1",
+                "php": ">=5.3.2",
+                "symfony/symfony": ">=2.0"
+            },
+            "require-dev": {
+                "sensio/framework-extra-bundle": "~3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Ensepar\\Html2pdfBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tristan Maindron",
+                    "email": "tmaindron@gmail.com"
+                }
+            ],
+            "description": "Use HTML2PDF as a Symfony2 Service",
+            "homepage": "https://github.com/OwlyCode/EnseparHtml2pdfBundle",
+            "keywords": [
+                "TCPDF",
+                "html2pdf",
+                "pdf"
+            ],
+            "time": "2014-10-25 18:03:13"
+        },
+        {
+            "name": "ensepar/tcpdf",
+            "version": "5.0.003",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OwlyCode/tcpdf.git",
+                "reference": "ae578409e9454fdf6c794cce6f063b0c95bfa518"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OwlyCode/tcpdf/zipball/ae578409e9454fdf6c794cce6f063b0c95bfa518",
+                "reference": "ae578409e9454fdf6c794cce6f063b0c95bfa518",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "fonts",
+                    "config/lang",
+                    "config",
+                    "2dbarcodes.php",
+                    "barcodes.php",
+                    "htmlcolors.php",
+                    "qrcode.php",
+                    "tcpdf.php",
+                    "unicode_data.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "homepage": "http://nicolaasuni.tecnick.com"
+                },
+                {
+                    "name": "Tristan Maindron",
+                    "email": "tmaindron@gmail.com",
+                    "homepage": "http://www.github.com/OwlyCode"
+                }
+            ],
+            "description": "TCPDF is a PHP class for generating PDF documents.",
+            "homepage": "http://www.tcpdf.org/",
+            "keywords": [
+                "TCPDF",
+                "pdf"
+            ],
+            "time": "2013-09-12 17:00:40"
         },
         {
             "name": "excelwebzone/recaptcha-bundle",
@@ -2179,6 +2338,55 @@
             "time": "2015-01-26 16:25:19"
         },
         {
+            "name": "spraed/pdf-generator-bundle",
+            "version": "v1.0",
+            "target-dir": "Spraed/PDFGeneratorBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stedekay/SpraedPDFGeneratorBundle.git",
+                "reference": "2bd22e0b5c3b060a5fc3a664d275cac449976b6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stedekay/SpraedPDFGeneratorBundle/zipball/2bd22e0b5c3b060a5fc3a664d275cac449976b6f",
+                "reference": "2bd22e0b5c3b060a5fc3a664d275cac449976b6f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.0.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Spraed\\PDFGeneratorBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Spraed Team",
+                    "homepage": "http://spraed.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/stedekay/SpraedPDFGeneratorBundle/contributors"
+                }
+            ],
+            "description": "This bundle creates (multiple) PDFs in Symfony2 by converting Twig/HTML templates.",
+            "homepage": "https://github.com/stedekay/SpraedPDFGeneratorBundle",
+            "keywords": [
+                "bundle",
+                "generator",
+                "pdf",
+                "spraed"
+            ],
+            "time": "2013-09-23 15:58:21"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.3.1",
             "source": {
@@ -2745,9 +2953,11 @@
         "friendsofsymfony/user-bundle": 20,
         "excelwebzone/recaptcha-bundle": 20,
         "jupeter/doctrine-dump-fixtures-bundle": 20,
-        "knplabs/knp-snappy-bundle": 20
+        "knplabs/knp-snappy-bundle": 20,
+        "craue/formflow-bundle": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

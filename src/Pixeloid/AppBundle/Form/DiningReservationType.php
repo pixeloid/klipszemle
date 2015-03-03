@@ -36,7 +36,7 @@ class DiningReservationType extends AbstractType
 
                 }
             ))
-            ->add('special', null, ['label' => 'form.label.specialdining'])
+            ->add('special', null, array('label' => 'form.label.specialdining'))
 
 
             ;

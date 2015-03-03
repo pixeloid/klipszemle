@@ -28,7 +28,8 @@ class AppKernel extends Kernel
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new TeamLab\Bundle\FixturesBundle\DoctrineDumpFixturesBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-
+            new Spraed\PDFGeneratorBundle\SpraedPDFGeneratorBundle(),
+            new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
 
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),

@@ -29,13 +29,13 @@ class DiningDate
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Dining")
+     * @ORM\ManyToOne(targetEntity="Dining", inversedBy="diningDates")
      * @ORM\JoinColumn(name="dining_id", referencedColumnName="id")
      */
     protected $dining;
 
     /**
-     * @ORM\ManyToMany(targetEntity="DiningReservation", inversedBy="diningDates")
+     * @ORM\ManyToMany(targetEntity="DiningReservation", inversedBy="diningDates", cascade={"persist"})
      */
     private $diningReservations;
 

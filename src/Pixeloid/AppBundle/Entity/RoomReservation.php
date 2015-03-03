@@ -46,13 +46,12 @@ class RoomReservation
     
 
     /**
-     * @ORM\OneToOne(targetEntity="EventRegistration", inversedBy="roomReservation")
-     * @ORM\JoinColumn(name="event_registration_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="EventRegistration", inversedBy="roomReservation", cascade={"all"})
      */
     private $eventRegistration;
             
     /**
-     * @ORM\OneToOne(targetEntity="Room")
+     * @ORM\ManyToOne(targetEntity="Room")
      * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
      */
     private $room;
