@@ -19,8 +19,7 @@ class EventRegistrationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
+        
         switch ($options['flow_step']) {
             case 1:
                 $builder
@@ -155,7 +154,14 @@ class EventRegistrationType extends AbstractType
             case 5:
                 $builder
 
-                        ->add('recaptcha', 'ewz_recaptcha')
+                        ->add('recaptcha', 'ewz_recaptcha', array(
+                                'attr'        => array(
+                                    'options' => array(
+                                        'theme' => 'light',
+                                        'type'  => 'image'
+                                    )
+                                ),
+                        ));
                         ;
                 break;
         }

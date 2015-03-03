@@ -122,13 +122,13 @@ class EventRegistration
     private $user;
 
     /**
-     * @ORM\Column(type="integer", name="paymentmethod", unique=false, nullable=false)
+     * @ORM\Column(type="string", name="paymentmethod", unique=false, nullable=false)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
      */
     protected $paymentMethod = null;
     
     /**
-     * @ORM\Column(type="integer", name="invoiceType_sponsored", unique=false, nullable=true)
+     * @ORM\Column(type="string", name="invoiceType_sponsored", unique=false, nullable=true)
      */
     protected $invoiceTypeSponsored = null;
     
@@ -174,7 +174,7 @@ class EventRegistration
     private $roomReservation;
 
     /**
-     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\DiningReservation", mappedBy="eventRegistration")
+     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\DiningReservation", mappedBy="eventRegistration", cascade={"persist"})
      */
     private $diningReservation;
 
@@ -185,8 +185,8 @@ class EventRegistration
 
 
     /**
-	 * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
-	 */
+     * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
+     */
     private $recaptcha;
 
     /**

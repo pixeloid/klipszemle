@@ -18,16 +18,16 @@ class DefaultController extends Controller
         return $this->render('PixeloidAppBundle:Default:index.html.twig', array('name' => $event));
 
 
-        // $html = $this->renderView('PixeloidAppBundle:Default:index.html.twig', array('name' => $event));
+        $html = $this->renderView('PixeloidAppBundle:Default:index.html.twig', array('name' => $event));
 
-        // return new Response(
-        //     $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-        //     200,
-        //     array(
-        //         'Content-Type'          => 'application/pdf',
-        //         'Content-Disposition'   => 'attachment; filename="file.pdf"'
-        //     )
-        // );
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+            )
+        );
 
 
 

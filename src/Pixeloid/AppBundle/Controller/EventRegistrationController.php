@@ -113,7 +113,7 @@ class EventRegistrationController extends Controller
      */
     private function createCreateForm(EventRegistration $entity)
     {
-        // $em = $this->getDoctrine()->getManager();
+
 
         $flow = $this->get('pixeloid_app.flow.eventRegistration'); // must match the flow's service id
         $flow->bind($entity);
@@ -128,8 +128,6 @@ class EventRegistrationController extends Controller
         ));
 
 
-      //  $form->add('submit', 'submit', array('label' => 'Confirm registration'));
-
         return $flow;
     }
 
@@ -143,6 +141,7 @@ class EventRegistrationController extends Controller
         $flow = $this->createCreateForm($entity);
 
         $form = $flow->createForm();
+
 
         $em = $this->getDoctrine()->getManager();
 
