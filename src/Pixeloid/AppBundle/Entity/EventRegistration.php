@@ -169,6 +169,12 @@ class EventRegistration
     private $registrantType;
 
     /**
+     * @ORM\Column(type="date", name="created", nullable=false)
+     */
+    protected $created = null;
+    
+
+    /**
      * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\RoomReservation", mappedBy="eventRegistration", cascade={"all"})
      */
     private $roomReservation;
@@ -185,7 +191,7 @@ class EventRegistration
 
 
     /**
-     * @Recaptcha\True(groups={"flow_eventRegistration_step5_"})
+     * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
      */
     private $recaptcha;
 
@@ -1135,5 +1141,28 @@ class EventRegistration
     public function getEvent()
     {
         return $this->event;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return EventRegistration
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }

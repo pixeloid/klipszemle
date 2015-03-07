@@ -12302,6 +12302,8 @@ extend(ESPCR, {
         radioClass: 'iradio_minimal-grey',
       });
 
+      $('input, select').removeAttr('required');
+
 
     }
   }

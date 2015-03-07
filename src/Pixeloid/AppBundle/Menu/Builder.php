@@ -44,23 +44,23 @@ class Builder extends ContainerAware
         $menu->addChild('Fontos dátumok', array('route' => 'pixeloid_app_important', 'routeParameters' => array(), 'class' => 'inverse'));
      //   $menu->addChild('Abstract submission', array('route' => 'presentation_new', 'routeParameters' => array('step' => 1)));
 
-        // $securityContext = $this->container->get('security.context');
+        $securityContext = $this->container->get('security.context');
 
-        // if ($securityContext->isGranted('ROLE_USER')) {
-        //     // The current (may be switched) username.
-        //     $username = $securityContext->getToken()->getUser()->getUsername();
+        if ($securityContext->isGranted('ROLE_USER')) {
+            // The current (may be switched) username.
+            $username = $securityContext->getToken()->getUser()->getUsername();
 
-        //     // The actual user, if switched, retrieve the correct one.
-        //     $actualUser = $securityContext->getToken()->getUser();
+            // The actual user, if switched, retrieve the correct one.
+            $actualUser = $securityContext->getToken()->getUser();
 
-        //     $menu->addChild('Logout', array('route' => 'fos_user_security_logout'));
-        //     $menu->addChild('Profile', array('route' => 'fos_user_profile_show'));
-        // }
-        // else
-        // {
-        //     $menu->addChild('Login', array('route' => 'fos_user_security_login'));
+            $menu->addChild('Logout', array('route' => 'fos_user_security_logout'));
+            $menu->addChild('Profile', array('route' => 'fos_user_profile_show'));
+        }
+        else
+        {
+            $menu->addChild('Login', array('route' => 'fos_user_security_login'));
 
-        // }
+        }
 
         return $menu;
   }

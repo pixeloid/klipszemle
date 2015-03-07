@@ -80,6 +80,7 @@ class EventRegistrationController extends Controller
                 $em->persist($user);
 
                 $entity->setEvent($event);
+                $entity->setCreated(new \DateTime);
                 $entity->getRoomReservation()->setEventRegistration($entity);
                 $entity->getDiningReservation()->setEventRegistration($entity);
 
