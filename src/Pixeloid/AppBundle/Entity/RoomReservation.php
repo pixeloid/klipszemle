@@ -60,6 +60,11 @@ class RoomReservation
 
     public function getTotalCost()
     {   
+
+        if (!$this->getRoom()) {
+            return 0;
+        }
+
         $total = $this->getRoom()->getPrice();
         $total *= $this->getPersons();
 

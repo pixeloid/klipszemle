@@ -145,9 +145,9 @@ deploy:
     rsync-options: '-azC --force --delete --progress -h --checksum'
     host: virt1.acoline.hu
     dir: ./mgyaitt
-    user: sshvu2024
+    user: sshvu2023
     port: 2022
-    timeout: 120 # Connection timeout in seconds. 0 for no timeout.
+    timeout: 0 # Connection timeout in seconds. 0 for no timeout.
     post_deploy_operations: 
         - app/console cache:clear --env=prod
         - app/console assets:install --env=prod

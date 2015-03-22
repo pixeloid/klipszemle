@@ -26,10 +26,39 @@ class Builder extends ContainerAware
     $menu->setChildrenAttributes(array('class' => 'nav-stacked homepage-menu'));
     $menu = $this->buildChildren($menu);
     $menu->removeChild('Home');
-    $menu->removeChild('Login');
-    $menu->removeChild('Logout');
 
 
+    return $menu;
+
+  }
+
+  public function topMenu(FactoryInterface $factory, array $options){
+
+    $menu = $factory->createItem('root');
+    $menu->setChildrenAttributes(array('class' => 'nav navbar-nav'));
+
+
+    $securityContext = $this->container->get('security.context');
+
+    if ($securityContext->isGranted('ROLE_USER')) {
+        // The current (may be switched) username.
+        $username = $securityContext->getToken()->getUser()->getUsername();
+
+        // The actual user, if switched, retrieve the correct one.
+        $actualUser = $securityContext->getToken()->getUser();
+
+        $menu->addChild('Kilépés', array('route' => 'fos_user_security_logout'));
+        $menu->addChild('Fiókom', array('route' => 'fos_user_profile_show'));
+
+        if ($securityContext->isGranted('ROLE_ADMIN')) {
+          $menu->addChild('Regisztrációk listája', array('route' => 'eventregistration'));
+        }
+    }
+    else
+    {
+        $menu->addChild('Belépés', array('route' => 'fos_user_security_login'));
+
+    }
     return $menu;
 
   }
@@ -44,23 +73,7 @@ class Builder extends ContainerAware
         $menu->addChild('Fontos dátumok', array('route' => 'pixeloid_app_important', 'routeParameters' => array(), 'class' => 'inverse'));
      //   $menu->addChild('Abstract submission', array('route' => 'presentation_new', 'routeParameters' => array('step' => 1)));
 
-        $securityContext = $this->container->get('security.context');
 
-        if ($securityContext->isGranted('ROLE_USER')) {
-            // The current (may be switched) username.
-            $username = $securityContext->getToken()->getUser()->getUsername();
-
-            // The actual user, if switched, retrieve the correct one.
-            $actualUser = $securityContext->getToken()->getUser();
-
-            $menu->addChild('Logout', array('route' => 'fos_user_security_logout'));
-            $menu->addChild('Profile', array('route' => 'fos_user_profile_show'));
-        }
-        else
-        {
-            $menu->addChild('Login', array('route' => 'fos_user_security_login'));
-
-        }
 
         return $menu;
   }

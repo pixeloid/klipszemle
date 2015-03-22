@@ -117,13 +117,14 @@
     {% if form.vars.data.getDiningReservation.getSpecial %}
     <p>Speciális igény: {{form.vars.data.getDiningReservation.getSpecial}}</p>
     {% endif %}
+    {% if form.vars.data.getRoomReservation.getRoom %}
 <hr>
     <h4>Szállás</h4>
 
     {{form.vars.data.getRoomReservation.getRoom.getAccomodation.getName}}
     {{form.vars.data.getRoomReservation.getRoom.getRoomType.getName}}
     {{form.vars.data.getRoomReservation.getRoom.getPrice|number_format(0, ' ', ' ')}} Ft / fő / éj
-
+{% endif %}
         <div class="row">
 
     </div>

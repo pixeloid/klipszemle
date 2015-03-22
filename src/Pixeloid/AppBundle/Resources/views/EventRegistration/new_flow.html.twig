@@ -100,6 +100,12 @@
 
                 <table class="table table-condensed table-decorated room-table">
 
+                <tr class="room" data-id="">
+                    <td><span class="check glyphicon glyphicon-ok "></span> Nem kérek szállást
+                    </td>
+                </tr>
+
+
                 {% for acc in accomodations %}
                 
                 <tr>
@@ -108,7 +114,7 @@
                 {% for room in acc.getRooms() %}
                 
                     <tr class="room" data-id="{{room.id}}">
-                        <td>{{room.getRoomType.getName}} 
+                        <td><span class="check glyphicon glyphicon-ok "></span> {{room.getRoomType.getName}} 
                             <span class="pull-right">
                               {{room.getPrice|number_format(0,'', ' ')}} Ft / fő /éjszaka
                             </span>
@@ -120,7 +126,7 @@
                 {% endfor %}
                 </table>
                 
-                <div class="hidden">
+                <div class="">
                 {{ form_widget(form.roomReservation.room) }}
                 {{ form_widget(form.roomReservation.persons) }}
                 </div>

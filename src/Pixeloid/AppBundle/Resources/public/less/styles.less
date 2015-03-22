@@ -4,6 +4,7 @@
 @import "variables";
 @import 'breadcrumbs';
 @import 'icheck';
+@import 'print';
 
 
 body{
@@ -93,6 +94,11 @@ header{
 
 	}
 
+
+	.navbar-xs { min-height:22px; border-radius:0; padding: 10px 0; border-bottom: 1px solid #eee; .clearfix;} 
+	.navbar-xs .navbar-brand{ padding: 2px 4px;font-size: 12px;line-height: 14px; } 
+	.navbar-xs .navbar-nav > li > a {  padding-top: 2px; padding-bottom: 2px; line-height: 20px }
+
 }
 
 .homepage-menu{
@@ -165,12 +171,23 @@ header{
 	.room-table{
 		tr.room{
 			cursor: pointer;
+
+			.check{
+				visibility: hidden;
+				color: #fff;
+
+			}
+
 			&:hover{
 				background: #f5f5f5;
 			}
 			&.selected{
 				background: @brand-primary;
 				color: #fff;
+				.check{
+					visibility: visible;
+
+				}
 			}
 
 			td{
@@ -215,6 +232,14 @@ header{
 	}
 }
 
+.page-program{
+	table{
+		i{
+			display: block;
+			font-size: 0.9em;
+		}
+	}
+}
 
 .page-map{
 	.nav{

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use Pixeloid\AppBundle\Entity\AccomodationReservation;
 use Pixeloid\AppBundle\Entity\EventRegistration;
@@ -23,17 +24,16 @@ class EventRegistrationController extends Controller
 {
 
     /**
-     * Lists all EventRegistration entities.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
+        $registrations = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
 
         return $this->render('PixeloidAppBundle:EventRegistration:index.html.twig', array(
-            'entities' => $entities,
+            'registrations' => $registrations,
         ));
     }
     /**
@@ -76,9 +76,10 @@ class EventRegistrationController extends Controller
                     $user->setPlainPassword($plainpass);
                 }
 
-                $entity->setUser($user);
-                $em->persist($user);
+                $user->setEnabled(true);
+                $userManager->updateUser($user);
 
+                $entity->setUser($user);
                 $entity->setEvent($event);
                 $entity->setCreated(new \DateTime);
                 $entity->getRoomReservation()->setEventRegistration($entity);
@@ -135,32 +136,6 @@ class EventRegistrationController extends Controller
         ));
 
     }
-    /**
-     * Creates a form to create a EventRegistration entity.
-     *
-     * @param EventRegistration $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(EventRegistration $entity)
-    {
-
-
-        $flow = $this->get('pixeloid_app.flow.eventRegistration'); // must match the flow's service id
-        $flow->bind($entity);
-
-       // $reservation = new AccomodationReservation;
-     //   $entity->setReservation($reservation);
-
-
-        $flow->setGenericFormOptions(array(
-            'action' => $this->generateUrl('eventregistration_create'),
-            'method' => 'POST',
-        ));
-
-
-        return $flow;
-    }
 
     /**
      * Displays a form to create a new EventRegistration entity.
@@ -189,51 +164,39 @@ class EventRegistrationController extends Controller
     }
 
     /**
-     * Finds and displays a EventRegistration entity.
-     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $securityContext = $this->container->get('security.context');
+
+        $user = $securityContext->getToken()->getUser();
+
 
         $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->find($id);
 
-        if (!$entity) {
+        if (!$entity || $entity->getUser() !== $user && !$securityContext->isGranted('ROLE_ADMIN')) {
             throw $this->createNotFoundException('Unable to find EventRegistration entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PixeloidAppBundle:EventRegistration:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    public function registrationSuccessAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
-
-        $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find EventRegistration entity.');
-        }
-
-        $page = $this->render('PixeloidAppBundle:EventRegistration:success.html.twig', array(
-            'reg'      => $entity,
-            'event'      => $event,
+        $page = $this->render('PixeloidAppBundle:EventRegistration:show.html.twig', array(
+            'reg'      => $entity
         ));
 
 
         return $page;
+    }
+
+    public function registrationSuccessAction($id)
+    {
+     
+         return   $this->redirect('show');
 
     }
 
     /**
-     * Displays a form to edit an existing EventRegistration entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($id)
     {
@@ -255,27 +218,10 @@ class EventRegistrationController extends Controller
         ));
     }
 
-    /**
-    * Creates a form to edit a EventRegistration entity.
-    *
-    * @param EventRegistration $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(EventRegistration $entity)
-    {
-        $form = $this->createForm(new EventRegistrationType(), $entity, array(
-            'action' => $this->generateUrl('eventregistration_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
-        return $form;
-    }
     /**
-     * Edits an existing EventRegistration entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -303,9 +249,9 @@ class EventRegistrationController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
-     * Deletes a EventRegistration entity.
-     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -363,6 +309,53 @@ class EventRegistrationController extends Controller
             'total' => (int) $entity->getTotalCost(),
         ));
     }
+
+    /**
+    * Creates a form to edit a EventRegistration entity.
+    *
+    * @param EventRegistration $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(EventRegistration $entity)
+    {
+        $form = $this->createForm(new EventRegistrationType(), $entity, array(
+            'action' => $this->generateUrl('eventregistration_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a EventRegistration entity.
+     *
+     * @param EventRegistration $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(EventRegistration $entity)
+    {
+
+
+        $flow = $this->get('pixeloid_app.flow.eventRegistration'); // must match the flow's service id
+        $flow->bind($entity);
+
+       // $reservation = new AccomodationReservation;
+     //   $entity->setReservation($reservation);
+
+
+        $flow->setGenericFormOptions(array(
+            'action' => $this->generateUrl('eventregistration_create'),
+            'method' => 'POST',
+        ));
+
+
+        return $flow;
+    }
+
 
 
     private function generatePassword($length = 8) {

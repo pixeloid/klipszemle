@@ -43,8 +43,7 @@ class EventRegistration
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="title", type="string", length=10)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+	 * @ORM\Column(name="title", type="string", length=10, nullable=true)
 	 */
     private $title;
 
@@ -116,7 +115,7 @@ class EventRegistration
     private $regnumber = null;
 
     /**
-	 * @ORM\ManyToOne(targetEntity="Pixeloid\UserBundle\Entity\User")
+	 * @ORM\ManyToOne(targetEntity="Pixeloid\UserBundle\Entity\User", inversedBy="eventRegistrations")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 	 */
     private $user;

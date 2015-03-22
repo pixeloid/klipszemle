@@ -6771,6 +6771,38 @@ header .date {
     display: block;
   }
 }
+header .navbar-xs {
+  min-height: 22px;
+  border-radius: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+header .navbar-xs:before,
+header .navbar-xs:after {
+  content: " ";
+  display: table;
+}
+header .navbar-xs:after {
+  clear: both;
+}
+header .navbar-xs:before,
+header .navbar-xs:after {
+  content: " ";
+  display: table;
+}
+header .navbar-xs:after {
+  clear: both;
+}
+header .navbar-xs .navbar-brand {
+  padding: 2px 4px;
+  font-size: 12px;
+  line-height: 14px;
+}
+header .navbar-xs .navbar-nav > li > a {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  line-height: 20px;
+}
 .navbar-default .navbar-nav > li > a {
   font-size: 20px;
 }
@@ -6814,12 +6846,19 @@ header .date {
 .eventregistration-form .room-table tr.room {
   cursor: pointer;
 }
+.eventregistration-form .room-table tr.room .check {
+  visibility: hidden;
+  color: #fff;
+}
 .eventregistration-form .room-table tr.room:hover {
   background: #f5f5f5;
 }
 .eventregistration-form .room-table tr.room.selected {
   background: #ec4f11;
   color: #fff;
+}
+.eventregistration-form .room-table tr.room.selected .check {
+  visibility: visible;
 }
 .eventregistration-form .room-table tr.room td {
   text-align: left !important;
@@ -6871,6 +6910,10 @@ header .date {
   .page-information section .details {
     text-align: left;
   }
+}
+.page-program table i {
+  display: block;
+  font-size: 0.9em;
 }
 .page-map .nav {
   margin-bottom: 20px;

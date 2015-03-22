@@ -34,6 +34,7 @@ class RoomReservationType extends AbstractType
             ->add('room', 'entity', array(
                 'class' => 'PixeloidAppBundle:Room',
                 'mapped' => true,
+                'empty_data'  => null,
                 'property' => 'roomType.name',
                 'group_by' => 'accomodation.name',
                 'label' => 'form.label.roomtype',

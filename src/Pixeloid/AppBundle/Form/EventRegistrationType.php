@@ -45,7 +45,9 @@ class EventRegistrationType extends AbstractType
                             'dr.' => 'dr.'
                         ),
                         'label' => 'form.label.title',
-                        'required'  => true,
+                        'required'  => false,
+                        'empty_data'  => null
+
                     ))
                     ->add('institution', null, array('label' => 'form.label.institution'))
                     ->add('country', 'country', array('label' => 'form.label.country', 'data' => 'HU'))
