@@ -140,7 +140,7 @@ extend(ESPCR, {
 
       $('#mapModal').on('shown.bs.modal', this.onModalShown);
       $('form[name=pixeloid_appbundle_eventregistration] select').on('change', this.onPriceChanged);
-      $('form[name=pixeloid_appbundle_eventregistration] input[type=checkbox]').on('ifChanged', this.onPriceChanged);
+      $('form[name=pixeloid_appbundle_eventregistration] input[type=checkbox], form[name=pixeloid_appbundle_eventregistration] input[type=radio]').on('ifChanged', this.onPriceChanged);
       $('#pixeloid_appbundle_eventregistration_reservation_accomodation').on('ifChanged', this.onAccomodationSelected).change()
       $('input[name=selectedroom]').on('ifChanged', this.onRoomRadioChanged).trigger('ifChanged')
       $('table.room-table tr.room').click(this.onRoomTableRowClicked)

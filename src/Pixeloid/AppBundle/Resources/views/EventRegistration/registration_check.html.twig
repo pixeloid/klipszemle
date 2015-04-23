@@ -23,26 +23,35 @@
             <dt>Regisztráció tipusa:</dt>
             <dd>{{ form.vars.data.getRegistrantType.getName }}</dd>
             <dt>Regisztrációs díj: </dt>
-            <dd>{{ form.vars.data.getRegistrantType.getPriceBefore|number_format(0, ' ', ' ' ) }} Ft</dd>
+            <dd>{{ form.vars.data.getRegistrationFee|number_format(0, ' ', ' ' ) }} Ft</dd>
         </dl>
     </div>
+
 </div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <p>
+
+
+            
+                {% if form.vars.data.extra1 == 0 %}
+                    <b>Csak a  kongresszuson veszek részt</b> 
+                {% elseif form.vars.data.extra1 == 1 %}
+                <b>A teljes kongresszuson és a továbbképző napon is részt veszek</b>
+                {% else %}
+                    <b>Csak a továbbképző napon veszek részt</b>
+                {% endif %}
+        </p>
+
+    </div>
+</div>
+
 <hr>
 <h4>Kiegészítő események</h4>
     
 
     <div class="row">
-        <div class="col-sm-4">
-            <p>
-                <b>Továbbképző nap:</b>
-                    {% if form.vars.data.extra1 %}
-                        <span class="glyphicon glyphicon-ok text-success"></span> 
-                    {% else %}
-                        <span class="glyphicon glyphicon-remove text-danger"></span> 
-                    {% endif %}
-            </p>
-
-        </div>
         <div class="col-sm-4">
             <p>
                 <b>Mentő oktatópont workshop:</b>

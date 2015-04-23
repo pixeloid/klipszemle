@@ -305,7 +305,7 @@ class EventRegistrationController extends Controller
             'nights' => $entity->getRoomReservation() ? $entity->getRoomReservation()->getNumDays() : 0,
             'accomodation' => $entity->getRoomReservation() ? $entity->getRoomReservation()->getTotalCost() : 0,
             'dining' =>  $entity->getDiningReservation() ? $entity->getDiningReservation()->getTotalCost() : 0,
-            'registration' => $entity->getRegistrantType() ? $entity->getRegistrantType()->getPriceBefore() : 0,
+            'registration' => $entity->getRegistrantType() ? $entity->getRegistrationFee() : 0,
             'total' => (int) $entity->getTotalCost(),
         ));
     }

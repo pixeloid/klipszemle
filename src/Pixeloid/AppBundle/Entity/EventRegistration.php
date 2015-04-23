@@ -195,19 +195,19 @@ class EventRegistration
     private $recaptcha;
 
     /**
-     * @ORM\Column(type="boolean", name="extra1", nullable=true)
+     * @ORM\Column(type="integer", name="extra1", nullable=true)
      */
     private $extra1;
     /**
-     * @ORM\Column(type="boolean", name="extra2", nullable=true)
+     * @ORM\Column(type="integer", name="extra2", nullable=true)
      */
     private $extra2;
     /**
-     * @ORM\Column(type="boolean", name="extra3", nullable=true)
+     * @ORM\Column(type="integer", name="extra3", nullable=true)
      */
     private $extra3;
     /**
-     * @ORM\Column(type="boolean", name="extra4", nullable=true)
+     * @ORM\Column(type="integer", name="extra4", nullable=true)
      */
     private $extra4;
     /**
@@ -221,7 +221,7 @@ class EventRegistration
     public function getTotalCost()
     {
         $total = 0;
-        $total += $this->getRegistrantType() ? $this->getRegistrantType()->getPriceBefore() : 0;
+        $total += $this->getRegistrantType() ? $this->getRegistrationFee() : 0;
         $total += $this->getRoomReservation() ? $this->getRoomReservation()->getTotalCost() : 0;
         $total += $this->getDiningReservation() ? $this->getDiningReservation()->getTotalCost() : 0;
 
@@ -229,7 +229,10 @@ class EventRegistration
 
     }
 
-
+    public function getRegistrationFee()
+    {
+        return $this->getExtra1() == 2 ? 4000 : $this->getRegistrantType()->getPriceBefore();
+    }
     /**
      * Gets the value of recaptcha.
      *

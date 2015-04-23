@@ -143,10 +143,10 @@ knp_snappy:
 deploy:
   prod:
     rsync-options: '-azC --force --delete --progress -h --checksum'
-    host: virt1.acoline.hu
-    dir: ./mgyaitt
-    user: sshvu2023
-    port: 2022
+    host: vps.pixeloid.hu
+    dir: /var/www/virtual/misandbos.hu/mgyaitt
+    user: root
+    port: 22
     timeout: 0 # Connection timeout in seconds. 0 for no timeout.
     post_deploy_operations: 
         - app/console cache:clear --env=prod
