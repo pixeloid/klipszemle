@@ -77,20 +77,14 @@
         <hr>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-12">
                 {{ form_row(form.extra1) }}
-            </div>
-            <div class="col-sm-4">
-                {{ form_row(form.extra2) }}
-            </div>
-            <div class="col-sm-4">
-                {{ form_row(form.extra3) }}
             </div>
         </div>
         <hr>
-        <div class="alert alert-success">A továbbképző napon <b>12 kreditpont</b>, a tudományos ülésen való részvétellel <b>30 kreditpont</b> szerezhető. Szakdolgozók részére <b>20 kreditpont</b> szerezhető.</div>
+<!--         <div class="alert alert-success">A továbbképző napon <b>12 kreditpont</b>, a tudományos ülésen való részvétellel <b>30 kreditpont</b> szerezhető. Szakdolgozók részére <b>20 kreditpont</b> szerezhető.</div>
 
-        {% elseif flow.getCurrentStepNumber() == 2 %}
+ -->        {% elseif flow.getCurrentStepNumber() == 2 %}
 
 
     <!--         <h2>Available accomodation options</h2>
@@ -196,6 +190,10 @@
            
                       </table>
 
+                      <p>
+                        <sup>*</sup>A szállás díja tartalmazza  az október 1-2-i vacsora költségét.  Amennyiben külön vacsorára tart igényt, kérjük  abban az esetben jelölje be!
+                      </p>
+
                       {{form_row(form.diningReservation.special)}}
 
 
@@ -253,10 +251,11 @@
             {% include 'PixeloidAppBundle:EventRegistration:registration_check.html.twig' %}
 
             <div class="row">
+
                 <div class="col-sm-8">
-                </div>
-                <div class="col-sm-4">
-                <div class="pull-right">
+                <div class="">
+                <h4>Ellenőrzés</h4>
+                <p>Kérjük hogy az alábbi mezőt pipálja ki, mellyel megbizonyosodunk róla hogy valós a jelentkezése!</p>
                 {{ form_widget(form.recaptcha) }}
                 {{ form_errors(form.recaptcha) }}
                 </div>

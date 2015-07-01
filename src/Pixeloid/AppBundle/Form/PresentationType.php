@@ -15,8 +15,18 @@ class PresentationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('body')
+            ->add('body1', null, array(
+                'label' => 'Bevezetés',
+                'attr' => array('rows' => 3)
+                ))
+            ->add('body2', null, array(
+                'label' => 'Esetismertetés',
+                'attr' => array('rows' => 10)
+                ))
+            ->add('body3', null, array(
+                'label' => 'Következtetés',
+                'attr' => array('rows' => 3)
+                ))
         ;
     }
     

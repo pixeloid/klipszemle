@@ -28,9 +28,9 @@ extend(ESPCR, {
 
     createMap: function(){
       var geocoder = new google.maps.Geocoder();
-      var latlng = new google.maps.LatLng(47.498405600000000000, 19.040757799999938000);
+      var latlng = new google.maps.LatLng(47.8669915,19.978868,14);
       var mapOptions = {
-        zoom: 12,
+        zoom: 15,
         center: latlng
       }
       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);

@@ -1,17 +1,17 @@
 @font-face {
-  font-family: 'HelveticaNeueLT Pro 57 Cn';
-  src: url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-BdCn.eot');
-  src: url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-BdCn.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-BdCn.woff') format('woff'), /* Modern Browsers */ url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-BdCn.ttf') format('truetype'), /* Safari, Android, iOS */ url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-BdCn.svg#bffb5927eebbaa6e5a3ea5ff13e3959d') format('svg');
+  font-family: 'Exo';
+  src: url('../bundles/pixeloidapp/fonts/Exo-Bold.eot');
+  src: url('../bundles/pixeloidapp/fonts/Exo-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../bundles/pixeloidapp/fonts/Exo-Bold.woff') format('woff'), /* Modern Browsers */ url('../bundles/pixeloidapp/fonts/Exo-Bold.ttf') format('truetype'), /* Safari, Android, iOS */ url('../bundles/pixeloidapp/fonts/Exo-Bold.svg#3f3f0bfb70ac63058523d56f41b5ea01') format('svg');
   font-style: normal;
-  font-weight: bold;
+  font-weight: 700;
   
   /* IE9 Compat Modes */
   /* Legacy iOS */
 }
 @font-face {
-  font-family: 'HelveticaNeueLT Pro 57 Cn';
-  src: url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-Cn.eot');
-  src: url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-Cn.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-Cn.woff') format('woff'), /* Modern Browsers */ url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-Cn.ttf') format('truetype'), /* Safari, Android, iOS */ url('../bundles/pixeloidapp/fonts/HelveticaNeueLTPro-Cn.svg#8b86ea0a7a98a4cc2a9374b3dde8522a') format('svg');
+  font-family: 'Exo';
+  src: url('../bundles/pixeloidapp/fonts/Exo-Light.eot');
+  src: url('../bundles/pixeloidapp/fonts/Exo-Light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../bundles/pixeloidapp/fonts/Exo-Light.woff') format('woff'), /* Modern Browsers */ url('../bundles/pixeloidapp/fonts/Exo-Light.ttf') format('truetype'), /* Safari, Android, iOS */ url('../bundles/pixeloidapp/fonts/Exo-Light.svg#d3f746777e18fc9f1c0cb1fc28ee1592') format('svg');
   font-style: normal;
   font-weight: 400;
   
@@ -19,11 +19,21 @@
   /* Legacy iOS */
 }
 @font-face {
-  font-family: 'Bemio';
-  src: url('../bundles/pixeloidapp/fonts/Bemio.eot');
-  src: url('../bundles/pixeloidapp/fonts/Bemio.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../bundles/pixeloidapp/fonts/Bemio.woff') format('woff'), /* Modern Browsers */ url('../bundles/pixeloidapp/fonts/Bemio.ttf') format('truetype'), /* Safari, Android, iOS */ url('../bundles/pixeloidapp/fonts/Bemio.svg#9d2a4eb290336d11474fa9c7ba8f0b5b') format('svg');
+  font-family: 'Exo';
+  src: url('../bundles/pixeloidapp/fonts/Exo-Medium.eot');
+  src: url('../bundles/pixeloidapp/fonts/Exo-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../bundles/pixeloidapp/fonts/Exo-Medium.woff') format('woff'), /* Modern Browsers */ url('../bundles/pixeloidapp/fonts/Exo-Medium.ttf') format('truetype'), /* Safari, Android, iOS */ url('../bundles/pixeloidapp/fonts/Exo-Medium.svg#9611154d53964f16de2ae802b2261f0a') format('svg');
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
+  
+  /* IE9 Compat Modes */
+  /* Legacy iOS */
+}
+@font-face {
+  font-family: 'Exo';
+  src: url('../bundles/pixeloidapp/fonts/Exo-Thin.eot');
+  src: url('../bundles/pixeloidapp/fonts/Exo-Thin.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../bundles/pixeloidapp/fonts/Exo-Thin.woff') format('woff'), /* Modern Browsers */ url('../bundles/pixeloidapp/fonts/Exo-Thin.ttf') format('truetype'), /* Safari, Android, iOS */ url('../bundles/pixeloidapp/fonts/Exo-Thin.svg#0f8a6c32f2f2e546acdf934f4b322d3a') format('svg');
+  font-style: normal;
+  font-weight: 200;
   
   /* IE9 Compat Modes */
   /* Legacy iOS */

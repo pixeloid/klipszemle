@@ -57,21 +57,21 @@ class EventRegistrationType extends AbstractType
                     ->add('fax', null, array('label' => 'form.label.fax'))
                     ->add('email', null, array('label' => 'form.label.email'))
                     ->add('postal', null, array('label' => 'form.label.postal'))
+                    // ->add('extra1', 'choice', array(
+                    //     'choices'   => array(
+                    //         1   => 'A teljes kongresszuson és a továbbképző napon is részt veszek',
+                    //         0   => 'Csak a  kongresszuson veszek részt',
+                    //         2 => 'Csak a továbbképző napon veszek részt',
+                    //     ),
+                    //     'preferred_choices' => array(1), //1 is item number
+                    //     'multiple'  => false,
+                    //     'expanded'  => true,
+                    //     'data' => 1,
+                    //     'label' => 'Részvétel'
+                    // ))
+
                     ->add('extra1', 'choice', array(
                         'choices'   => array(
-                            1   => 'A teljes kongresszuson és a továbbképző napon is részt veszek',
-                            0   => 'Csak a  kongresszuson veszek részt',
-                            2 => 'Csak a továbbképző napon veszek részt',
-                        ),
-                        'preferred_choices' => array(1), //1 is item number
-                        'multiple'  => false,
-                        'expanded'  => true,
-                        'data' => 1,
-                        'label' => 'Részvétel'
-                    ))
-
-                    ->add('extra2', 'choice', array(
-                        'choices'   => array(
                             1   => 'Részt veszek',
                             0 => 'Nem veszek részt',
                         ),
@@ -79,20 +79,20 @@ class EventRegistrationType extends AbstractType
                         'multiple'  => false,
                         'expanded'  => true,
                         'data' => 1,
-                        'label' => 'Mentő oktatópont workshopon'
+                        'label' => 'A 2015. október 1-i posztgraduális programon'
                     ))
 
-                    ->add('extra3', 'choice', array(
-                        'choices'   => array(
-                            1   => 'Részt veszek',
-                            0 => 'Nem veszek részt',
-                        ),
-                        'preferred_choices' => array(1), //1 is item number
-                        'multiple'  => false,
-                        'expanded'  => true,
-                        'data' => 1,
-                        'label' => 'UH oktatás workshopon'
-                    ))
+                    // ->add('extra3', 'choice', array(
+                    //     'choices'   => array(
+                    //         1   => 'Részt veszek',
+                    //         0 => 'Nem veszek részt',
+                    //     ),
+                    //     'preferred_choices' => array(1), //1 is item number
+                    //     'multiple'  => false,
+                    //     'expanded'  => true,
+                    //     'data' => 1,
+                    //     'label' => 'UH oktatás workshopon'
+                    // ))
 
                     // ->add('roomReservations', 'collection', array(
                     //     'type' => new RoomReservationType,
@@ -140,11 +140,12 @@ class EventRegistrationType extends AbstractType
                     ))
                     ->add('invoiceTypeSponsored', 'choice', array(
                         'choices'   => array(
+                            'szamla' => 'Számla', 
                             'elolegszamla' => 'Előleg számla', 
                             'elolegbekero' => 'Előlegbekérő', 
                         ),
                         'expanded'  => true,
-                        'data' => 'elolegszamla',
+                        'data' => 'szamla',
                         'label' => 'form.label.invoicetype'
                     ))
                     ->add('billingNameSponsored', null, array('label' => 'form.label.billingnamesponsored'))
@@ -161,7 +162,10 @@ class EventRegistrationType extends AbstractType
                                 'attr'        => array(
                                     'options' => array(
                                         'theme' => 'light',
+                                        'type'  => 'image',
+                                        'size' => 'compact',
                                         'type'  => 'image'
+
                                     )
                                 ),
                         ));

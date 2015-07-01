@@ -21,12 +21,12 @@ class RoomReservationType extends AbstractType
                 ))
             ->add('checkIn', 'date', array(
                 'years' => array('2015'),
-                'data' => new \DateTime('2015-05-23'),
+                'data' => new \DateTime('2015-10-01'),
                 'label' => 'form.label.checkin'
             ))
             ->add('checkOut', 'date', array(
                 'years' => array('2015'),
-                'data' => new \DateTime('2015-05-24'),
+                'data' => new \DateTime('2015-10-02'),
                 'label' => 'form.label.checkout'
 
             ))
@@ -43,7 +43,7 @@ class RoomReservationType extends AbstractType
                         ->join('r.accomodation', 'a')
                         ->join('r.event', 'e')
                         ->where('e.id = :event_id')
-                        ->setParameter('event_id', 2)
+                        ->setParameter('event_id', 4)
                         ->distinct(true)
                     ;
 

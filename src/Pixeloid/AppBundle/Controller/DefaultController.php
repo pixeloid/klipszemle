@@ -50,7 +50,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 
-        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
+        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(4);
 
         $qb = $em->createQueryBuilder();
         $qb->select('a, r')

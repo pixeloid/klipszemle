@@ -8,22 +8,22 @@
 
 <h3>Tisztelt {{ entity.getFirstname }} {{ entity.getLastname }}!</h3>
 
-<p>Köszönjük jelentkezését a Magyar Gyermekaneszteziológiai és Intenzív Terápiás Társaság
-2015. évi Tudományos Ülésére. </p>
+<p>Köszönjük jelentkezését a   Magyar Gyermek-gasztroenterológiai Társaság <br> V. Kongresszusára.
+ </p>
 <p>
-    A jelentkezésének részleteit <a href="{{url('eventregistration_show', {'id': entity.getId})}}">az alábbi linken éri el.</a>
+    Jelentkezésének részleteit <a href="{{url('eventregistration_show', {'id': entity.getId})}}">az alábbi linken éri el.</a>
 </p>
 {% if plainpass %}
-<p>A bejelentkezéshez szükséges adatok:</p>
+<p>Bejelentkezéshez szükséges adatok:</p>
 <p>Felhasználónév: {{entity.getUser.getEmail}}<br>Jelszó: {{plainpass}}</p>
 {% endif %}
-<p>Esetleges kérdéseit az <a href="mailto:mgyaitt2015@misandbos.hu">mgyaitt2015@misandbos.hu</a> e-mail címre várjuk.</p>
+<p>További kérdésekkel kapcsolatban az <a href="mailto:mgyaitt2015@misandbos.hu">mgygt2015@misandbos.hu</a>  e-mail címen vagy a +36 1 999 0780-as telefonszámon állunk szíves rendelkezésére.</p>
 
 
 
 <p>Üdvözlettel: <br>
- Szabó Bernadett<br>
- Mis &amp; Bos Kft.
+<!--  Szabó Bernadett<br>
+ --> Mis &amp; Bos Kft.
 </p>
 <p>Tel.: +36 1 999 07 80</p>
 </body>

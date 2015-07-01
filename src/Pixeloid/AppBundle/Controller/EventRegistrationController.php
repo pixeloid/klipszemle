@@ -44,13 +44,15 @@ class EventRegistrationController extends Controller
         $entity = new EventRegistration();
         $em = $this->getDoctrine()->getManager();
 
-        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(2);
+        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(4);
+        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(4);
+
 
 
         $flow = $this->createCreateForm($entity);
 
         $form = $flow->createForm();
+
 
 
         if ($flow->isValid($form)) {
@@ -102,7 +104,7 @@ class EventRegistrationController extends Controller
                 $this->get("security.context")->setToken($token);
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Regisztráció visszaigazolás – Magyar Gyermekaneszteziológiai és Intenzív Terápiás Társaság 2015. évi Tudományos Ülése')
+                    ->setSubject('Regisztráció visszaigazolása - Magyar Gyermek-gasztroenterológiai Társaság V. Kongresszusa')
                     ->setFrom('noreply@misandbos.hu')
                     ->setTo(array($entity->getUser()->getEmail(), 'info@misandbos.hu', 'olah.gergely@pixeloid.hu'))
                     ->setBody(
@@ -152,7 +154,7 @@ class EventRegistrationController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(2);
+        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(4);
 
 
         return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
@@ -342,6 +344,7 @@ class EventRegistrationController extends Controller
 
         $flow = $this->get('pixeloid_app.flow.eventRegistration'); // must match the flow's service id
         $flow->bind($entity);
+
 
        // $reservation = new AccomodationReservation;
      //   $entity->setReservation($reservation);

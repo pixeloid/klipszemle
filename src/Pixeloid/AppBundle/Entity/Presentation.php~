@@ -24,71 +24,23 @@ class Presentation
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="body1", type="text")
      */
-    private $title;
+    private $body1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="body", type="text")
+     * @ORM\Column(name="body2", type="text")
      */
-    private $body;
-
+    private $body2;
 
     /**
-     * Get id
+     * @var string
      *
-     * @return integer 
+     * @ORM\Column(name="body3", type="text")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $body3;
 
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Presentation
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
 
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set body
-     *
-     * @param string $body
-     * @return Presentation
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * Get body
-     *
-     * @return string 
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
 }

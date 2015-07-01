@@ -144,7 +144,7 @@ deploy:
   prod:
     rsync-options: '-azC --force --delete --progress -h --checksum'
     host: vps.pixeloid.hu
-    dir: /var/www/virtual/misandbos.hu/mgyaitt
+    dir: /var/www/virtual/misandbos.hu/mgygt2015
     user: root
     port: 22
     timeout: 0 # Connection timeout in seconds. 0 for no timeout.

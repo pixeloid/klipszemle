@@ -29,7 +29,7 @@ class DiningReservationType extends AbstractType
                         ->join('d.diningType', 't')
                         ->join('d.event', 'e')
                         ->where('e.id = :event_id')
-                        ->setParameter('event_id', 2)
+                        ->setParameter('event_id', 4)
                         ->orderBy('dd.date', 'ASC')
                         ->distinct(true)
                     ;

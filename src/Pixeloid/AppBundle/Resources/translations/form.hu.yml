@@ -17,7 +17,7 @@ form:
     checkout:		Elutazás
     roommate:		Szobatárs neve
     roomtype:		Szoba tipusa
-    specialdining:	Speciális igény
+    specialdining:	Speciális diéta igény
     paymentmethod:    Fizetési mód
     invoicetype:    A teljesítés módja
     billingnamesponsored: Költségvállaló neve

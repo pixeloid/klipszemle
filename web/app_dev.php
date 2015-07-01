@@ -3,7 +3,7 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
-
+date_default_timezone_set('Europe/Budapest'); 
 umask(0000); // This will let the permissions be 0777
 
 // This check prevents access to debug front controllers that are deployed by accident to production servers.
