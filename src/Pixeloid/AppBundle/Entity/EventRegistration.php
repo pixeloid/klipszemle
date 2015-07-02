@@ -190,7 +190,7 @@ class EventRegistration
 
 
     /**
-     * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
+     * @Recaptcha\IsTrue(groups={"flow_eventRegistration_step5"})
      */
     private $recaptcha;
 

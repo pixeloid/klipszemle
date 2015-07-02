@@ -15,6 +15,28 @@ class PresentationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('name', null, array(
+            'label' => 'Beküldő neve',
+            ))
+
+        ->add('email', null, array(
+            'label' => 'Beküldő e-mail címe',
+            ))
+
+            ->add(
+                'authors',
+                'bootstrap_collection',
+                array(
+                    'allow_add'          => true,
+                    'allow_delete'       => true,
+                    'add_button_text'    => 'Szerző hozzáadása',
+                    'delete_button_text' => 'Szerző törlése',
+                    'sub_widget_col'     => 9,
+                    'button_col'         => 3,
+                    'label'             => 'Szerzők (kérjük, a szerzők mellé vesszővel elválasztva az intézményt megadni!)'
+                )
+            )
+
             ->add('body1', null, array(
                 'label' => 'Bevezetés',
                 'attr' => array('rows' => 3)

@@ -11,7 +11,6 @@ use Pixeloid\AppBundle\Form\PresentationType;
 
 /**
  * Presentation controller.
- * @Security("has_role('ROLE_USER')")
  */
 class PresentationController extends Controller
 {
