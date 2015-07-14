@@ -106,7 +106,7 @@ class EventRegistrationController extends Controller
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Regisztráció visszaigazolása - Magyar Gyermek-gasztroenterológiai Társaság V. Kongresszusa')
                     ->setFrom('noreply@misandbos.hu')
-                    ->setTo(array($entity->getUser()->getEmail(), 'info@misandbos.hu', 'olah.gergely@pixeloid.hu'))
+                    ->setTo(array($entity->getUser()->getEmail(), 'mgygt2015@misandbos.hu', 'olah.gergely@pixeloid.hu'))
                     ->setBody(
                         $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
                             'entity'      => $entity,

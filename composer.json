@@ -32,7 +32,9 @@
         "knplabs/knp-snappy-bundle": "dev-master",
         "spraed/pdf-generator-bundle": "v1.0",
         "ensepar/html2pdf-bundle" : "~2.0",
-        "craue/formflow-bundle": "~3.0@dev"
+        "craue/formflow-bundle": "~3.0@dev",
+        "egeloen/ckeditor-bundle": "~2.0",
+        "avalanche123/imagine-bundle": "^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

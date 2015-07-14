@@ -1,0 +1,33 @@
+<h4>Személyes adatok:</h4>
+<div class="row">
+    <div class="col-sm-6">
+        <dl class="dl-horizontal">
+            <dt>Név: </dt>
+            <dd>{{ form.vars.data.name }}</dd>
+            <dt>Email: </dt>
+            <dd>{{ form.vars.data.email }}</dd>
+        </dl>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="text-center">
+            {{ form.vars.data.title }}
+        </h2>
+        <p class="text-center">
+        <small>
+        {% for author in form.vars.data.authors %}
+            {{ author }},<br>
+        {% endfor %}
+            
+        </small>
+        </p>
+            <p></p>
+            {{ form.vars.data.body1|raw }}
+
+    </div>
+</div>
+
+<hr>

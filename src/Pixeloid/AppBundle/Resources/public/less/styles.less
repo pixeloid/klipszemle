@@ -49,13 +49,22 @@ h1{
 }
 .navbar-default{
 	margin: 0;
+	border: none;
+	.navbar-toggle{
+		position: absolute;
+		top: 20px;
+		right: 0px;
+		z-index: 10;
+	}
+
 }
 
 
 header{
 	background: @brand-primary;
 	color: #fff;
-	margin-bottom: 6px;
+	margin-bottom: 0px;
+	padding-bottom: 10px;
 
 	.container{
 		background: transparent;
@@ -63,38 +72,43 @@ header{
 	h2{
 		.clearfix;
 		color: #fff;
+		font-size: 15px;
+		@media (min-width: @screen-sm) {
+			margin-top: 12px;
 
-		>b{
+			>b{
 
-			font-size: 86px;
-			line-height: 86px;
-			display: block;
-			float: left;
-			font-weight: 900;
-			.hidden-xs
-		}
-		span{
-			float: left;
-			display: block;
-			font-size: 22px;
-			line-height: 32px;
-			@media (min-width: @screen-md) {
-			}
-
-			b{
+				font-size: 86px;
+				line-height: 86px;
 				display: block;
-				float: none;
-				font-size: 40px;
-				line-height: 45px;
-				font-weight: 700;
+				float: left;
+				font-weight: 900;
+				.hidden-xs
+			}
+			span{
+				float: left;
+				display: block;
+				font-size: 22px;
+				line-height: 32px;
+
+				b{
+					display: block;
+					float: none;
+					font-size: 40px;
+					line-height: 45px;
+					font-weight: 700;
+				}
 			}
 		}
 	}
 
-	.date{
+	.date h4{
+		font-size: 12px;
 		margin-top: 12px;
+		margin-bottom: 0;
 		text-align: left;
-		@media (min-width: @screen-md) {
+		@media (min-width: @screen-sm) {
+			font-size: 16px;
 			text-align: right;
 			span{
 				display: block;
@@ -103,14 +117,12 @@ header{
 		}
 
 	}
-
-
-	.navbar-xs { min-height:22px; border-radius:0; padding: 10px 0; border-bottom: 1px solid #eee; .clearfix;} 
-	.navbar-xs .navbar-brand{ padding: 2px 4px;font-size: 12px;line-height: 14px; } 
-	.navbar-xs .navbar-nav > li > a {  padding-top: 2px; padding-bottom: 2px; line-height: 20px; color: #fff; font-weight: 200}
-	.navbar-xs .navbar-nav > li > a:hover{ background: none;}
-
 }
+
+.navbar-xs { min-height:22px; border-radius:0; padding: 0px 0; border-bottom: 1px solid #eee; .clearfix; background: #444;} 
+.navbar-xs .navbar-nav > li > a {font-size: 13px; font-family: arial, sans-serif; padding-top: 2px; padding-bottom: 2px; line-height: 20px; color: #fff; font-weight: normal}
+.navbar-xs .navbar-nav > li > a:hover{ background: none;}
+
 
 .homepage-menu{
 	// background: @brand-primary;
@@ -133,7 +145,7 @@ header{
 	// }
 }
 .navbar-default .navbar-nav > li > a{
-	font-size: 20px;
+	font-size: 18px;
 }
 
 

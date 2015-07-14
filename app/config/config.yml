@@ -140,6 +140,34 @@ knp_snappy:
         binary:     /usr/local/bin/wkhtmltopdf
         options:    []
 
+
+ivory_ck_editor:
+    default_config: my_config
+    plugins:
+        wordcount:
+            path:     "bundles/pixeloidapp/lib/CKEditor_Plugins/wordcount/"
+            filename: "plugin.js"
+        notification:
+            path:     "bundles/pixeloidapp/lib/CKEditor_Plugins/notification/"
+            filename: "plugin.js"
+    configs:
+        my_config:
+            extraPlugins: "wordcount"
+            language:  '%locale%'
+            wordcount:
+                showCharCount: true
+                countSpacesAsChars: false
+                # maxWordCount: 4000
+                countHTML: false
+                lang:  '%locale%'
+
+
+avalanche_imagine:
+    filters:
+        carousel:
+            type:    thumbnail
+            options: { size: [900, 550], mode: outbound, quality: 80, format: jpg, cache_type: false }
+
 deploy:
   prod:
     rsync-options: '-azC --force --delete --progress -h --checksum'

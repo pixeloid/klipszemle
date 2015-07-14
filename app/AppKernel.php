@@ -30,7 +30,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Spraed\PDFGeneratorBundle\SpraedPDFGeneratorBundle(),
             new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
-
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),
             new Pixeloid\UserBundle\PixeloidUserBundle(),

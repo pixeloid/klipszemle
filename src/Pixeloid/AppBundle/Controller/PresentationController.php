@@ -1,10 +1,16 @@
 <?php
 
 namespace Pixeloid\AppBundle\Controller;
-
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 use Pixeloid\AppBundle\Entity\Presentation;
 use Pixeloid\AppBundle\Form\PresentationType;
@@ -36,20 +42,68 @@ class PresentationController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Presentation();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+        $flow = $this->createCreateForm($entity);
 
-            return $this->redirect($this->generateUrl('presentation_show', array('id' => $entity->getId())));
+        $form = $flow->createForm();
+
+        if ($flow->isValid($form)) {
+            
+            $flow->saveCurrentStepData($form);
+
+            if ($flow->nextStep()) {
+                // form for the next step
+                $form = $flow->createForm();
+            } else {
+                // flow finished
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+
+                $flow->reset(); // remove step data from the session
+
+
+
+                $html = $this->renderView('PixeloidAppBundle:Presentation:presentation.html.twig', array(
+                    'entity'      => $entity,
+                ));
+                $pdfGenerator = $this->get('spraed.pdf.generator');
+
+                $pdf = null; //$pdfGenerator->generatePDF($html);
+
+                $attachment = \Swift_Attachment::newInstance()
+                  ->setFilename('mmtt2015_absztrakt_'.$entity->getId().'.pdf')
+                  ->setContentType('application/pdf')
+                  ->setBody($pdf)
+                  ;
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Absztrakt feltöltés visszaigazolása - Magyar Gyermek-gasztroenterológiai Társaság V. Kongresszusa')
+                    ->setFrom('noreply@misandbos.hu')
+                    ->setTo(array($entity->getEmail(), 'mgygt2015@misandbos.hu', 'olah.gergely@pixeloid.hu'))
+                    ->setBody(
+                        $this->renderView('PixeloidAppBundle:Presentation:success-mail.html.twig', array(
+                            'entity'      => $entity,
+                        )), 'text/html'
+                    )
+                    ->attach($attachment);
+
+                $this->get('mailer')->send($message);
+
+
+
+                return $this->redirect($this->generateUrl('presentation_show', array('id' => $entity->getId())));
+            }
+
+        }else{
+            // var_dump(($form->getErrorsAsString()));
         }
 
         return $this->render('PixeloidAppBundle:Presentation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'flow'   => $flow,
+
         ));
     }
 
@@ -62,14 +116,23 @@ class PresentationController extends Controller
      */
     private function createCreateForm(Presentation $entity)
     {
-        $form = $this->createForm(new PresentationType(), $entity, array(
-            'action' => $this->generateUrl('presentation_create'),
-            'method' => 'POST',
-        ));
 
-        $form->add('submit', 'submit', array('label' => 'Beküldés'));
+           $flow = $this->get('pixeloid_app.flow.presentation'); // must match the flow's service id
+           $flow->bind($entity);
 
-        return $form;
+
+          // $reservation = new AccomodationReservation;
+        //   $entity->setReservation($reservation);
+
+
+           $flow->setGenericFormOptions(array(
+               'action' => $this->generateUrl('presentation_create'),
+               'method' => 'POST',
+           ));
+
+
+           return $flow;
+
     }
 
     /**
@@ -79,11 +142,15 @@ class PresentationController extends Controller
     public function newAction()
     {
         $entity = new Presentation();
-        $form   = $this->createCreateForm($entity);
+        
+        $flow = $this->createCreateForm($entity);
+
+        $form = $flow->createForm();
 
         return $this->render('PixeloidAppBundle:Presentation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'flow'   => $flow,
         ));
     }
 
@@ -102,6 +169,10 @@ class PresentationController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
+
+
+
+
 
         return $this->render('PixeloidAppBundle:Presentation:show.html.twig', array(
             'entity'      => $entity,

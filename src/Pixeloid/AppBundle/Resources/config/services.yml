@@ -11,9 +11,14 @@ services:
     calls:
       - [ setFormType, [ "@pixeloid_app.form.eventRegistration" ] ]
 
-  # pixeloid_app.form.type.room:
-  #     class: Pixeloid\AppBundle\Form\Type\RoomType
-  #     arguments:
-  #       entityManager: "@doctrine.orm.entity_manager"
-  #     tags:
-  #         - { name: form.type, alias: room }
+  pixeloid_app.form.presentation:
+    class: Pixeloid\AppBundle\Form\PresentationType
+    tags:
+      - { name: form.type, alias: presentation }
+
+  pixeloid_app.flow.presentation:
+    class: Pixeloid\AppBundle\Form\PresentationFlow
+    parent: craue.form.flow
+    scope: request
+    calls:
+      - [ setFormType, [ "@pixeloid_app.form.presentation" ] ]
