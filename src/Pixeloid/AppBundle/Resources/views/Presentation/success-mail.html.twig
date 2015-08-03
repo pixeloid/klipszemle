@@ -8,7 +8,7 @@
 
 <h3>Tisztelt {{ entity.name }}!</h3>
 
-<p>Köszönjük a(z) <i>{{ entity.title }}</i> című előadásának feltöltését a  Magyar Gyermek-gasztroenterológiai Társaság V. Kongresszusára, melyet csatoltan küldünk PDF formátumban.</p>
+<p>Köszönjük a(z) <i>{{ entity.title }}</i> című előadásának feltöltését a  Magyar Gyermek-gasztroenterológiai Társaság V. Kongresszusára, melyet     a <a href="{{url('presentation_view', {'id': entity.getId})}}"> {{url('presentation_view', {'id': entity.getId})}}</a> linken érhet el, illetve továbbítunk a Tudományos Bizottságnak. Döntésükről augusztus folyamán tájékoztatjuk.</p>
 
 <p>További kérdésekkel kapcsolatban az <a href="mailto:mgygt2015@misandbos.hu">mgygt2015@misandbos.hu</a>  e-mail címen vagy a +36 1 999 0780-as telefonszámon állunk szíves rendelkezésére.</p>
 

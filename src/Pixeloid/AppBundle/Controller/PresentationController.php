@@ -63,13 +63,18 @@ class PresentationController extends Controller
                 $flow->reset(); // remove step data from the session
 
 
-
                 $html = $this->renderView('PixeloidAppBundle:Presentation:presentation.html.twig', array(
                     'entity'      => $entity,
                 ));
-                $pdfGenerator = $this->get('spraed.pdf.generator');
 
-                $pdf = null; //$pdfGenerator->generatePDF($html);
+                
+
+                $pdf = null; 
+
+                // $this->get('knp_snappy.pdf')->generateFromHtml(
+                //     $html,
+                //     $this->get('kernel')->getRootDir() . '/../web/abstracts/mmtt2015_absztrakt_'.$entity->getId().'.pdf'
+                // );
 
                 $attachment = \Swift_Attachment::newInstance()
                   ->setFilename('mmtt2015_absztrakt_'.$entity->getId().'.pdf')
@@ -85,8 +90,8 @@ class PresentationController extends Controller
                         $this->renderView('PixeloidAppBundle:Presentation:success-mail.html.twig', array(
                             'entity'      => $entity,
                         )), 'text/html'
-                    )
-                    ->attach($attachment);
+                    );
+//                    ->attach($attachment);
 
                 $this->get('mailer')->send($message);
 
@@ -177,6 +182,23 @@ class PresentationController extends Controller
         return $this->render('PixeloidAppBundle:Presentation:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    public function viewAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('PixeloidAppBundle:Presentation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Presentation entity.');
+        }
+
+
+
+        return $this->render('PixeloidAppBundle:Presentation:view.html.twig', array(
+            'entity'      => $entity,
         ));
     }
 

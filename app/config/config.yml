@@ -137,7 +137,7 @@ ewz_recaptcha:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     /usr/local/bin/wkhtmltopdf
+        binary:     /usr/bin/wkhtmltopdf
         options:    []
 
 
@@ -157,7 +157,7 @@ ivory_ck_editor:
             wordcount:
                 showCharCount: true
                 countSpacesAsChars: false
-                # maxWordCount: 4000
+                maxWordCount: 3000
                 countHTML: false
                 lang:  '%locale%'
 

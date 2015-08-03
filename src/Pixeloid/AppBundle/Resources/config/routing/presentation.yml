@@ -5,6 +5,10 @@ presentation:
 presentation_show:
     path:     /{id}/show
     defaults: { _controller: "PixeloidAppBundle:Presentation:show" }
+    
+presentation_view:
+    path:     /{id}/view
+    defaults: { _controller: "PixeloidAppBundle:Presentation:view" }
 
 presentation_new:
     path:     /new
