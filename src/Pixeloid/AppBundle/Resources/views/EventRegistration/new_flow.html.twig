@@ -116,6 +116,7 @@
         </div>
         <div class="col-sm-6">
             {{ form_row(form.categories) }}
+            A legjobb klip kategóriába minden alkotás bekerül.
         </div>
 
     </div>
@@ -140,7 +141,7 @@
                 <div class="col-sm-8">
                 <div class="">
                 <h4>Ellenőrzés</h4>
-                <p>Kérjük hogy az alábbi mezőt pipálja ki, mellyel megbizonyosodunk róla hogy valós a jelentkezése!</p>
+                <p>Kérünk, az alábbi mezőt piáld ki, hogy megbizonyosodunk róla, te nem vagy egy robot!</p>
                 {{ form_widget(form.recaptcha) }}
                 {{ form_errors(form.recaptcha) }}
                 </div>

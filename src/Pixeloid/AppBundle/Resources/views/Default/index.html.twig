@@ -41,53 +41,44 @@
 
   <section id="jury" class="container content-section ">
               <h2>A ZSŰRI</h2>
-              <p>A zsűri csapat összeállításában figyelünk arra, hogy releváns és független szakmai résztvevőket vonjunk be 
-                           a projektbe, mind filmes, mind zeneipari, mind közéleti oldalról. </p>
 
-
- 			<div class="">
- 				<div class="jury-person">
- 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri_1.jpg' %}
+ 			<div class="row">
+ 				<div class="col-sm-2 jury-person">
+ 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri1.png' output='images/zsuri1.png' %}
  						<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
  					{% endimage %}
  					<h3>Ács Dani - a 444.hu újságírója</h3>
  				</div>
- 				<div class="jury-person">
- 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri_2.jpg' %}
+ 				<div class="col-sm-2 jury-person">
+ 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri2.png'  output='images/zsuri2.png'%}
  						<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
  					{% endimage %}
  					<h3>Dobos Tamás - operatőr</h3>
 
  				</div>
- 				<div class="jury-person">
- 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri_3.jpg' %}
+ 				<div class="col-sm-2 jury-person">
+ 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri3.png'  output='images/zsuri3.png'%}
  						<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
  					{% endimage %}
  					<h3>Izil - a Petőfi Rádió zenei szerkesztője</h3>
  				</div>
- 				<div class="jury-person">
- 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri_4.jpg' %}
+ 				<div class="col-sm-2 jury-person">
+ 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri4.png' output='images/zsuri4.png' %}
  						<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
  					{% endimage %}
- 					<h3>Libor Anita - az index.hu kultúra rovatának főszerkesztője</h3>
+ 					<h3>Libor Anita - az index.hu kultúra rovatvezetője</h3>
 
 
  				</div>
- 				<div class="jury-person">
- 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri_5.jpg' %}
+ 				<div class="col-sm-2 jury-person">
+ 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri5.png'  output='images/zsuri5.png'%}
  						<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
  					{% endimage %}
  					<h3>Oltai Kata - művészettörténész</h3>
 
  				</div>
- 				<div class="jury-person">
- 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri_6.jpg' %}
- 						<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
- 					{% endimage %}
- 					<h3>Péterfy Bori - színész, zenész</h3>
- 				</div>
- 				<div class="jury-person">
- 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri_6.jpg' %}
+ 				<div class="col-sm-2 jury-person">
+ 					{% image '@PixeloidAppBundle/Resources/public/images/zsuri6.png'  output='images/zsuri6.png'%}
  						<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
  					{% endimage %}
  					<h3>Vágvölgyi B. András  - filmrendező</h3>
@@ -97,7 +88,7 @@
 	 <h2>A szervezők</h2>
          <div class="row">
 			<div class="col-sm-3 staff">
-			{% image '@PixeloidAppBundle/Resources/public/images/manek.jpg' %}
+			{% image '@PixeloidAppBundle/Resources/public/images/manek.png' %}
 				<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
 			{% endimage %}
 
@@ -106,14 +97,14 @@
 			</div>
 			<div class="col-sm-3 staff">
 
-			{% image '@PixeloidAppBundle/Resources/public/images/miki357.jpg' %}
+			{% image '@PixeloidAppBundle/Resources/public/images/miki357.png' %}
 				<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
 			{% endimage %}
 
-				<h3>■ Szabó Miklós / miki357</h3>
+				<h3>■ miki357</h3>
 			</div>
 			<div class="col-sm-3 staff">
-			{% image '@PixeloidAppBundle/Resources/public/images/vidavera.jpg' %}
+			{% image '@PixeloidAppBundle/Resources/public/images/vidavera.png' %}
 				<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
 			{% endimage %}
 
@@ -121,7 +112,7 @@
 			</div>
 
 			<div class="col-sm-3 staff">
-			{% image '@PixeloidAppBundle/Resources/public/images/vidavera.jpg' %}
+			{% image '@PixeloidAppBundle/Resources/public/images/vermesorsi.png' %}
 				<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
 			{% endimage %}
 
@@ -189,11 +180,6 @@
 						<dd>Kizárólag a szemlét érintő belső használatra szükségesek. </dd>
 					</dl>
 
-					<dl>
-						<dt>Elrontottam valamit az adatlap kitöltésénél, újra kitölthetem?</dt>
-						<dd>Igen. </dd>
-					</dl>
-					
 					
 
 
@@ -203,19 +189,20 @@
 
 				</div>
 				<div class="col-sm-6">
+
 				<dl>
-					<dt>Nem publikus/még nem debütált klip is jelölhető?</dt>
-					<dd>Igen, unlisted klip linkjét is feltöltheted.</dd>
+					<dt>Elrontottam valamit az adatlap kitöltésénél, újra kitölthetem?</dt>
+					<dd>Igen. </dd>
 				</dl>
-
+				
 
 				<dl>
-					<dt>nem akarom youtube-ra tölteni, tolhatom a klipet file-küldőn?</dt>
-					<dd>Nem sajnos. Rakd unlisted-re</dd>
+					<dt>Nem akarom youtube-ra tölteni, tolhatom a klipet file-küldőn?</dt>
+					<dd>Nem sajnos. Rakd unlisted-re!</dd>
 				</dl>
 				<dl>
 					<dt>Minden jelölt klip biztosan versenybe kerül?</dt>
-					<dd>Nem, 100 videó kerül shortlistre</dd>
+					<dd>Nem, 100 videó kerül shortlistre.</dd>
 				</dl>
 				<dl>
 					<dt>Ha a megjelölt kategóriában nem jutok tovább, lehet más kategóriára is jelentkezni? </dt>

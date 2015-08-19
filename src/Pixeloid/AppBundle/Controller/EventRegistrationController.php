@@ -100,7 +100,7 @@ class EventRegistrationController extends Controller
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
                     ->setFrom('noreply@klipszemle.hu')
-                    ->setTo(array($entity->getUser()->getEmail(), 'olah.gergely@pixeloid.hu'))
+                    ->setTo(array($entity->getUser()->getEmail()))
                     ->setBody(
                         $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
                             'entity'      => $entity,
@@ -110,6 +110,19 @@ class EventRegistrationController extends Controller
 
                 $this->get('mailer')->send($message);
 
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
+                    ->setFrom('noreply@klipszemle.hu')
+                    ->setTo(array('info@klipszemle.hu', 'olah.gergely@pixeloid.hu'))
+                    ->setBody(
+                        $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
+                            'entity'      => $entity,
+                            'plainpass' => $plainpass,
+                        )), 'text/html'
+                    );
+
+                $this->get('mailer')->send($message);
 
 
                 return $this->redirect($this->generateUrl('eventregistration_success', array('id' => $entity->getId())));
@@ -175,6 +188,13 @@ class EventRegistrationController extends Controller
         if (!$entity || $entity->getUser() !== $user && !$securityContext->isGranted('ROLE_ADMIN')) {
             throw $this->createNotFoundException('Unable to find EventRegistration entity.');
         }
+
+
+        $flow = $this->createCreateForm($entity);
+
+        $form = $flow->createFormForStep(1);
+
+        var_dump(($form->get('name')));
 
         $page = $this->render('PixeloidAppBundle:EventRegistration:show.html.twig', array(
             'reg'      => $entity

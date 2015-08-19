@@ -1,24 +1,36 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-
+<div class="container">
     <h1><span>Regisztrációk</span></h1>
 
 
 
     <table class="table table-condensed">
-        
+        <tr>
+            <th>#</th>
+            <th>Dátum  </th>
+            <th>E-mail</th>
+            <th>Név</th>
+            <th>Szerző</th>
+            <th>Dal címe</th>
+            <th>Youtube link</th>
+             <th></th>
+        </tr>
         {% for reg in registrations %}
             <tr>
                 <td>{{reg.id}}</td>
-                <td>{{reg.user.getEmail}}</td>
-                <td>{{reg.getFirstname}} {{reg.getLastname}}</td>
                 <td>{{reg.getCreated.format('Y. m. d.')}}</td>
-                <td>{{reg.getEvent.getTagline}}</td>
-                <td>{{reg.getTotalCost|number_format(0, ' ', ' ')}} Ft</td>
-                <td><a href="{{path('eventregistration_show', {'id' : reg.getId})}}" class="btn btn-primary">Megnézem</a></td>
+                <td>{{reg.user.getEmail}}</td>
+                <td>{{reg.getName}}</td>
+                <td>{{reg.getAuthor}}</td>
+                <td>{{reg.getSongTitle}}</td>
+                <td><a href="{{reg.getVideoUrl}}" target="_blank" class="btn btn-default">Video megtekintése</a></td>
+                 <td><a href="{{path('eventregistration_show', {'id' : reg.getId})}}" class="btn btn-primary">Megnézem</a></td>
             </tr>
         {% endfor %}
         
     </table>
+
+</div>
 {% endblock %}

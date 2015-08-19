@@ -5,12 +5,15 @@ use Pixeloid\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
+use Pixeloid\AppBundle\Validator\Constraints as AppAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * EventRegistration
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pixeloid\AppBundle\Entity\EventRegistrationRepository")
+ * @UniqueEntity("video_url",groups={"flow_eventRegistration_step2"}, message="Ez a video már nevezésre került!")
  */
 
 class EventRegistration
@@ -28,7 +31,7 @@ class EventRegistration
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
 	 */
     private $name;
 
@@ -163,14 +166,16 @@ class EventRegistration
     protected $description;
 
     /**
-     * @ORM\Column(type="text", name="video_url", nullable=false)
+     * @ORM\Column(type="string", name="video_url", nullable=false, unique=true)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @AppAssert\Youtube(groups={"flow_eventRegistration_step2"})
      */
     protected $video_url;
 
     /**
      * @ORM\Column(type="array", name="categories", nullable=false)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @AppAssert\MaximumChecked(max=3, groups={"flow_eventRegistration_step2"})
      */
     protected $categories;
 

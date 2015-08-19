@@ -29,9 +29,9 @@ pixeloid_app_info:
     defaults: { _controller: PixeloidAppBundle:Default:info }
 
 
-pixeloid_app_programme:
-    path:     /programme
-    defaults: { _controller: PixeloidAppBundle:Default:programme }
+pixeloid_app_privacy:
+    path:     /privacy
+    defaults: { _controller: PixeloidAppBundle:Default:privacy }
 
 
 pixeloid_app_important:

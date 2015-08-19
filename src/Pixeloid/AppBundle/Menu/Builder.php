@@ -48,7 +48,7 @@ class Builder extends ContainerAware
         $actualUser = $securityContext->getToken()->getUser();
 
         $menu->addChild('Kilépés', array('route' => 'fos_user_security_logout'));
-        $menu->addChild('Fiókom', array('route' => 'fos_user_profile_show'));
+        // $menu->addChild('Fiókom', array('route' => 'fos_user_profile_show'));
 
         if ($securityContext->isGranted('ROLE_ADMIN')) {
           $menu->addChild('Regisztrációk listája', array('route' => 'eventregistration'));
@@ -56,7 +56,7 @@ class Builder extends ContainerAware
     }
     else
     {
-        $menu->addChild('Belépés', array('route' => 'fos_user_security_login'));
+       // $menu->addChild('Belépés', array('route' => 'fos_user_security_login'));
 
     }
     return $menu;

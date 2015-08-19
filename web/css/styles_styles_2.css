@@ -8651,20 +8651,6 @@ a:focus {
   margin-top: 20px;
   font-size: 18px;
 }
-@media (min-width: 768px) {
-  #jury .jury-person {
-    width: 23.75%;
-    float: left;
-    margin: 0 0.625%;
-  }
-}
-@media (min-width: 992px) {
-  #jury .jury-person {
-    width: 13.03571429%;
-    float: left;
-    margin: 0 0.625%;
-  }
-}
 #jury .jury-person img {
   width: 100%;
 }
@@ -10290,11 +10276,12 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 @font-face {
   font-family: 'Sweden Sans';
   src: url('../bundles/pixeloidapp/fonts/swedensansbold-webfont_HU.eot');
-  /* IE9 Compat Modes */
   src: url('../bundles/pixeloidapp/fonts/swedensansbold-webfont_HU.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../bundles/pixeloidapp/fonts/swedensansbold-webfont_HU.woff') format('woff'), /* Modern Browsers */ url('../bundles/pixeloidapp/fonts/swedensansbold-webfont_HU.ttf') format('truetype'), /* Safari, Android, iOS */ url('../bundles/pixeloidapp/fonts/swedensansbold-webfont_HU.svg#5dcda7413c7b35dea6326d312653c7a3') format('svg');
-  /* Legacy iOS */
   font-style: normal;
   font-weight: 700;
+  
+  /* IE9 Compat Modes */
+  /* Legacy iOS */
 }
 body {
   padding-top: 120px;

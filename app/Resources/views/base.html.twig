@@ -3,6 +3,39 @@
     <head>
         <title>{% block title %}01. Magyar Klipszemle!{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="Első Magyar Klipszemle" />
+        <meta property="og:site_name" content="01. Magyar Klipszemle"/>
+        <meta property="og:url" content="http://www.klipszemle.hu" />
+        <meta property="og:description" content="A  Magyar Klipszemle a magyar vonatkozású zenei videók első szakmai versenye. Magyarországon heti szinten több tucat videoklip készül, ami a legjobb esetben egy kiemelkedő online megtekintési szám elérésén kívül nem kap kellő figyelmet. Ezen változtatunk. Célunk egy olyan itthon egyedülálló, független rendezvény létrehozása, ami ezen alkotások művészi értékét kiemelve, nagy vásznon prezentálja a média, a szakma és a közönség számára. A szemlének másodlagos célja, hogy edukáljon és koncentráltan információkat továbbítson a szakmának, a zenészeknek, zenei managereknek és kiadóknak egyaránt. Az online nevezést egy szeptemberi kétnapos rendezvény követi a Toldiban, ahol vetítések, zsűrizés, Q&amp;A-ek, workshopok és party várja a szakmát és a klipekre fogékonyakat. Az első szemle az elmúlt öt év klipjeire koncentrál, az ezután következők az aktuális év termését versenyeztetik majd. A 2010 előtti alkotásokat külön kategóriában versenyeztetjük. " />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="hu_HU" />            <!-- Default -->
+        <meta property="article:author" content="https://www.facebook.com/klipszemle" />
+        <meta property="article:publisher" content="https://www.facebook.com/klipszemle" />
+        {% image '@PixeloidAppBundle/Resources/public/images/mksz_logo.jpg' %}
+        <meta property="og:image"
+        content="http://www.klipszemle.hu{{ asset_url }}" />
+        {% endimage %}
+
+
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png?v2">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png?v2">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png?v2">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png?v2">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png?v2">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png?v2">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png?v2">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png?v2">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png?v2">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png?v2">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v2">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png?v2">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v2">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png?v2">
+        <meta name="theme-color" content="#ffffff">
+
+
         <!-- Bootstrap -->
         {% block stylesheets %}
         {% stylesheets
@@ -59,12 +92,16 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <ul class="list-unstyled">
-                            <li><a href="#">Adatvédelmi szabályzat</a></li>
-                            <li><a href="#">Impresszum</a></li>
+                            <li><a href="{{ path('pixeloid_app_privacy') }}">Adatvédelmi ismertető</a></li>
                         </ul>
                     </div>
                     <div class="col-sm-4 text-center">
                                          <p>Copyright &copy; 2015</p>
+
+                    </div>
+
+                    <div class="col-sm-4">
+                        {{ knp_menu_render('PixeloidAppBundle:Builder:topMenu', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }}
 
                     </div>
                 </div>
@@ -78,5 +115,16 @@
  -->{% javascripts  '@jquery' '@bootstrap_js' '@PixeloidAppBundle/Resources/public/js/*' '@PixeloidAppBundle/Resources/public/lib/iCheck/icheck.min.js' '@PixeloidAppBundle/Resources/public/lib/jquery.easing.min.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-select.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-datepicker.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-datepicker.hu.js' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2124136-46', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

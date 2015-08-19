@@ -45,7 +45,7 @@ class EventRegistrationType extends AbstractType
             $builder
                 ->add('author', null, array('label' => 'Előadó'))
                 ->add('song_title', null, array('label' => 'Dal címe'))
-                ->add('length', null, array('label' => 'hossz'))
+                ->add('length', null, array('label' => 'Hossz'))
                 ->add('publisher', null, array('label' => 'Kiadó'))
                 ->add('song_publish_date', 'text', array('label' => 'A dal megjelenése', 'attr' => array('class' => 'datepicker')))
                 ->add('video_publish_date', 'text', array('label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker')))
@@ -70,7 +70,7 @@ class EventRegistrationType extends AbstractType
                 ->add('video_url', 'text', array('label' => 'A klip youtube linkje'))
 
                 ->add('categories', 'choice', array(
-                    'label' => 'Melyik kategóriákba nevezed?',
+                    'label' => 'Melyik kategóriákba nevezed? (maximum 3)',
                     'multiple' => true,
                     'expanded' => true,
                     'choices'   => array(
@@ -95,8 +95,8 @@ class EventRegistrationType extends AbstractType
             case 3:
 
             $builder
-            ->add('have_rights', 'checkbox', array('label' => 'A jogokkal rendelkezem', 'mapped' => false, 'required' => true))
-            ->add('accept_terms', 'checkbox', array('label' => 'Elfogadom a feltételeket', 'mapped' => false, 'required' => true, "constraints" => new True(array(
+            ->add('have_rights', 'checkbox', array('label' => 'Jogosultságom van a klipet nevezni', 'mapped' => false, 'required' => true))
+            ->add('accept_terms', 'checkbox', array('label' => '<a href="/privacy" target="_blank" onclick="">Elfogadom a feltételeket</a>', 'mapped' => false, 'required' => true, "constraints" => new True(array(
         "message" => "Kötelező mező!"))
             ))
             ->add('recaptcha', 'ewz_recaptcha', array(

@@ -78,9 +78,9 @@ class DefaultController extends Controller
         return $this->render('PixeloidAppBundle:Default:abstract-submission.html.twig');
     }
 
-    public function programmeAction()
+    public function privacyAction()
     {
-        return $this->render('PixeloidAppBundle:Default:programme.html.twig');
+        return $this->render('PixeloidAppBundle:Default:privacy.html.twig');
     }
     public function importantAction()
     {
