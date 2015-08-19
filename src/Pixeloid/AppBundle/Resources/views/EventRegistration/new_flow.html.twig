@@ -3,13 +3,9 @@
 
 {% block body -%}
 
-
+<div class="container">
 <div class="row">
-  {% if flow.getCurrentStepNumber() != 5 %}
-    <div class="col-sm-9">
-  {% else %}
     <div class="col-sm-12">
-  {% endif %}
 
 <!--         <h1><span>Event Registration</span></h1>
  -->
@@ -17,238 +13,127 @@
             {% include 'PixeloidAppBundle:FormFlow:stepList.html.twig' %}
         </div>
 
-        <hr>
 
         {{ form_start(form, {attr: {'data-calculate-url': path('eventregistration_calculate'), 'class': 'eventregistration-form' }}) }}
 
         {% if flow.getCurrentStepNumber() == 1 %}
         <div class="row">
             <div class="col-sm-6">
-                {{ form_row(form.registrantType) }}
+                {{ form_row(form.name) }}
             </div>
             <div class="col-sm-6">
-                {{ form_row(form.reg_number) }}
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                {{ form_row(form.title) }}
-            </div>
-            <div class="col-sm-3">
-                {{ form_row(form.firstname) }}
-            </div>
-
-            <div class="col-sm-3">
-                {{ form_row(form.lastname) }}
-            </div>
-            <div class="col-sm-4">
-                {{ form_row(form.institution, { 'attr': {'class': 'gmaps-autocomplete'} }) }}
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                {{ form_row(form.country) }}
-            </div>
-            <div class="col-sm-2">
-                {{ form_row(form.postal) }}
-            </div>
-
-            <div class="col-sm-3">
-                {{ form_row(form.city) }}
-            </div>
-            <div class="col-sm-5">
-                {{ form_row(form.address) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
                 {{ form_row(form.email) }}
             </div>
+
+        </div>
+        <div class="row">
             <div class="col-sm-4">
+                {{ form_row(form.title) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(form.company) }}
+            </div>
+
+            <div class="col-sm-4">
+                {{ form_row(form.website) }}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
                 {{ form_row(form.phone) }}
             </div>
-
-            <div class="col-sm-4">
-                {{ form_row(form.fax) }}
+            <div class="col-sm-6">
+                {{ form_row(form.address) }}
             </div>
-        </div>
-        <hr>
 
-        <div class="row">
-            <div class="col-sm-12">
-                {{ form_row(form.extra1) }}
-            </div>
         </div>
-        <hr>
+
 <!--         <div class="alert alert-success">A továbbképző napon <b>12 kreditpont</b>, a tudományos ülésen való részvétellel <b>30 kreditpont</b> szerezhető. Szakdolgozók részére <b>20 kreditpont</b> szerezhető.</div>
 
  -->        {% elseif flow.getCurrentStepNumber() == 2 %}
 
 
-    <!--         <h2>Available accomodation options</h2>
-     --><div class="row">
-            <div class="col-sm-8">
+    <div class="row">
+        <div class="col-sm-5">
+            {{ form_row(form.author) }}
+        </div>
+        <div class="col-sm-5">
+            {{ form_row(form.song_title) }}
+        </div>
+
+        <div class="col-sm-2">
+            {{ form_row(form.length) }}
+        </div>
 
 
-                <table class="table table-condensed table-decorated room-table">
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_row(form.publisher) }}
+        </div>
 
-                <tr class="room" data-id="">
-                    <td><span class="check glyphicon glyphicon-ok "></span> Nem kérek szállást
-                    </td>
-                </tr>
+        <div class="col-sm-4">
+            {{ form_row(form.song_publish_date) }}
+        </div>
 
+        <div class="col-sm-4">
+            {{ form_row(form.video_publish_date) }}
+        </div>
 
-                {% for acc in accomodations %}
-                
-                <tr>
-                    <th>{{acc.name}} ({{acc.address}}) <a href="#" class="btn btn-xs btn-info pull-right">Bővebb információ </a></th>
-                </tr>
-                {% for room in acc.getRooms() %}
-                
-                    <tr class="room" data-id="{{room.id}}">
-                        <td><span class="check glyphicon glyphicon-ok "></span> {{room.getRoomType.getName}} 
-                            <span class="pull-right">
-                              {{room.getPrice|number_format(0,'', ' ')}} Ft / fő /éjszaka
-                            </span>
-                        </td>
-                    </tr>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_row(form.producer) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_row(form.director) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_row(form.photographer) }}
+        </div>
 
-                {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_row(form.designer) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_row(form.editor) }}
+        </div>
+        <div class="col-sm-4">
+      {{ form_row(form.technology) }}
+        </div>
 
-                {% endfor %}
-                </table>
-                
-                <div class="">
-                {{ form_widget(form.roomReservation.room) }}
-                {{ form_widget(form.roomReservation.persons) }}
-                </div>
-
-
-            </div>
-            <div class="col-sm-4">
-                        
-                    <div class="bootstrap-date">
-                        {{ form_row(form.roomReservation.checkIn) }}
-                    </div>
-                    <div class="bootstrap-date">
-                        {{ form_row(form.roomReservation.checkOut) }}
-                    </div>
-                    {{ form_row(form.roomReservation.roommate) }}
-
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+        {{ form_row(form.budget) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.video_url) }}
 
 
         </div>
+        <div class="col-sm-6">
+            {{ form_row(form.categories) }}
+        </div>
+
+    </div>
 
         {% elseif flow.getCurrentStepNumber() == 3 %}
 
 
-                       {% set datesArray = [] %}
-            
-            
-                       {% for diningGroup in form.diningReservation.diningDates.vars.choices %}
-                           {% for dining in diningGroup %}
-                               {% if dining.data.date not in datesArray %}
-                                {% set datesArray = datesArray|merge([dining.data.date])  %}
-                               {% endif %}
-                           {% endfor %}
-                       {% endfor %}
-                       <table class="table table-decorated">
-                           <tr>
-                               <th>Étkezés</th>
-            
-                               {% for date in datesArray %}
-                                   <th>{{ date }}</th>
-                               {% endfor %}
-            
-            
-                           </tr>
-            
-                           {% for dining in form.diningReservation.diningDates.vars.choices %}
-                               <tr>
-                                   
-                                   <td>
-                                    {{ dining|first.data.dining.diningType.name }}  
-                                    ({{dining|first.data.dining.price}},-Ft/fő/alkalom)</td>
 
-                                  {% for date in datesArray %}
-                                      <td>
-                                          {% for d in dining %}
-           
-                                              {% if d.data.date == date %}
-                                                  {{form_widget(form.diningReservation.diningDates.children[d.data.id])}}
-                                              {% endif %}
-                                          {% endfor %}
-                                      </td>
-                                  {% endfor %}
-           
-                              </tr>
-                          {% endfor %}
-           
-           
-                      </table>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_row(form.have_rights) }}
+                </div>
 
-                      <p>
-                        <sup>*</sup>A szállás díja tartalmazza  az október 1-2-i vacsora költségét.  Amennyiben külön vacsorára tart igényt, kérjük  abban az esetben jelölje be!
-                      </p>
-
-                      {{form_row(form.diningReservation.special)}}
-
-
-
-
-        {% elseif flow.getCurrentStepNumber() == 4 %}
-
-        <div role="tabpanel" class="payment-method-tabs">
-
-    <div class="form-group">
-    {{form_label(form.paymentMethod)}}: 
-    {{form_widget(form.paymentMethod.0)}}
-    {{form_label(form.paymentMethod.0)}} 
-    {{form_widget(form.paymentMethod.1)}}
-    {{form_label(form.paymentMethod.1)}}
-    </div>
-
-
-          <!-- Nav tabs -->
-          <ul class="nav nav-tabs hidden" role="tablist">
-                
-
-              <li role="presentation" class="active"><a href="#paymentmethod-{{form.paymentMethod.vars.choices.0.value}}" aria-controls="paymentmethod-{{form.paymentMethod.vars.choices.0.value}}" data-value="{{form.paymentMethod.vars.choices.0.value}}" role="tab" data-toggle="tab">{{(form.paymentMethod.vars.choices.0.label)}}</a></li>
-              <li role="presentation"><a href="#paymentmethod-{{form.paymentMethod.vars.choices.1.value}}" data-value="{{form.paymentMethod.vars.choices.1.value}}" aria-controls="paymentmethod-{{form.paymentMethod.vars.choices.1.value}}" role="tab" data-toggle="tab">{{form.paymentMethod.vars.choices.1.label}}</a></li>
-                
-
-
-          </ul>
-<hr>
-          <!-- Tab panes -->
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane{% if form.paymentMethod.vars.data == form.paymentMethod.vars.choices.0.value %} active{% endif %}
-" id="paymentmethod-{{form.paymentMethod.vars.choices.0.value}}">
-
-            {{form_row(form.billingNameTransfer)}}
-            {{form_row(form.billingAddressTransfer)}}
+                <div class="col-sm-6">
+                    {{ form_row(form.accept_terms) }}
+                </div>
 
             </div>
-            <div role="tabpanel" class="tab-pane{% if form.paymentMethod.vars.data == form.paymentMethod.vars.choices.1.value %} active{% endif %}
-" id="paymentmethod-{{form.paymentMethod.vars.choices.1.value}}">
-              {{form_row(form.invoiceTypeSponsored)}}
-              {{form_row(form.billingContactPersonSponsored)}}
-              {{form_row(form.billingNameSponsored)}}
-              {{form_row(form.billingAddressSponsored)}}
-
-            </div>
-          </div>
-
-        </div>
-
-
-
-        {% elseif flow.getCurrentStepNumber() == 5 %}
-
-            {% include 'PixeloidAppBundle:EventRegistration:registration_check.html.twig' %}
 
             <div class="row">
 
@@ -272,66 +157,16 @@
 
     </div>
 
-    {% if flow.getCurrentStepNumber() != 5 %}
-
-    <div class="col-sm-3">
-        <ul class="list-group">
-          <li class="list-group-item">
-            <span class="pull-right"><span class="price-registration"></span>  Ft</span>
-            Regisztrációs díj
-
-          </li>
-          <li class="list-group-item">
-            <span class="pull-right "><span class="price-accomodation"></span> Ft</span>
-            Szállás (<span class="num-nights"></span> éjszaka)
-          </li>
-          <li class="list-group-item">
-            <span class="pull-right "><span class="price-dining"></span> Ft</span>
-            Étkezés
-          </li>
-          <li class="list-group-item">
-              <b>
-            <span class="pull-right"><span class="price-total"></span> Ft</span>
-            Összesen fizetendő</b>
-          </li>
-        </ul>
-        <div class="small">
-              
-          <p>Az árak az általános forgalmi adót tartalmazzák - regisztráció, étkezések: 27%, szállás:18%</p>
-          <p>A megrendelt szolgáltatásokról a Mis & Bos Kft. visszaigazolást küld. A szálláshelyeket a beérkezett foglalások sorrendjében tudjuk csak visszaigazolni.</p>
-          <p>
-          A részvételt, az étkezést és a szállás foglalást csak akkor tekintjük véglegesnek, ha a részvételi díj, az étkezés és szállás díja bankszámlánkra beérkezett.</p>
-
-        </div>
-    </div>
-    {% endif %}
-
-</div>
 
 
-<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="mapModalLabel">New message</h4>
-      </div>
-      <div class="modal-body">
-
-      </div>
-    </div>
-  </div>
 </div>
 
 
 
 
 
-<!--         <ul class="record_actions">
-    <li>
-        <a href="{{ path('eventregistration') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
- -->{% endblock %}
+
+
+  
+</div>
+{% endblock %}

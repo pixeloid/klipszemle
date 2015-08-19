@@ -27,57 +27,40 @@ class EventRegistration
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="firstname", type="string", length=255)
+	 * @ORM\Column(name="name", type="string", length=255)
 	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
 	 */
-    private $firstname;
+    private $name;
 
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="lastname", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+	 * @ORM\Column(name="company", type="string", length=50, nullable=true)
 	 */
-    private $lastname;
+    private $company;
 
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="title", type="string", length=10, nullable=true)
+	 * @ORM\Column(name="title", type="string", length=255)
+	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
 	 */
     private $title;
 
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="institution", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+	 * @ORM\Column(name="website", type="string", length=100, nullable= true)
 	 */
-    private $institution;
+    private $website;
 
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="country", type="string", length=2)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $country;
-
-    /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="address", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+	 * @ORM\Column(name="address", type="string", length=255, nullable= true)
 	 */
     private $address;
 
-    /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="city", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $city;
 
     /**
 	 * @var string
@@ -87,12 +70,113 @@ class EventRegistration
 	 */
     private $phone;
 
+
+
+
     /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="fax", type="string", length=20, nullable=true)
-	 */
-    private $fax;
+     * @ORM\Column(type="string", name="author", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $author;
+    
+
+
+
+    /**
+     * @ORM\Column(type="string", name="song_title", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $song_title;
+    
+
+
+
+    /**
+     * @ORM\Column(type="string", name="length", nullable=false, length=50)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $length;
+
+
+
+
+    /**
+     * @ORM\Column(type="string", name="publisher", nullable=false, length=150, nullable=true)
+     */
+    protected $publisher;
+    
+
+    /**
+     * @ORM\Column(type="text", name="song_publish_date", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $song_publish_date;
+    
+    /**
+     * @ORM\Column(type="text", name="video_publish_date", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $video_publish_date;
+    
+    /**
+     * @ORM\Column(type="string", name="producer", nullable=true, length=150, nullable=true)
+     */
+    protected $producer;
+
+    /**
+     * @ORM\Column(type="string", name="director", nullable=true, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $director;
+
+    /**
+     * @ORM\Column(type="string", name="photographer", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $photographer;
+
+    /**
+     * @ORM\Column(type="string", name="designer", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $designer;
+    /**
+     * @ORM\Column(type="string", name="editor", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $editor;
+
+    /**
+     * @ORM\Column(type="string", name="technology", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $technology;
+    /**
+     * @ORM\Column(type="string", name="budget", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $budget;
+    /**
+     * @ORM\Column(type="text", name="description", nullable=false)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="text", name="video_url", nullable=false)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $video_url;
+
+    /**
+     * @ORM\Column(type="array", name="categories", nullable=false)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $categories;
+
+    
+
+
 
     /**
 	 * @var string
@@ -103,16 +187,6 @@ class EventRegistration
 	 */
     private $email;
 
-    /**
-	 * @ORM\Column(type="string", name="postal", length=10, unique=false, nullable=false)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $postal = null;
-
-    /**
-	 * @ORM\Column(type="string", name="regnumber", length=50, unique=false, nullable=true)
-	 */
-    private $regnumber = null;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\UserBundle\Entity\User", inversedBy="eventRegistrations")
@@ -120,52 +194,8 @@ class EventRegistration
 	 */
     private $user;
 
-    /**
-     * @ORM\Column(type="string", name="paymentmethod", unique=false, nullable=false)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
-     */
-    protected $paymentMethod = null;
-    
-    /**
-     * @ORM\Column(type="string", name="invoiceType_sponsored", unique=false, nullable=true)
-     */
-    protected $invoiceTypeSponsored = null;
-    
-    /**
-     * @ORM\Column(type="string", name="billingName_sponsored", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
-     */
-    protected $billingNameSponsored = null;
-    
-    /**
-     * @ORM\Column(type="string", name="billingAddress_sponsored", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
-     */
-    protected $billingAddressSponsored = null;
-    /**
-     * @ORM\Column(type="string", name="billingContactPerson_sponsored", length=255, unique=false, nullable=true)
-     */
-    protected $billingContactPersonSponsored = null;
-    
 
-    /**
-     * @ORM\Column(type="string", name="billingName_transfer", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodTransfer"})
-     */
-    protected $billingNameTransfer = null;
-    
-    /**
-     * @ORM\Column(type="string", name="billingAddress_transfer", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodTransfer"})
-     */
-    protected $billingAddressTransfer = null;
 
-    /**
-	 * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")
-	 * @ORM\JoinColumn(name="registrant_type_id", referencedColumnName="id")
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $registrantType;
 
     /**
      * @ORM\Column(type="date", name="created", nullable=false)
@@ -173,66 +203,27 @@ class EventRegistration
     protected $created = null;
     
 
-    /**
-     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\RoomReservation", mappedBy="eventRegistration", cascade={"all"})
-     */
-    private $roomReservation;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\DiningReservation", mappedBy="eventRegistration", cascade={"persist"})
-     */
-    private $diningReservation;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Pixeloid\AppBundle\Entity\ExtraProgram")
-     */
-    private $extraPrograms;
-
-
-    /**
-     * @Recaptcha\IsTrue(groups={"flow_eventRegistration_step5"})
-     */
-    private $recaptcha;
-
-    /**
-     * @ORM\Column(type="integer", name="extra1", nullable=true)
-     */
-    private $extra1;
-    /**
-     * @ORM\Column(type="integer", name="extra2", nullable=true)
-     */
-    private $extra2;
-    /**
-     * @ORM\Column(type="integer", name="extra3", nullable=true)
-     */
-    private $extra3;
-    /**
-     * @ORM\Column(type="integer", name="extra4", nullable=true)
-     */
-    private $extra4;
-    /**
-	 * @ORM\ManyToOne(targetEntity="Event")
-	 * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
-	 */
-    private $event;
 
 
 
-    public function getTotalCost()
+    /**
+     * @Recaptcha\IsTrue(groups={"flow_eventRegistration_step3"})
+     */
+    public $recaptcha;
+
+
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        $total = 0;
-        $total += $this->getRegistrantType() ? $this->getRegistrationFee() : 0;
-        $total += $this->getRoomReservation() ? $this->getRoomReservation()->getTotalCost() : 0;
-        $total += $this->getDiningReservation() ? $this->getDiningReservation()->getTotalCost() : 0;
-
-        return $total;
-
     }
 
-    public function getRegistrationFee()
-    {
-        return $this->getExtra1() == 2 ? 4000 : $this->getRegistrantType()->getPriceBefore();
-    }
+
+
+
     /**
      * Gets the value of recaptcha.
      *
@@ -255,13 +246,6 @@ class EventRegistration
         $this->recaptcha = $recaptcha;
 
         return $this;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
     }
 
     /**
@@ -1166,5 +1150,461 @@ class EventRegistration
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return EventRegistration
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     *
+     * @return EventRegistration
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     *
+     * @return EventRegistration
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return EventRegistration
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set songTitle
+     *
+     * @param string $songTitle
+     *
+     * @return EventRegistration
+     */
+    public function setSongTitle($songTitle)
+    {
+        $this->song_title = $songTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get songTitle
+     *
+     * @return string
+     */
+    public function getSongTitle()
+    {
+        return $this->song_title;
+    }
+
+    /**
+     * Set length
+     *
+     * @param string $length
+     *
+     * @return EventRegistration
+     */
+    public function setLength($length)
+    {
+        $this->length = $length;
+
+        return $this;
+    }
+
+    /**
+     * Get length
+     *
+     * @return string
+     */
+    public function getLength()
+    {
+        return $this->length;
+    }
+
+    /**
+     * Set publisher
+     *
+     * @param string $publisher
+     *
+     * @return EventRegistration
+     */
+    public function setPublisher($publisher)
+    {
+        $this->publisher = $publisher;
+
+        return $this;
+    }
+
+    /**
+     * Get publisher
+     *
+     * @return string
+     */
+    public function getPublisher()
+    {
+        return $this->publisher;
+    }
+
+    /**
+     * Set songPublishDate
+     *
+     * @param \DateTime $songPublishDate
+     *
+     * @return EventRegistration
+     */
+    public function setSongPublishDate($songPublishDate)
+    {
+        $this->song_publish_date = $songPublishDate;
+
+        return $this;
+    }
+
+    /**
+     * Get songPublishDate
+     *
+     * @return \DateTime
+     */
+    public function getSongPublishDate()
+    {
+        return $this->song_publish_date;
+    }
+
+    /**
+     * Set videoPublishDate
+     *
+     * @param \DateTime $videoPublishDate
+     *
+     * @return EventRegistration
+     */
+    public function setVideoPublishDate($videoPublishDate)
+    {
+        $this->video_publish_date = $videoPublishDate;
+
+        return $this;
+    }
+
+    /**
+     * Get videoPublishDate
+     *
+     * @return \DateTime
+     */
+    public function getVideoPublishDate()
+    {
+        return $this->video_publish_date;
+    }
+
+    /**
+     * Set producer
+     *
+     * @param string $producer
+     *
+     * @return EventRegistration
+     */
+    public function setProducer($producer)
+    {
+        $this->producer = $producer;
+
+        return $this;
+    }
+
+    /**
+     * Get producer
+     *
+     * @return string
+     */
+    public function getProducer()
+    {
+        return $this->producer;
+    }
+
+    /**
+     * Set director
+     *
+     * @param string $director
+     *
+     * @return EventRegistration
+     */
+    public function setDirector($director)
+    {
+        $this->director = $director;
+
+        return $this;
+    }
+
+    /**
+     * Get director
+     *
+     * @return string
+     */
+    public function getDirector()
+    {
+        return $this->director;
+    }
+
+    /**
+     * Set photographer
+     *
+     * @param string $photographer
+     *
+     * @return EventRegistration
+     */
+    public function setPhotographer($photographer)
+    {
+        $this->photographer = $photographer;
+
+        return $this;
+    }
+
+    /**
+     * Get photographer
+     *
+     * @return string
+     */
+    public function getPhotographer()
+    {
+        return $this->photographer;
+    }
+
+    /**
+     * Set designer
+     *
+     * @param string $designer
+     *
+     * @return EventRegistration
+     */
+    public function setDesigner($designer)
+    {
+        $this->designer = $designer;
+
+        return $this;
+    }
+
+    /**
+     * Get designer
+     *
+     * @return string
+     */
+    public function getDesigner()
+    {
+        return $this->designer;
+    }
+
+    /**
+     * Set editor
+     *
+     * @param string $editor
+     *
+     * @return EventRegistration
+     */
+    public function setEditor($editor)
+    {
+        $this->editor = $editor;
+
+        return $this;
+    }
+
+    /**
+     * Get editor
+     *
+     * @return string
+     */
+    public function getEditor()
+    {
+        return $this->editor;
+    }
+
+    /**
+     * Set technology
+     *
+     * @param string $technology
+     *
+     * @return EventRegistration
+     */
+    public function setTechnology($technology)
+    {
+        $this->technology = $technology;
+
+        return $this;
+    }
+
+    /**
+     * Get technology
+     *
+     * @return string
+     */
+    public function getTechnology()
+    {
+        return $this->technology;
+    }
+
+    /**
+     * Set budget
+     *
+     * @param string $budget
+     *
+     * @return EventRegistration
+     */
+    public function setBudget($budget)
+    {
+        $this->budget = $budget;
+
+        return $this;
+    }
+
+    /**
+     * Get budget
+     *
+     * @return string
+     */
+    public function getBudget()
+    {
+        return $this->budget;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return EventRegistration
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set videoUrl
+     *
+     * @param string $videoUrl
+     *
+     * @return EventRegistration
+     */
+    public function setVideoUrl($videoUrl)
+    {
+        $this->video_url = $videoUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get videoUrl
+     *
+     * @return string
+     */
+    public function getVideoUrl()
+    {
+        return $this->video_url;
+    }
+
+    /**
+     * Set categories
+     *
+     * @param array $categories
+     *
+     * @return EventRegistration
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Get categories
+     *
+     * @return array
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

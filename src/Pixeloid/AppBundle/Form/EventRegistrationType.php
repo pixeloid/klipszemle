@@ -10,6 +10,7 @@ use Pixeloid\AppBundle\Entity\Accomodation;
 use Pixeloid\AppBundle\Entity\RoomReservation;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints\True;
 
 class EventRegistrationType extends AbstractType
 {
@@ -23,158 +24,98 @@ class EventRegistrationType extends AbstractType
         switch ($options['flow_step']) {
             case 1:
                 $builder
-                    ->add('registrantType', 'entity', array(
-                        'class' => 'PixeloidAppBundle:RegistrantType',
-                        'property' => 'name',
-                        'required'    => false,
-                        'label'     => 'form.label.registranttype',
-                        'placeholder' => 'Válasszon...',
-                        'empty_data'  => null
-                    ))
-
-                    ->add('reg_number', null, array('label' => 'form.label.regnumber'))
-                    ->add('firstname', null, array('label' => 'form.label.firstname'))
-                    ->add('lastname', null, array('label' => 'form.label.lastname'))
+                    ->add('name', null, array('label' => 'Név'))
+                    ->add('company', null, array('label' => 'Cégnév'))
                     ->add('title', 'choice', array(
+                        'label' => 'Jogcím',
                         'choices'   => array(
-                            // 'Mr.' => 'Mr.', 
-                            // 'Mrs.' => 'Mrs.', 
-                            // 'Ms.' => 'Ms.',
-                            'Dr.' => 'Dr.',
-                            'Prof.' => 'Prof',
-                            'dr.' => 'dr.'
-                        ),
-                        'label' => 'form.label.title',
-                        'required'  => false,
-                        'empty_data'  => null
-
-                    ))
-                    ->add('institution', null, array('label' => 'form.label.institution'))
-                    ->add('country', 'country', array('label' => 'form.label.country', 'data' => 'HU'))
-                    ->add('city', null, array('label' => 'form.label.city'))
-                    ->add('address', null, array('label' => 'form.label.address'))
-                    ->add('phone', null, array('label' => 'form.label.phone'))
-                    ->add('fax', null, array('label' => 'form.label.fax'))
+                            'Rendező', 'Előadó', 'Kiadó', 'Gyártócég'
+                        )
+                        )
+                    )
+                    ->add('website', null, array('label' => 'Webcím'))
                     ->add('email', null, array('label' => 'form.label.email'))
-                    ->add('postal', null, array('label' => 'form.label.postal'))
-                    // ->add('extra1', 'choice', array(
-                    //     'choices'   => array(
-                    //         1   => 'A teljes kongresszuson és a továbbképző napon is részt veszek',
-                    //         0   => 'Csak a  kongresszuson veszek részt',
-                    //         2 => 'Csak a továbbképző napon veszek részt',
-                    //     ),
-                    //     'preferred_choices' => array(1), //1 is item number
-                    //     'multiple'  => false,
-                    //     'expanded'  => true,
-                    //     'data' => 1,
-                    //     'label' => 'Részvétel'
-                    // ))
-
-                    ->add('extra1', 'choice', array(
-                        'choices'   => array(
-                            1   => 'Részt veszek',
-                            0 => 'Nem veszek részt',
-                        ),
-                        'preferred_choices' => array(1), //1 is item number
-                        'multiple'  => false,
-                        'expanded'  => true,
-                        'data' => 1,
-                        'label' => 'A 2015. október 1-i posztgraduális programon'
-                    ))
-
-                    // ->add('extra3', 'choice', array(
-                    //     'choices'   => array(
-                    //         1   => 'Részt veszek',
-                    //         0 => 'Nem veszek részt',
-                    //     ),
-                    //     'preferred_choices' => array(1), //1 is item number
-                    //     'multiple'  => false,
-                    //     'expanded'  => true,
-                    //     'data' => 1,
-                    //     'label' => 'UH oktatás workshopon'
-                    // ))
-
-                    // ->add('roomReservations', 'collection', array(
-                    //     'type' => new RoomReservationType,
-                    //   //  'mapped'   => false,
-
-                    // ))
-                    // ->add('gender', 'choice', array(
-                    //     'choices'   => array('m' => 'Male', 'f' => 'Female'),
-                    //     'required'  => false,
-                    //     'mapped' => false,
-                    //     'expanded' => true,
-                    //     'multiple' => true
-                    // ));
-
+                    ->add('phone', null, array('label' => 'Telefonszám'))
+                    ->add('address', null, array('label' => 'Postacím'))
 
                     ;
 
                 break;
             case 2:
-                $builder
+            $builder
+                ->add('author', null, array('label' => 'Előadó'))
+                ->add('song_title', null, array('label' => 'Dal címe'))
+                ->add('length', null, array('label' => 'hossz'))
+                ->add('publisher', null, array('label' => 'Kiadó'))
+                ->add('song_publish_date', 'text', array('label' => 'A dal megjelenése', 'attr' => array('class' => 'datepicker')))
+                ->add('video_publish_date', 'text', array('label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker')))
+                ->add('producer', null, array('label' => 'Gyártócég'))
+                ->add('director', null, array('label' => 'Rendező'))
+                ->add('photographer', null, array('label' => 'Operatőr'))
+                ->add('designer', null, array('label' => 'Látványtervező'))
+                ->add('editor', null, array('label' => 'Vágó'))
+                ->add('technology', null, array(
+                    'label' => 'Rögzítéstechnika',
+                    )
+                )
+                ->add('budget', 'choice', array(
+                    'label' => 'Budget',
+                    'choices'   => array(
+                        '500 ezer alatt', '1 millió alatt', '1.5 millió alatt', '1.5 millió felett'
+                    )
+                    )
+                )
 
-                        ->add('roomReservation', new RoomReservationType(), array(
-                            'data_class' => 'Pixeloid\AppBundle\Entity\RoomReservation'
-                        ))
+                ->add('description', 'textarea', array('label' => 'Leírás'))
+                ->add('video_url', 'text', array('label' => 'A klip youtube linkje'))
 
-                        ;
-                break;
-            case 3:
+                ->add('categories', 'choice', array(
+                    'label' => 'Melyik kategóriákba nevezed?',
+                    'multiple' => true,
+                    'expanded' => true,
+                    'choices'   => array(
+                            'Legjobb klip',
+                            'Legjobb zene',
+                            'Legjobb látvány',
+                            'Legjobb operatőri munka',
+                            'Legjobb vágás',
+                            'Legjobb rendezés',
+                            'Legjobb no budget',
+                            'Legjobb animáció',
+                            'Legjobb 2010 előtti',
+                            'Legjobb trash',
 
-                $builder->add('diningReservation', new DiningReservationType())
+                    )
+                    )
+                )
+
                 ;
 
                 break;
-            case 4:
+            case 3:
 
-                $builder
-                    ->add('paymentMethod', 'choice', array(
-                        'choices'   => array(
-                            'transfer' => 'Banki átutalás', 
-                            'sponsored' => 'Szponzorált részvétel', 
-                        ),
-                        'expanded'  => true,
-                        'data' => 'transfer',
-                        'label' => 'form.label.paymentmethod'
-                    ))
-                    ->add('invoiceTypeSponsored', 'choice', array(
-                        'choices'   => array(
-                            'szamla' => 'Számla', 
-                            'elolegszamla' => 'Előleg számla', 
-                            'elolegbekero' => 'Előlegbekérő', 
-                        ),
-                        'expanded'  => true,
-                        'data' => 'szamla',
-                        'label' => 'form.label.invoicetype'
-                    ))
-                    ->add('billingNameSponsored', null, array('label' => 'form.label.billingnamesponsored'))
-                    ->add('billingAddressSponsored', null, array('label' => 'form.label.billingaddresssponsored'))
-                    ->add('billingContactPersonSponsored', null, array('label' => 'form.label.billingcontactpersonsponsored'))
-                    ->add('billingNameTransfer', null, array('label' => 'form.label.billingnametransfer'))
-                    ->add('billingAddressTransfer', null, array('label' => 'form.label.billingaddresstransfer'));
+            $builder
+            ->add('have_rights', 'checkbox', array('label' => 'A jogokkal rendelkezem', 'mapped' => false, 'required' => true))
+            ->add('accept_terms', 'checkbox', array('label' => 'Elfogadom a feltételeket', 'mapped' => false, 'required' => true, "constraints" => new True(array(
+        "message" => "Kötelező mező!"))
+            ))
+            ->add('recaptcha', 'ewz_recaptcha', array(
+                    'attr'        => array(
+                        'options' => array(
+                            'theme' => 'light',
+                            'type'  => 'image',
+                            'size' => 'compact',
+                            'type'  => 'image'
+
+                        )
+                    ),
+            ));
+            ;
 
                 break;
-            case 5:
-                $builder
 
-                        ->add('recaptcha', 'ewz_recaptcha', array(
-                                'attr'        => array(
-                                    'options' => array(
-                                        'theme' => 'light',
-                                        'type'  => 'image',
-                                        'size' => 'compact',
-                                        'type'  => 'image'
 
-                                    )
-                                ),
-                        ));
-                        ;
-                break;
         }
-
-
-        ;
 
     }
     

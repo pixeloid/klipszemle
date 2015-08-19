@@ -84,12 +84,6 @@ class EventRegistrationController extends Controller
                 $entity->setUser($user);
                 $entity->setEvent($event);
                 $entity->setCreated(new \DateTime);
-                $entity->getRoomReservation()->setEventRegistration($entity);
-                $entity->getDiningReservation()->setEventRegistration($entity);
-
-                foreach ($entity->getDiningReservation()->getDiningDates() as $date) {
-                   $date->addDiningReservation($entity->getDiningReservation());                    # code...
-                }
                 
                 $em->persist($entity);
                 $em->flush();
@@ -104,9 +98,9 @@ class EventRegistrationController extends Controller
                 $this->get("security.context")->setToken($token);
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Regisztráció visszaigazolása - Magyar Gyermek-gasztroenterológiai Társaság V. Kongresszusa')
-                    ->setFrom('noreply@misandbos.hu')
-                    ->setTo(array($entity->getUser()->getEmail(), 'mgygt2015@misandbos.hu', 'olah.gergely@pixeloid.hu'))
+                    ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
+                    ->setFrom('noreply@klipszemle.hu')
+                    ->setTo(array($entity->getUser()->getEmail(), 'olah.gergely@pixeloid.hu'))
                     ->setBody(
                         $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
                             'entity'      => $entity,
@@ -122,7 +116,7 @@ class EventRegistrationController extends Controller
             }
 
         }else{
-            // var_dump(($form->getErrorsAsString()));
+        // var_dump(($form->getErrorsAsString()));
         }
 
 
@@ -193,7 +187,10 @@ class EventRegistrationController extends Controller
     public function registrationSuccessAction($id)
     {
      
-         return   $this->redirect('show');
+        return $this->render('PixeloidAppBundle:EventRegistration:success.html.twig', array(
+
+        ));
+
 
     }
 

@@ -1,48 +1,12 @@
 @font-face {
-  font-family: 'Exo';
-  src: url('Exo-Bold.eot'); /* IE9 Compat Modes */
-  src: url('Exo-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('Exo-Bold.woff') format('woff'), /* Modern Browsers */
-       url('Exo-Bold.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('Exo-Bold.svg#3f3f0bfb70ac63058523d56f41b5ea01') format('svg'); /* Legacy iOS */
+  font-family: 'Sweden Sans';
+  src: url('swedensansbold-webfont_HU.eot'); /* IE9 Compat Modes */
+  src: url('swedensansbold-webfont_HU.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('swedensansbold-webfont_HU.woff') format('woff'), /* Modern Browsers */
+       url('swedensansbold-webfont_HU.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('swedensansbold-webfont_HU.svg#5dcda7413c7b35dea6326d312653c7a3') format('svg'); /* Legacy iOS */
        
   font-style:   normal;
   font-weight:  700;
-}
-
-@font-face {
-  font-family: 'Exo';
-  src: url('Exo-Light.eot'); /* IE9 Compat Modes */
-  src: url('Exo-Light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('Exo-Light.woff') format('woff'), /* Modern Browsers */
-       url('Exo-Light.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('Exo-Light.svg#d3f746777e18fc9f1c0cb1fc28ee1592') format('svg'); /* Legacy iOS */
-       
-  font-style:   normal;
-  font-weight:  400;
-}
-
-@font-face {
-  font-family: 'Exo';
-  src: url('Exo-Medium.eot'); /* IE9 Compat Modes */
-  src: url('Exo-Medium.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('Exo-Medium.woff') format('woff'), /* Modern Browsers */
-       url('Exo-Medium.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('Exo-Medium.svg#9611154d53964f16de2ae802b2261f0a') format('svg'); /* Legacy iOS */
-       
-  font-style:   normal;
-  font-weight:  500;
-}
-
-@font-face {
-  font-family: 'Exo';
-  src: url('Exo-Thin.eot'); /* IE9 Compat Modes */
-  src: url('Exo-Thin.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('Exo-Thin.woff') format('woff'), /* Modern Browsers */
-       url('Exo-Thin.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('Exo-Thin.svg#0f8a6c32f2f2e546acdf934f4b322d3a') format('svg'); /* Legacy iOS */
-       
-  font-style:   normal;
-  font-weight:  200;
 }
 

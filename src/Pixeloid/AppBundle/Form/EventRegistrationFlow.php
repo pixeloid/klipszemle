@@ -33,10 +33,10 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
         $options = parent::getFormOptions($step, $options);
 
         $options['cascade_validation'] = true;
-        $options['validation_groups'] = function(FormInterface $form) use ($step){
-            $data = $form->getData();
-            return array('paymentMethod' . ucfirst($data->getPaymentMethod()), 'flow_eventRegistration_step'.$step);
-        };
+        // $options['validation_groups'] = function(FormInterface $form) use ($step){
+        //     $data = $form->getData();
+        //     return array('paymentMethod' . ucfirst($data->getPaymentMethod()), 'flow_eventRegistration_step'.$step);
+        // };
         return $options;
     }
 
@@ -52,22 +52,14 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
                 'type' => $this->formType,
             ),
             array(
-                'label' => 'Szállás foglalás',
-                'type' => $this->formType,
-            ),
-            array(
-                'label' => 'Étkezés',
-                'type' => $this->formType,
-            ),
-            array(
-                'label' => 'Fizetési adatok',
+                'label' => 'A nevezett mű adatai',
                 'type' => $this->formType,
             ),
             array(
                 'label' => 'Ellenőrzés',
                 'type' => $this->formType,
-
             ),
+
         );
     }
 

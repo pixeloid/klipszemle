@@ -8,9 +8,9 @@ imports:
 doctrine:
     dbal:
         host:     "localhost"
-        dbname:   "mgygt2015"
-        user:     "mgygt2015"
-        password: "bn3ffct6n987"
+        dbname:   "klipszemle"
+        user:     "klipszemle"
+        password: "klipszemle_12345"
 
 monolog:
     handlers:

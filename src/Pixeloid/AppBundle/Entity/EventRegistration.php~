@@ -27,23 +27,22 @@ class EventRegistration
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="firstname", type="string", length=255)
+	 * @ORM\Column(name="name", type="string", length=255)
 	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
 	 */
-    private $firstname;
+    private $name;
 
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="lastname", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+	 * @ORM\Column(name="company", type="string", length=50, nullable=true)
 	 */
-    private $lastname;
+    private $company;
 
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="title", type="string", length=10)
+	 * @ORM\Column(name="title", type="string", length=255)
 	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
 	 */
     private $title;
@@ -51,18 +50,9 @@ class EventRegistration
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="institution", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+	 * @ORM\Column(name="website", type="string", length=100, nullable=true)
 	 */
-    private $institution;
-
-    /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="country", type="string", length=2)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $country;
+    private $website;
 
     /**
 	 * @var string
@@ -72,13 +62,6 @@ class EventRegistration
 	 */
     private $address;
 
-    /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="city", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $city;
 
     /**
 	 * @var string
@@ -88,12 +71,115 @@ class EventRegistration
 	 */
     private $phone;
 
+
+
+
     /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="fax", type="string", length=20, nullable=true)
-	 */
-    private $fax;
+     * @ORM\Column(type="string", name="author", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $author;
+    
+
+
+
+    /**
+     * @ORM\Column(type="string", name="song_title", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $song_title;
+    
+
+
+
+    /**
+     * @ORM\Column(type="string", name="length", nullable=false, length=50)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $length;
+
+
+
+
+    /**
+     * @ORM\Column(type="string", name="publisher", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $publisher;
+    
+
+    /**
+     * @ORM\Column(type="date", name="song_publish_date", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $song_publish_date;
+    
+    /**
+     * @ORM\Column(type="date", name="video_publish_date", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $video_publish_date;
+    
+    /**
+     * @ORM\Column(type="string", name="producer", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $producer;
+
+    /**
+     * @ORM\Column(type="string", name="director", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $director;
+
+    /**
+     * @ORM\Column(type="string", name="photographer", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $photographer;
+
+    /**
+     * @ORM\Column(type="string", name="designer", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $designer;
+    /**
+     * @ORM\Column(type="string", name="editor", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $editor;
+
+    /**
+     * @ORM\Column(type="string", name="technology", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $technology;
+    /**
+     * @ORM\Column(type="string", name="budget", nullable=false, length=150)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $budget;
+    /**
+     * @ORM\Column(type="text", name="description", nullable=false)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="text", name="video_url", nullable=false)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $video_url;
+
+    /**
+     * @ORM\Column(type="array", name="categories", nullable=false)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $categories;
+
+    
+
+
 
     /**
 	 * @var string
@@ -104,16 +190,6 @@ class EventRegistration
 	 */
     private $email;
 
-    /**
-	 * @ORM\Column(type="string", name="postal", length=10, unique=false, nullable=false)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $postal = null;
-
-    /**
-	 * @ORM\Column(type="string", name="regnumber", length=50, unique=false, nullable=true)
-	 */
-    private $regnumber = null;
 
     /**
 	 * @ORM\ManyToOne(targetEntity="Pixeloid\UserBundle\Entity\User", inversedBy="eventRegistrations")
@@ -121,52 +197,8 @@ class EventRegistration
 	 */
     private $user;
 
-    /**
-     * @ORM\Column(type="string", name="paymentmethod", unique=false, nullable=false)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step4"})
-     */
-    protected $paymentMethod = null;
-    
-    /**
-     * @ORM\Column(type="string", name="invoiceType_sponsored", unique=false, nullable=true)
-     */
-    protected $invoiceTypeSponsored = null;
-    
-    /**
-     * @ORM\Column(type="string", name="billingName_sponsored", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
-     */
-    protected $billingNameSponsored = null;
-    
-    /**
-     * @ORM\Column(type="string", name="billingAddress_sponsored", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodSponsored"})
-     */
-    protected $billingAddressSponsored = null;
-    /**
-     * @ORM\Column(type="string", name="billingContactPerson_sponsored", length=255, unique=false, nullable=true)
-     */
-    protected $billingContactPersonSponsored = null;
-    
 
-    /**
-     * @ORM\Column(type="string", name="billingName_transfer", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodTransfer"})
-     */
-    protected $billingNameTransfer = null;
-    
-    /**
-     * @ORM\Column(type="string", name="billingAddress_transfer", length=255, unique=false, nullable=true)
-     * @Assert\NotBlank(groups={"paymentMethodTransfer"})
-     */
-    protected $billingAddressTransfer = null;
 
-    /**
-	 * @ORM\ManyToOne(targetEntity="Pixeloid\AppBundle\Entity\RegistrantType")
-	 * @ORM\JoinColumn(name="registrant_type_id", referencedColumnName="id")
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $registrantType;
 
     /**
      * @ORM\Column(type="date", name="created", nullable=false)
@@ -174,61 +206,24 @@ class EventRegistration
     protected $created = null;
     
 
-    /**
-     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\RoomReservation", mappedBy="eventRegistration", cascade={"all"})
-     */
-    private $roomReservation;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\DiningReservation", mappedBy="eventRegistration", cascade={"persist"})
-     */
-    private $diningReservation;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Pixeloid\AppBundle\Entity\ExtraProgram")
-     */
-    private $extraPrograms;
-
-
-    /**
-     * @Recaptcha\True(groups={"flow_eventRegistration_step5"})
-     */
-    private $recaptcha;
-
-    /**
-     * @ORM\Column(type="boolean", name="extra1", nullable=true)
-     */
-    private $extra1;
-    /**
-     * @ORM\Column(type="boolean", name="extra2", nullable=true)
-     */
-    private $extra2;
-    /**
-     * @ORM\Column(type="boolean", name="extra3", nullable=true)
-     */
-    private $extra3;
-    /**
-     * @ORM\Column(type="boolean", name="extra4", nullable=true)
-     */
-    private $extra4;
-    /**
-	 * @ORM\ManyToOne(targetEntity="Event")
-	 * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
-	 */
-    private $event;
 
 
 
-    public function getTotalCost()
+    /**
+     * @Recaptcha\IsTrue(groups={"flow_eventRegistration_step5"})
+     */
+    public $recaptcha;
+
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        $total = 0;
-        $total += $this->getRegistrantType() ? $this->getRegistrantType()->getPriceBefore() : 0;
-        $total += $this->getRoomReservation() ? $this->getRoomReservation()->getTotalCost() : 0;
-        $total += $this->getDiningReservation() ? $this->getDiningReservation()->getTotalCost() : 0;
-
-        return $total;
-
     }
+
+
 
 
     /**
@@ -253,13 +248,6 @@ class EventRegistration
         $this->recaptcha = $recaptcha;
 
         return $this;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
     }
 
     /**

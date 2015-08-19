@@ -14,18 +14,18 @@
 		-%}
 	<div class="pull-left">
 		{% if renderBackButton %}
-			<button type="submit" class="{{ craue_formflow_button_class_back | default('') }}  btn btn-info" name="{{ flow.getFormTransitionKey() }}" value="back" formnovalidate="formnovalidate">
+			<button type="submit" class="{{ craue_formflow_button_class_back | default('') }}  btn btn-primary" name="{{ flow.getFormTransitionKey() }}" value="back" formnovalidate="formnovalidate">
 				{{- 'button.back' | trans({}, 'CraueFormFlowBundle') -}}
 			</button>
 		{% endif %}
 
-		<button type="submit" class="{{ craue_formflow_button_class_reset | default('craue_formflow_button_first') }} btn btn-danger" name="{{ flow.getFormTransitionKey() }}" value="reset" formnovalidate="formnovalidate">
+		<button type="submit" class="{{ craue_formflow_button_class_reset | default('craue_formflow_button_first') }} btn btn-primary" name="{{ flow.getFormTransitionKey() }}" value="reset" formnovalidate="formnovalidate">
 			{{- 'button.reset' | trans({}, 'CraueFormFlowBundle') -}}
 		</button>
 
 	</div>
 
-	<button type="submit" class="{{ craue_formflow_button_class_last }} btn btn-success pull-right">
+	<button type="submit" class="{{ craue_formflow_button_class_last }} btn btn-primary pull-right">
 		{{- (isLastStep ? 'button.finish' : 'button.next') | trans({}, 'CraueFormFlowBundle') -}}
 	</button>
 

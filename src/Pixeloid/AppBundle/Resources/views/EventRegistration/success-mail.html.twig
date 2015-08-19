@@ -6,26 +6,16 @@
 <body>
 
 
-<h3>Tisztelt {{ entity.getFirstname }} {{ entity.getLastname }}!</h3>
+<h3>Tisztelt {{ entity.getName }}!</h3>
 
-<p>Köszönjük jelentkezését a   Magyar Gyermek-gasztroenterológiai Társaság <br> V. Kongresszusára.
+<p>Köszönjük jelentkezését a   Magyar Klipszemlére.
  </p>
-<p>
-    Jelentkezésének részleteit <a href="{{url('eventregistration_show', {'id': entity.getId})}}">az alábbi linken éri el.</a>
-</p>
-{% if plainpass %}
-<p>Bejelentkezéshez szükséges adatok:</p>
-<p>Felhasználónév: {{entity.getUser.getEmail}}<br>Jelszó: {{plainpass}}</p>
-{% endif %}
-<p>További kérdésekkel kapcsolatban az <a href="mailto:mgygt2015@misandbos.hu">mgygt2015@misandbos.hu</a>  e-mail címen vagy a +36 1 999 0780-as telefonszámon állunk szíves rendelkezésére.</p>
+
+<p>További kérdésekkel kapcsolatban az <a href="mailto:info@klipszemle.hu">info@klipszemle.hu</a>  e-mail címen állunk szíves rendelkezésedre.</p>
 
 
 
 <p>Üdvözlettel: <br>
-<!--  Szabó Bernadett<br>
- --> Mis &amp; Bos Kft.
-</p>
-<p>Tel.: +36 1 999 07 80</p>
 </body>
 </html>
 

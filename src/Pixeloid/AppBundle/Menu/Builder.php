@@ -65,13 +65,12 @@ class Builder extends ContainerAware
 
   private function buildChildren($menu)
   {
-        $menu->addChild('Nyitóoldal', array('route' => 'pixeloid_app_index', 'routeParameters' => array()));
-        $menu->addChild('Regisztráció', array('route' => 'eventregistration_new', 'routeParameters' => array()));
-        $menu->addChild('Program', array('route' => 'pixeloid_app_programme', 'routeParameters' => array()));
-        $menu->addChild('Általános információ', array('route' => 'pixeloid_app_info', 'routeParameters' => array()));
-        $menu->addChild('Térkép', array('route' => 'pixeloid_app_map', 'routeParameters' => array()));
-        // $menu->addChild('Fontos dátumok', array('route' => 'pixeloid_app_important', 'routeParameters' => array(), 'class' => 'inverse'));
-        $menu->addChild('Absztrakt beküldés', array('route' => 'presentation_new', 'routeParameters' => array('step' => 1)));
+        $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll');
+        $menu->addChild('Szervezők & Zsűri', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
+        $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()));
+        // $menu->addChild('Program', array('route' => 'pixeloid_app_info', 'routeParameters' => array()));
+        $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
+        $menu->addChild('FAQ', array('uri' => '/#faq'))->setLinkAttribute('class', 'animated page-scroll');
 
 
 
