@@ -85,6 +85,22 @@ a {
                 -webkit-transition: background .3s ease-in-out;
                 -moz-transition: background .3s ease-in-out;
                 transition: background .3s ease-in-out;
+                &.fb{
+                    font-size: 1.3em;
+                    padding-top: 13px;
+                }
+
+                @media(min-width:768px) {
+
+                &.highlight{
+                    background: @brand-primary;
+                    color: @secondary;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    margin-top:10px;
+                    margin-bottom: 10px;
+                }
+                }
                 &:hover {
                     color: fade(white, 80%);
                     outline: none;
@@ -137,7 +153,6 @@ a {
     display: table;
     width: 100%;
     height: auto;
-    padding: 100px 0;
     text-align: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -153,9 +168,17 @@ a {
             font-size: 18px;
         }
     }
+    @media(max-width:@screen-xs-max) {
+        img{
+            max-width:100%;
+        }
+    }
     @media(min-width:768px) {
+
+        padding: 100px 0;
+
         height: 100%;
-        padding: 0;
+       // padding: 0;
         .intro-body {
             .brand-heading {
                 font-size: 100px;

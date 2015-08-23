@@ -20,12 +20,12 @@ class Builder extends ContainerAware
         return $menu;
   }
 
-  public function homepageMenu(FactoryInterface $factory, array $options){
+  public function secondaryMenu(FactoryInterface $factory, array $options){
 
     $menu = $factory->createItem('root');
-    $menu->setChildrenAttributes(array('class' => 'nav-stacked homepage-menu'));
-    $menu = $this->buildChildren($menu);
-    $menu->removeChild('Home');
+    $menu->setChildrenAttributes(array('class' => 'nav navbar-nav hidden-md hidden-sm hidden-xs'));
+    $menu->addChild('Nevezési Határidő 09.03.', array('route' => 'eventregistration_new', 'routeParameters' => array()));
+    $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'highlight');;
 
 
     return $menu;
@@ -65,12 +65,13 @@ class Builder extends ContainerAware
 
   private function buildChildren($menu)
   {
-        $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll');
+        $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'hidden-lg highlight');;
+        $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
         $menu->addChild('Szervezők & Zsűri', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
-        $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()));
         // $menu->addChild('Program', array('route' => 'pixeloid_app_info', 'routeParameters' => array()));
         $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
         $menu->addChild('FAQ', array('uri' => '/#faq'))->setLinkAttribute('class', 'animated page-scroll');
+        $menu->addChild(' ', array('uri' => 'https://facebook.com/klipszemle'))->setLinkAttribute('class', 'fa fa-facebook-official fb');
 
 
 

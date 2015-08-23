@@ -26,11 +26,10 @@ class EventRegistrationType extends AbstractType
                 $builder
                     ->add('name', null, array('label' => 'Név'))
                     ->add('company', null, array('label' => 'Cégnév'))
-                    ->add('title', 'choice', array(
+                    ->add('user_title', 'entity', array(
                         'label' => 'Jogcím',
-                        'choices'   => array(
-                            'Rendező', 'Előadó', 'Kiadó', 'Gyártócég'
-                        )
+                        'class'   => 'PixeloidAppBundle:UserTitle',
+                        'property' => 'name'
                         )
                     )
                     ->add('website', null, array('label' => 'Webcím'))
@@ -47,8 +46,12 @@ class EventRegistrationType extends AbstractType
                 ->add('song_title', null, array('label' => 'Dal címe'))
                 ->add('length', null, array('label' => 'Hossz'))
                 ->add('publisher', null, array('label' => 'Kiadó'))
-                ->add('song_publish_date', 'text', array('label' => 'A dal megjelenése', 'attr' => array('class' => 'datepicker')))
-                ->add('video_publish_date', 'text', array('label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker')))
+                ->add('song_publish_date', 'text', array('label' => 'A dal megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
+                'append' => '<i class="fa fa-calendar"></i>',
+            ))))
+                ->add('video_publish_date', 'text', array('label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
+                'append' => '<i class="fa fa-calendar"></i>',
+            ))))
                 ->add('producer', null, array('label' => 'Gyártócég'))
                 ->add('director', null, array('label' => 'Rendező'))
                 ->add('photographer', null, array('label' => 'Operatőr'))
@@ -58,34 +61,22 @@ class EventRegistrationType extends AbstractType
                     'label' => 'Rögzítéstechnika',
                     )
                 )
-                ->add('budget', 'choice', array(
-                    'label' => 'Budget',
-                    'choices'   => array(
-                        '500 ezer alatt', '1 millió alatt', '1.5 millió alatt', '1.5 millió felett'
-                    )
+                ->add('budget_category', 'entity', array(
+                        'label' => 'Budget',
+                        'class'   => 'PixeloidAppBundle:BudgetCategory',
+                        'property' => 'name'
                     )
                 )
 
                 ->add('description', 'textarea', array('label' => 'Leírás'))
                 ->add('video_url', 'text', array('label' => 'A klip youtube linkje'))
 
-                ->add('categories', 'choice', array(
+                ->add('movie_categories', 'entity', array(
                     'label' => 'Melyik kategóriákba nevezed? (maximum 3)',
                     'multiple' => true,
                     'expanded' => true,
-                    'choices'   => array(
-                            'Legjobb klip',
-                            'Legjobb zene',
-                            'Legjobb látvány',
-                            'Legjobb operatőri munka',
-                            'Legjobb vágás',
-                            'Legjobb rendezés',
-                            'Legjobb no budget',
-                            'Legjobb animáció',
-                            'Legjobb 2010 előtti',
-                            'Legjobb trash',
-
-                    )
+                            'class'   => 'PixeloidAppBundle:MovieCategory',
+                            'property' => 'name'
                     )
                 )
 
@@ -95,10 +86,8 @@ class EventRegistrationType extends AbstractType
             case 3:
 
             $builder
-            ->add('have_rights', 'checkbox', array('label' => 'Jogosultságom van a klipet nevezni', 'mapped' => false, 'required' => true))
-            ->add('accept_terms', 'checkbox', array('label' => '<a href="/privacy" target="_blank" onclick="">Elfogadom a feltételeket</a>', 'mapped' => false, 'required' => true, "constraints" => new True(array(
-        "message" => "Kötelező mező!"))
-            ))
+            ->add('have_rights', 'checkbox', array('label' => 'Jogosultságom van a klipet nevezni'))
+            ->add('accept_terms', 'checkbox', array('label' => '<a href="/privacy" target="_blank" onclick="">Elfogadom a feltételeket</a>'))
             ->add('recaptcha', 'ewz_recaptcha', array(
                     'attr'        => array(
                         'options' => array(

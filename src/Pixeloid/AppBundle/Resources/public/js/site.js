@@ -143,21 +143,26 @@ extend(ESPCR, {
 
 extend(ESPCR, {
 
-  gmapsAutocomplete:{
+  youtubeList:{
   
 
 
     init: function(){
-      if(!$('.gmaps-autocomplete').length) return false;
 
-      var input = $('.gmaps-autocomplete').get(0);
-      var autocomplete = new google.maps.places.Autocomplete(input);
-      google.maps.event.addDomListener(input, 'keydown', function(e) { 
-        if (e.keyCode == 13) { 
-            e.preventDefault(); 
-        }
-      }); 
+        $('.yt-player').each(function(){
+          var v = $(this).data('yt');
 
+          var videoid = v.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+          if(videoid != null) {
+             console.log("video id = ",videoid[1]);
+             $(this).append('<img class="img-responsive" src="http://img.youtube.com/vi/'+videoid[1]+'/hqdefault.jpg" />').click(function(){
+              $(this).empty().player({video: videoid[1], width: '100%', height: '200'})
+             })
+          } else { 
+              console.log("The youtube url is not valid.");
+          }
+          //$(this).player({video: v, width: '100%'})
+        })
 
     }
   }
@@ -336,7 +341,7 @@ $(document).ready(function(){
   ESPCR.navbar.init();
   ESPCR.locationsMap.init();
  // ESPCR.registrationForm.init();
-  ESPCR.gmapsAutocomplete.init();
+  ESPCR.youtubeList.init();
   ESPCR.customFormElements.init();
 
 

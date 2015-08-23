@@ -5,12 +5,15 @@ use Pixeloid\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
+use Pixeloid\AppBundle\Validator\Constraints as AppAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * EventRegistration
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pixeloid\AppBundle\Entity\EventRegistrationRepository")
+ * @UniqueEntity("video_url",groups={"flow_eventRegistration_step2"}, message="Ez a video már nevezésre került!")
  */
 
 class EventRegistration
@@ -28,7 +31,7 @@ class EventRegistration
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
 	 */
     private $name;
 
@@ -50,15 +53,14 @@ class EventRegistration
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="website", type="string", length=100, nullable=true)
+	 * @ORM\Column(name="website", type="string", length=100, nullable= true)
 	 */
     private $website;
 
     /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="address", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+	 * @ORM\Column(name="address", type="string", length=255, nullable= true)
 	 */
     private $address;
 
@@ -102,32 +104,30 @@ class EventRegistration
 
 
     /**
-     * @ORM\Column(type="string", name="publisher", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @ORM\Column(type="string", name="publisher", nullable=false, length=150, nullable=true)
      */
     protected $publisher;
     
 
     /**
-     * @ORM\Column(type="date", name="song_publish_date", nullable=false, length=150)
+     * @ORM\Column(type="text", name="song_publish_date", nullable=false, length=150)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
     protected $song_publish_date;
     
     /**
-     * @ORM\Column(type="date", name="video_publish_date", nullable=false, length=150)
+     * @ORM\Column(type="text", name="video_publish_date", nullable=false, length=150)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
     protected $video_publish_date;
     
     /**
-     * @ORM\Column(type="string", name="producer", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @ORM\Column(type="string", name="producer", nullable=true, length=150, nullable=true)
      */
     protected $producer;
 
     /**
-     * @ORM\Column(type="string", name="director", nullable=false, length=150)
+     * @ORM\Column(type="string", name="director", nullable=true, length=150)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
     protected $director;
@@ -166,14 +166,16 @@ class EventRegistration
     protected $description;
 
     /**
-     * @ORM\Column(type="text", name="video_url", nullable=false)
+     * @ORM\Column(type="string", name="video_url", nullable=false, unique=true)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @AppAssert\Youtube(groups={"flow_eventRegistration_step2"})
      */
     protected $video_url;
 
     /**
      * @ORM\Column(type="array", name="categories", nullable=false)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @AppAssert\MaximumChecked(max=3, groups={"flow_eventRegistration_step2"})
      */
     protected $categories;
 
@@ -210,11 +212,39 @@ class EventRegistration
 
 
     /**
-     * @Recaptcha\IsTrue(groups={"flow_eventRegistration_step5"})
+     * @Recaptcha\IsTrue(groups={"flow_eventRegistration_step3"})
      */
     public $recaptcha;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity="UserTitle")
+     */
+    protected $user_title = null;
+    /**
+     * @ORM\ManyToOne(targetEntity="BudgetCategory")
+     */
+    protected $budget_category = null;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="MovieCategory")
+     */
+    protected $movie_categories = null;
+    
+
+
+
+    /**
+     * @Assert\True(message = "Kötelező mező")
+     */
+    protected $have_rights = null;
+    
+
+    /**
+     * @Assert\True(message = "Kötelező mező")
+     */
+    protected $accept_terms = null;
+    
 
     /**
      * Constructor
@@ -1152,5 +1182,543 @@ class EventRegistration
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return EventRegistration
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     *
+     * @return EventRegistration
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     *
+     * @return EventRegistration
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return EventRegistration
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set songTitle
+     *
+     * @param string $songTitle
+     *
+     * @return EventRegistration
+     */
+    public function setSongTitle($songTitle)
+    {
+        $this->song_title = $songTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get songTitle
+     *
+     * @return string
+     */
+    public function getSongTitle()
+    {
+        return $this->song_title;
+    }
+
+    /**
+     * Set length
+     *
+     * @param string $length
+     *
+     * @return EventRegistration
+     */
+    public function setLength($length)
+    {
+        $this->length = $length;
+
+        return $this;
+    }
+
+    /**
+     * Get length
+     *
+     * @return string
+     */
+    public function getLength()
+    {
+        return $this->length;
+    }
+
+    /**
+     * Set publisher
+     *
+     * @param string $publisher
+     *
+     * @return EventRegistration
+     */
+    public function setPublisher($publisher)
+    {
+        $this->publisher = $publisher;
+
+        return $this;
+    }
+
+    /**
+     * Get publisher
+     *
+     * @return string
+     */
+    public function getPublisher()
+    {
+        return $this->publisher;
+    }
+
+    /**
+     * Set songPublishDate
+     *
+     * @param \DateTime $songPublishDate
+     *
+     * @return EventRegistration
+     */
+    public function setSongPublishDate($songPublishDate)
+    {
+        $this->song_publish_date = $songPublishDate;
+
+        return $this;
+    }
+
+    /**
+     * Get songPublishDate
+     *
+     * @return \DateTime
+     */
+    public function getSongPublishDate()
+    {
+        return $this->song_publish_date;
+    }
+
+    /**
+     * Set videoPublishDate
+     *
+     * @param \DateTime $videoPublishDate
+     *
+     * @return EventRegistration
+     */
+    public function setVideoPublishDate($videoPublishDate)
+    {
+        $this->video_publish_date = $videoPublishDate;
+
+        return $this;
+    }
+
+    /**
+     * Get videoPublishDate
+     *
+     * @return \DateTime
+     */
+    public function getVideoPublishDate()
+    {
+        return $this->video_publish_date;
+    }
+
+    /**
+     * Set producer
+     *
+     * @param string $producer
+     *
+     * @return EventRegistration
+     */
+    public function setProducer($producer)
+    {
+        $this->producer = $producer;
+
+        return $this;
+    }
+
+    /**
+     * Get producer
+     *
+     * @return string
+     */
+    public function getProducer()
+    {
+        return $this->producer;
+    }
+
+    /**
+     * Set director
+     *
+     * @param string $director
+     *
+     * @return EventRegistration
+     */
+    public function setDirector($director)
+    {
+        $this->director = $director;
+
+        return $this;
+    }
+
+    /**
+     * Get director
+     *
+     * @return string
+     */
+    public function getDirector()
+    {
+        return $this->director;
+    }
+
+    /**
+     * Set photographer
+     *
+     * @param string $photographer
+     *
+     * @return EventRegistration
+     */
+    public function setPhotographer($photographer)
+    {
+        $this->photographer = $photographer;
+
+        return $this;
+    }
+
+    /**
+     * Get photographer
+     *
+     * @return string
+     */
+    public function getPhotographer()
+    {
+        return $this->photographer;
+    }
+
+    /**
+     * Set designer
+     *
+     * @param string $designer
+     *
+     * @return EventRegistration
+     */
+    public function setDesigner($designer)
+    {
+        $this->designer = $designer;
+
+        return $this;
+    }
+
+    /**
+     * Get designer
+     *
+     * @return string
+     */
+    public function getDesigner()
+    {
+        return $this->designer;
+    }
+
+    /**
+     * Set editor
+     *
+     * @param string $editor
+     *
+     * @return EventRegistration
+     */
+    public function setEditor($editor)
+    {
+        $this->editor = $editor;
+
+        return $this;
+    }
+
+    /**
+     * Get editor
+     *
+     * @return string
+     */
+    public function getEditor()
+    {
+        return $this->editor;
+    }
+
+    /**
+     * Set technology
+     *
+     * @param string $technology
+     *
+     * @return EventRegistration
+     */
+    public function setTechnology($technology)
+    {
+        $this->technology = $technology;
+
+        return $this;
+    }
+
+    /**
+     * Get technology
+     *
+     * @return string
+     */
+    public function getTechnology()
+    {
+        return $this->technology;
+    }
+
+    /**
+     * Set budget
+     *
+     * @param string $budget
+     *
+     * @return EventRegistration
+     */
+    public function setBudget($budget)
+    {
+        $this->budget = $budget;
+
+        return $this;
+    }
+
+    /**
+     * Get budget
+     *
+     * @return string
+     */
+    public function getBudget()
+    {
+        return $this->budget;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return EventRegistration
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set videoUrl
+     *
+     * @param string $videoUrl
+     *
+     * @return EventRegistration
+     */
+    public function setVideoUrl($videoUrl)
+    {
+        $this->video_url = $videoUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get videoUrl
+     *
+     * @return string
+     */
+    public function getVideoUrl()
+    {
+        return $this->video_url;
+    }
+
+    /**
+     * Set categories
+     *
+     * @param array $categories
+     *
+     * @return EventRegistration
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Get categories
+     *
+     * @return array
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Set userTitle
+     *
+     * @param \Pixeloid\AppBundle\Entity\UserTitle $userTitle
+     *
+     * @return EventRegistration
+     */
+    public function setUserTitle(\Pixeloid\AppBundle\Entity\UserTitle $userTitle = null)
+    {
+        $this->user_title = $userTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get userTitle
+     *
+     * @return \Pixeloid\AppBundle\Entity\UserTitle
+     */
+    public function getUserTitle()
+    {
+        return $this->user_title;
+    }
+
+    /**
+     * Set budgetCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\BudgetCategory $budgetCategory
+     *
+     * @return EventRegistration
+     */
+    public function setBudgetCategory(\Pixeloid\AppBundle\Entity\BudgetCategory $budgetCategory = null)
+    {
+        $this->budget_category = $budgetCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get budgetCategory
+     *
+     * @return \Pixeloid\AppBundle\Entity\BudgetCategory
+     */
+    public function getBudgetCategory()
+    {
+        return $this->budget_category;
+    }
+
+    /**
+     * Add movieCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\MovieCategory $movieCategory
+     *
+     * @return EventRegistration
+     */
+    public function addMovieCategory(\Pixeloid\AppBundle\Entity\MovieCategory $movieCategory)
+    {
+        $this->movie_categories[] = $movieCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove movieCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\MovieCategory $movieCategory
+     */
+    public function removeMovieCategory(\Pixeloid\AppBundle\Entity\MovieCategory $movieCategory)
+    {
+        $this->movie_categories->removeElement($movieCategory);
+    }
+
+    /**
+     * Get movieCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMovieCategories()
+    {
+        return $this->movie_categories;
     }
 }

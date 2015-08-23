@@ -62,6 +62,8 @@
             {% endimage %}
             </a>
         </div>
+        
+        {{ knp_menu_render('PixeloidAppBundle:Builder:secondaryMenu', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }}
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
@@ -112,7 +114,7 @@
 
 
 <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=places"></script>
- -->{% javascripts  '@jquery' '@bootstrap_js' '@PixeloidAppBundle/Resources/public/js/*' '@PixeloidAppBundle/Resources/public/lib/iCheck/icheck.min.js' '@PixeloidAppBundle/Resources/public/lib/jquery.easing.min.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-select.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-datepicker.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-datepicker.hu.js' %}
+ -->{% javascripts  '@jquery' '@bootstrap_js' '@PixeloidAppBundle/Resources/public/js/*' '@PixeloidAppBundle/Resources/public/lib/iCheck/icheck.min.js' '@PixeloidAppBundle/Resources/public/lib/jquery.easing.min.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-select.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-datepicker.js' '@PixeloidAppBundle/Resources/public/lib/bootstrap-datepicker.hu.js' '@PixeloidAppBundle/Resources/public/lib/jquery.tube.min.js' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 

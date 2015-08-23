@@ -37,3 +37,7 @@ eventregistration_calculate:
     path:     /calculate
     defaults: { _controller: "PixeloidAppBundle:EventRegistration:calculate" }
     requirements: { _method: post }
+eventregistration_rebuild:
+    path:     /rebuild
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:rebuild" }
+    requirements: { _method: get }

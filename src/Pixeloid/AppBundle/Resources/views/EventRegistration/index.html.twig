@@ -5,8 +5,16 @@
     <h1><span>Regisztrációk</span></h1>
 
 
+    <div class="row">
+    {% for reg in registrations %}
 
-    <table class="table table-condensed">
+    <div class="col-sm-6 col-md-3 col-lg-4">
+        <div class="yt-player" data-yt="{{ reg.getVideoUrl }}"></div>
+    </div>
+
+    {% endfor %}
+    </div>
+    <table class="table table-condensed hidden">
         <tr>
             <th>#</th>
             <th>Dátum  </th>

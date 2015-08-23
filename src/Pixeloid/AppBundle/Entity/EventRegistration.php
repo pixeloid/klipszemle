@@ -28,12 +28,17 @@ class EventRegistration
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+    /**
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+	 * @ORM\Column(name="title", type="string", length=255, nullable=true)
 	 */
-    private $name;
+    private $title;
 
     /**
 	 * @var string
@@ -42,13 +47,6 @@ class EventRegistration
 	 */
     private $company;
 
-    /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="title", type="string", length=255)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
-    private $title;
 
     /**
 	 * @var string
@@ -154,11 +152,21 @@ class EventRegistration
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
     protected $technology;
+
     /**
-     * @ORM\Column(type="string", name="budget", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @ORM\Column(type="array", name="categories", nullable=true)
+     */
+    protected $categories;
+
+
+
+    /**
+     * @ORM\Column(type="string", name="budget", nullable=true, length=150)
      */
     protected $budget;
+
+
+
     /**
      * @ORM\Column(type="text", name="description", nullable=false)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
@@ -171,13 +179,6 @@ class EventRegistration
      * @AppAssert\Youtube(groups={"flow_eventRegistration_step2"})
      */
     protected $video_url;
-
-    /**
-     * @ORM\Column(type="array", name="categories", nullable=false)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
-     * @AppAssert\MaximumChecked(max=3, groups={"flow_eventRegistration_step2"})
-     */
-    protected $categories;
 
     
 
@@ -217,7 +218,40 @@ class EventRegistration
     public $recaptcha;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity="UserTitle")
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $user_title = null;
+    /**
+     * @ORM\ManyToOne(targetEntity="BudgetCategory")
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     */
+    protected $budget_category = null;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="MovieCategory")
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @AppAssert\MaximumChecked(max=3, groups={"flow_eventRegistration_step2"})
+     */
+    protected $movie_categories = null;
+    
 
+
+
+    /**
+     * @ORM\Column(name="have_rights", type="boolean")
+     * @Assert\True(groups={"flow_eventRegistration_step3"},message = "Kötelező mező")
+     */
+    protected $have_rights = null;
+    
+
+    /**
+     * @ORM\Column(name="accept_terms", type="boolean")
+     * @Assert\True(groups={"flow_eventRegistration_step3"}, message = "Kötelező mező")
+     */
+    protected $accept_terms = null;
+    
 
     /**
      * Constructor
@@ -562,577 +596,6 @@ class EventRegistration
         return $this->user;
     }
 
-    /**
-     * Set registrantType
-     *
-     * @param \Pixeloid\AppBundle\Entity\RegistrantType $registrantType
-     * @return EventRegistration
-     */
-    public function setRegistrantType(\Pixeloid\AppBundle\Entity\RegistrantType $registrantType = null)
-    {
-        $this->registrantType = $registrantType;
-
-        return $this;
-    }
-
-    /**
-     * Get registrantType
-     *
-     * @return \Pixeloid\AppBundle\Entity\RegistrantType 
-     */
-    public function getRegistrantType()
-    {
-        return $this->registrantType;
-    }
-
-    /**
-     * Set roomReservation
-     *
-     * @param \Pixeloid\AppBundle\Entity\RoomReservation $roomReservation
-     * @return EventRegistration
-     */
-    public function setRoomReservation(\Pixeloid\AppBundle\Entity\RoomReservation $roomReservation = null)
-    {
-        $this->roomReservation = $roomReservation;
-
-        return $this;
-    }
-
-    /**
-     * Get roomReservation
-     *
-     * @return \Pixeloid\AppBundle\Entity\RoomReservation 
-     */
-    public function getRoomReservation()
-    {
-        return $this->roomReservation;
-    }
-
-    /**
-     * Add diningReservations
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningReservation $diningReservations
-     * @return EventRegistration
-     */
-    public function addDiningReservation(\Pixeloid\AppBundle\Entity\DiningReservation $diningReservations)
-    {
-        $this->diningReservations[] = $diningReservations;
-
-        return $this;
-    }
-
-    /**
-     * Remove diningReservations
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningReservation $diningReservations
-     */
-    public function removeDiningReservation(\Pixeloid\AppBundle\Entity\DiningReservation $diningReservations)
-    {
-        $this->diningReservations->removeElement($diningReservations);
-    }
-
-    /**
-     * Get diningReservations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDiningReservations()
-    {
-        return $this->diningReservations;
-    }
-
-    /**
-     * Get diningReservations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function setDiningReservations(\Doctrine\Common\Collections\Collection $diningReservations = null)
-    {
-        $this->diningReservations = $diningReservations;
-    
-        return $this;
-    }
-
-    /**
-     * Set eventId
-     *
-     * @param \Pixeloid\AppBundle\Entity\Event $eventId
-     * @return EventRegistration
-     */
-    public function setEventId(\Pixeloid\AppBundle\Entity\Event $eventId = null)
-    {
-        $this->eventId = $eventId;
-
-        return $this;
-    }
-
-    /**
-     * Get eventId
-     *
-     * @return \Pixeloid\AppBundle\Entity\Event 
-     */
-    public function getEventId()
-    {
-        return $this->eventId;
-    }
-
-    /**
-     * Add diningDates
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDates
-     * @return EventRegistration
-     */
-    public function addDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDates)
-    {
-        $this->diningDates[] = $diningDates;
-
-        return $this;
-    }
-
-    /**
-     * Remove diningDates
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningDate $diningDates
-     */
-    public function removeDiningDate(\Pixeloid\AppBundle\Entity\DiningDate $diningDates)
-    {
-        $this->diningDates->removeElement($diningDates);
-    }
-
-    /**
-     * Get diningDates
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDiningDates()
-    {
-        return $this->diningDates;
-    }
-
-    /**
-     * Set diningReservation
-     *
-     * @param \Pixeloid\AppBundle\Entity\DiningReservation $diningReservation
-     * @return EventRegistration
-     */
-    public function setDiningReservation(\Pixeloid\AppBundle\Entity\DiningReservation $diningReservation = null)
-    {
-        $this->diningReservation = $diningReservation;
-
-        return $this;
-    }
-
-    /**
-     * Get diningReservation
-     *
-     * @return \Pixeloid\AppBundle\Entity\DiningReservation 
-     */
-    public function getDiningReservation()
-    {
-        return $this->diningReservation;
-    }
-
-
-    /**
-     * Set paymentMethod
-     *
-     * @param integer $paymentMethod
-     * @return EventRegistration
-     */
-    public function setPaymentMethod($paymentMethod)
-    {
-        $this->paymentMethod = $paymentMethod;
-
-        return $this;
-    }
-
-    /**
-     * Get paymentMethod
-     *
-     * @return integer 
-     */
-    public function getPaymentMethod()
-    {
-        return $this->paymentMethod;
-    }
-
-    /**
-     * Set invoiceType
-     *
-     * @param integer $invoiceType
-     * @return EventRegistration
-     */
-    public function setInvoiceType($invoiceType)
-    {
-        $this->invoiceType = $invoiceType;
-
-        return $this;
-    }
-
-    /**
-     * Get invoiceType
-     *
-     * @return integer 
-     */
-    public function getInvoiceType()
-    {
-        return $this->invoiceType;
-    }
-
-    /**
-     * Set billingName
-     *
-     * @param string $billingName
-     * @return EventRegistration
-     */
-    public function setBillingName($billingName)
-    {
-        $this->billingName = $billingName;
-
-        return $this;
-    }
-
-    /**
-     * Get billingName
-     *
-     * @return string 
-     */
-    public function getBillingName()
-    {
-        return $this->billingName;
-    }
-
-    /**
-     * Set billingAddress
-     *
-     * @param string $billingAddress
-     * @return EventRegistration
-     */
-    public function setBillingAddress($billingAddress)
-    {
-        $this->billingAddress = $billingAddress;
-
-        return $this;
-    }
-
-    /**
-     * Get billingAddress
-     *
-     * @return string 
-     */
-    public function getBillingAddress()
-    {
-        return $this->billingAddress;
-    }
-
-    /**
-     * Set billingContactPerson
-     *
-     * @param string $billingContactPerson
-     * @return EventRegistration
-     */
-    public function setBillingContactPerson($billingContactPerson)
-    {
-        $this->billingContactPerson = $billingContactPerson;
-
-        return $this;
-    }
-
-    /**
-     * Get billingContactPerson
-     *
-     * @return string 
-     */
-    public function getBillingContactPerson()
-    {
-        return $this->billingContactPerson;
-    }
-
-    /**
-     * Set invoiceTypeSponsored
-     *
-     * @param integer $invoiceTypeSponsored
-     * @return EventRegistration
-     */
-    public function setInvoiceTypeSponsored($invoiceTypeSponsored)
-    {
-        $this->invoiceTypeSponsored = $invoiceTypeSponsored;
-
-        return $this;
-    }
-
-    /**
-     * Get invoiceTypeSponsored
-     *
-     * @return integer 
-     */
-    public function getInvoiceTypeSponsored()
-    {
-        return $this->invoiceTypeSponsored;
-    }
-
-    /**
-     * Set billingNameSponsored
-     *
-     * @param string $billingNameSponsored
-     * @return EventRegistration
-     */
-    public function setBillingNameSponsored($billingNameSponsored)
-    {
-        $this->billingNameSponsored = $billingNameSponsored;
-
-        return $this;
-    }
-
-    /**
-     * Get billingNameSponsored
-     *
-     * @return string 
-     */
-    public function getBillingNameSponsored()
-    {
-        return $this->billingNameSponsored;
-    }
-
-    /**
-     * Set billingAddressSponsored
-     *
-     * @param string $billingAddressSponsored
-     * @return EventRegistration
-     */
-    public function setBillingAddressSponsored($billingAddressSponsored)
-    {
-        $this->billingAddressSponsored = $billingAddressSponsored;
-
-        return $this;
-    }
-
-    /**
-     * Get billingAddressSponsored
-     *
-     * @return string 
-     */
-    public function getBillingAddressSponsored()
-    {
-        return $this->billingAddressSponsored;
-    }
-
-    /**
-     * Set billingContactPersonSponsored
-     *
-     * @param string $billingContactPersonSponsored
-     * @return EventRegistration
-     */
-    public function setBillingContactPersonSponsored($billingContactPersonSponsored)
-    {
-        $this->billingContactPersonSponsored = $billingContactPersonSponsored;
-
-        return $this;
-    }
-
-    /**
-     * Get billingContactPersonSponsored
-     *
-     * @return string 
-     */
-    public function getBillingContactPersonSponsored()
-    {
-        return $this->billingContactPersonSponsored;
-    }
-
-    /**
-     * Set billingNameTransfer
-     *
-     * @param string $billingNameTransfer
-     * @return EventRegistration
-     */
-    public function setBillingNameTransfer($billingNameTransfer)
-    {
-        $this->billingNameTransfer = $billingNameTransfer;
-
-        return $this;
-    }
-
-    /**
-     * Get billingNameTransfer
-     *
-     * @return string 
-     */
-    public function getBillingNameTransfer()
-    {
-        return $this->billingNameTransfer;
-    }
-
-    /**
-     * Set billingAddressTransfer
-     *
-     * @param string $billingAddressTransfer
-     * @return EventRegistration
-     */
-    public function setBillingAddressTransfer($billingAddressTransfer)
-    {
-        $this->billingAddressTransfer = $billingAddressTransfer;
-
-        return $this;
-    }
-
-    /**
-     * Get billingAddressTransfer
-     *
-     * @return string 
-     */
-    public function getBillingAddressTransfer()
-    {
-        return $this->billingAddressTransfer;
-    }
-
-    /**
-     * Add extraPrograms
-     *
-     * @param \Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms
-     * @return EventRegistration
-     */
-    public function addExtraProgram(\Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms)
-    {
-        $this->extraPrograms[] = $extraPrograms;
-
-        return $this;
-    }
-
-    /**
-     * Remove extraPrograms
-     *
-     * @param \Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms
-     */
-    public function removeExtraProgram(\Pixeloid\AppBundle\Entity\ExtraProgram $extraPrograms)
-    {
-        $this->extraPrograms->removeElement($extraPrograms);
-    }
-
-    /**
-     * Get extraPrograms
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getExtraPrograms()
-    {
-        return $this->extraPrograms;
-    }
-
-    /**
-     * Set extra1
-     *
-     * @param boolean $extra1
-     * @return EventRegistration
-     */
-    public function setExtra1($extra1)
-    {
-        $this->extra1 = $extra1;
-
-        return $this;
-    }
-
-    /**
-     * Get extra1
-     *
-     * @return boolean 
-     */
-    public function getExtra1()
-    {
-        return $this->extra1;
-    }
-
-    /**
-     * Set extra2
-     *
-     * @param boolean $extra2
-     * @return EventRegistration
-     */
-    public function setExtra2($extra2)
-    {
-        $this->extra2 = $extra2;
-
-        return $this;
-    }
-
-    /**
-     * Get extra2
-     *
-     * @return boolean 
-     */
-    public function getExtra2()
-    {
-        return $this->extra2;
-    }
-
-    /**
-     * Set extra3
-     *
-     * @param boolean $extra3
-     * @return EventRegistration
-     */
-    public function setExtra3($extra3)
-    {
-        $this->extra3 = $extra3;
-
-        return $this;
-    }
-
-    /**
-     * Get extra3
-     *
-     * @return boolean 
-     */
-    public function getExtra3()
-    {
-        return $this->extra3;
-    }
-
-    /**
-     * Set extra4
-     *
-     * @param boolean $extra4
-     * @return EventRegistration
-     */
-    public function setExtra4($extra4)
-    {
-        $this->extra4 = $extra4;
-
-        return $this;
-    }
-
-    /**
-     * Get extra4
-     *
-     * @return boolean 
-     */
-    public function getExtra4()
-    {
-        return $this->extra4;
-    }
-
-    /**
-     * Set event
-     *
-     * @param \Pixeloid\AppBundle\Entity\Event $event
-     * @return EventRegistration
-     */
-    public function setEvent(\Pixeloid\AppBundle\Entity\Event $event = null)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * Get event
-     *
-     * @return \Pixeloid\AppBundle\Entity\Event 
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
 
     /**
      * Set created
@@ -1611,5 +1074,135 @@ class EventRegistration
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set userTitle
+     *
+     * @param \Pixeloid\AppBundle\Entity\UserTitle $userTitle
+     *
+     * @return EventRegistration
+     */
+    public function setUserTitle(\Pixeloid\AppBundle\Entity\UserTitle $userTitle = null)
+    {
+        $this->user_title = $userTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get userTitle
+     *
+     * @return \Pixeloid\AppBundle\Entity\UserTitle
+     */
+    public function getUserTitle()
+    {
+        return $this->user_title;
+    }
+
+    /**
+     * Set budgetCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\BudgetCategory $budgetCategory
+     *
+     * @return EventRegistration
+     */
+    public function setBudgetCategory(\Pixeloid\AppBundle\Entity\BudgetCategory $budgetCategory = null)
+    {
+        $this->budget_category = $budgetCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get budgetCategory
+     *
+     * @return \Pixeloid\AppBundle\Entity\BudgetCategory
+     */
+    public function getBudgetCategory()
+    {
+        return $this->budget_category;
+    }
+
+    /**
+     * Add movieCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\MovieCategory $movieCategory
+     *
+     * @return EventRegistration
+     */
+    public function addMovieCategory(\Pixeloid\AppBundle\Entity\MovieCategory $movieCategory)
+    {
+        $this->movie_categories[] = $movieCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove movieCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\MovieCategory $movieCategory
+     */
+    public function removeMovieCategory(\Pixeloid\AppBundle\Entity\MovieCategory $movieCategory)
+    {
+        $this->movie_categories->removeElement($movieCategory);
+    }
+
+    /**
+     * Get movieCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMovieCategories()
+    {
+        return $this->movie_categories;
+    }
+
+    /**
+     * Gets the value of have_rights.
+     *
+     * @return mixed
+     */
+    public function getHaveRights()
+    {
+        return $this->have_rights;
+    }
+
+    /**
+     * Sets the value of have_rights.
+     *
+     * @param mixed $have_rights the have rights
+     *
+     * @return self
+     */
+    public function setHaveRights($have_rights)
+    {
+        $this->have_rights = $have_rights;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of accept_terms.
+     *
+     * @return mixed
+     */
+    public function getAcceptTerms()
+    {
+        return $this->accept_terms;
+    }
+
+    /**
+     * Sets the value of accept_terms.
+     *
+     * @param mixed $accept_terms the accept terms
+     *
+     * @return self
+     */
+    public function setAcceptTerms($accept_terms)
+    {
+        $this->accept_terms = $accept_terms;
+
+        return $this;
     }
 }

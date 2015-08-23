@@ -44,10 +44,6 @@ class EventRegistrationController extends Controller
         $entity = new EventRegistration();
         $em = $this->getDoctrine()->getManager();
 
-        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(4);
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(4);
-
-
 
         $flow = $this->createCreateForm($entity);
 
@@ -82,7 +78,6 @@ class EventRegistrationController extends Controller
                 $userManager->updateUser($user);
 
                 $entity->setUser($user);
-                $entity->setEvent($event);
                 $entity->setCreated(new \DateTime);
                 
                 $em->persist($entity);
@@ -129,7 +124,18 @@ class EventRegistrationController extends Controller
             }
 
         }else{
-        // var_dump(($form->getErrorsAsString()));
+            // $errors = array();
+
+            // foreach ($form->getErrors() as $key => $error) {
+            //     if ($form->isRoot()) {
+            //         $errors['#'][$key] = $error->getMessage();
+            //     } else {
+            //         $errors[] = $error->getMessage();
+            //     }
+            // }
+
+
+            // var_dump($errors);
         }
 
 
@@ -140,11 +146,32 @@ class EventRegistrationController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
             'flow'   => $flow,
-            'accomodations' => $accomodations,
-            'event' => $event
         ));
 
     }
+
+
+    public function rebuildAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $regs = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
+        foreach ($regs as $reg) {
+            $budget = $em->getRepository('PixeloidAppBundle:BudgetCategory')->findOneById($reg->getBudget() + 1);
+            $title = $em->getRepository('PixeloidAppBundle:UserTitle')->findOneById($reg->getTitle() + 1);
+            $reg->setBudgetCategory($budget);        
+            $reg->setUserTitle($title);        
+            foreach($reg->getCategories() as $cat){
+                $category = $em->getRepository('PixeloidAppBundle:MovieCategory')->findOneById($cat + 1);
+                $reg->addMovieCategory($category); 
+            }
+            $em->persist($reg);
+        }
+
+        $em->flush();
+
+    }
+
 
     /**
      * Displays a form to create a new EventRegistration entity.
@@ -161,14 +188,12 @@ class EventRegistrationController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         
-        $accomodations = $em->getRepository('PixeloidAppBundle:Accomodation')->getAccomodationsByEvent(4);
 
 
         return $this->render('PixeloidAppBundle:EventRegistration:new_flow.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'flow'   => $flow,
-            'accomodations' => $accomodations
         ));
     }
 

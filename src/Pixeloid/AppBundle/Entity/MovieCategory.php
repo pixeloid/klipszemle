@@ -5,12 +5,12 @@ namespace Pixeloid\AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Author
+ * MovieCategory
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Author
+class MovieCategory
 {
     /**
      * @var integer
@@ -44,7 +44,7 @@ class Author
      *
      * @param string $name
      *
-     * @return Author
+     * @return MovieCategory
      */
     public function setName($name)
     {
@@ -63,4 +63,3 @@ class Author
         return $this->name;
     }
 }
-
