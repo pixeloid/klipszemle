@@ -254,6 +254,12 @@ class EventRegistration
     
 
     /**
+     * @ORM\Column(type="boolean", name="shortlist")
+     */
+    protected $shortlist = 0;
+    
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1204,5 +1210,29 @@ class EventRegistration
         $this->accept_terms = $accept_terms;
 
         return $this;
+    }
+
+    /**
+     * Set shortlist
+     *
+     * @param boolean $shortlist
+     *
+     * @return EventRegistration
+     */
+    public function setShortlist($shortlist)
+    {
+        $this->shortlist = $shortlist;
+
+        return $this;
+    }
+
+    /**
+     * Get shortlist
+     *
+     * @return boolean
+     */
+    public function getShortlist()
+    {
+        return $this->shortlist;
     }
 }

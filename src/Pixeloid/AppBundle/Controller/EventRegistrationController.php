@@ -2,10 +2,11 @@
 
 namespace Pixeloid\AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use Pixeloid\AppBundle\Entity\AccomodationReservation;
@@ -215,11 +216,6 @@ class EventRegistrationController extends Controller
         }
 
 
-        $flow = $this->createCreateForm($entity);
-
-        $form = $flow->createFormForStep(1);
-
-        var_dump(($form->get('name')));
 
         $page = $this->render('PixeloidAppBundle:EventRegistration:show.html.twig', array(
             'reg'      => $entity
@@ -401,7 +397,20 @@ class EventRegistrationController extends Controller
         return $flow;
     }
 
+    public function addToShortlistAction(Request $request, $id, $flag)
+    {
+        $em = $this->getDoctrine()->getManager();
 
+        $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->find($id);
+        
+        $entity->setShortlist($flag);
+        $em->persist($entity);
+        $em->flush();
+
+        $referer = $request->headers->get('referer');
+        return new RedirectResponse($referer);
+
+    }
 
     private function generatePassword($length = 8) {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

@@ -41,3 +41,6 @@ eventregistration_rebuild:
     path:     /rebuild
     defaults: { _controller: "PixeloidAppBundle:EventRegistration:rebuild" }
     requirements: { _method: get }
+eventregistration_add_to_shortlist:
+    path:     /add_to_shortlist/{id}/{flag}
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:addToShortlist" }
