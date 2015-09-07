@@ -28,6 +28,23 @@ class MovieCategory
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="EventRegistrationCategory", mappedBy="category", cascade={"persist","remove"}, orphanRemoval=true)
+     */
+    protected $eventRegistrationCategories;
+        
+
+
+    public function getShortlisted()
+    {   
+        $result = array();
+
+        foreach ($this->getEventRegistrationCategories() as $cat) {
+            if ($cat->getShortlist()) $result[] = $cat;
+        }
+
+        return $result;
+    }
 
     /**
      * Get id
@@ -61,5 +78,46 @@ class MovieCategory
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->eventRegistrationCategories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add eventRegistrationCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\EventRegistrationCategory $eventRegistrationCategory
+     *
+     * @return MovieCategory
+     */
+    public function addEventRegistrationCategory(\Pixeloid\AppBundle\Entity\EventRegistrationCategory $eventRegistrationCategory)
+    {
+        $this->eventRegistrationCategories[] = $eventRegistrationCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove eventRegistrationCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\EventRegistrationCategory $eventRegistrationCategory
+     */
+    public function removeEventRegistrationCategory(\Pixeloid\AppBundle\Entity\EventRegistrationCategory $eventRegistrationCategory)
+    {
+        $this->eventRegistrationCategories->removeElement($eventRegistrationCategory);
+    }
+
+    /**
+     * Get eventRegistrationCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEventRegistrationCategories()
+    {
+        return $this->eventRegistrationCategories;
     }
 }

@@ -24,9 +24,10 @@ class Builder extends ContainerAware
 
     $menu = $factory->createItem('root');
     $menu->setChildrenAttributes(array('class' => 'nav navbar-nav hidden-md hidden-sm hidden-xs'));
-    $menu->addChild('Nevezési Határidő 09.03.', array('route' => 'eventregistration_new', 'routeParameters' => array()));
-    $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'highlight');;
+    // $menu->addChild('Nevezési Határidő 09.03.', array('route' => 'eventregistration_new', 'routeParameters' => array()));
+//    $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'highlight');;
 
+   // $menu->addChild('A nevezés lezárult!', array('uri' => '/#'))->setLinkAttribute('class', 'highlight animated page-scroll');
 
     return $menu;
 
@@ -65,7 +66,7 @@ class Builder extends ContainerAware
 
   private function buildChildren($menu)
   {
-        $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'hidden-lg highlight');;
+        //$menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'hidden-lg highlight');;
         $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
         $menu->addChild('Szervezők & Zsűri', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
         // $menu->addChild('Program', array('route' => 'pixeloid_app_info', 'routeParameters' => array()));

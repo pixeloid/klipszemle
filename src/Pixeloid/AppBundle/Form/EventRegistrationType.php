@@ -71,9 +71,10 @@ class EventRegistrationType extends AbstractType
                 ->add('description', 'textarea', array('label' => 'Leírás'))
                 ->add('video_url', 'text', array('label' => 'A klip youtube linkje'))
 
-                ->add('movie_categories', 'entity', array(
+                ->add('moviecategories', 'entity', array(
                     'label' => 'Melyik kategóriákba nevezed? (maximum 3)',
                     'multiple' => true,
+                    'mapped' => false,
                     'expanded' => true,
                             'class'   => 'PixeloidAppBundle:MovieCategory',
                             'property' => 'name'

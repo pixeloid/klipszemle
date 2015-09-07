@@ -11,12 +11,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use Pixeloid\AppBundle\Entity\AccomodationReservation;
 use Pixeloid\AppBundle\Entity\EventRegistration;
+use Pixeloid\AppBundle\Entity\EventRegistrationCategory;
 use Pixeloid\AppBundle\Form\EventRegistrationType;
+use Pixeloid\AppBundle\Form\EventRegistrationEditType;
 use Pixeloid\AppBundle\Entity\RoomReservation;
-
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * EventRegistration controller.
@@ -26,17 +31,74 @@ class EventRegistrationController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     * @Method("GET")
+     * @Template(":post:index.html.twig")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $registrations = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
+        $categories = $em->getRepository('PixeloidAppBundle:MovieCategory')->findAll();
+
+        $datatable = $this->get('pixeloid_app.datatable.eventregistration');
+        $datatable->buildDatatable();
+
 
         return $this->render('PixeloidAppBundle:EventRegistration:index.html.twig', array(
             'registrations' => $registrations,
+            'categories' => $categories,
+            'datatable' => $datatable,
         ));
     }
+
+
+    /**
+     * Get all Post entities.
+     *
+     * @Route("/results", name="eventregistration_results")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function indexResultsAction()
+    {
+        $datatable = $this->get('pixeloid_app.datatable.eventregistration');
+        $datatable->buildDatatable();
+
+        $query = $this->get('sg_datatables.query')->getQueryFrom($datatable);
+        // Callback example
+        // $function = function($qb)
+        // {
+        //     // var_dump($qb->getQuery()->getSQL());
+        //     // exit;
+
+        // };
+
+        // // Add the callback function as WhereResult
+        // $query->addWhereResult($function);
+
+        // Or add the callback function as WhereAll
+        //$query->addWhereAll($function);
+
+        // Or to the actual query
+        $query->buildQuery();
+        $qb = $query->getQuery();
+
+        //$qb->addSelect("eventregistration.email");
+        //$qb->andWhere("moviecategories.shortlist = 1");
+
+            // var_dump($qb->getQuery()->getSQL());
+            // exit;
+
+        $query->setQuery($qb);
+        return $query->getResponse(false);
+
+        return $query->getResponse();
+    }
+
+
+
     /**
      * Creates a new EventRegistration entity.
      */
@@ -200,6 +262,7 @@ class EventRegistrationController extends Controller
 
     /**
      * @Security("has_role('ROLE_USER')")
+     * @Route("/{id}/show", name="eventregistration_show", options={"expose"=true})
      */
     public function showAction($id)
     {
@@ -268,6 +331,7 @@ class EventRegistrationController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->find($id);
+        $categories = $em->getRepository('PixeloidAppBundle:MovieCategory')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find EventRegistration entity.');
@@ -278,9 +342,33 @@ class EventRegistrationController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
 
-            return $this->redirect($this->generateUrl('eventregistration_edit', array('id' => $id)));
+            $entity->getMovieCategories()->clear();
+            foreach ($editForm->get('moviecategories')->getData() as $cat) {
+
+                $movieCat = new EventRegistrationCategory;
+                $movieCat->setCategory($cat);
+                $movieCat->setEventRegistration($entity);
+                $entity->addMovieCategory($movieCat);
+                
+            }
+
+                $em->flush();
+
+            return $this->redirect($this->generateUrl('eventregistration_show', array('id' => $id)));
+        }else{
+            $errors = array();
+
+            foreach ($editForm->getErrors() as $key => $error) {
+                if ($editForm->isRoot()) {
+                    $errors['#'][$key] = $error->getMessage();
+                } else {
+                    $errors[] = $error->getMessage();
+                }
+            }
+
+
+            var_dump($editForm->getErrorsAsString());
         }
 
         return $this->render('PixeloidAppBundle:EventRegistration:edit.html.twig', array(
@@ -358,13 +446,18 @@ class EventRegistrationController extends Controller
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(EventRegistration $entity)
-    {
-        $form = $this->createForm(new EventRegistrationType(), $entity, array(
+    {   
+        $form = $this->createForm(new EventRegistrationEditType(), $entity, array(
             'action' => $this->generateUrl('eventregistration_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
+        $cats = array();
+        foreach ($entity->getMovieCategories()  as $cat) {
+            $cats[] = $cat->getCategory();
+        }
+        $form->get('moviecategories')->setData($cats);
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Mentés'));
 
         return $form;
     }
@@ -401,7 +494,7 @@ class EventRegistrationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->find($id);
+        $entity = $em->getRepository('PixeloidAppBundle:EventRegistrationCategory')->find($id);
         
         $entity->setShortlist($flag);
         $em->persist($entity);

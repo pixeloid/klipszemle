@@ -10,6 +10,13 @@ pixeloid_app_eventregistration:
     resource: "@PixeloidAppBundle/Resources/config/routing/eventregistration.yml"
     prefix:   /eventregistration
 
+pixeloid_app_eventregistration_annotation:
+
+    resource: "@PixeloidAppBundle/Controller/EventRegistrationController.php"
+    prefix:   /eventregistration
+    type:     annotation
+
+
 pixeloid_app_presentation:
     resource: "@PixeloidAppBundle/Resources/config/routing/presentation.yml"
     prefix:   /presentation

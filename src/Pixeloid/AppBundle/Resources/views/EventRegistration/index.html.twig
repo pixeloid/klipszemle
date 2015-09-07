@@ -2,68 +2,58 @@
 
 {% block body -%}
 <div class="container">
-    <h1><span>Regisztrációk</span></h1>
-    <table class="table table-condensed table-reg tablesorter">
-    <thead>
-        <tr>
-            <th>Shortlist?</th>
-            <th>#</th>
-            <th>Dátum  </th>
-            <th>E-mail</th>
-            <th>Név</th>
-            <th>Szerző</th>
-            <th>Dal címe</th>
-             <th></th>
-        </tr>
+    <div class="row">
+        <div class="col-sm-10  ">
+        <h1><span>Regisztrációk</span></h1>
+        {{ datatable_render_html(datatable) }}
+
+        </div>
+        <div class="col-sm-2">
+            <div data-spy="affix" data-offset-top="0">
+            <h4>shortlist</h4>
+
+            <div class="panel-group" id="accordion">
+
+            {% for cat in categories %}
 
 
-    </thead>
-
-    <tbody>
-            {% for reg in registrations %}
-                <tr {% if  reg.getShortlist %} class="text-success" {% endif %}>
-    <td style="font-size: 30px;">
-        <span class="hidden">
-            {{reg.getShortlist}}
-        </span>
-        {% if  reg.getShortlist %}
-            <i class="fa fa-2  fa-check-circle "></i>
-        {% else %}
-        <i class="fa fa-2 fa-cross-circle "></i>
-            
-         {% endif %}
-
-
-    </td>                <td>{{reg.id}}</td>
-                    <td>{{reg.getCreated.format('Y. m. d.')}}</td>
-                    <td>{{reg.user.getEmail}}</td>
-                    <td>{{reg.getName}}</td>
-                    <td>{{reg.getAuthor}}</td>
-                    <td>{{reg.getSongTitle}}</td>
-                     <td><a href="{{path('eventregistration_show', {'id' : reg.getId})}}" class="btn btn-primary">Megnézem</a></td>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ cat.id }}"><span class="badge">{{cat.getShortlisted|length}}</span>
+                {{cat.getName|replace({'Legjobb': ''})}}</a>
+                        </h6>
+                    </div>
+                    <div id="collapse-{{ cat.id }}" class="panel-collapse collapse">
+                        <div class="panel-body" style="height: 300px; overflow: scroll;">
+                                {% for mcat in cat.getShortlisted %}
+                            <a href="{{path('eventregistration_show', {'id' : mcat.getEventRegistration.getId})}}">
+                                    {{ mcat.getEventRegistration.getAuthor }}: {{ mcat.getEventRegistration.getSongTitle }}
+                            </a><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
 
 
-                </tr>
-            {% endfor %}
-        
-    </tbody>
-        
-    </table>
 
-{# 
-
-<div class="row">
-{% for reg in registrations %}
-
-<div class="col-sm-6 col-md-3 col-lg-4">
-    <div class="yt-player" data-yt="{{ reg.getVideoUrl }}"></div>
-</div>
-
-{% endfor %}
-</div>
-
- #}
-
+            </div>
+                 
+        </div>
+    </div>
 
 </div>
+
+
 {% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ datatable_render_js(datatable) }}
+    
+{% endblock %}
+

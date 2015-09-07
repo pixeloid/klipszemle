@@ -22,3 +22,8 @@ services:
     scope: request
     calls:
       - [ setFormType, [ "@pixeloid_app.form.presentation" ] ]
+
+  pixeloid_app.datatable.eventregistration:
+      class: Pixeloid\AppBundle\Datatables\EventRegistrationDatatable
+      tags:
+          - { name: sg.datatable.view }

@@ -24,7 +24,6 @@
         "egeloen/google-map-bundle": "~2.2",
         "knplabs/knp-paginator-bundle": "~2.4",
         "twbs/bootstrap": "3.3.*",
-        "jquery/jquery":  "1.10.*",
         "fkr/cssurlrewrite-bundle": "1.0.0",
         "hpatoio/deploy-bundle": "~1.5",
         "excelwebzone/recaptcha-bundle": "dev-master",
@@ -34,7 +33,14 @@
         "ensepar/html2pdf-bundle" : "~2.0",
         "craue/formflow-bundle": "~3.0@dev",
         "egeloen/ckeditor-bundle": "~2.0",
-        "avalanche123/imagine-bundle": "^2.1"
+        "avalanche123/imagine-bundle": "^2.1",
+        "components/jquery": "1.10.1",
+        "datatables/datatables": "1.10.7",
+        "moment/moment": "2.10.2",
+        "friendsofsymfony/jsrouting-bundle": "@stable",
+        "sg/datatablesbundle": "dev-master"
+
+
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

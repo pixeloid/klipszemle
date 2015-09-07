@@ -32,6 +32,8 @@ class AppKernel extends Kernel
             new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new Sg\DatatablesBundle\SgDatatablesBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),
             new Pixeloid\UserBundle\PixeloidUserBundle(),

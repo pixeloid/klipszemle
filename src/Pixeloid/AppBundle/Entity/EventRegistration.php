@@ -31,7 +31,8 @@ class EventRegistration
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     */
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+    */
     private $name;
     /**
 	 * @var string
@@ -230,11 +231,11 @@ class EventRegistration
     protected $budget_category = null;
     
     /**
-     * @ORM\ManyToMany(targetEntity="MovieCategory")
+     * @ORM\OneToMany(targetEntity="EventRegistrationCategory", mappedBy="eventregistration", cascade={"persist","remove"}, orphanRemoval=true)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
-     * @AppAssert\MaximumChecked(max=3, groups={"flow_eventRegistration_step2"})
      */
-    protected $movie_categories = null;
+    protected $moviecategories;
+    
     
 
 
@@ -266,7 +267,25 @@ class EventRegistration
     {
     }
 
+    public function isShortlisted()
+    {
+        $result = false;
 
+        foreach ($this->getMovieCategories() as $cat) {
+            if($cat->getShortlist()) return true;
+        }
+    }
+
+    public function getShortlistCategories()
+    {
+        $result = array();
+
+        foreach ($this->getMovieCategories() as $cat) {
+            if($cat->getShortlist()) $result[] = $cat;
+        }
+
+        return $result;
+    }
 
 
     /**
@@ -1130,39 +1149,6 @@ class EventRegistration
         return $this->budget_category;
     }
 
-    /**
-     * Add movieCategory
-     *
-     * @param \Pixeloid\AppBundle\Entity\MovieCategory $movieCategory
-     *
-     * @return EventRegistration
-     */
-    public function addMovieCategory(\Pixeloid\AppBundle\Entity\MovieCategory $movieCategory)
-    {
-        $this->movie_categories[] = $movieCategory;
-
-        return $this;
-    }
-
-    /**
-     * Remove movieCategory
-     *
-     * @param \Pixeloid\AppBundle\Entity\MovieCategory $movieCategory
-     */
-    public function removeMovieCategory(\Pixeloid\AppBundle\Entity\MovieCategory $movieCategory)
-    {
-        $this->movie_categories->removeElement($movieCategory);
-    }
-
-    /**
-     * Get movieCategories
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMovieCategories()
-    {
-        return $this->movie_categories;
-    }
 
     /**
      * Gets the value of have_rights.
@@ -1234,5 +1220,39 @@ class EventRegistration
     public function getShortlist()
     {
         return $this->shortlist;
+    }
+
+    /**
+     * Add movieCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\EventRegistrationCategory $movieCategory
+     *
+     * @return EventRegistration
+     */
+    public function addMovieCategory(\Pixeloid\AppBundle\Entity\EventRegistrationCategory $movieCategory)
+    {
+        $this->moviecategories[] = $movieCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove movieCategory
+     *
+     * @param \Pixeloid\AppBundle\Entity\EventRegistrationCategory $movieCategory
+     */
+    public function removeMovieCategory(\Pixeloid\AppBundle\Entity\EventRegistrationCategory $movieCategory)
+    {
+        $this->moviecategories->removeElement($movieCategory);
+    }
+
+    /**
+     * Get movieCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMovieCategories()
+    {
+        return $this->moviecategories;
     }
 }

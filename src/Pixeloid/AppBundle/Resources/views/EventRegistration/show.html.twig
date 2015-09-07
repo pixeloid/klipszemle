@@ -4,7 +4,11 @@
 
 <div class="container">
 	
-	<h2>{{reg.getAuthor}}: {{reg.getSongTitle}}</h2>
+	<div class="row">
+		<div class="col-sm-9"><h2>{{reg.getAuthor}}: {{reg.getSongTitle}}</h2></div>
+		<div class="col-sm-3"><a href="{{path('eventregistration_edit', {'id' : reg.getId})}}" class="btn btn-default">Szerkesztés</a></div>
+	</div>
+	
 
 	<div class="row">
 		
@@ -21,17 +25,20 @@
 
 
 			<p>				{% for cat in reg.getMovieCategories %}
-							    <span class="badge">{{ cat.getName }}</span>
+
+			{% if cat.getShortlist %}
+				<a href="{{path('eventregistration_add_to_shortlist', {'id' : cat.getId, 'flag': 0})}}" class="btn btn-success btn-sm">
+			{% else %}
+			    
+				<a href="{{path('eventregistration_add_to_shortlist', {'id' : cat.getId, 'flag': 1})}}" class="btn btn-default btn-sm">
+			{% endif %}
+
+				{{ cat.getCategory.getName }}
+			</a>
 							{% endfor %}
 			</p>
 
 			<p>
-			{% if not reg.getShortlist %}
-			  <a href="{{path('eventregistration_add_to_shortlist', {'id' : reg.getId, 'flag': 1})}}" class="btn btn-default">Shortlistre!</a>
-			 {% else %}
-			 <a href="{{path('eventregistration_add_to_shortlist', {'id' : reg.getId, 'flag': 0})}}" class="btn btn-success">Shortlisten</a>
-			     
-			  {% endif %}
 				
 				
 			</p>
@@ -44,7 +51,7 @@
 		</div>
 
 		<div class="col-sm-6">
-			<div class="yt-player" data-yt="{{ reg.getVideoUrl }}"></div>
+			<div id="yt-player" data-yt="{{ reg.getVideoUrl }}"></div>
 		</div>
 	</div>
 	<hr>

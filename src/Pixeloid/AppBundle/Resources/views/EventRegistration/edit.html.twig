@@ -1,17 +1,145 @@
 {% extends '::base.html.twig' %}
 
+
 {% block body -%}
-    <h1>EventRegistration edit</h1>
-{{ form_errors(edit_form, { 'global_errors': true }) }}
 
-    {{ form(edit_form) }}
+<div class="container">
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('eventregistration') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+<div class="row">
+	<div class="col-sm-9"><h2>{{entity.getAuthor}}: {{entity.getSongTitle}}</h2></div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-12">
+
+<!--         <h1><span>Event Registration</span></h1>
+ -->
+
+
+        {{ form_start(edit_form, {attr: {'data-calculate-url': path('eventregistration_calculate'), 'class': 'eventregistration-form' }}) }}
+
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(edit_form.name) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(edit_form.email) }}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                {{ form_row(edit_form.user_title) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_row(edit_form.company) }}
+            </div>
+
+            <div class="col-sm-4">
+                {{ form_row(edit_form.website) }}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(edit_form.phone) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(edit_form.address) }}
+            </div>
+
+        </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-5">
+            {{ form_row(edit_form.author) }}
+        </div>
+        <div class="col-sm-5">
+            {{ form_row(edit_form.song_title) }}
+        </div>
+
+        <div class="col-sm-2">
+            {{ form_row(edit_form.length) }}
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_row(edit_form.publisher) }}
+        </div>
+
+        <div class="col-sm-4">
+            {{ form_row(edit_form.song_publish_date) }}
+        </div>
+
+        <div class="col-sm-4">
+            {{ form_row(edit_form.video_publish_date) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_row(edit_form.producer) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_row(edit_form.director) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_row(edit_form.photographer) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {{ form_row(edit_form.designer) }}
+        </div>
+        <div class="col-sm-4">
+            {{ form_row(edit_form.editor) }}
+        </div>
+        <div class="col-sm-4">
+      {{ form_row(edit_form.technology) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+        {{ form_row(edit_form.budget_category) }}
+        {{ form_row(edit_form.description) }}
+        {{ form_row(edit_form.video_url) }}
+
+
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(edit_form.moviecategories) }}
+            A legjobb klip kategóriába minden alkotás bekerül.
+        </div>
+
+    </div>
+
+
+        {{ form_rest(edit_form) }}
+        <hr>
+
+
+        {{ form_end(edit_form) }}
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+  
+</div>
 {% endblock %}

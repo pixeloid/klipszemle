@@ -6,6 +6,8 @@ imports:
 framework:
     #esi:             ~
     translator:      { fallback: "%locale%" }
+    default_locale:  "%locale%"
+
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -15,8 +17,8 @@ framework:
     validation:      { enable_annotations: true }
     templating:
         engines: ['twig']
-    translator:      { fallback: "%locale%" }
-    default_locale:  "%locale%"
+
+
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
@@ -70,7 +72,7 @@ assetic:
                 - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/js/bc-bootstrap-collection.js
         jquery:
             inputs:
-                - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+                - %kernel.root_dir%/../vendor/components/jquery/jquery.min.js
 
 braincrafted_bootstrap:
     less_filter: less
