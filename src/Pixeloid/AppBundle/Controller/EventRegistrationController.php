@@ -38,20 +38,44 @@ class EventRegistrationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $registrations = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
+       // $registrations = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
         $categories = $em->getRepository('PixeloidAppBundle:MovieCategory')->findAll();
 
         $datatable = $this->get('pixeloid_app.datatable.eventregistration');
         $datatable->buildDatatable();
 
-
         return $this->render('PixeloidAppBundle:EventRegistration:index.html.twig', array(
-            'registrations' => $registrations,
+       //     'registrations' => $registrations,
             'categories' => $categories,
             'datatable' => $datatable,
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Method("GET")
+     * @Template("PixeloidAppBundle:EventRegistration:votesheets.html.twig")
+     */
+
+    public function votesheetsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $registrations = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
+        
+        $qb = $em->createQueryBuilder();
+        $qb->select(array('r')) // string 'u' is converted to array internally
+           ->from('PixeloidAppBundle:EventRegistration', 'r')
+           ->where('r.number > 0')
+           ->orderBy('r.number', 'ASC');
+
+
+        return array(
+            'registrations' => $qb->getQuery()->getResult(),
+        );
+
+
+    }
 
     /**
      * Get all Post entities.
@@ -67,34 +91,35 @@ class EventRegistrationController extends Controller
         $datatable->buildDatatable();
 
         $query = $this->get('sg_datatables.query')->getQueryFrom($datatable);
-        // Callback example
-        // $function = function($qb)
-        // {
+
+        $function = function($qb)
+        {
+            // $qb->andWhere("post.title = :p");
+            $qb->andWhere("eventregistration.created > :date");
+            $qb->setParameter('date', new \DateTime('2016-07-01'));
+        };
+
+        // $query->addWhereAll($function);
+
+        // return $query->getResponse();
+        $query->addWhereAll($function);
+
+        // // Or add the callback function as WhereAll
+        // //$query->addWhereAll($function);
+
+        // // Or to the actual query
+        // $query->buildQuery();
+        // $qb = $query->getQuery();
+
+        // //$qb->addSelect("eventregistration.email");
+        // //$qb->andWhere("moviecategories.shortlist = 1");
+
         //     // var_dump($qb->getQuery()->getSQL());
         //     // exit;
 
-        // };
-
-        // // Add the callback function as WhereResult
-        // $query->addWhereResult($function);
-
-        // Or add the callback function as WhereAll
-        //$query->addWhereAll($function);
-
-        // Or to the actual query
-        $query->buildQuery();
-        $qb = $query->getQuery();
-
-        //$qb->addSelect("eventregistration.email");
-        //$qb->andWhere("moviecategories.shortlist = 1");
-
-            // var_dump($qb->getQuery()->getSQL());
-            // exit;
-
-        $query->setQuery($qb);
-        return $query->getResponse(false);
-
+        // $query->setQuery($qb);
         return $query->getResponse();
+
     }
 
 
@@ -149,11 +174,11 @@ class EventRegistrationController extends Controller
 
                 $flow->reset(); // remove step data from the session
 
-                $userManager = $this->get('fos_user.user_manager');
+                // $userManager = $this->get('fos_user.user_manager');
 
-                $user = $userManager->findUserByEmail($entity->getUser()->getEmail());
-                $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
-                $this->get("security.context")->setToken($token);
+                // $user = $userManager->findUserByEmail($entity->getUser()->getEmail());
+                // $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
+                // $this->get("security.context")->setToken($token);
 
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
@@ -190,11 +215,7 @@ class EventRegistrationController extends Controller
             // $errors = array();
 
             // foreach ($form->getErrors() as $key => $error) {
-            //     if ($form->isRoot()) {
-            //         $errors['#'][$key] = $error->getMessage();
-            //     } else {
             //         $errors[] = $error->getMessage();
-            //     }
             // }
 
 
@@ -264,7 +285,7 @@ class EventRegistrationController extends Controller
      * @Security("has_role('ROLE_USER')")
      * @Route("/{id}/show", name="eventregistration_show", options={"expose"=true})
      */
-    public function showAction($id)
+    public function showAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $securityContext = $this->container->get('security.context');
@@ -279,9 +300,26 @@ class EventRegistrationController extends Controller
         }
 
 
+        $form = $this->createFormBuilder($entity)
+            ->add('number', 'text')
+            ->add('save', 'submit', array('label' => 'Mentés'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            // perform some action, such as saving the task to the database
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirectToRoute('eventregistration_show', array('id' => $entity->getId()));
+        }
+
+
 
         $page = $this->render('PixeloidAppBundle:EventRegistration:show.html.twig', array(
-            'reg'      => $entity
+            'reg'      => $entity,
+            'form' => $form->createView(),
+
         ));
 
 
@@ -333,6 +371,14 @@ class EventRegistrationController extends Controller
         $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->find($id);
         $categories = $em->getRepository('PixeloidAppBundle:MovieCategory')->findAll();
 
+        $shortlisted_categories = array();
+
+        foreach ($entity->getMoviecategories() as $cat) {
+            if ($cat->getShortlist()) {
+                $shortlisted_categories[] = $cat->getCategory();
+            }
+        }
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find EventRegistration entity.');
         }
@@ -349,6 +395,13 @@ class EventRegistrationController extends Controller
                 $movieCat = new EventRegistrationCategory;
                 $movieCat->setCategory($cat);
                 $movieCat->setEventRegistration($entity);
+
+                foreach ($shortlisted_categories as $shortlisted) {
+                    if ($shortlisted == $cat) {
+                        $movieCat->setShortlist(true);
+                    }
+                }
+
                 $entity->addMovieCategory($movieCat);
                 
             }

@@ -1,6 +1,7 @@
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
+/app/sessions/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 
@@ -35,3 +36,18 @@
 
 # Composer PHAR
 /composer.phar
+.sass-cache
+node_modules
+app/Resources/public/.styles
+app/Resources/public/vendor/
+bundle
+.sass-cache
+node_modules
+app/Resources/public/.styles
+app/Resources/public/vendor/
+bundle
+.sass-cache
+node_modules
+app/Resources/public/.styles
+app/Resources/public/vendor/
+bundle

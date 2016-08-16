@@ -14,8 +14,11 @@ class MaximumCheckedValidator extends ConstraintValidator
 	
 	public function validate($value, Constraint $constraint)
 	{
-// 		foreach ($value as $key => $value) {
-// 			var_dump(($value->getId()));
+		var_dump($value);
+		var_dump($constraint);
+// 		exit;
+// 		foreach ($value as $key => $v) {
+// 			var_dump(($v->getId()));
 // 			# code...
 // 		}
 // exit;

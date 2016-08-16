@@ -28,6 +28,12 @@ class EventRegistration
     private $id;
 
     /**
+     * @ORM\Column(type="integer", name="number", unique=false, nullable=true)
+     */
+    protected $number = null;
+    
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -110,7 +116,6 @@ class EventRegistration
 
     /**
      * @ORM\Column(type="text", name="song_publish_date", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
     protected $song_publish_date;
     
@@ -150,7 +155,6 @@ class EventRegistration
 
     /**
      * @ORM\Column(type="string", name="technology", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
     protected $technology;
 
@@ -170,7 +174,6 @@ class EventRegistration
 
     /**
      * @ORM\Column(type="text", name="description", nullable=false)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
     protected $description;
 
@@ -232,7 +235,11 @@ class EventRegistration
     
     /**
      * @ORM\OneToMany(targetEntity="EventRegistrationCategory", mappedBy="eventregistration", cascade={"persist","remove"}, orphanRemoval=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @Assert\Count(
+     *      min = "1",
+     *      max = "3",
+     *      groups={"flow_eventRegistration_step2"}
+     * )
      */
     protected $moviecategories;
     
@@ -245,10 +252,14 @@ class EventRegistration
      * @Assert\True(groups={"flow_eventRegistration_step3"},message = "Kötelező mező")
      */
     protected $have_rights = null;
+    /**
+     * @ORM\Column(name="winner", type="integer", nullable=true)
+     */
+    protected $winner = null;
     
 
     /**
-     * @ORM\Column(name="accept_terms", type="boolean")
+     * @ORM\Column(name="accept_terms", type="boolean", nullable=true)
      * @Assert\True(groups={"flow_eventRegistration_step3"}, message = "Kötelező mező")
      */
     protected $accept_terms = null;
@@ -287,6 +298,24 @@ class EventRegistration
         return $result;
     }
 
+    public function getYtId(){
+        $value = $this->getVideoUrl();
+        if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/', $value, $id)) {
+          $values = $id[1];
+        } else if (preg_match('/youtube\.com\/embed\/([^\&\?\/]+)/', $value, $id)) {
+          $values = $id[1];
+        } else if (preg_match('/youtube\.com\/v\/([^\&\?\/]+)/', $value, $id)) {
+          $values = $id[1];
+        } else if (preg_match('/youtu\.be\/([^\&\?\/]+)/', $value, $id)) {
+          $values = $id[1];
+        }
+        else if (preg_match('/youtube\.com\/verify_age\?next_url=\/watch%3Fv%3D([^\&\?\/]+)/', $value, $id)) {
+            $values = $id[1];
+        } else {   
+        // not an youtube video
+        }
+        return $values;
+    }
 
     /**
      * Gets the value of recaptcha.
@@ -1254,5 +1283,53 @@ class EventRegistration
     public function getMovieCategories()
     {
         return $this->moviecategories;
+    }
+
+    /**
+     * Set number
+     *
+     * @param integer $number
+     *
+     * @return EventRegistration
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return integer
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set winner
+     *
+     * @param boolean $winner
+     *
+     * @return EventRegistration
+     */
+    public function setWinner($winner)
+    {
+        $this->winner = $winner;
+
+        return $this;
+    }
+
+    /**
+     * Get winner
+     *
+     * @return boolean
+     */
+    public function getWinner()
+    {
+        return $this->winner;
     }
 }

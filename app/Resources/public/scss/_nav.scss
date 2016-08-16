@@ -1,0 +1,106 @@
+.navbar-custom {
+    padding: 10px 0;
+
+    margin-bottom: 0;
+    border-bottom: 1px solid white;
+    text-transform: uppercase;
+    background: rgba($brand-primary, 0.9);
+
+    .navbar-toggle{
+        font-size: 30px;
+    }
+    .navbar-brand {
+        font-weight: 700;
+        &:focus {
+            outline: none;
+        }
+
+        padding: 5px;
+        .navbar-toggle {
+            padding: 4px 6px;
+            font-size: 16px;
+            color: $brand-primary;
+            &:focus,
+            &:active {
+                outline: none;
+            }
+        }
+    }
+    a {
+        //color: $brand-primary;
+    }
+    .nav {
+        li {
+            a {
+                transition: all .3s ease-in-out;
+                color: black;
+                text-decoration: none;
+                font-weight: bold;
+                &.fb{
+                    font-size: 1.3em;
+                    padding-top: 13px;
+                }
+
+                @media(min-width:768px) {
+
+                &.highlight{
+                    background: white;
+                    color: $brand-secondary;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    margin-top:10px;
+                    margin-bottom: 10px;
+                    &:hover {
+                        color: white;
+                        outline: none;
+                        background: black;
+
+                    }
+
+                }
+                }
+                &:hover {
+                    color: white;
+                    outline: none;
+                    background-color: transparent;
+                }
+                &:focus,
+                &:active {
+                    outline: none;
+                    background-color: transparent;
+                }
+            }
+            &.active {
+                outline: none;
+                a {
+                    background-color: fade(white, 30%);
+                    &:hover {
+                        color: white;
+                    }
+                }
+
+            }
+        }
+    }
+    @media(min-width:768px) {
+        padding: 20px 0;
+        border-bottom-color: lighten($brand-primary, 10%);
+        letter-spacing: 1px;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+        &.top-nav-collapse {
+            padding: 0;
+            border-bottom: 1px solid fade(white, 30%);
+
+            .navbar-brand img{
+                height: 38px;
+                -webkit-transition: height .3s ease-in-out;
+                -moz-transition: height .3s ease-in-out;
+                transition: height .3s ease-in-out;
+
+            }
+
+        }
+    }
+}

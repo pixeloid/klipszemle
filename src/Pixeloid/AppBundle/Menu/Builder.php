@@ -66,10 +66,10 @@ class Builder extends ContainerAware
 
   private function buildChildren($menu)
   {
-        //$menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'hidden-lg highlight');;
+        $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
         $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
-        $menu->addChild('Szervezők & Zsűri', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
-        // $menu->addChild('Program', array('route' => 'pixeloid_app_info', 'routeParameters' => array()));
+        $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
+       // $menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
         $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
         $menu->addChild('FAQ', array('uri' => '/#faq'))->setLinkAttribute('class', 'animated page-scroll');
         $menu->addChild(' ', array('uri' => 'https://facebook.com/klipszemle'))->setLinkAttribute('class', 'fa fa-facebook-official fb');

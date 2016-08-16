@@ -1,0 +1,88 @@
+{% extends '::blank.html.twig' %}
+
+{% block body -%}
+<div class="container">
+
+{% for reg in registrations %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="row">
+            <div class="col-sm-3">
+            {% image '@PixeloidAppBundle/Resources/public/images/klipszemle_logo.png' %}
+                <img src="{{ asset_url }}" class="img-responsive" height="" alt=""/>
+            {% endimage %}
+
+            </div>
+            <div class="col-sm-8 col-sm-push-1 header">
+                <div class="item">         
+                   <b> Sorszám: </b><span class="box">#{{ reg.getNumber }}</span>
+                </div>        
+                <div class="item">         
+                    <b>Kategória: </b><span class="box">
+                        {% for cat in reg.getMovieCategories %}
+                            {% if cat.getCategory.getId > 1 and cat.getShortlist %}
+                                {{ cat.getCategory.getName }}
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                </div>        
+            </div>
+        </div>
+        <br><br><br><br><br>
+
+        <h3>Előadó: {{ reg.getAuthor }}</h3>
+        <h3>Dalcím: {{ reg.getSongTitle }}</h3>
+        <ul class="list-unstyled">
+        {% if reg.getDirector|length > 5 %}<li><b>Rendező: </b><span>{{ reg.getDirector }}</span></li>{% endif %}
+        {% if reg.getPhotographer|length > 5  %}<li><b>Operatőr: </b><span>{{ reg.getPhotographer }}</span></li>{% endif %}
+        {% if reg.getDesigner|length > 5  %}<li><b>Látványtervező:  </b><span>{{ reg.getDesigner }}</span></li>{% endif %}
+        {% if reg.getEditor|length > 5  %}<li><b>Vágó:  </b><span>{{ reg.getEditor }}</span></li>{% endif %}
+            {% if reg.getProducer|length > 5  %}<li><b>Gyártócég: </b><span>{{ reg.getProducer }}</span></li>{% endif %}
+            {% if reg.getBudgetCategory.name|length > 5  %}<li><b>Budget: </b><span>{{ reg.getBudgetCategory.name }}</span></li>{% endif %}
+            {% if reg.getVideoPublishDate|length > 5  %}<li><b>Megjelenés éve: </b><span>{{ reg.getVideoPublishDate }}</span></li>{% endif %}
+            {% if reg.getTechnology|length > 5  %}<li><b>Rögzítéstechnika: </b><span>{{ reg.getTechnology }}</span></li>{% endif %}
+            
+        </ul>
+
+
+        <br>        
+
+
+        <br>        
+
+        <br>        
+
+        <div class="row">
+            <div class="col-sm-5"><h4>Általam javasolt kategória:</h4></div>
+            <div class="col-sm-7"><div class="underline"></div></div>
+        </div>
+
+
+        <br>        
+
+        <br>        
+
+        <div class="points">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+            <span>10</span>
+        </div>
+        
+    </div>
+</div>
+
+<div class="break"></div>
+
+{% endfor %}
+
+    </div>
+{% endblock %}

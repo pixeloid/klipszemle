@@ -1,0 +1,136 @@
+/** The Magic **/
+
+.btn-breadcrumb{
+  margin: 50px 0;
+  overflow: hidden;
+}
+
+.btn-breadcrumb .btn:not(:last-child):after {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 12px solid white;
+  position: absolute;
+  top: 50%;
+  margin-top: -22px;
+  left: 100%;
+  margin-left: -1px;
+  z-index: 3;
+}
+.btn-breadcrumb .btn:not(:last-child):before {
+  content: " ";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 12px solid rgb(173, 173, 173);
+  position: absolute;
+  top: 50%;
+  margin-top: -22px;
+  margin-left: 0px;
+  left: 100%;
+  z-index: 3;
+}
+
+/** The Spacing **/
+.btn-breadcrumb .btn {
+  padding:10px 22px 10px 34px;
+  transition: none;
+  text-decoration: none;
+  border: none;
+  font-weight: 500;
+}
+.btn-breadcrumb .btn:first-child {
+  padding:10px 16px 10px 20px;
+}
+.btn-breadcrumb .btn:last-child {
+  padding:10px 28px 10px 34px;
+}
+
+/** Default button **/
+.btn-breadcrumb .btn.btn-default:not(:last-child):after {
+  border-left-color: #fff;
+}
+.btn-breadcrumb .btn.btn-default:not(:last-child):before {
+  border-left-color: #ccc;
+}
+.btn-breadcrumb .btn.btn-default:hover:not(:last-child):after {
+  border-left-color: #ebebeb;
+}
+.btn-breadcrumb .btn.btn-default:hover:not(:last-child):before {
+  border-left-color: #adadad;
+}
+
+/** Primary button **/
+.btn-breadcrumb .btn.btn-primary:not(:last-child):after {
+  border-left-color: #000;
+}
+.btn-breadcrumb .btn.btn-primary:not(:last-child):before {
+  border-left-color: #000;
+}
+.btn-breadcrumb .btn.btn-primary:hover:not(:last-child):after {
+  border-left-color: #000;
+}
+.btn-breadcrumb .btn.btn-primary:hover:not(:last-child):before {
+  // border-left-color: #285e8e;
+}
+
+/** Success button **/
+.btn-breadcrumb .btn.btn-success:not(:last-child):after {
+  border-left-color: #5cb85c;
+}
+.btn-breadcrumb .btn.btn-success:not(:last-child):before {
+  border-left-color: #4cae4c;
+}
+.btn-breadcrumb .btn.btn-success:hover:not(:last-child):after {
+  border-left-color: #47a447;
+}
+.btn-breadcrumb .btn.btn-success:hover:not(:last-child):before {
+  border-left-color: #398439;
+}
+
+/** Danger button **/
+.btn-breadcrumb .btn.btn-danger:not(:last-child):after {
+  border-left-color: #d9534f;
+}
+.btn-breadcrumb .btn.btn-danger:not(:last-child):before {
+  border-left-color: #d43f3a;
+}
+.btn-breadcrumb .btn.btn-danger:hover:not(:last-child):after {
+  border-left-color: #d2322d;
+}
+.btn-breadcrumb .btn.btn-danger:hover:not(:last-child):before {
+  border-left-color: #ac2925;
+}
+
+/** Warning button **/
+.btn-breadcrumb .btn.btn-warning:not(:last-child):after {
+  border-left-color: #f0ad4e;
+}
+.btn-breadcrumb .btn.btn-warning:not(:last-child):before {
+  border-left-color: #eea236;
+}
+.btn-breadcrumb .btn.btn-warning:hover:not(:last-child):after {
+  border-left-color: #ed9c28;
+}
+.btn-breadcrumb .btn.btn-warning:hover:not(:last-child):before {
+  border-left-color: #d58512;
+}
+
+/** Info button **/
+.btn-breadcrumb .btn.btn-info:not(:last-child):after {
+  border-left-color: #5bc0de;
+}
+.btn-breadcrumb .btn.btn-info:not(:last-child):before {
+  border-left-color: #46b8da;
+}
+.btn-breadcrumb .btn.btn-info:hover:not(:last-child):after {
+  border-left-color: #39b3d7;
+}
+.btn-breadcrumb .btn.btn-info:hover:not(:last-child):before {
+  border-left-color: #269abc;
+}

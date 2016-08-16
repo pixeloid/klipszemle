@@ -10,18 +10,22 @@ eventregistration_show:
     options:
         expose: true
 
-# eventregistration_new:
-#     path:     /new
-#     defaults: { _controller: "PixeloidAppBundle:EventRegistration:new" }
+eventregistration_votesheets:
+    path:     /votesheets
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:votesheets" }
 
-# eventregistration_success:
-#     path:     /{id}/success
-#     defaults: { _controller: "PixeloidAppBundle:EventRegistration:registrationSuccess" }
+eventregistration_new:
+    path:     /new
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:new" }
 
-# eventregistration_create:
-#     path:     /create
-#     defaults: { _controller: "PixeloidAppBundle:EventRegistration:create" }
-#     requirements: { _method: post }
+eventregistration_success:
+    path:     /{id}/success
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:registrationSuccess" }
+
+eventregistration_create:
+    path:     /create
+    defaults: { _controller: "PixeloidAppBundle:EventRegistration:create" }
+    requirements: { _method: post }
 
 eventregistration_edit:
     path:     /{id}/edit

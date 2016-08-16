@@ -22,8 +22,8 @@ framework:
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        # handler_id set to null will use default session handler from php.ini
-        handler_id:  ~
+        handler_id: session.handler.native_file
+        save_path: '%kernel.root_dir%/sessions'
     fragments:       ~
     http_method_override: true
 
@@ -37,42 +37,6 @@ twig:
     form_themes:
         - 'PixeloidAppBundle:Form:fields.html.twig'
 
-
-# Assetic Configuration
-assetic:
-    filters:
-        less:
-            node: /usr/local/bin/node
-            node_paths: [/usr/local/lib/node_modules]
-            apply_to: "\.less$"
-        cssrewrite: ~
-    assets:
-        # bootstrap_css:
-        #     inputs:
-        #         - @PixeloidAppBundle/Resources/public/less/styles.less
-        #         - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/less/form.less
-        #     filters:
-        #         - less
-        #         - cssrewrite
-        #     output: @PixeloidAppBundle/Resources/public/css/styles.css
-        bootstrap_js:
-            inputs:
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/alert.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/button.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/carousel.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/collapse.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/dropdown.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/modal.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/tooltip.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/popover.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/scrollspy.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/tab.js
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/affix.js
-                - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/js/bc-bootstrap-collection.js
-        jquery:
-            inputs:
-                - %kernel.root_dir%/../vendor/components/jquery/jquery.min.js
 
 braincrafted_bootstrap:
     less_filter: less
@@ -189,11 +153,10 @@ deploy:
     rsync-options: '-azC --force --delete --progress -h --checksum'
     host: vps.pixeloid.hu
     dir: /var/www/virtual/klipszemle.hu/
-    user: root
+    user: vu2097
     port: 22
     timeout: 0 # Connection timeout in seconds. 0 for no timeout.
     post_deploy_operations: 
         - app/console cache:clear --env=prod
-        - app/console assets:install --env=prod
-        - app/console assetic:dump --env=prod    
+        - app/console assets:install --env=prod --symlink
         - app/console doctrine:schema:update --force --env=prod    

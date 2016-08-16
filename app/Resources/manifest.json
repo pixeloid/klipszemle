@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "main.js": {
+      "files": [
+        "bower_components/modernizr/modernizr.js",
+        "bower_components/foundation-sites/dist/foundation.js",
+        "bower_components/Swiper/dist/js/swiper.jquery.js",
+        "scripts/main.js"
+        
+      ],
+      "main": true
+    },
+    "styles.css": {
+      "files": [
+        "scss/main.scss"
+      ]
+    },
+    "jquery.js": {
+      "bower": ["jquery"]
+    }
+  },
+  "config": {
+    "devUrl": null
+  }
+}
