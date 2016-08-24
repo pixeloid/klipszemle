@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Avenir Bold';
+    src: url('http://localhost:3000/fonts/AvenirNext-Bold.eot');
+    src: url('http://localhost:3000/fonts/AvenirNext-Bold.eot?#iefix') format("embedded-opentype"), url('http://localhost:3000/fonts/AvenirNext-Bold.woff') format("woff"), url('http://localhost:3000/fonts/AvenirNext-Bold.ttf') format("truetype"), url('http://localhost:3000/fonts/AvenirNext-Bold.svg#92550229aad14ffa2dc273e49410d17e') format("svg");
+    font-style: normal;
+    font-weight: 700
+}
+
+
 body.fb-post {
     padding: 0;
     background: black;
@@ -26,7 +35,8 @@ body.fb-post {
         left: 20px;
     }
     .post__text__song{
-        font-weight: 900;
+        font-family: "Avenir Bold";
+        white-space: nowrap;
         font-size: 35px;
         margin: 0;
         background: $brand-primary;
@@ -34,7 +44,8 @@ body.fb-post {
         padding: 5px 20px;
     }
     .post__text__author{
-        font-weight: 900;
+        font-family: "Avenir Bold";
+        white-space: nowrap;
         font-size: 45px;
         margin: 0;
         background: $brand-primary;
@@ -42,6 +53,7 @@ body.fb-post {
         padding: 5px 20px;
     }
     .post__headline{
+        font-family: "Avenir Bold";
         position: absolute;
         background: #fff;
         bottom: 120px; 
