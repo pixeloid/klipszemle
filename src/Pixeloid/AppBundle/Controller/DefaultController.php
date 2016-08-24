@@ -20,77 +20,77 @@ class DefaultController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $day1 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day1');
-        $day2 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day2');
-        $lead = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('lead');
-        $winners = $em->getRepository('PixeloidAppBundle:EventRegistration')->getWinners();
+        // $day1 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day1');
+        // $day2 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day2');
+        // $lead = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('lead');
+        // $winners = $em->getRepository('PixeloidAppBundle:EventRegistration')->getWinners();
 
-        if(!$day1){
-          $day1 = new Documents;
-          $day1->setName('day1');  
-        } 
+        // if(!$day1){
+        //   $day1 = new Documents;
+        //   $day1->setName('day1');  
+        // } 
 
-        if(!$day2){
-          $day2 = new Documents;
-          $day2->setName('day2');  
-        } 
-        if(!$lead){
-          $lead = new Documents;
-          $lead->setName('lead');  
-        } 
-
-
-
-        $form = $this->createForm(new DocumentType(), null, array(
-        ));
-
-        $form['day1']->setData($day1->getContent());
-        $form['day2']->setData($day2->getContent());
-        $form['lead']->setData($lead->getContent());
-
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $day1 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day1');
-            $day2 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day2');
-            $lead = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('lead');
-
-            if(!$day1){
-              $day1 = new Documents;
-              $day1->setName('day1');  
-            } 
-
-            if(!$day2){
-              $day2 = new Documents;
-              $day2->setName('day2');  
-            } 
-            if(!$lead){
-              $lead = new Documents;
-              $lead->setName('lead');  
-            } 
+        // if(!$day2){
+        //   $day2 = new Documents;
+        //   $day2->setName('day2');  
+        // } 
+        // if(!$lead){
+        //   $lead = new Documents;
+        //   $lead->setName('lead');  
+        // } 
 
 
 
+        // $form = $this->createForm(new DocumentType(), null, array(
+        // ));
 
-            $day1->setContent($form['day1']->getData());
-            $day2->setContent($form['day2']->getData());
-            $lead->setContent($form['lead']->getData());
+        // $form['day1']->setData($day1->getContent());
+        // $form['day2']->setData($day2->getContent());
+        // $form['lead']->setData($lead->getContent());
 
-            $em->persist($day1);
-            $em->persist($day2);
-            $em->persist($lead);
-            $em->flush();
+        // $form->handleRequest($request);
+        // if ($form->isValid()) {
 
-        }
+        //     $em = $this->getDoctrine()->getManager();
+        //     $day1 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day1');
+        //     $day2 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day2');
+        //     $lead = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('lead');
+
+        //     if(!$day1){
+        //       $day1 = new Documents;
+        //       $day1->setName('day1');  
+        //     } 
+
+        //     if(!$day2){
+        //       $day2 = new Documents;
+        //       $day2->setName('day2');  
+        //     } 
+        //     if(!$lead){
+        //       $lead = new Documents;
+        //       $lead->setName('lead');  
+        //     } 
+
+
+
+
+        //     $day1->setContent($form['day1']->getData());
+        //     $day2->setContent($form['day2']->getData());
+        //     $lead->setContent($form['lead']->getData());
+
+        //     $em->persist($day1);
+        //     $em->persist($day2);
+        //     $em->persist($lead);
+        //     $em->flush();
+
+        // }
 
 
         return $this->render('PixeloidAppBundle:Default:index.html.twig', array(
-            'day1' => $day1->getContent(),
-            'day2' => $day2->getContent(),
-            'lead' => $lead->getContent(),
-            'form' => $form->createView(),
-            'winners' => $winners
+            // 'day1' => $day1->getContent(),
+            // 'day2' => $day2->getContent(),
+            // 'lead' => $lead->getContent(),
+            // 'form' => $form->createView(),
+            // 'winners' => $winners
             )
         );
 

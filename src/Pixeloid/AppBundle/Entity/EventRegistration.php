@@ -272,6 +272,19 @@ class EventRegistration
     
 
     /**
+     * @ORM\Column(type="boolean", name="voteable", nullable=true)
+     */
+    protected $voteable = false;
+    
+
+    /**
+     * @ORM\Column(type="string", name="post_image", nullable=true)
+     */
+    protected $post_image = true;
+    
+
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1331,5 +1344,53 @@ class EventRegistration
     public function getWinner()
     {
         return $this->winner;
+    }
+
+    /**
+     * Set voteable
+     *
+     * @param boolean $voteable
+     *
+     * @return EventRegistration
+     */
+    public function setVoteable($voteable)
+    {
+        $this->voteable = $voteable;
+
+        return $this;
+    }
+
+    /**
+     * Get voteable
+     *
+     * @return boolean
+     */
+    public function getVoteable()
+    {
+        return $this->voteable;
+    }
+
+    /**
+     * Set postImage
+     *
+     * @param string $postImage
+     *
+     * @return EventRegistration
+     */
+    public function setPostImage($postImage)
+    {
+        $this->post_image = $postImage;
+
+        return $this;
+    }
+
+    /**
+     * Get postImage
+     *
+     * @return string
+     */
+    public function getPostImage()
+    {
+        return $this->post_image;
     }
 }

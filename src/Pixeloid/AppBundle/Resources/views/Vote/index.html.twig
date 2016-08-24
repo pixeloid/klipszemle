@@ -1,0 +1,37 @@
+{% extends "::base.html.twig" %}
+
+
+{% block title %} – Közönségszavazás{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+
+{% if not is_granted('ROLE_USER')  %}
+
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <div class="">
+                <a class="btn btn-block btn-social btn-lg btn-facebook" href="{{ hwi_oauth_login_url('facebook') }}">
+                    <i class="fa fa-facebook"></i> Belépés a Facebook fiókoddal
+                </a>
+            </div>
+        </div>
+
+        {% endif %}
+
+	{% for video in videos %}
+
+		<div class="col-sm-3">
+			<a href="{{path('vote_vote', {'id' : video.id})}}">
+				<img src="http://img.youtube.com/vi/{{ video.videoUrl|yt_id }}/mqdefault.jpg">
+				<h3>{{ video.author }} <br> <small>{{ video.songTitle }}</small></h3>
+			</a>
+		</div>    
+
+	{% endfor %}
+	</div>
+</div>
+
+
+{% endblock %}

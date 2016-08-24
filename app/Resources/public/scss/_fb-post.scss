@@ -1,0 +1,73 @@
+body.fb-post {
+    padding: 0;
+    background: black;
+    
+    .post{
+        width: 1210px;
+        height: 635px;
+        background: red;
+        position: relative;
+        overflow: hidden;
+        font-weight: 900;
+
+    }
+
+    .post__image{
+        img{
+            width: 100%;
+            position: absolute;
+            top: -130px;
+        }
+    }
+
+    .post__text{
+        position: absolute;
+        bottom: 220px;
+        left: 20px;
+    }
+    .post__text__song{
+        font-weight: 900;
+        font-size: 35px;
+        margin: 0;
+        background: $brand-primary;
+        display: inline-block;
+        padding: 5px 20px;
+    }
+    .post__text__author{
+        font-weight: 900;
+        font-size: 45px;
+        margin: 0;
+        background: $brand-primary;
+        display: inline-block;
+        padding: 5px 20px;
+    }
+    .post__headline{
+        position: absolute;
+        background: #fff;
+        bottom: 120px; 
+        width: 100%;
+        padding: 20px 50px 25px;
+        line-height: 1;
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 40px;
+    }
+
+    footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 25px;
+        background: $brand-primary repeating-linear-gradient(289deg, 
+          #fff, #fff 5em /* black stripe */, 
+          transparent 0, transparent 10em /* blue stripe */
+        );
+        text-align: right;
+        img{
+            height: 80px;
+        }
+
+
+    }
+
+}

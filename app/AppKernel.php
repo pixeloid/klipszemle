@@ -34,6 +34,7 @@ class AppKernel extends Kernel
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Sg\DatatablesBundle\SgDatatablesBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),
             new Pixeloid\UserBundle\PixeloidUserBundle(),

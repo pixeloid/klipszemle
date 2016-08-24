@@ -9,8 +9,7 @@ security:
 
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username_email
-
+            id: fos_user.user_provider.username
     firewalls:
         main:
             pattern: ^/
@@ -22,7 +21,17 @@ security:
                 path: /user/logout
                 target: /
             anonymous:  true
-    
+
+            oauth:
+                failure_path: /connect
+                login_path: /connect
+                check_path: /connect
+                provider: fos_userbundle
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+                oauth_user_provider:
+                    service: pixeloid_app.fosub.user_provider
+
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }

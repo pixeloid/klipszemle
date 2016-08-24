@@ -11,19 +11,17 @@ services:
     calls:
       - [ setFormType, [ "@pixeloid_app.form.eventRegistration" ] ]
 
-  pixeloid_app.form.presentation:
-    class: Pixeloid\AppBundle\Form\PresentationType
-    tags:
-      - { name: form.type, alias: presentation }
-
-  pixeloid_app.flow.presentation:
-    class: Pixeloid\AppBundle\Form\PresentationFlow
-    parent: craue.form.flow
-    scope: request
-    calls:
-      - [ setFormType, [ "@pixeloid_app.form.presentation" ] ]
-
   pixeloid_app.datatable.eventregistration:
       class: Pixeloid\AppBundle\Datatables\EventRegistrationDatatable
       tags:
           - { name: sg.datatable.view }
+
+  pixeloid_app.twig_extension:
+      class: Pixeloid\AppBundle\Twig\AppExtension
+      public: false
+      tags:
+          - { name: twig.extension }
+
+  pixeloid_app.fosub.user_provider:
+      class:        Pixeloid\AppBundle\Security\Core\User\MyFOSUBUserProvider
+      arguments: ['@fos_user.user_manager', { facebook: facebook_id }]

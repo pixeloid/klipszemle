@@ -38,7 +38,8 @@
         "datatables/datatables": "1.10.7",
         "moment/moment": "2.10.2",
         "friendsofsymfony/jsrouting-bundle": "@stable",
-        "sg/datatablesbundle": "dev-master"
+        "sg/datatablesbundle": "dev-master",
+        "hwi/oauth-bundle": "^0.4.2"
 
 
     },

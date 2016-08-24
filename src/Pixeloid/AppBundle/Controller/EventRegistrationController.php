@@ -96,7 +96,7 @@ class EventRegistrationController extends Controller
         {
             // $qb->andWhere("post.title = :p");
             $qb->andWhere("eventregistration.created > :date");
-            $qb->setParameter('date', new \DateTime('2016-07-01'));
+            $qb->setParameter('date', new \DateTime($container->getParameter('start_date')));
         };
 
         // $query->addWhereAll($function);

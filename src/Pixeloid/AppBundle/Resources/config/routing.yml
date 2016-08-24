@@ -1,19 +1,16 @@
-pixeloid_app_accomodation:
-    resource: "@PixeloidAppBundle/Resources/config/routing/accomodation.yml"
-    prefix:   /accomodation
-
-pixeloid_app_event:
-    resource: "@PixeloidAppBundle/Resources/config/routing/event.yml"
-    prefix:   /event
 
 pixeloid_app_eventregistration:
     resource: "@PixeloidAppBundle/Resources/config/routing/eventregistration.yml"
     prefix:   /eventregistration
 
 pixeloid_app_eventregistration_annotation:
-
     resource: "@PixeloidAppBundle/Controller/EventRegistrationController.php"
     prefix:   /eventregistration
+    type:     annotation
+
+pixeloid_app_vote:
+    resource: "@PixeloidAppBundle/Controller/VoteController.php"
+    prefix:   /vote
     type:     annotation
 
 
@@ -26,27 +23,7 @@ pixeloid_app_index:
     path:     /
     defaults: { _controller: PixeloidAppBundle:Default:index, event: "ESCPR" }
 
-pixeloid_app_map:
-    path:     /map
-    defaults: { _controller: PixeloidAppBundle:Default:map }
-
-
-pixeloid_app_info:
-    path:     /info
-    defaults: { _controller: PixeloidAppBundle:Default:info }
-
 
 pixeloid_app_privacy:
     path:     /privacy
     defaults: { _controller: PixeloidAppBundle:Default:privacy }
-
-
-pixeloid_app_important:
-    path:     /important
-    defaults: { _controller: PixeloidAppBundle:Default:important }
-
-
-pixeloid_app_abstract_submission:
-    path:     /abstract-submission/{step}
-    defaults: { _controller: PixeloidAppBundle:Default:abstractSubmission, step: '1' }
-

@@ -12,7 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventRegistrationRepository extends EntityRepository
 {
-	public function getWinners()
+	public function getAllForVoting()
+	{	
+		return $this->getEntityManager()
+		    ->createQuery(
+		        'SELECT e FROM PixeloidAppBundle:EventRegistration e WHERE e.voteable = TRUE'
+		    )
+		    ->getResult();
+	}
+	public function get()
 	{	
 		return $this->_em->createQuery('SELECT e FROM PixeloidAppBundle:EventRegistration e WHERE e.winner > 0 ORDER BY e.winner ASC')
 		                 ->getResult();
