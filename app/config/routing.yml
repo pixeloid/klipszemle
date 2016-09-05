@@ -20,9 +20,8 @@ hwi_facebook_login:
 pixeloid_app:
     resource: "@PixeloidAppBundle/Resources/config/routing.yml"
 
-pixeloid_user_manager:
-    resource: "@PixeloidUserBundle/Resources/config/routing.yml"
-    prefix:   /user
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
 _imagine:
     resource: .

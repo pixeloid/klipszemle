@@ -1,9 +1,14 @@
-{% extends "::base.html.twig" %}
-
-{% block title %}PixeloidAppBundle:Vote:vote{% endblock %}
 
 {% block body %}
-<img src="/{{video.getPostImage()}}" width="800" alt="">
 
+		<div class="video-item video-item--vote">
+			<div id="player" data-video-id="{{ video.getVideoUrl|yt_id }}">			</div>
+
+				{% include 'PixeloidAppBundle:Vote:_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
+			<a href="#" class="video-item__btn video-item__btn--play">Lejátszom</a>
+			<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok</a>
+			<a href="#" class="video-item__btn video-item__btn--close"><i class="fa fa-times" aria-hidden="true"></i></a>
+		</div>
 
 {% endblock %}
+

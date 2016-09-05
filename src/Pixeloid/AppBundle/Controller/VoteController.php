@@ -2,12 +2,14 @@
 
 namespace Pixeloid\AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Pixeloid\AppBundle\Twig\AppExtension;
 use Pixeloid\AppBundle\Entity\EventRegistration;
+use Pixeloid\AppBundle\Entity\Vote;
 
 
 class VoteController extends Controller
@@ -53,20 +55,49 @@ class VoteController extends Controller
     /**
      * @Route("/vote/{id}", name="vote_vote")
      * @Security("is_granted(['ROLE_USER'])")
-     * @Template()
+     * @Template("PixeloidAppBundle:Vote:thanks.html.twig")
      */
     public function voteAction($id)
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         $em = $this->getDoctrine()->getManager();
+        
         $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
+
+        $success = false;
+
+        $query = $em->createQuery(
+        'SELECT v FROM PixeloidAppBundle:Vote v WHERE v.user = :user AND v.eventRegistration = :er')
+
+        ->setParameters(array(
+            'user' => $user,
+            'er' => $video
+        ));
+
+        $votes = $query->getResult();
+
+        if (count($votes) === 0) {
+            $vote = new Vote;
+
+            $vote->setUser($user);
+            $vote->setEventRegistration($video);
+            $vote->setCreated(new \DateTime);
+
+            $em->persist($vote);
+            $em->flush();
+            $success = true;
+        }
+
 
 
         if (!$video->getPostImage()) {
             $this->generatePostImage($video->getId());
         }
 
-        return $this->redirectToRoute('vote_show', array('id' => $id), 301);
-
+        return    array(
+                 'video' => $video,
+            );
     }
 
     /**
@@ -98,14 +129,9 @@ class VoteController extends Controller
         $filename = 'klipszemle2016_fb_post_' . $id .'-'.time().'.jpg';
 
         $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
-        $this->get('knp_snappy.image')->generateFromHtml(
-            $this->renderView(
-                'PixeloidAppBundle:Vote:facebook_post_image.html.twig',
-                array(
-                     'video' => $video,
-                )
-            ),
-            $filename
+        $this->get('knp_snappy.image')->generate(
+            'http://klipszemle.sf.dev.pixeloid.hu/app_dev.php/vote/fb_post_image/' . $video->getId()
+            ,$filename
         );
 
         $file = imagecreatefromjpeg($filename);

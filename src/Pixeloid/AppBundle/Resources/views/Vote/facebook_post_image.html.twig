@@ -1,25 +1,19 @@
 {% extends "::post.html.twig" %}
 
 {% block body %}
-	<div class="post">
-		<div class="post__image">
-			<img src="http://img.youtube.com/vi/{{ video.videoUrl|yt_id }}/maxresdefault.jpg">
+	<div class="video-item video-item--fb-post">
 
-			<div class="post__text">
-				<h3 class="post__text__author">{{ video.author }}
-				<h4 class="post__text__song">{{ video.songTitle }}</h4>
-			</div>
 
+		{% include 'PixeloidAppBundle:Vote:_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
+
+		<div class="video-item__headline">
+			Most tettem le a szavazatom a fenti klipre.
 		</div>
-
-	<div class="post__headline">
-		Most tettem le a szavazatom a fenti klipre.
-	</div>
 	
-	<footer>
-		<img src="http://localhost:3000/images/klipszemle_logo.svg" class="" height="45" alt=""/>
+		<footer class="video-item__footer">
+			<img src="{{ app.request.getSchemeAndHttpHost() }}/images/klipszemle_logo.svg" class="" height="45" alt=""/>
 
-	</footer>
+		</footer>
 	</div>
 
 {% endblock %}

@@ -1,13 +1,14 @@
 <?php
 
-namespace Pixeloid\AppBundle\Security\Core\User;
+namespace Pixeloid\AppBundle\Security\User\Provider;
 
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
-use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseFOSUBProvider;
+use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\User\UserChecker;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Pixeloid\UserBundle\Entity\User;
 
-class MyFOSUBUserProvider extends BaseFOSUBProvider
+class OAuthUserProvider extends BaseClass
 {
     /**
      * {@inheritDoc}
@@ -19,7 +20,6 @@ class MyFOSUBUserProvider extends BaseFOSUBProvider
         // , it will return `facebook_id` in that case (see service definition below)
         $property = $this->getProperty($response);
         $username = $response->getUsername(); // get the unique user identifier
-
         //we "disconnect" previously connected users
         $existingUser = $this->userManager->findUserBy(array($property => $username));
         if (null !== $existingUser) {
@@ -38,10 +38,13 @@ class MyFOSUBUserProvider extends BaseFOSUBProvider
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {   
-        
+
         $username = $response->getUsername();
         $email = $response->getUsername();
+
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
+
+
         //when the user is registrating
         if (null === $user) {
             $service = $response->getResourceOwner()->getName();
@@ -60,15 +63,18 @@ class MyFOSUBUserProvider extends BaseFOSUBProvider
             $user->setPassword('password');
             $user->setEnabled(true);
             $this->userManager->updateUser($user);
+
+            // var_dump($username);
+            // exit;
             return $user;
         }
  
         //if user exists - go with the HWIOAuth way
         $user = parent::loadUserByOAuthUserResponse($response);
- 
+
         $serviceName = $response->getResourceOwner()->getName();
         $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
- 
+
         //update access token
         $user->$setter($response->getAccessToken());
          $this->userManager->updateUser($user);

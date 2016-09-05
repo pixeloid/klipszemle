@@ -1,10 +1,6 @@
 var components = {
     "packages": [
         {
-            "name": "jquery",
-            "main": "jquery-built.js"
-        },
-        {
             "name": "moment",
             "main": "moment-built.js"
         }

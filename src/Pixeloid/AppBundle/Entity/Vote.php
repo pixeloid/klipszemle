@@ -30,6 +30,16 @@ class Vote
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="EventRegistration", inversedBy="votes")
+     */
+    protected $eventRegistration;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="votes")
+     */
+    protected $user;
+
+    /**
      * Get id
      *
      * @return integer
@@ -62,5 +72,52 @@ class Vote
     {
         return $this->created;
     }
-}
 
+    /**
+     * Set eventRegistration
+     *
+     * @param \Pixeloid\AppBundle\Entity\EventRegistration $eventRegistration
+     *
+     * @return Vote
+     */
+    public function setEventRegistration(\Pixeloid\AppBundle\Entity\EventRegistration $eventRegistration = null)
+    {
+        $this->eventRegistration = $eventRegistration;
+
+        return $this;
+    }
+
+    /**
+     * Get eventRegistration
+     *
+     * @return \Pixeloid\AppBundle\Entity\EventRegistration
+     */
+    public function getEventRegistration()
+    {
+        return $this->eventRegistration;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Pixeloid\UserBundle\Entity\User $user
+     *
+     * @return Vote
+     */
+    public function setUser(\Pixeloid\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Pixeloid\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

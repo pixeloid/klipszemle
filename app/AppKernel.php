@@ -21,15 +21,12 @@ class AppKernel extends Kernel
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
             new Fkr\CssURLRewriteBundle\FkrCssURLRewriteBundle(),
             new Hpatoio\DeployBundle\DeployBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new TeamLab\Bundle\FixturesBundle\DoctrineDumpFixturesBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new Spraed\PDFGeneratorBundle\SpraedPDFGeneratorBundle(),
-            new Ensepar\Html2pdfBundle\EnseparHtml2pdfBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Sg\DatatablesBundle\SgDatatablesBundle(),
@@ -37,7 +34,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),
-            new Pixeloid\UserBundle\PixeloidUserBundle(),
+          //  new Pixeloid\UserBundle\PixeloidUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

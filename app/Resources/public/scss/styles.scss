@@ -9,7 +9,7 @@
 @import 'bootstrap-select/sass/bootstrap-select';
 @import 'nav';
 @import 'footer';
-@import 'fb-post';
+@import 'video-list-item';
 // @import 'datepicker3';
 // @import 'tablesorter/blue/style';
 
@@ -23,67 +23,16 @@ html, body {
 body{
 	padding-top: 70px;
   letter-spacing: 0.1em;
+  position:relative;
   @media(min-width:768px) {
     padding-top: 90px;
   }
 
-  &.blank{
-    padding-top: 40px;
-
-
-
-    h2, h3, h4{
-      text-transform: none;
-    }
-
-    .header{
-      .item{
-        margin: 15px 0;
-        vertical-align: middle;
-      }
-      font-size: 16px;
-      b{
-        width: 100px;
-        line-height: 1;
-        display: inline-block;
-      }
-      .box{
-        margin-left: 30px;
-        line-height: 25px;
-        padding: 1px 20px;
-        border: 3px solid #000;
-        display: inline-block;
-      }
-    }
-  
-    ul.list-unstyled{
-      font-size: 18px;
-      li{
-        padding-bottom: 10px;
-        b{
-          width: 250px;
-          display: inline-block;
-        }
-      }
-    }
-
-    .underline{
-      width: 100%;
-      height: 30px;
-      border-bottom: 3px solid #000;
-    }
-
-    .points{
-      text-align: center;
-      span{
-        display: inline-block;
-        text-align: center;
-        font-size: 18px;
-        width: 8%;
-      }
-    }
-
+  &.fb-post {
+      padding: 0;
+      background: black;
   }
+
 }
 
 
@@ -100,4 +49,12 @@ footer, .wrapper:after {
   height: 130px; 
 }
 footer {
+}
+
+
+.modal{
+  background-color: rgba($brand-primary, 0.7);
+}
+
+.modal__overlay{
 }

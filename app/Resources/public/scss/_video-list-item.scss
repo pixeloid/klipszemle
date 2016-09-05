@@ -1,0 +1,179 @@
+@font-face {
+    font-family: 'Avenir Heavy';
+    src: url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.eot');
+    src: url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.eot?#iefix') format("embedded-opentype"), url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.woff') format("woff"), url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.ttf') format("truetype"), url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.svg#92550229aad14ffa2dc273e49410d17e') format("svg");
+    font-style: normal;
+    font-weight: 700
+}
+
+
+    .video-item{
+
+        &.video-item--fb-post{
+            width: 1210px;
+            height: 635px;
+        }
+        background: red;
+        position: relative;
+        overflow: hidden;
+        font-weight: 900;
+
+    }
+
+    .video-item__image{
+        img{
+            width: 100%;
+            .video-item--fb-post &{
+                position: absolute;
+                top: -130px;
+            }
+        }
+    }
+
+    .video-item__text-holder{
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        max-width: 100%;
+        .video-item--fb-post &{
+            bottom: 220px;
+            left: 20px;
+        }
+        .video-item--vote &{
+            bottom: auto;
+            top: 20px;
+            left: 20px;
+        }
+    }
+
+    .video-item__text{
+        font-family: "Avenir Heavy";
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
+        max-width: 90%;
+        display: block;
+        float: left;
+        clear: left;
+        margin-right: 30px;
+        padding: 5px 5px;
+        line-height: 1em;
+        background: #fff;
+        color: $brand-primary;
+        .video-item--fb-post &{
+            background: $brand-primary;
+            color: #fff;
+            text-overflow: normal;
+            white-space: nowrap;
+            overflow: visible;
+            max-width: none;
+            padding: 10px 20px;
+        }
+        .video-item--vote &{
+            text-overflow: none;
+            max-width: none;
+        }
+    }
+
+    .video-item__text--song{
+        font-size: 15px;
+        .video-item--fb-post &{
+            font-size: 35px;
+        }
+        .video-item--vote &{
+            font-size: 20px;
+        }
+    }
+    .video-item__text--author{
+        font-size: 22px;
+        .video-item--fb-post &{
+            font-size: 45px;
+        }
+        .video-item--vote &{
+            font-size: 28px;
+        }
+    }
+
+
+    .video-item__headline{
+        font-family: "Avenir Heavy";
+        font-weight: bold;
+        position: absolute;
+        background: #fff;
+        bottom: 120px; 
+        width: 100%;
+        padding: 20px 50px 25px;
+        line-height: 1;
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 40px;
+        float: left;
+    }
+
+    .video-item__footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 25px;
+        background: $brand-primary repeating-linear-gradient(289deg, 
+          #fff, #fff 5em /* black stripe */, 
+          transparent 0, transparent 10em /* blue stripe */
+        );
+        text-align: right;
+        img{
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            height: 80px;
+            float: right;
+        }
+    }
+
+    .video-item__btn{
+        text-transform: uppercase;
+        text-decoration: none;
+        font-size: 30px;
+        display: inline-block;
+        padding: 10px 20px;
+        background: $brand-primary;
+        color: #fff;
+        position: absolute;
+        bottom: 20px;
+        z-index: 5;
+        &:hover{
+            text-decoration: none;
+            color: black;
+        }
+    }
+
+    .video-item__btn--play{
+        left: 20px;
+    }
+    .video-item__btn--vote{
+        right: 20px;
+        background: white;
+        color: $brand-primary;
+
+    }
+    .video-item__btn--close{
+        right: 20px;
+        font-size: 36px;
+        padding: 0px 10px;
+        height: 50px;
+        width: 50px;
+        top: 20px;
+        bottom: auto;
+        display: none;
+        z-index: 15;
+
+    }
+
+    #player{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        display: none;
+    }
+

@@ -2,7 +2,7 @@
 <html>
     <head>
         {% block stylesheets %}
-            <link href="http://localhost:3000/styles/styles.css" type="text/css" rel="stylesheet" media="all"/>
+            <link href="{{ app.request.getSchemeAndHttpHost() }}/styles/styles.css" type="text/css" rel="stylesheet" media="all"/>
         {% endblock %}
     </head>
 <body class="fb-post">

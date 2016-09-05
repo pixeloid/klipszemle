@@ -1,7 +1,6 @@
 <?php
 namespace Pixeloid\AppBundle\Entity;
 
-use Pixeloid\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
@@ -199,7 +198,7 @@ class EventRegistration
 
 
     /**
-	 * @ORM\ManyToOne(targetEntity="Pixeloid\UserBundle\Entity\User", inversedBy="eventRegistrations")
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="eventRegistrations")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 	 */
     private $user;
@@ -282,6 +281,10 @@ class EventRegistration
      */
     protected $post_image = true;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Vote", mappedBy="eventRegistration")
+     */
+    protected $votes;
 
 
     /**
@@ -1392,5 +1395,39 @@ class EventRegistration
     public function getPostImage()
     {
         return $this->post_image;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param \Pixeloid\AppBundle\Entity\Vote $vote
+     *
+     * @return EventRegistration
+     */
+    public function addVote(\Pixeloid\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \Pixeloid\AppBundle\Entity\Vote $vote
+     */
+    public function removeVote(\Pixeloid\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

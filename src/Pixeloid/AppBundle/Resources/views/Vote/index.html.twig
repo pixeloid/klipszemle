@@ -5,8 +5,6 @@
 
 {% block body %}
 
-<div class="container">
-	<div class="row">
 
 {% if not is_granted('ROLE_USER')  %}
 
@@ -23,15 +21,23 @@
 	{% for video in videos %}
 
 		<div class="col-sm-3">
-			<a href="{{path('vote_vote', {'id' : video.id})}}">
-				<img src="http://img.youtube.com/vi/{{ video.videoUrl|yt_id }}/mqdefault.jpg">
-				<h3>{{ video.author }} <br> <small>{{ video.songTitle }}</small></h3>
+			<a href="{{path('vote_show', {'id' : video.id})}}" class="show-video">
+			<span class="video-item">
+			{% include 'PixeloidAppBundle:Vote:_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
+			</span>
 			</a>
 		</div>    
 
 	{% endfor %}
-	</div>
-</div>
 
+	<div id="modal"></div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+
+</script>
 
 {% endblock %}

@@ -1,0 +1,13 @@
+{% if size is not defined %}
+	{% set size = 'maxresdefault' %}
+{% endif %}
+		
+		<div class="video-item__image">
+			<img src="http://img.youtube.com/vi/{{ video.videoUrl|yt_id }}/{{ size }}.jpg">
+
+			<div class="video-item__text-holder">
+				<h3 class="video-item__text video-item__text--author">{{ video.author }}
+				<h4 class="video-item__text video-item__text--song">{{ video.songTitle }}</h4>
+			</div>
+
+		</div>

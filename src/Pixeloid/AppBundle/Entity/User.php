@@ -1,10 +1,11 @@
 <?php
 
 
-namespace Pixeloid\UserBundle\Entity;
+namespace Pixeloid\AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Pixeloid\AppBundle\Entity\EventRegistration;
+use Pixeloid\AppBundle\Entity\Vote;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +32,12 @@ class User extends BaseUser
     
     /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
     protected $facebook_access_token;
+
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Pixeloid\AppBundle\Entity\Vote", mappedBy="user")
+     */
+    protected $votes;
 
 
     public function __construct()
@@ -121,4 +128,38 @@ class User extends BaseUser
         return $this->facebook_access_token;
     }
 
+
+    /**
+     * Add vote
+     *
+     * @param \Pixeloid\UserBundle\Entity\Vote $vote
+     *
+     * @return User
+     */
+    public function addVote(\Pixeloid\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \Pixeloid\UserBundle\Entity\Vote $vote
+     */
+    public function removeVote(\Pixeloid\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
 }
