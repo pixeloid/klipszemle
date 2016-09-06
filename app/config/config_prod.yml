@@ -1,26 +1,28 @@
 imports:
     - { resource: config.yml }
-
-#framework:
-#    validation:
-#        cache: apc
-
-doctrine:
-    dbal:
-        host:     "localhost"
-        dbname:   "klipszemle"
-        user:     "klipszemle"
-        password: "klipszemle_12345"
-
 monolog:
     handlers:
         main:
             type:         fingers_crossed
-            action_level: error
-            handler:      nested
-        nested:
+            action_level: critical
+            handler:      grouped
+        grouped:
+            type:    group
+            members: [streamed, deduplicated]
+        streamed:
             type:  stream
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            path:  '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
-        console:
-            type:  console
+        deduplicated:
+            type:    deduplication
+            handler: swift
+        swift:
+            type:       swift_mailer
+            from_email: 'info@klipszemle.hu'
+            to_email:   'info@pixeloid.hu'
+            # or list of recipients
+            # to_email:   ['dev1@example.com', 'dev2@example.com', ...]
+            subject:    'Klipszemle error occurred! %%message%%'
+            level:      debug
+            formatter:  monolog.formatter.html
+            content_type: text/html

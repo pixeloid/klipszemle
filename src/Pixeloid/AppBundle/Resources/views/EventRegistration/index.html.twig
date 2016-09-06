@@ -7,34 +7,7 @@
 
         </div>
         <div class="col-sm-2">
-            <div data-spy="affix" data-offset-top="0">
-            <h4>shortlist</h4>
-
-            <div class="panel-group" id="accordion">
-
-            {% for cat in categories %}
-
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h6 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ cat.id }}"><span class="badge">{{cat.getShortlisted|length}}</span>
-                {{cat.getName|replace({'Legjobb': ''})}}</a>
-                        </h6>
-                    </div>
-                    <div id="collapse-{{ cat.id }}" class="panel-collapse collapse">
-                        <div class="panel-body" style="height: 300px; overflow: scroll;">
-                                {% for mcat in cat.getShortlisted %}
-                            <a href="{{path('eventregistration_show', {'id' : mcat.getEventRegistration.getId})}}">
-                                    {{ mcat.getEventRegistration.getAuthor }}: {{ mcat.getEventRegistration.getSongTitle }}
-                            </a><br>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-
+            <div data-spy="affix" class="stat" data-offset-top="0">
 
 
             </div>

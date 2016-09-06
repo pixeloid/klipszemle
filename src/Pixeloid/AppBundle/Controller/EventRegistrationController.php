@@ -38,16 +38,37 @@ class EventRegistrationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-       // $registrations = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
-        $categories = $em->getRepository('PixeloidAppBundle:MovieCategory')->findAll();
 
         $datatable = $this->get('pixeloid_app.datatable.eventregistration');
         $datatable->buildDatatable();
 
         return $this->render('PixeloidAppBundle:EventRegistration:index.html.twig', array(
        //     'registrations' => $registrations,
-            'categories' => $categories,
             'datatable' => $datatable,
+        ));
+    }
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/stat", name="eventregistration_stat")
+     * @Method("GET")
+     */
+    public function statAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+       // $registrations = $em->getRepository('PixeloidAppBundle:EventRegistration')->findAll();
+        $categories = $em->getRepository('PixeloidAppBundle:MovieCategory')->findAll();
+        $stat = array(
+            'shortlist' => $em->getRepository('PixeloidAppBundle:EventRegistration')->findBy(array('shortlist' => true)),
+            'onshow' => $em->getRepository('PixeloidAppBundle:EventRegistration')->findBy(array('onshow' => true)),
+            'premiere' => $em->getRepository('PixeloidAppBundle:EventRegistration')->findBy(array('premiere' => true)),
+
+        );
+
+
+        return $this->render('PixeloidAppBundle:EventRegistration:stat.html.twig', array(
+           'categories' => $categories,
+           'stat' => $stat,
         ));
     }
 

@@ -1,0 +1,91 @@
+            <div class="panel-group" id="accordion">
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-sl">
+                            <span class="badge">{{stat.onshow|length}}</span> Vetítés
+                        </a>
+                    </h6>
+                </div>
+
+                <div id="collapse-sl" class="panel-collapse collapse">
+                    <div class="panel-body" style="max-height: 400px; overflow: scroll;">
+                        {% for m in stat.onshow %}
+                            <a href="{{path('eventregistration_show', {'id' : m.getId})}}">
+                                    {{ m.getAuthor }}: {{ m.getSongTitle }}
+                            </a><br>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-pr">
+                            <span class="badge">{{stat.premiere|length}}</span> Premier
+                        </a>
+                    </h6>
+                </div>
+
+                <div id="collapse-pr" class="panel-collapse collapse">
+                    <div class="panel-body" style="max-height: 400px; overflow: scroll;">
+                        {% for m in stat.premiere %}
+                            <a href="{{path('eventregistration_show', {'id' : m.getId})}}">
+                                    {{ m.getAuthor }}: {{ m.getSongTitle }}
+                            </a><br>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-sh">
+                            <span class="badge">{{stat.shortlist|length}}</span> Shortlist
+                        </a>
+                    </h6>
+                </div>
+
+                <div id="collapse-sh" class="panel-collapse collapse">
+                    <div class="panel-body" style="max-height: 400px; overflow: scroll;">
+                        {% for m in stat.shortlist %}
+                            <a href="{{path('eventregistration_show', {'id' : m.getId})}}">
+                                    {{ m.getAuthor }}: {{ m.getSongTitle }}
+                            </a><br>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            {% for cat in categories %}
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ cat.id }}"><span class="badge">{{cat.getShortlisted|length}}</span>
+                {{cat.getName|replace({'Legjobb': ''})}}</a>
+                        </h6>
+                    </div>
+                    <div id="collapse-{{ cat.id }}" class="panel-collapse collapse">
+                        <div class="panel-body" style="max-height: 300px; overflow: scroll;">
+                                {% for mcat in cat.getShortlisted %}
+                            <a href="{{path('eventregistration_show', {'id' : mcat.getEventRegistration.getId})}}">
+                                    {{ mcat.getEventRegistration.getAuthor }}: {{ mcat.getEventRegistration.getSongTitle }}
+                            </a><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
