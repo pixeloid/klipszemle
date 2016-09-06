@@ -94,7 +94,7 @@ class EventRegistration
      * @ORM\Column(type="string", name="song_title", nullable=false, length=150)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
-    protected $song_title;
+    protected $songtitle;
     
 
 
@@ -786,7 +786,7 @@ class EventRegistration
      */
     public function setSongTitle($songTitle)
     {
-        $this->song_title = $songTitle;
+        $this->songtitle = $songTitle;
 
         return $this;
     }
@@ -798,7 +798,7 @@ class EventRegistration
      */
     public function getSongTitle()
     {
-        return $this->song_title;
+        return $this->songtitle;
     }
 
     /**

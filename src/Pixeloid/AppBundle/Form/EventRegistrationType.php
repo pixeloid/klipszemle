@@ -44,7 +44,7 @@ class EventRegistrationType extends AbstractType
             case 2:
             $builder
                 ->add('author', null, array('label' => 'Előadó'))
-                ->add('song_title', null, array('label' => 'Dal címe'))
+                ->add('songtitle', null, array('label' => 'Dal címe'))
                 ->add('length', null, array('label' => 'Hossz (min:sec)', 'attr' => array('data-mask' => '00:00', 'placeholder' => '00:00')))
                 ->add('publisher', null, array('label' => 'Kiadó'))
                 ->add('song_publish_date', 'text', array('label' => 'A dal megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(

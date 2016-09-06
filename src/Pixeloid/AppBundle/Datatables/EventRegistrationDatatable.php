@@ -131,7 +131,7 @@ class EventRegistrationDatatable extends AbstractDatatableView
                     'editable' => true,
                     'width' => '100'
                 ))
-                ->add('song_title', 'column', array(
+                ->add('songtitle', 'column', array(
                     'title' => 'Song_title',
                     'editable' => true,
                     'width' => '100'
