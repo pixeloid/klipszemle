@@ -38,11 +38,15 @@ class MovieCategory
     public function getShortlisted()
     {   
         $result = array();
-
+        $deadline = new \DateTime('2016-05-01');
         foreach ($this->getEventRegistrationCategories() as $cat) {
-            if ($cat->getShortlist()) $result[] = $cat;
-        }
+            // var_dump($cat->getEventRegistration()->getCreated());
 
+            if (($cat->getEventRegistration()->getCreated()->format('Y') == 2016)) {
+                $result[] = $cat;            
+            }
+
+        }
         return $result;
     }
 
@@ -118,6 +122,7 @@ class MovieCategory
      */
     public function getEventRegistrationCategories()
     {
+
         return $this->eventRegistrationCategories;
     }
 }

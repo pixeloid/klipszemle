@@ -35,7 +35,7 @@ class EventRegistrationType extends AbstractType
                     )
                     ->add('website', null, array('label' => 'Webcím'))
                     ->add('email', null, array('label' => 'form.label.email'))
-                    ->add('phone', null, array('label' => 'Telefonszám', 'attr' => array('data-mask' => '(00) 000-0000', 'placeholder' => '(55) 555-5555')))
+                    ->add('phone', null, array('label' => 'Telefonszám', 'attr' => array('data-mask' => '(#0) 000-0000', 'placeholder' => '(55) 555-5555')))
                     ->add('address', null, array('label' => 'Postacím'))
 
                     ;

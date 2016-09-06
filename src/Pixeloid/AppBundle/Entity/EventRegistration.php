@@ -235,11 +235,6 @@ class EventRegistration
     
     /**
      * @ORM\OneToMany(targetEntity="EventRegistrationCategory", mappedBy="eventregistration", cascade={"persist","remove"}, orphanRemoval=true)
-     * @Assert\Count(
-     *      min = "1",
-     *      max = "3",
-     *      groups={"flow_eventRegistration_step2"}
-     * )
      */
     protected $moviecategories;
     
@@ -268,7 +263,19 @@ class EventRegistration
     /**
      * @ORM\Column(type="boolean", name="shortlist")
      */
-    protected $shortlist = 0;
+    protected $shortlist = false;
+    
+
+    /**
+     * @ORM\Column(type="boolean", name="onshow")
+     */
+    protected $onshow = false;
+    
+
+    /**
+     * @ORM\Column(type="boolean", name="premiere")
+     */
+    protected $premiere = false;
     
 
     /**
@@ -1331,5 +1338,51 @@ class EventRegistration
     public function getWinner()
     {
         return $this->winner;
+    }
+
+    /**
+     * Set onshow
+     *
+     * @param boolean $onshow
+     * @return EventRegistration
+     */
+    public function setOnshow($onshow)
+    {
+        $this->onshow = $onshow;
+
+        return $this;
+    }
+
+    /**
+     * Get onshow
+     *
+     * @return boolean 
+     */
+    public function getOnshow()
+    {
+        return $this->onshow;
+    }
+
+    /**
+     * Set premiere
+     *
+     * @param boolean $premiere
+     * @return EventRegistration
+     */
+    public function setPremiere($premiere)
+    {
+        $this->premiere = $premiere;
+
+        return $this;
+    }
+
+    /**
+     * Get premiere
+     *
+     * @return boolean 
+     */
+    public function getPremiere()
+    {
+        return $this->premiere;
     }
 }

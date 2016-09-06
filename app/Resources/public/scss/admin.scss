@@ -42,3 +42,48 @@ footer, .wrapper:after {
 }
 footer {
 }
+
+.sg-editable-shortlist, .sg-editable-onshow, .sg-editable-premiere{
+    display: none;
+}
+
+#eventregistration_datatable th:nth-child(4),
+#eventregistration_datatable th:nth-child(6),
+#eventregistration_datatable th:nth-child(8),
+#eventregistration_datatable td:nth-child(4),
+#eventregistration_datatable td:nth-child(6),
+#eventregistration_datatable td:nth-child(8),
+{
+background: red;
+width: auto !important;
+display: none;
+}
+
+.sg-editable-song_title,
+.sg-editable-author{
+  text-overflow: ellipsis;
+  max-width: 200px;
+    white-space: nowrap;
+  overflow: hidden;
+  display: block;
+
+}
+
+// table.dataTable thead>tr>th{
+//   width: auto !important;
+//   max-width: 100px;
+
+// }
+
+.affix, .affix-top{
+  .panel-heading{
+    padding: 3px;
+  }
+  .panel-title{
+    .badge{
+      font-weight: normal;
+      font-size: 10px;
+    }
+    font-size: 11px;
+  }
+}

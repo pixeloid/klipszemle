@@ -4,6 +4,7 @@ namespace Pixeloid\AppBundle\Datatables;
 
 use Sg\DatatablesBundle\Datatable\View\AbstractDatatableView;
 use Sg\DatatablesBundle\Datatable\View\Style;
+use Pixeloid\AppBundle\Twig\AppExtension;
 
 /**
  * Class EventRegistrationDatatable
@@ -12,6 +13,15 @@ use Sg\DatatablesBundle\Datatable\View\Style;
  */
 class EventRegistrationDatatable extends AbstractDatatableView
 {
+    /**
+     * Is admin.
+     *
+     * @return bool
+     */
+    private function isAdmin()
+    {
+        return $this->authorizationChecker->isGranted('ROLE_ADMIN');
+    }
 
     public function getLineFormatter()
     {
@@ -32,10 +42,20 @@ class EventRegistrationDatatable extends AbstractDatatableView
                 }
              }
           //  $line['categories'] = $moviecategories;
-             $line['video_url'] = '         <div class="yt-player" data-height="150" data-yt="'.$line['video_url'].'"></div>';
+            // $line['video_url'] = '         <div class="yt-player" data-height="150" data-yt="'.$line['video_url'].'"></div>';
+             $line['video_url'] = '<a href="'.$line['video_url'].'" target="_blank" class="btn btn-sm btn-default">
 
 
-             '<a href="'.$line['video_url'].'" target="_blank" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-eye-open"></i> YouTube</a>';
+                            <img src="http://img.youtube.com/vi/'. AppExtension::youtubeIdFilter($line['video_url']) .'/mqdefault.jpg" height="100">
+
+
+            </a>';
+
+            $line['shortlist-checkbox'] = '<input type="checkbox" name="shortlist" class="editor-shortlist" '. ($line['shortlist'] ? ' checked="checked"' : '' ).' />';
+            $line['onshow-checkbox'] = '<input type="checkbox" name="onshow" class="editor-onshow" '. ($line['onshow'] ? ' checked="checked"' : '' ).' />';
+            $line['premiere-checkbox'] = '<input type="checkbox" name="premiere" class="editor-premiere" '. ($line['premiere'] ? ' checked="checked"' : '' ).' />';
+
+
 
             return $line;
         };
@@ -43,9 +63,9 @@ class EventRegistrationDatatable extends AbstractDatatableView
         return $formatter;
     }
 
-    public function buildDatatable()
+    public function buildDatatable(array $options = array())
     {
-        $this->features->setFeatures(array(
+        $this->features->set(array(
             'auto_width' => true,
             'defer_render' => false,
             'info' => false,
@@ -56,18 +76,20 @@ class EventRegistrationDatatable extends AbstractDatatableView
             'processing' => true,
             'scroll_x' => false,
             'scroll_y' => '',
-        //    'searching' => true,
-            'server_side' => true,
             'state_save' => true,
-            'delay' => 0
+            'delay' => 0,
+            'extensions' => array(
+                'responsive' => true,
+                'fixedHeader' => true,
+            ),
         ));
 
-        $this->ajax->setOptions(array(
+        $this->ajax->set(array(
             'url' => $this->router->generate('eventregistration_results'),
             'type' => 'GET'
         ));
         
-        $this->options->setOptions(array(
+        $this->options->set(array(
             'display_start' => 0,
             'dom' => 'lfrtip', // default, but not used because 'use_integration_options' = true
           //  'length_menu' => array(10, 25, 50, 2000),
@@ -81,7 +103,6 @@ class EventRegistrationDatatable extends AbstractDatatableView
             'search_delay' => 0,
             'state_duration' => 7200,
             'stripe_classes' => array(),
-            'responsive' => true,
             'class' => 'table ',
             'individual_filtering' => true,
             'individual_filtering_position' => 'head',
@@ -91,9 +112,12 @@ class EventRegistrationDatatable extends AbstractDatatableView
         $this->columnBuilder
                 ->add('id', 'column', array('title' => 'Id',
                     'searchable' => false,))
-                ->add('number', 'column', array('title' => '#',
-                    'searchable' => false,))
-                ->add('name', 'column', array('title' => 'Name',))
+                // ->add('number', 'column', array('title' => '#',
+                //     'searchable' => false,))
+                // ->add('name', 'column', array(
+                //     'title' => 'Name',
+                //     'editable' => true,
+                // ))
           //      ->add('title', 'column', array('title' => 'Title',))
                 // ->add('company', 'column', array('title' => 'Company',))
                 // ->add('website', 'column', array('title' => 'Website',))
@@ -102,8 +126,16 @@ class EventRegistrationDatatable extends AbstractDatatableView
               //  ->add('moviecategories.shortlist', 'array', array('title' => 'Shortlist', 'data' => 'moviecategories[, ].shortlist'))
               //  ->add('categories', 'virtual', array('title' => 'Kategóriák'))
              //   ->add('shortlist', 'column', array('title' => 'Shortlist', 'orderable' => true))
-                ->add('author', 'column', array('title' => 'Author',))
-                ->add('song_title', 'column', array('title' => 'Song_title',))
+                ->add('author', 'column', array(
+                    'title' => 'Author',
+                    'editable' => true,
+                    'width' => '100'
+                ))
+                ->add('song_title', 'column', array(
+                    'title' => 'Song_title',
+                    'editable' => true,
+                    'width' => '100'
+                ))
                 // ->add('length', 'column', array('title' => 'Length',))
                 // ->add('publisher', 'column', array('title' => 'Publisher',))
                 // ->add('song_publish_date', 'column', array('title' => 'Song_publish_date',))
@@ -117,7 +149,45 @@ class EventRegistrationDatatable extends AbstractDatatableView
                 // ->add('categories', 'column', array('title' => 'Categories',))
                 // ->add('budget', 'column', array('title' => 'Budget',))
                 // ->add('description', 'column', array('title' => 'Description',))
-                ->add('video_url', 'column', array('title' => 'Video_url','searchable'=>false))
+                
+                ->add('onshow', 'column', array(
+                    'title' => 'V',
+                    'searchable'=>false,
+                    'editable' => true,
+                    'type' => 'checkbox',
+                   // 'visible' => false
+                ))
+                ->add('onshow-checkbox', 'virtual', array(
+                    'title' => 'V',
+                    'type' => 'checkbox'
+                ))
+                ->add('premiere', 'column', array(
+                    'title' => 'P',
+                    'searchable'=>false,
+                    'editable' => true,
+                    'type' => 'checkbox',
+                  //  'visible' => false
+                ))
+                ->add('premiere-checkbox', 'virtual', array(
+                    'title' => 'P',
+                    'type' => 'checkbox'
+                ))
+                ->add('shortlist', 'column', array(
+                    'title' => 'S',
+                    'searchable'=>false,
+                    'editable' => true,
+                    'type' => 'checkbox',
+               // q     'visible' => false
+                ))
+                ->add('shortlist-checkbox', 'virtual', array(
+                    'title' => 'S',
+                    'type' => 'checkbox'
+                ))
+
+                ->add('video_url', 'column', array('title' => 'Video_url','searchable'=>false, 'orderable' => false,
+                    
+                                        'width' => '100'))
+
                 // ->add('email', 'column', array('title' => 'Email',))
                 // ->add('created', 'column', array('title' => 'Created',))
                 // ->add('have_rights', 'boolean', array('title' => 'Have_rights',))
@@ -138,10 +208,13 @@ class EventRegistrationDatatable extends AbstractDatatableView
                             'label' => 'Adatlap',
                             'attributes' => array(
                                 'rel' => 'tooltip',
+                                'target' => '_blank',
                                 'class' => 'btn btn-default btn-sm',
                                 'role' => 'button'
                             ),
-                            'role' => 'ROLE_ADMIN',
+                            'render_if' => function() {
+                                return $this->isAdmin();
+                            },
                         ),
                         // array(
                         //     'route' => 'post_edit',
@@ -166,6 +239,16 @@ class EventRegistrationDatatable extends AbstractDatatableView
                 ->add('moviecategories.category.name', 'array', array('visible' => false,'searchable'=>false, 'title' => '', 'data' => 'moviecategories.category.name'))
                 ->add('moviecategories.shortlist', 'array', array( 'visible' => false,'searchable'=>false, 'title' => '', 'data' => 'moviecategories[, ].shortlist'))
                     ;
+
+
+                    $this->events->set(array(
+                        'pre_init' => array(
+                            'template' => 'PixeloidAppBundle:EventRegistration:events.js.twig',
+                        ),
+                        // 'draw' => array(
+                        //     'template' => 'PixeloidAppBundle:EventRegistration:events.js.twig',
+                        // ),
+                    ));
 
     }
 
