@@ -36,7 +36,7 @@ class EventRegistrationEditType extends AbstractType
                     ->add('address', null, array('label' => 'Postacím'))
 
                 ->add('author', null, array('label' => 'Előadó'))
-                ->add('song_title', null, array('label' => 'Dal címe'))
+                ->add('songtitle', null, array('label' => 'Dal címe'))
                 ->add('length', null, array('label' => 'Hossz'))
                 ->add('publisher', null, array('label' => 'Kiadó'))
                 ->add('song_publish_date', 'text', array('label' => 'A dal megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
