@@ -26,6 +26,12 @@ services:
   pixeloid_app.datatable.eventregistration:
       class: Pixeloid\AppBundle\Datatables\EventRegistrationDatatable
       parent: sg_datatables.datatable.abstract
+
+  pixeloid_app.datatable.shortlist:
+      class: Pixeloid\AppBundle\Datatables\ShortlistDatatable
+      parent: sg_datatables.datatable.abstract
+
+
   pixeloid_app.twig_extension:
       class: Pixeloid\AppBundle\Twig\AppExtension
       public: false

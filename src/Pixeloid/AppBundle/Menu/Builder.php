@@ -66,7 +66,16 @@ class Builder extends ContainerAware
 
   private function buildChildren($menu)
   {
-        $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+
+    $securityContext = $this->container->get('security.context');
+
+    if ($securityContext->isGranted('ROLE_ADMIN')) {
+
+        $menu->addChild('Shortlist', array('route' => 'shortlist_index'))->setLinkAttribute('class', ' highlight');;
+    }
+
+
+        // $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
         $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
         $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
        // $menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');

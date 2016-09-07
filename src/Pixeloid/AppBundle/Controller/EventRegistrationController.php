@@ -47,6 +47,26 @@ class EventRegistrationController extends Controller
             'datatable' => $datatable,
         ));
     }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/shortlist", name="shortlist_index")
+     * @Method("GET")
+     */
+
+    public function shortlistAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+
+        $datatable = $this->get('pixeloid_app.datatable.shortlist');
+        $datatable->buildDatatable();
+
+        return $this->render('PixeloidAppBundle:EventRegistration:shortlist.html.twig', array(
+       //     'registrations' => $registrations,
+            'datatable' => $datatable,
+        ));
+    }
     /**
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/stat", name="eventregistration_stat")
@@ -97,6 +117,56 @@ class EventRegistrationController extends Controller
 
 
     }
+
+    /**
+     * Get all Post entities.
+     *
+     * @Route("/shortlist-results", name="shortlist_results")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function shortlistResultsAction()
+    {
+        $datatable = $this->get('pixeloid_app.datatable.shortlist');
+        $datatable->buildDatatable();
+
+        $query = $this->get('sg_datatables.query')->getQueryFrom($datatable);
+
+        $function = function($qb)
+        {
+            $qb->andWhere("eventregistration.shortlist = :r");
+            $qb->andWhere("eventregistration.created > :date");
+            $qb->setParameters(array(
+                'r' => true,
+                'date' =>  new \DateTime('2016-07-01')
+            ));
+        };
+
+        // // $query->addWhereAll($function);
+
+        // // return $query->getResponse();
+        $query->addWhereAll($function);
+
+        // // Or add the callback function as WhereAll
+        // //$query->addWhereAll($function);
+
+        // // Or to the actual query
+        // $query->buildQuery();
+        // $qb = $query->getQuery();
+
+        // //$qb->addSelect("eventregistration.email");
+        // //$qb->andWhere("moviecategories.shortlist = 1");
+
+            // var_dump($qb->getQuery()->getSQL());
+            // exit;
+
+        // $query->setQuery($qb);
+        return $query->getResponse();
+
+    }
+
+
 
     /**
      * Get all Post entities.
