@@ -73,15 +73,18 @@ gulp.task('sass-admin',  function () {
 gulp.task('scripts', function() {
   return gulp.src('./app/Resources/public/scripts/*.js')
     .pipe(concat('app.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./web/scripts/'));
+  //  .pipe(uglify())
+    .pipe(gulp.dest('./web/scripts/'))
+     .on('error', function (error) {
+            console.error('' + error);
+        });
 });
 
 
 gulp.task('serve', ['main-bower-files', 'sass', 'scripts', 'image'], function() {
-    browserSync.init({
-        proxy: "localhost:8000"
-    });
+    // browserSync.init({
+    //     proxy: "localhost:8000"
+    // });
 
     gulp.watch("app/Resources/public/scripts/**/*.js", ['scripts']);
     gulp.watch("app/Resources/public/scss/**/*.scss", ['sass']);

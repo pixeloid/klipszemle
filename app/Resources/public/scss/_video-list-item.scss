@@ -13,11 +13,13 @@
             width: 1210px;
             height: 635px;
         }
+        overflow: hidden;
+
         background: red;
         position: relative;
         overflow: hidden;
         font-weight: 900;
-
+        @include clearfix;
     }
 
     .video-item__image{
@@ -34,6 +36,7 @@
         position: absolute;
         bottom: 5px;
         left: 5px;
+        right: 5px;
         max-width: 100%;
         .video-item--fb-post &{
             bottom: 220px;
@@ -47,12 +50,13 @@
     }
 
     .video-item__text{
-        font-family: "Avenir Heavy";
+        font-family: "Avenir Next";
+        font-weight: 700;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin: 0;
-        max-width: 90%;
+        max-width: 350px;
         display: block;
         float: left;
         clear: left;
@@ -97,7 +101,8 @@
 
 
     .video-item__headline{
-        font-family: "Avenir Heavy";
+        font-family: "Avenir Next";
+        font-weight: 700;
         font-weight: bold;
         position: absolute;
         background: #fff;
@@ -156,7 +161,15 @@
         color: $brand-primary;
 
     }
-    .video-item__btn--close{
+    .video-item__btn--already-vote{
+        font-size: 0.8em;
+        padding: 5px 10px;
+
+        &:hover{
+            color: $brand-primary;
+        }
+    }
+    .video-item__btn--stop{
         right: 20px;
         font-size: 36px;
         padding: 0px 10px;
@@ -165,6 +178,17 @@
         top: 20px;
         bottom: auto;
         display: none;
+        z-index: 15;
+
+    }
+    .video-item__btn--close{
+        right: 20px;
+        font-size: 36px;
+        padding: 0px 10px;
+        height: 50px;
+        width: 50px;
+        top: 20px;
+        bottom: auto;
         z-index: 15;
 
     }

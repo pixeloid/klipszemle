@@ -42,8 +42,11 @@ class OAuthUserProvider extends BaseClass
         $username = $response->getUsername();
         $email = $response->getUsername();
 
+
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
 
+        // var_dump($user);
+        // exit;
 
         //when the user is registrating
         if (null === $user) {

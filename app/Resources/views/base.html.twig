@@ -3,20 +3,28 @@
     <head>
         <title>02. Magyar Klipszemle!{% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta property="og:title" content="Második Magyar Klipszemle" />
         <meta property="og:site_name" content="02. Magyar Klipszemle"/>
-        <meta property="og:url" content="http://www.klipszemle.hu" />
-        <meta property="og:description" content="EZ A MÁSODIK KLIPSZEMLE WEBKIKÖTŐJE // JELENTKEZÉS // ZSŰRI // MI EZ? // SZERVEZŐK // FAQ // STB." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="hu_HU" />            <!-- Default -->
         <meta property="fb:app_id" content="646741755492022" />            <!-- Default -->
         
+        {% block og_title %}
+        <meta property="og:title" content="Második Magyar Klipszemle" />
+        {% endblock %}
+
         {% block og_image %}
         <meta property="og:image"
         content="http://www.klipszemle.hu/images/mksz_2016_cover.png" />
         {% endblock %}
 
+        {% block og_description %}
+        <meta property="og:description" content="EZ A MÁSODIK KLIPSZEMLE WEBKIKÖTŐJE // JELENTKEZÉS // ZSŰRI // MI EZ? // SZERVEZŐK // FAQ // STB." />
+        {% endblock %}
 
+
+        {% block og_url %}
+        <meta property="og:url" content="http://www.klipszemle.hu" />
+        {% endblock %}
 
         <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png?v2">
         <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png?v2">

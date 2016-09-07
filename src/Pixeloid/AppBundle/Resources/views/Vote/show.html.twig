@@ -6,8 +6,21 @@
 
 				{% include 'PixeloidAppBundle:Vote:_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
 			<a href="#" class="video-item__btn video-item__btn--play">Lejátszom</a>
-			<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok</a>
+			
+			{% if user %}
+				{% if  alreadyVoted %}
+					<span class="video-item__btn video-item__btn--vote video-item__btn--already-vote">Már szavaztál</span>
+				{% else %}
+					<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok</a>
+				{% endif %}
+			{% else %}
+			<a class="video-item__btn video-item__btn--already-vote" href="{{ hwi_oauth_login_url('facebook') }}">
+			    <i class="fa fa-facebook"></i> A szavazáshoz <br>lépj be Facebookkal!
+			</a>
+			{% endif %}
+
 			<a href="#" class="video-item__btn video-item__btn--close"><i class="fa fa-times" aria-hidden="true"></i></a>
+			<a href="#" class="video-item__btn video-item__btn--stop"><i class="fa fa-stop" aria-hidden="true"></i></a>
 		</div>
 
 {% endblock %}

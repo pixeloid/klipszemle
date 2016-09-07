@@ -18,12 +18,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class EventRegistration
 {
     /**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     private $id;
 
     /**
@@ -40,41 +40,41 @@ class EventRegistration
     */
     private $name;
     /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="title", type="string", length=255, nullable=true)
-	 */
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
     private $title;
 
     /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="company", type="string", length=50, nullable=true)
-	 */
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string", length=50, nullable=true)
+     */
     private $company;
 
 
     /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="website", type="string", length=100, nullable= true)
-	 */
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", length=100, nullable= true)
+     */
     private $website;
 
     /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="address", type="string", length=255, nullable= true)
-	 */
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255, nullable= true)
+     */
     private $address;
 
 
     /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="phone", type="string", length=20)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 */
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=20)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+     */
     private $phone;
 
 
@@ -188,19 +188,19 @@ class EventRegistration
 
 
     /**
-	 * @var string
-	 *
-	 * @ORM\Column(name="email", type="string", length=100)
-	 * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-	 * @Assert\Email(groups={"flow_eventRegistration_step1"})
-	 */
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=100)
+     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
+     * @Assert\Email(groups={"flow_eventRegistration_step1"})
+     */
     private $email;
 
 
     /**
-	 * @ORM\ManyToOne(targetEntity="User", inversedBy="eventRegistrations")
-	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-	 */
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="eventRegistrations")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
     private $user;
 
 
@@ -234,11 +234,6 @@ class EventRegistration
     
     /**
      * @ORM\OneToMany(targetEntity="EventRegistrationCategory", mappedBy="eventregistration", cascade={"persist","remove"}, orphanRemoval=true)
-     * @Assert\Count(
-     *      min = "1",
-     *      max = "3",
-     *      groups={"flow_eventRegistration_step2"}
-     * )
      */
     protected $moviecategories;
     
@@ -267,21 +262,20 @@ class EventRegistration
     /**
      * @ORM\Column(type="boolean", name="shortlist")
      */
-    protected $shortlist = 0;
-    
-
+    protected $shortlist = false;
     
 
     /**
-     * @ORM\Column(type="string", name="post_image", nullable=true)
+     * @ORM\Column(type="boolean", name="onshow")
      */
-    protected $post_image = true;
+    protected $onshow = false;
     
-    /**
-     * @ORM\OneToMany(targetEntity="Vote", mappedBy="eventRegistration")
-     */
-    protected $votes;
 
+    /**
+     * @ORM\Column(type="boolean", name="premiere")
+     */
+    protected $premiere = false;
+    
 
     /**
      * Constructor
@@ -1346,60 +1340,48 @@ class EventRegistration
     }
 
     /**
-     * Set postImage
+     * Set onshow
      *
-     * @param string $postImage
-     *
+     * @param boolean $onshow
      * @return EventRegistration
      */
-    public function setPostImage($postImage)
+    public function setOnshow($onshow)
     {
-        $this->post_image = $postImage;
+        $this->onshow = $onshow;
 
         return $this;
     }
 
     /**
-     * Get postImage
+     * Get onshow
      *
-     * @return string
+     * @return boolean 
      */
-    public function getPostImage()
+    public function getOnshow()
     {
-        return $this->post_image;
+        return $this->onshow;
     }
 
     /**
-     * Add vote
+     * Set premiere
      *
-     * @param \Pixeloid\AppBundle\Entity\Vote $vote
-     *
+     * @param boolean $premiere
      * @return EventRegistration
      */
-    public function addVote(\Pixeloid\AppBundle\Entity\Vote $vote)
+    public function setPremiere($premiere)
     {
-        $this->votes[] = $vote;
+        $this->premiere = $premiere;
 
         return $this;
     }
 
     /**
-     * Remove vote
+     * Get premiere
      *
-     * @param \Pixeloid\AppBundle\Entity\Vote $vote
+     * @return boolean 
      */
-    public function removeVote(\Pixeloid\AppBundle\Entity\Vote $vote)
+    public function getPremiere()
     {
-        $this->votes->removeElement($vote);
-    }
-
-    /**
-     * Get votes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getVotes()
-    {
-        return $this->votes;
+        return $this->premiere;
     }
 }

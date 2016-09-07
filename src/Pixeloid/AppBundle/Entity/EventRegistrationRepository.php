@@ -25,4 +25,24 @@ class EventRegistrationRepository extends EntityRepository
 		return $this->_em->createQuery('SELECT e FROM PixeloidAppBundle:EventRegistration e WHERE e.winner > 0 ORDER BY e.winner ASC')
 		                 ->getResult();
 	}
+
+
+	public function hasAlreadyVoted(User $user, EventRegistration $video )
+	{
+		$result = $this->_em->createQuery('
+			SELECT v
+			FROM PixeloidAppBundle:Vote v 
+			LEFT JOIN v.eventRegistration e
+			LEFT JOIN v.user u
+			WHERE 
+					e = :e 
+				AND u = :u ')
+
+			->setParameters(array(
+				'e' => $video,
+				'u' => $user,
+			))
+		                 ->getArrayResult();
+		     return count($result) > 0;
+	}
 }

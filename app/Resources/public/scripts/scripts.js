@@ -87,6 +87,10 @@ var ESPCR = ESPCR || {};
 
       init: function(){
 
+        $('#main-modal').on('hidden.bs.modal', function (e) {
+          $('#main-modal .modal-content').empty()        
+        })
+
 
             $('.show-video').click(function(e){
               e.preventDefault();
@@ -99,6 +103,12 @@ var ESPCR = ESPCR || {};
               });
             })
 
+            var id = window.location.hash.replace('#video-', '');
+            if(id){
+              $('.votes').find("[data-id='" + id + "']").click();
+              window.location.href.split('#')[0]
+            }
+
 
 
 
@@ -107,7 +117,11 @@ var ESPCR = ESPCR || {};
 
       load: function(){
 
-              console.log('Player ready');
+        $('.video-item__btn--close').click(function(e){
+          e.preventDefault();
+          $('#main-modal .modal-content').empty()        
+          $('#main-modal').modal('hide');
+        })
 
               var player = new YT.Player('player', {
                 height: $('#player').closest('.video-item').height(),
@@ -130,7 +144,7 @@ var ESPCR = ESPCR || {};
               
               })
               
-              $('.video-item__btn--close').click(function(e){
+              $('.video-item__btn--stop').click(function(e){
                 e.preventDefault();
                 $('#player').fadeOut();
                 $(this).fadeOut();
@@ -151,7 +165,7 @@ var ESPCR = ESPCR || {};
                   $('#player').fadeOut();
                 }
                 if (event.data == YT.PlayerState.PLAYING) {
-                  $('.video-item__btn--close').fadeIn();
+                  $('.video-item__btn--stop').fadeIn();
                 }
               }
               function stopVideo() {
@@ -163,8 +177,10 @@ var ESPCR = ESPCR || {};
                 e.preventDefault();
                 var url = $(this).attr('href');
 
-                $('#main-modal .modal-content').empty();
-                $('#main-modal .modal-content').load(url);
+                $('#main-modal .modal-content').html('<span class="loader">Generálás folyamatban...</span>');
+                $('#main-modal .modal-content').load(url, function(){
+                  $('#main-modal .loader').hide();
+                });
               })
 
       }
