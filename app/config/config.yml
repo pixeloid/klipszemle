@@ -190,6 +190,7 @@ deploy:
     port: 22
     timeout: 0 # Connection timeout in seconds. 0 for no timeout.
     post_deploy_operations: 
+        # - composer update
         - app/console cache:clear --env=prod
         - app/console assets:install --env=prod --symlink
         - app/console doctrine:schema:update --force --env=prod    

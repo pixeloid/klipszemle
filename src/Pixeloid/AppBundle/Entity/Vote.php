@@ -100,11 +100,11 @@ class Vote
     /**
      * Set user
      *
-     * @param \Pixeloid\UserBundle\Entity\User $user
+     * @param User $user
      *
      * @return Vote
      */
-    public function setUser(\Pixeloid\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -114,7 +114,7 @@ class Vote
     /**
      * Get user
      *
-     * @return \Pixeloid\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {

@@ -270,10 +270,6 @@ class EventRegistration
     protected $shortlist = 0;
     
 
-    /**
-     * @ORM\Column(type="boolean", name="voteable", nullable=true)
-     */
-    protected $voteable = false;
     
 
     /**
@@ -646,10 +642,10 @@ class EventRegistration
     /**
      * Set user
      *
-     * @param \Pixeloid\UserBundle\Entity\User $user
+     * @param User $user
      * @return EventRegistration
      */
-    public function setUser(\Pixeloid\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -659,7 +655,7 @@ class EventRegistration
     /**
      * Get user
      *
-     * @return \Pixeloid\UserBundle\Entity\User 
+     * @return User 
      */
     public function getUser()
     {
@@ -1347,30 +1343,6 @@ class EventRegistration
     public function getWinner()
     {
         return $this->winner;
-    }
-
-    /**
-     * Set voteable
-     *
-     * @param boolean $voteable
-     *
-     * @return EventRegistration
-     */
-    public function setVoteable($voteable)
-    {
-        $this->voteable = $voteable;
-
-        return $this;
-    }
-
-    /**
-     * Get voteable
-     *
-     * @return boolean
-     */
-    public function getVoteable()
-    {
-        return $this->voteable;
     }
 
     /**

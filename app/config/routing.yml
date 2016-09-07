@@ -22,6 +22,7 @@ pixeloid_app:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /user
 
 _imagine:
     resource: .

@@ -2,8 +2,27 @@
 
 {% block body %}
 	
-	<h2>KÖSZI!</h2>
 	
-	<img src="{{ video.getPostImage() }}" alt=""> 
+	<img src="/{{ video.getPostImage() }}" width="100%" alt=""> 
+	
+	<a href="#" class="btn btn-primary share-btn">Megosztom Facebookon!</a>
 
+
+	<script>
+
+	$(document).ready(function(){
+		$('.share-btn').click(function(e){
+			e.preventDefault();
+			FB.ui({
+			  method: 'share',
+			  mobile_iframe: true,
+			  display: 'dialog',
+			  href: '{{ app.request.getSchemeAndHttpHost() }}/vote/fb_post_image/{{video.getPostImage}}',
+			}, function(response){
+				console.log(response);
+			});
+		})
+	})
+
+	</script>
 {% endblock %}

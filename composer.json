@@ -39,7 +39,7 @@
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "sg/datatablesbundle": "dev-master",
         "paragonie/random_compat": "^1.4",
-        "hwi/oauth-bundle": "^0.4.2"
+        "hwi/oauth-bundle": "dev-master"
 
 
     },

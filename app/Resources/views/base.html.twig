@@ -10,8 +10,12 @@
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="hu_HU" />            <!-- Default -->
         <meta property="fb:app_id" content="646741755492022" />            <!-- Default -->
+        
+        {% block og_image %}
         <meta property="og:image"
         content="http://www.klipszemle.hu/images/mksz_2016_cover.png" />
+        {% endblock %}
+
 
 
         <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png?v2">
@@ -58,23 +62,23 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        // function fb_login() {
-        //     FB.getLoginStatus(function(response) {
-        //         if (response.status === 'connected') {
-        //             // connected
-        //             alert('Already connected, redirect to login page to create token.');
-        //             document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
-        //         } else {
-        //             // not_authorized
-        //             FB.login(function(response) {
-        //                 if (response.authResponse) {
-        //                     document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
-        //                 } else {
-        //                     alert('Cancelled.');
-        //                 }
-        //             }, {scope: 'email'});
-        //         }
-        //     });
+        function fb_login() {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    // connected
+                    alert('Already connected, redirect to login page to create token.');
+                    document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                } else {
+                    // not_authorized
+                    FB.login(function(response) {
+                        if (response.authResponse) {
+                            document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                        } else {
+                            alert('Cancelled.');
+                        }
+                    }, {scope: 'email'});
+                }
+            });
         }
     </script>
 

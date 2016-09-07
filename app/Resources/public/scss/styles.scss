@@ -51,10 +51,18 @@ footer, .wrapper:after {
 footer {
 }
 
+.votes{
+  @include clearfix;
+  .voteitem{
+    margin-top: $grid-gutter-width;
+  }
+}
 
 .modal{
   background-color: rgba($brand-primary, 0.7);
 }
 
-.modal__overlay{
+.modal-content{
+  background: black;
+  text-align: center;
 }

@@ -22,7 +22,7 @@ class VoteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery(
-                'SELECT e FROM PixeloidAppBundle:EventRegistration e WHERE e.voteable = TRUE AND e.created > :start'
+                'SELECT e FROM PixeloidAppBundle:EventRegistration e WHERE e.shortlist = TRUE AND e.created > :start'
             )
             ->setParameter('start', new \DateTime($this->container->getParameter('start_date')));
 
@@ -126,7 +126,7 @@ class VoteController extends Controller
         $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
 
 
-        $filename = 'klipszemle2016_fb_post_' . $id .'-'.time().'.jpg';
+        $filename = 'fb_post_images/klipszemle2016_fb_post_' . $id .'-'.time().'.jpg';
 
         $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
         $this->get('knp_snappy.image')->generate(
