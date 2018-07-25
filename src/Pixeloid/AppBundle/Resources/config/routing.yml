@@ -9,7 +9,7 @@ pixeloid_app_eventregistration_annotation:
     type:     annotation
 
 pixeloid_app_vote:
-    resource: "@PixeloidAppBundle/Controller/VoteController.php"
+    resource: "@PixeloidAppBundle/Controller/DefaultController.php"
     prefix:   /vote
     type:     annotation
 

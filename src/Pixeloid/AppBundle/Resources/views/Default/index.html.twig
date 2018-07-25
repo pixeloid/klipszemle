@@ -16,6 +16,9 @@
 
                      </h1> -->
                      <p class="intro-text">2016. 09. 29-30.<br>Toldi Mozi</p>
+                    {# <p>
+                     	<a class="btn btn-primary" href="{{ path('vote') }}">KÖZÖNSÉGSZAVAZÁS</a>
+                     </p>#}
 <!--                      <a href="#about" class="btn btn-circle page-scroll">
                          <i class="fa fa-angle-double-down animated"></i>
                      </a>
@@ -45,55 +48,61 @@
  </section>
 
 
-{#
   <section id="winners" class="container content-section ">
-              <h2>2015-ös nyertesek</h2>
+              <h2>2016-os nyertesek</h2>
 
  			<div class="row">
 
  				{% for reg in winners %}
- 				    <div class="col-xs-6 col-sm-4 col-md-3">
- 				    	<a href="{{ reg.getVideoUrl }}" target="_blank">
- 				    	<div class="item">
-							<div class="text">
-							<h3>{{ reg.getShortlistCategories.0.category.name }}</h3>
-							<p><b>{{ reg.getAuthor }}</b></p>
-							<p>{{ reg.getSongTitle }}</p>
-							</div>
-							{% image '@PixeloidAppBundle/Resources/public/images/transparent.png' output='images/transparent.png' %}
-								<img src="{{ asset_url }}" class="img-responsive"  alt=""/>
-							{% endimage %}
- 				    	</div>
+ 				    <div class="col-xs-12 col-sm-4 voteitem">
+
+
+ 				    	<a href="{{reg.videourl}}" target="_blank" data-id="#" >
+ 				    	<span class="video-item video-item">
+
+
+ 				    	<div class="video-item__image">
+ 				    		<img src="http://img.youtube.com/vi/{{ reg.videourl|yt_id }}/hqdefault.jpg">
+
+ 				    		<div class="video-item__text-holder">
+	 				    		<p class="video-item__text video-item__text">{{ reg.getShortlistCategories.0.category.name }}</p>
+
+ 				    			<h3 class="video-item__text video-item__text--author">{{ reg.author }}</h3>
+ 				    			<h4 class="video-item__text video-item__text--song">{{ reg.songtitle }}</h4>
+ 				    		</div>
+						</div>
+ 				    	</span>
  				    	</a>
- 				    </div>
+ 				    </div>    
 
  				{% endfor %}
  			</div>
   </section>  
 
 
-  #}
    <section id="jury" class="container content-section ">
               <h2>A ZSŰRI</h2>
 
  			<div class="row">
+
+ 			 				<div class="col-sm-3 jury-person">
+ 			 				<img src="images/gg.png" alt="">
+ 			 					<h3>  GARAI "GG" GÁBOR
+ 			</h3>
+
+ 			 				</div>
+
+
  				<div class="col-sm-3 jury-person">
- 				<img src="images/pandi.jpg" alt="">
- 					<h3>  PÁNDI BALÁZS
+ 				<img src="images/Klag-02.png" alt="">
+ 					<h3>  KLÁG DÁVID
 </h3>
  				</div>
  				 				<div class="col-sm-3  jury-person">
- 				 				<img src="images/bori.jpg" alt="">
- 				 					<h3>  PÉTERFY BORI
+ 				 				<img src="images/nemethjuci.jpg" alt="">
+ 				 					<h3>  NÉMETH JUCI
  				</h3>
  				 				</div>
- 				 				<div class="col-sm-3 jury-person">
- 				 				<img src="images/marci.jpg" alt="">
- 				 					<h3>  RÉV MARCELL
- 				</h3>
-
- 				 				</div>
-
  				<div class="col-sm-3 jury-person">
  				<img src="images/szirmai.jpg" alt="">
  					<h3>SZIRMAI GERGŐ</h3>
@@ -112,7 +121,7 @@
 
  			</div>
   </section> 
-{#
+
 	<section id="program" class="container content-section">
 
 
@@ -136,11 +145,11 @@
 
 	</div>
 	{% endif %}
-		<div class="text">
-			{{ lead|raw }}
-		</div>
 
 		<div class="row daily">
+
+		{{ lead|raw }}
+
 			<div class="col-sm-6">
 				<h3>Csütürtök</h3>
 				
@@ -157,7 +166,7 @@
 		</div>
 	</section>
 
-#}
+
 
   <section id="we-are" class="container content-section ">
          <div class="row">

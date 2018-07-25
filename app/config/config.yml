@@ -110,25 +110,25 @@ knp_snappy:
         options:    []
     temporary_folder: %kernel.cache_dir%/snappy
 
-ivory_ck_editor:
-    default_config: my_config
-    plugins:
-        wordcount:
-            path:     "bundles/pixeloidapp/lib/CKEditor_Plugins/wordcount/"
-            filename: "plugin.js"
-        notification:
-            path:     "bundles/pixeloidapp/lib/CKEditor_Plugins/notification/"
-            filename: "plugin.js"
-    configs:
-        my_config:
-            extraPlugins: "wordcount"
-            language:  '%locale%'
-            wordcount:
-                showCharCount: true
-                countSpacesAsChars: false
-                maxWordCount: 3000
-                countHTML: false
-                lang:  '%locale%'
+# ivory_ck_editor:
+#     default_config: my_config
+#     plugins:
+#         wordcount:
+#             path:     "bundles/pixeloidapp/lib/CKEditor_Plugins/wordcount/"
+#             filename: "plugin.js"
+#         notification:
+#             path:     "bundles/pixeloidapp/lib/CKEditor_Plugins/notification/"
+#             filename: "plugin.js"
+#     configs:
+#         my_config:
+#             extraPlugins: "wordcount"
+#             language:  '%locale%'
+#             wordcount:
+#                 showCharCount: true
+#                 countSpacesAsChars: false
+#                 maxWordCount: 3000
+#                 countHTML: false
+#                 lang:  '%locale%'
 
 
 avalanche_imagine:

@@ -82,9 +82,9 @@ gulp.task('scripts', function() {
 
 
 gulp.task('serve', ['main-bower-files', 'sass', 'scripts', 'image'], function() {
-    // browserSync.init({
-    //     proxy: "localhost:8000"
-    // });
+    browserSync.init({
+        proxy: "localhost:8000"
+    });
 
     gulp.watch("app/Resources/public/scripts/**/*.js", ['scripts']);
     gulp.watch("app/Resources/public/scss/**/*.scss", ['sass']);

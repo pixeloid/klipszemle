@@ -103,11 +103,6 @@ var ESPCR = ESPCR || {};
               });
             })
 
-            var id = window.location.hash.replace('#video-', '');
-            if(id){
-              $('.votes').find("[data-id='" + id + "']").click();
-              window.location.href.split('#')[0]
-            }
 
 
 
@@ -250,6 +245,13 @@ var ESPCR = ESPCR || {};
           // resolve when youtube callback is called
           // passing YT as a parameter
           YTdeferred.resolve(window.YT);
+
+          var id = window.location.hash.replace('#video-', '');
+          if(id){
+            $('.votes').find("[data-id='" + id + "']").click();
+            window.location.href.split('#')[0]
+          }
+
         };
       }
     }

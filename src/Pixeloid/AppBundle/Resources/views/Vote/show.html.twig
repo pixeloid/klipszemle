@@ -9,7 +9,7 @@
 			
 			{% if user %}
 				{% if  alreadyVoted %}
-					<span class="video-item__btn video-item__btn--vote video-item__btn--already-vote">Már szavaztál</span>
+					<span class="video-item__btn  video-item__btn--already-vote">Már szavaztál</span>
 				{% else %}
 					<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok</a>
 				{% endif %}

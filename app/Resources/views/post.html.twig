@@ -5,7 +5,7 @@
             <link href="{{ app.request.getSchemeAndHttpHost() }}/styles/styles.css" type="text/css" rel="stylesheet" media="all"/>
         {% endblock %}
     </head>
-<body class="fb-post">
+<body class="{% block bodyclass %}blank{% endblock %}">
 
 
     {% block body %}{% endblock %}

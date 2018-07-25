@@ -251,6 +251,16 @@ class EventRegistration
      */
     protected $winner = null;
     
+    /**
+     * @ORM\Column(type="string", name="post_image", nullable=true)
+     */
+    protected $post_image = true;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Vote", mappedBy="eventRegistration")
+     */
+    protected $votes;
+
 
     /**
      * @ORM\Column(name="accept_terms", type="boolean", nullable=true)
@@ -1383,5 +1393,61 @@ class EventRegistration
     public function getPremiere()
     {
         return $this->premiere;
+    }
+
+    /**
+     * Set post_image
+     *
+     * @param string $postImage
+     * @return EventRegistration
+     */
+    public function setPostImage($postImage)
+    {
+        $this->post_image = $postImage;
+
+        return $this;
+    }
+
+    /**
+     * Get post_image
+     *
+     * @return string 
+     */
+    public function getPostImage()
+    {
+        return $this->post_image;
+    }
+
+    /**
+     * Add votes
+     *
+     * @param \Pixeloid\AppBundle\Entity\Vote $votes
+     * @return EventRegistration
+     */
+    public function addVote(\Pixeloid\AppBundle\Entity\Vote $votes)
+    {
+        $this->votes[] = $votes;
+
+        return $this;
+    }
+
+    /**
+     * Remove votes
+     *
+     * @param \Pixeloid\AppBundle\Entity\Vote $votes
+     */
+    public function removeVote(\Pixeloid\AppBundle\Entity\Vote $votes)
+    {
+        $this->votes->removeElement($votes);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

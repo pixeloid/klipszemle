@@ -26,7 +26,7 @@ security:
                 failure_path: /connect
                 login_path: /connect
                 check_path: /connect
-                default_target_path: /vote
+                default_target_path: /vote/
                 provider: fos_userbundle
                 resource_owners:
                     facebook:           "/login/check-facebook"

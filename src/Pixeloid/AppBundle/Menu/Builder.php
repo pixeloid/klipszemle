@@ -43,10 +43,10 @@ class Builder extends ContainerAware
 
     if ($securityContext->isGranted('ROLE_USER')) {
         // The current (may be switched) username.
-        $username = $securityContext->getToken()->getUser()->getUsername();
+        // $username = $securityContext->getToken()->getUser()->getUsername();
 
-        // The actual user, if switched, retrieve the correct one.
-        $actualUser = $securityContext->getToken()->getUser();
+        // // The actual user, if switched, retrieve the correct one.
+        // $actualUser = $securityContext->getToken()->getUser();
 
         $menu->addChild('Kilépés', array('route' => 'fos_user_security_logout'));
         // $menu->addChild('Fiókom', array('route' => 'fos_user_profile_show'));
@@ -68,12 +68,15 @@ class Builder extends ContainerAware
   {
     $securityContext = $this->container->get('security.context');
 
+    if ($securityContext->isGranted('ROLE_ADMIN')) {
+      $menu->addChild('Shortlist', array('route' => 'shortlist_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+    }
 
-        $menu->addChild('Szavazás', array('route' => 'vote', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+      //  $menu->addChild('Szavazás', array('route' => 'vote', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
         // $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
         $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
         $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
-       // $menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
+        $menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
         $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
         $menu->addChild('FAQ', array('uri' => '/#faq'))->setLinkAttribute('class', 'animated page-scroll');
         $menu->addChild(' ', array('uri' => 'https://facebook.com/klipszemle'))->setLinkAttribute('class', 'fa fa-facebook-official fb');

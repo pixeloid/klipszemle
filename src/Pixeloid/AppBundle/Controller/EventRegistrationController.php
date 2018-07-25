@@ -38,7 +38,6 @@ class EventRegistrationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-
         $datatable = $this->get('pixeloid_app.datatable.eventregistration');
         $datatable->buildDatatable();
 
@@ -93,7 +92,6 @@ class EventRegistrationController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_ADMIN')")
      * @Method("GET")
      * @Template("PixeloidAppBundle:EventRegistration:votesheets.html.twig")
      */
@@ -107,16 +105,93 @@ class EventRegistrationController extends Controller
         $qb = $em->createQueryBuilder();
         $qb->select(array('r')) // string 'u' is converted to array internally
            ->from('PixeloidAppBundle:EventRegistration', 'r')
-           ->where('r.number > 0')
-           ->orderBy('r.number', 'ASC');
+           ->where("r.created > :date")
+           ->andWhere("r.onshow = :os")
+           ->orWhere("r.premiere = :pr")
+           ->setParameters(array(
+               'os' => true,
+               'pr' => true,
+               'date' =>  new \DateTime('2016-07-01')
+           ));
+
+        $video = $qb->getQuery()->getResult();
+
+        foreach ($video as $v) {
+            $this->generateVotesheet($v->getId());
+        }
 
 
-        return array(
-            'registrations' => $qb->getQuery()->getResult(),
-        );
+        // return array(
+        //     'registrations' => ,
+        // );
 
 
     }
+
+    /**
+     * @Route("/votesheet_generator/{id}", name="votesheet_generator")
+     * @Template("PixeloidAppBundle:EventRegistration:votesheet.html.twig")
+     */
+    public function votesheetGeneratorAction($id)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
+
+
+        return                 array(
+                     'reg' => $video,
+                );
+
+    }
+
+
+    function generateVotesheet($id){
+
+        set_time_limit(100000);
+
+        $em = $this->getDoctrine()->getManager();
+        $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
+
+
+        $filename = 'votesheets/klipszemle2016---' . $this->slugify($video->getAuthor()) .'-'. $this->slugify($video->getSongtitle()) . '.pdf';
+
+        $this->get('knp_snappy.pdf')->getInternalGenerator()->setTimeout(300);
+        $this->get('knp_snappy.pdf')->getInternalGenerator();
+        $this->get('knp_snappy.pdf')->generate(
+            'http://klipszemle.hu/eventregistration/votesheet_generator/' . $video->getId()
+            ,$filename
+        );
+    }
+
+    private function slugify($text)
+    {
+      // replace non letter or digits by -
+      $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+      // transliterate
+      $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+      // remove unwanted characters
+      $text = preg_replace('~[^-\w]+~', '', $text);
+
+      // trim
+      $text = trim($text, '-');
+
+      // remove duplicate -
+      $text = preg_replace('~-+~', '-', $text);
+
+      // lowercase
+      $text = strtolower($text);
+
+      if (empty($text)) {
+        return 'n-a';
+      }
+
+      return $text;
+    }
+
 
     /**
      * Get all Post entities.

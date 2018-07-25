@@ -13,6 +13,12 @@
             width: 1210px;
             height: 635px;
         }
+
+        &.video-item--highlight{
+            img{
+                opacity: 0.6;
+            }
+        }
         overflow: hidden;
 
         background: red;
@@ -87,6 +93,10 @@
         }
         .video-item--vote &{
             font-size: 20px;
+            @media(max-width:$screen-sm) {
+                font-size: 12px;
+            }
+
         }
     }
     .video-item__text--author{
@@ -96,6 +106,10 @@
         }
         .video-item--vote &{
             font-size: 28px;
+            @media(max-width:$screen-sm) {
+                font-size: 16px;
+            }
+
         }
     }
 
@@ -153,9 +167,22 @@
     }
 
     .video-item__btn--play{
+        
+        @media(max-width:$screen-sm) {
+            font-size: 12px;
+            padding: 5px 12px;
+
+        }
+
         left: 20px;
     }
     .video-item__btn--vote{
+        @media(max-width:$screen-sm) {
+            font-size: 12px;
+            padding: 5px 12px;
+
+        }
+
         right: 20px;
         background: white;
         color: $brand-primary;
@@ -164,9 +191,10 @@
     .video-item__btn--already-vote{
         font-size: 0.8em;
         padding: 5px 10px;
+        right: 20px;
 
         &:hover{
-            color: $brand-primary;
+            color: #fff;
         }
     }
     .video-item__btn--stop{

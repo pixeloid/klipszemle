@@ -182,7 +182,7 @@ class VoteController extends Controller
 
         $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
         $this->get('knp_snappy.image')->generate(
-            'http://klipszemle.sf.dev.pixeloid.hu/app_dev.php/vote/fb_post_image_generator/' . $video->getId()
+            'http://klipszemle.hu/vote/fb_post_image_generator/' . $video->getId()
             ,$filename
         );
 

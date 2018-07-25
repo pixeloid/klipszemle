@@ -49,7 +49,7 @@
             <link href="/styles/styles.css" type="text/css" rel="stylesheet" media="all"/>
         {% endblock %}
     </head>
-<body>
+<body class="{% block bodyclass %}{% endblock %}">
     <div id="fb-root"></div>
     <script>
         window.fbAsyncInit = function() {
