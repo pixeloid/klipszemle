@@ -2,9 +2,9 @@
     padding: 10px 0;
 
     margin-bottom: 0;
-    border-bottom: 1px solid white;
+    border-bottom: none;
     text-transform: uppercase;
-    background: rgba($brand-primary, 0.9);
+    background: rgba($black, 0.95);
 
     .navbar-toggle{
         font-size: 30px;
@@ -33,19 +33,21 @@
         li {
             a {
                 transition: all .3s ease-in-out;
-                color: black;
+                color: $brand-primary;
                 text-decoration: none;
                 font-weight: bold;
+                font-size: 1.2em;
+
                 &.fb{
-                    font-size: 1.3em;
+                    font-size: 2em;
                     padding-top: 13px;
                 }
 
                 @media(min-width:768px) {
 
                 &.highlight{
-                    background: white;
-                    color: $brand-secondary;
+                    color: $black;
+                    background: $brand-secondary;
                     padding-top: 5px;
                     padding-bottom: 5px;
                     margin-top:10px;

@@ -9,7 +9,6 @@ h6 {
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 1px;
-    color: white;
 }
 
 p {
@@ -54,10 +53,6 @@ a {
         }
     }
 
-    background: repeating-linear-gradient(289deg, 
-      #fff, #fff 5em /* black stripe */, 
-      transparent 0, transparent 10em /* blue stripe */
-    );
     .intro-body {
         .intro-text {
             font-size: 26px;
@@ -69,11 +64,6 @@ a {
     padding: 60px 0;
 
     @media(min-width:$screen-sm) {
-        background: repeating-linear-gradient(289deg, 
-          #fff, #fff 10em /* black stripe */, 
-          transparent 0, transparent 20em /* blue stripe */
-        );
-
         padding: 150px 0;
 
         height: 100%;

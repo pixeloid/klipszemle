@@ -10,7 +10,7 @@ var image = require('gulp-image');
 
 var config = {
      sassPath: './resources/sass',
-     bowerDir: './app/Resources/public/vendor/'
+     bowerDir: './bower_components/'
 }
 
 
@@ -43,8 +43,7 @@ gulp.task('sass', ['sass-admin'], function () {
   .pipe(sourcemaps.init())
   .pipe(sass({
              includePaths: [
-                 'app/Resources/public/scss/',
-                 'app/Resources/public/vendor'
+                 './bower_components'
              ]
 
     }).on('error', sass.logError))
@@ -59,8 +58,7 @@ gulp.task('sass-admin',  function () {
   .pipe(sourcemaps.init())
   .pipe(sass({
              includePaths: [
-                 'app/Resources/public/scss/',
-                 'app/Resources/public/vendor'
+                 './bower_components'
              ]
 
     }).on('error', sass.logError))

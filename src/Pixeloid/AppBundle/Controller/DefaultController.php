@@ -84,8 +84,9 @@ class DefaultController extends Controller
         }
 
 
-        $winners =  $em->getRepository('PixeloidAppBundle:EventRegistration')->findBy(array('winner' => true));
+        // $winners =  $em->getRepository('PixeloidAppBundle:EventRegistration')->findBy(array('winner' => 1));
 
+        $winners =  [];
 
         return $this->render('PixeloidAppBundle:Default:index.html.twig', array(
             'day1' => $day1->getContent(),

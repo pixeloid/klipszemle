@@ -29,8 +29,9 @@ class AppKernel extends Kernel
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
-            new Sg\DatatablesBundle\SgDatatablesBundle(),
+            // new Sg\DatatablesBundle\SgDatatablesBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Http\HttplugBundle\HttplugBundle(), // If you require the php-http/httplug-bundle package.
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),

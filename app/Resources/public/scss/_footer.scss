@@ -1,14 +1,5 @@
 footer {
-    background: repeating-linear-gradient(289deg, 
-      #fff, #fff 5em /* black stripe */, 
-      transparent 0, transparent 10em /* blue stripe */
-    );
-
     @media(min-width:$screen-sm) {
-        background: repeating-linear-gradient(289deg, 
-          #fff, #fff 10em /* black stripe */, 
-          transparent 0, transparent 20em /* blue stripe */
-        );
 
         background-color: $brand-primary ;
     }

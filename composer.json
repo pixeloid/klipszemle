@@ -8,7 +8,7 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": "^5.6",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
@@ -37,9 +37,10 @@
         "datatables/datatables": "1.10.7",
         "moment/moment": "2.10.2",
         "friendsofsymfony/jsrouting-bundle": "@stable",
-        "sg/datatablesbundle": "dev-master",
         "paragonie/random_compat": "^1.4",
-        "hwi/oauth-bundle": "dev-master"
+        "hwi/oauth-bundle": "^0.6.3",
+        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/httplug-bundle": "^1.11"
 
 
     },
@@ -66,7 +67,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.3.9"
+            "php": "5.6"
         }
     },
     "extra": {

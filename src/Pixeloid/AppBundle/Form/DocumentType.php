@@ -10,7 +10,6 @@ use Pixeloid\AppBundle\Entity\Accomodation;
 use Pixeloid\AppBundle\Entity\RoomReservation;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Validator\Constraints\True;
 
 class DocumentType extends AbstractType
 {

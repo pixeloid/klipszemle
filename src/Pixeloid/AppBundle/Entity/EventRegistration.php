@@ -243,7 +243,7 @@ class EventRegistration
 
     /**
      * @ORM\Column(name="have_rights", type="boolean")
-     * @Assert\True(groups={"flow_eventRegistration_step3"},message = "Kötelező mező")
+     * @Assert\IsTrue(groups={"flow_eventRegistration_step3"},message = "Kötelező mező")
      */
     protected $have_rights = null;
     /**
@@ -264,7 +264,7 @@ class EventRegistration
 
     /**
      * @ORM\Column(name="accept_terms", type="boolean", nullable=true)
-     * @Assert\True(groups={"flow_eventRegistration_step3"}, message = "Kötelező mező")
+     * @Assert\IsTrue(groups={"flow_eventRegistration_step3"}, message = "Kötelező mező")
      */
     protected $accept_terms = null;
     

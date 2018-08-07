@@ -92,6 +92,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Pixeloid\AppBundle\Entity\User
+    from_email:
+        address:  info@klipszemle.com
+        sender_name: Klipszemle
 
 ewz_recaptcha:
     public_key:  6LeGdgsTAAAAAETpYR8N7_O5HR9OrrMweeWG2tyd
