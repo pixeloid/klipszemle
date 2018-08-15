@@ -41,6 +41,39 @@ a {
     height: auto;
     text-align: center;
     background-position: 50% 50%;
+    position: relative;
+    min-height: 80vh;
+
+    &-ill{
+        position: absolute;
+        width: 35%;
+        height: 40%;
+
+        img{
+            width: auto;
+            height: 100%;
+            max-width: 70%;
+        }
+
+        &--1{
+            left: 0;
+            top: 0;
+        }
+        &--2{
+            right: 0;
+            top: 0;
+        }
+
+        &--3{
+            bottom: 0;
+            left: 0;
+        }
+
+        &--4{
+            right: 0;
+            bottom: 0;
+        }
+    }
 
     .intro-body {
         display: table-cell;
@@ -73,10 +106,13 @@ a {
                 font-size: 100px;
             }
             .intro-text {
-                font-size: 46px;
-                line-height: 1.2;
+                font-size: 100px;
+                line-height: 0.75;
+                font-style: italic;
                 font-weight: 900;
                 text-transform: uppercase;
+                color: $brand-primary;
+                text-align: left;
             }
         }
     }
@@ -158,6 +194,20 @@ a {
 
 .content-section {
     padding-top: 40px;
+
+    &__ill{
+            width: auto;
+            max-height: 300px;
+
+            &--vertcenter{
+                position: absolute;
+                left: -30px;
+                top: 50%;
+                transform: translateY(50%);
+                width: 100%;
+                max-height: none;
+            }
+    }
 }
 
 .download-section {
@@ -262,9 +312,17 @@ a {
 }
 
 #contact{
+    ul{
+        display: inline-block;
+        margin-top: 3em;
+    }
     ul.list-unstyled li{
+        text-align:left;
         font-size: 16px;
-        text-transform: uppercase;
+        margin-bottom: 1.5em;
+        a{
+            text-decoration: none;
+        }
     }
 }
 #map {
@@ -367,18 +425,19 @@ a {
 
 .content-section {
 
-    @media(min-width:$screen-sm) {
         padding-top: 50px;
         h2{
-            font-size: 4rem;
+            line-height: 0.75;
+            letter-spacing: -0.03em;
+            font-size: 5rem;
             font-weight: 900;
+            font-style: italic;
         }
 
-    }
 
     @media(min-width:$screen-md) {
         h2{
-            font-size: 6rem;
+            font-size: 8rem;
         }
     }
 

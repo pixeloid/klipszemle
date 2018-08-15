@@ -2,10 +2,23 @@
 {% block body %}
 	
 <header class="intro" id="intro">
+    <div class="intro-ill intro-ill--1">
+        <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-01.svg') }}" >
+    </div>
+    <div class="intro-ill intro-ill--2">
+        <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-03.svg') }}" >
+    </div>
+    <div class="intro-ill intro-ill--3">
+        <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-02.svg') }}" >
+    </div>
+    <div class="intro-ill intro-ill--4">
+        <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-04.svg') }}" >
+    </div>
+
      <div class="intro-body">
          <div class="container">
              <div class="row">
-                 <div class="col-md-6 col-md-offset-3 text-center">
+                 <div class="col-md-6 col-md-offset-2 text-center">
 <!--                  	<br>
 						<h3>A nevezés lezárult!</h3>
                  	<br>
@@ -15,7 +28,7 @@
 				
 
                      </h1> -->
-                     <p class="intro-text">Harmadik<br>is lesz. </p>
+                     <h1 class="intro-text">Harmadik<br>is lesz. </h1>
                     {# <p>
                      	<a class="btn btn-primary" href="{{ path('vote') }}">KÖZÖNSÉGSZAVAZÁS</a>
                      </p>#}
@@ -164,15 +177,17 @@ Az első két évben közel 2000 nevezés érkezett, majd alkalmanként 5000 emb
 
 
 
- <section id="about" class="container content-section ">
+ <section id="jury" class="container content-section ">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
+                    <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-01.svg') }}" class="content-section__ill">
+
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <h2>Rólunk</h2>
                 <p>    A Klipszemlét Miki357, Vermes Orsi, Manek és Vida Vera indította 2015-ben. </p>
 <p>Zsűrijeink voltak: Ács Dani, Libor Anita, Izil, Garai Gábor, Németh Juci, TBG, Dobos Tamás, Vágvölgyi András, Klág Dávid és Szirmai Gergely. </p>
-<p>Grafikusunk Kiss-Kristóf Benedek, honlapfejlesztőnk Oláh Gergő.</p>
+<p>Grafikusunk Kiss-Benedek Kristóf, honlapfejlesztőnk Oláh Gergő.</p>
 
                 </div>
             </div>
@@ -226,13 +241,18 @@ Az első két évben közel 2000 nevezés érkezett, majd alkalmanként 5000 emb
             <div class="row">
                 <div class="col-lg-6 col-md-12 text-center">
                     <h2>Kapcsolat</h2>
- <ul class="list-unstyled"><li>             info@klipszemle.hu</li>
-                <li>                Sajtó akkreditáció: <br> <a href="mailto:sajto@klipszemle.hu">sajto@klipszemle.hu</a> </li>
-                <li>                Toldi Malomkő Kft. 1054 Budapest, <br>Bajcsy-Zsilinszky út 36-38.</li>
+ <ul class="list-unstyled"><li>             <a href="mailto:info@klipszemle.com">info@klipszemle.com</a></li>
+{#                 <li>                Sajtó akkreditáció: <br> <a href="mailto:sajto@klipszemle.com">sajto@klipszemle.com</a> </li>
+ #}                {# <li>                Toldi Malomkő Kft. 1054 Budapest, <br>Bajcsy-Zsilinszky út 36-38.</li> #}
+
+<li><a href="http://fb.com/klipszemle">fb.com/klipszemle</a></li>
+<li><a href="http://instagram.com/magyar_klipszemle">Instagram: magyar_klipszemle</a></li>
                 </ul>               
             </div>
 
         <div class="col-lg-6 col-md-12">
+            <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-04.svg') }}"  class="content-section__ill">
+
             </div>
 
             </div>
@@ -246,6 +266,8 @@ Az első két évben közel 2000 nevezés érkezett, majd alkalmanként 5000 emb
  <section id="faq" class="container content-section ">
 			<div class="row">
                 <div class="col-lg-2">
+                    <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-05.svg') }}"  class="content-section__ill content-section__ill--vertcenter">
+
                 </div>
 				<div class="col-lg-10">
                     <div class="row">
@@ -253,38 +275,100 @@ Az első két évben közel 2000 nevezés érkezett, majd alkalmanként 5000 emb
                             <h2>FAQ</h2>
                         </div>
                         <div class="col-md-6">
-
-                         <dl>
-                         <dt>Mikori klipekkel lehet jelentkezni?</dt>
-                          <dd>2015. május 1. óta bemutatott, a tavalyi szemlére nem nevezett videókat versenyeztetjük idén.</dd></dl>
-
-                         <dl> <dt>Benevezhetem a kedvenc klipemet?</dt><dd>Nem, csak akkor ha te vagy a kedvenc kliped rendezője vagy kiadója vagy gyártócége, esetleg előadója.</dd></dl>
-                         <dl> <dt>Mik a “videoklip jelöléséhez szükséges jogok/engedélyek”, amikkel rendelkeznem kell?</dt><dd>A jelentkezési űrlapon megadtad a klippel kapcsolatos jogosultságod (előadó, gyártócég, stb.), ezek közül valamelyikkel.</dd></dl>
-                         <dl> <dt>Ha egyik jogcím se érvényes rám, úgy is jelentkezhetek?</dt><dd>Nem.</dd></dl>
-                         <dl> <dt>Mit jelent a “magyar vonatkozású” klip?</dt><dd>Magyar legyen a rendező, az operatőr vagy az előadó. A gyártócég is jó lenne, de az nem muszáj.</dd></dl>
-                         <dl> <dt>Fan videóval lehet nevezni?</dt><dd>Dehogy.</dd></dl>
-                         <dl> <dt>És cover dal videójával?</dt><dd>Azzal se.</dd></dl>
-                        <!--  <dl> <dt>Vimeon van csak fent a klipem. Mit csináljak?</dt><dd>Akkor az a legjobb, ha feltöltöd egy unlisted youtube linkre és azzal nevezel.</dd></dl>
-                         --> <dl> <dt>A link a végleges nevezésem? A file nem kell nektek?</dt><dd>De, a shortlistre jutott klipeket külön emailben kérjük majd be.</dd></dl>
-                         <dl> <dt>Minek kell a telefonszámom is?</dt><dd>Ha nem érünk el mailben, felhívunk. Meg ha megnyersz egy kategóriát, akkor is hívunk, hogy legyen kinek átadni a díjat.</dd></dl>
-                         <dl> <dt>Ha nyernék, de nem tudunk ott lenni az eseményen, odaadjátok a díjat másnak?</dt><dd>Telefonon egyeztetünk majd, de megoldjuk!</dd></dl>
-                         <dl> <dt>Publikusak az infók, amiket beírok a jelentkezésbe?</dt><dd>Kizárólag a szemlét érintő belső használatra szükségesek.</dd></dl>
-                                            
-                                            
-
+<dl>
+    <dt>Mikori klipekkel lehet jelentkezni?
+    <dd>A 2016. október óta bemutatott, az első két Klipszemlére nem nevezett videókat versenyeztetjük idén.</dd>
+</dl>
+<dl>
+    <dt>Benevezhetem a kedvenc klipemet?</dt>
+    <dd>Nem, csak akkor, ha te vagy a kedvenc kliped rendezője, vagy kiadója, vagy gyártója, esetleg előadója. </dd>
+</dl>
+<dl>
+    <dt>Mik a “videoklip jelöléséhez szükséges jogok/engedélyek”, amikkel rendelkeznem kell?</dt>
+    <dd>A jelentkezési űrlapon megadtad a klippel kapcsolatos jogosultságod (előadó, gyártó, stb.), ezek közül valamelyikkel. </dd>
+</dl>
+<dl>
+    <dt>Ha egyik jogcím se érvényes rám, úgy is jelentkezhetek?</dt>
+    <dd>Nem.</dd>
+</dl>
+<dl>
+    <dt>Mit jelent a “magyar vonatkozású” klip?</dt>
+    <dd>Magyar legyen a rendező, az operatőr vagy az előadó. A gyártó cég is jó lenne, de az nem muszáj.</dd>
+</dl>
+<dl>
+    <dt>Fan videóval lehet nevezni?</dt>
+    <dd>Dehogy.</dd>
+</dl>
+<dl>
+    <dt>És cover dal videójával?</dt>
+    <dd>Azzal se.</dd>
+</dl>
+<dl>
+    <dt>Vimeón van csak fent a klipem. Mit csináljak?</dt>
+    <dd>Akkor az a legjobb, ha feltöltöd YouTube-ra nem listázottként, és azzal nevezel. </dd>
+</dl>
+<dl>
+    <dt>A link a végleges nevezésem? A file nem kell nektek?</dt>
+    <dd>De, a shortlistre jutott klipeket külön emailben kérjük majd be.</dd>
+</dl>
+<dl>
+    <dt>Minek kell a telefonszámom is?</dt>
+    <dd>Ha nem érünk el mailben, felhívunk. Meg ha megnyersz egy kategóriát, akkor is hívunk, hogy legyen kinek átadni a díjat.</dd>
+</dl>
+<dl>
+    <dt>Ha nyernék, de nem tudunk ott lenni az eseményen, odaadjátok a díjat másnak?</dt>
+    <dd>Telefonon egyeztetünk majd, de megoldjuk!</dd>
+</dl>
 
                                         </div>
                                         <div class="col-md-6">
-                         <dl> <dt>Nem akarom YouTube-ra tölteni, tolhatom a klipet file-küldőn?</dt><dd>Nem sajnos. Rakd unlisted-re. Aztán ha kell, bekérjük.</dd></dl>
-                         <dl> <dt>Eddig online vagy tv-ben be nem mutatott klippel is lehet nevezni? Lehet a klip premierje a szemle?</dt><dd>Természetesen, szívesen vesszük. A nevezéshez egy unlisted YouTube-linkre lesz szükséged. A beérkezett anyagokat bizalmasan kezeljük, és csak a szervezők és a zsűri fogja látni a szemlééig.</dd></dl>
-                         <dl> <dt>Ha felhasználtok részletet a klipemből promóciós célra, kapok érte pénzt?</dt><dd>Nem. Mi sem kapunk.</dd></dl>
-                         <dl> <dt>Elrontottam valamit az adatlap kitöltésénél, újra kitölthetem?</dt><dd>Igen.</dd></dl>
-                         <dl> <dt>Minden jelölt klip biztosan versenybe kerül?</dt><dd>Nem, csak azok, amik az előszűrésen jónak tűnnek.</dd></dl>
-                         <dl> <dt>Egy ember hány klippel nevezhet?</dt><dd>Bármennyivel.</dd></dl>
-                         <dl> <dt>Ha hosszabb a klip, mint az átlag 3-3,5 perc, akkor is végignézitek, vagy ne is jelöljem?</dt><dd>Persze!</dd></dl>
-                         <dl> <dt>Ha bekerülök, mennyi elfoglaltságot jelent ez? Mikor kell mindenképp ott lenni?</dt><dd>Szeptember 29/30-án a Toldiban!</dd></dl>
-                         <dl> <dt>Vidékről jönnék. Ha versenyben leszünk, fizetitek az utazás költségeit és/vagy tudtok segíteni szállást intézni?</dt><dd>Ne már.</dd></dl>
-                         <dl> <dt>A vetítések és a bulik ingyenesek?</dt><dd>Egyik sem az.</dd></dl>
+
+                                            <dl>
+                                                <dt>Publikusak az infók, amiket beírok a jelentkezésbe?</dt>
+                                                <dd>Kizárólag a szemlét érintő belső használatra szükségesek.</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>Nem akarom YouTube-ra tölteni, tolhatom a klipet file-küldőn?</dt>
+                                                <dd>Nem sajnos. Rakd nem listázottra. Aztán ha kell, bekérjük.</dd>
+                                            </dl>
+
+
+                                            <dl>
+                                                <dt>Eddig online vagy tv-ben be nem mutatott klippel is lehet nevezni? Lehet a klip premierje</dt>  <dd>a Klipszemle?
+                                            Természetesen, szívesen vesszük. A nevezéshez egy YouTube-linkre lesz szükséged. A beérkezett anyagokat bizalmasan kezeljük, és csak a szervezők és a zsűri fogja látni a szemléig.</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>Ha felhasználtok részletet a klipemből promóciós célra, kapok érte pénzt?</dt>
+                                                <dd>Nem. Mi sem kapunk.</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>Elrontottam valamit az adatlap kitöltésénél, újra kitölthetem?</dt>
+                                                <dd>Igen.</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>Minden jelölt klip biztosan versenybe kerül?</dt>
+                                                <dd>Nem, csak azok, amik az előszűrésen átmennek.</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>Egy ember hány klippel nevezhet?</dt>
+                                                <dd>Bármennyivel.</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>Ha hosszabb a klip, mint az átlag 3-3,5 perc, akkor is végignézitek, vagy ne is jelöljem?</dt>
+                                                <dd>Persze!</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>Ha bekerülök, mennyi elfoglaltságot jelent ez? Mikor kell mindenképp ott lenni?</dt>
+                                                <dd>Október 11-én az Ankertben!</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>Vidékről jönnék. Ha versenyben leszünk, fizetitek az utazás költségeit, és/vagy tudtok segíteni szállást intézni?
+                                                </dt>   <dd>Nem. :(</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>A vetítések és a bulik ingyenesek?</dt>
+                                                <dd>Hogyne.</dd>
+                                            </dl>
 
                     </div>
 				</div>

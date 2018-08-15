@@ -45,7 +45,10 @@ class EventRegistrationType extends AbstractType
                 ->add('songtitle', null, array('label' => 'Dal címe'))
                 ->add('length', null, array('label' => 'Hossz (min:sec)', 'attr' => array('data-mask' => '00:00', 'placeholder' => '00:00')))
                 ->add('publisher', null, array('label' => 'Kiadó'))
-                ->add('song_publish_date', 'text', array('label' => 'A dal megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
+                ->add('song_publish_date', 'text', array(
+                    'label' => 'A dal megjelenése', 
+                    'required' => false,
+                    'attr' => array('class' => 'datepicker','input_group' => array(
                 'append' => '<i class="fa fa-calendar"></i>',
             ))))
                 ->add('video_publish_date', 'text', array('label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
@@ -65,11 +68,14 @@ class EventRegistrationType extends AbstractType
                         'class'   => 'PixeloidAppBundle:BudgetCategory',
                         'property' => 'name',
                   //      'attr' => array('class' => 'selectpicker')
+                        'required' => false,
 
                     )
                 )
 
-                ->add('description', 'textarea', array('label' => 'Leírás', 'attr' => array('rows' => 5)))
+                ->add('description', 'textarea', array('label' => 'Valamit még mondanál?', 
+                    'required' => false,
+                    'attr' => array('rows' => 5)))
                 ->add('video_url', 'text', array('label' => 'A klip youtube linkje'))
 
                 // ->add('moviecategories', 'entity', array(

@@ -8,11 +8,12 @@ nbproject
 # VCS files
 .gitignore
 .travis.yml
+.git
 
 /app/config/parameters.yml
 /app/logs/*
 /app/cache/*
 /app/sessions/*
-vendor
 node_modules
 web/bundles
+

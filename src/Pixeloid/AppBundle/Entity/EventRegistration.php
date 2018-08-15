@@ -99,8 +99,7 @@ class EventRegistration
 
 
     /**
-     * @ORM\Column(type="string", name="length", nullable=false, length=50)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @ORM\Column(type="string", name="length", nullable=true, length=50)
      */
     protected $length;
 
@@ -108,13 +107,13 @@ class EventRegistration
 
 
     /**
-     * @ORM\Column(type="string", name="publisher", nullable=false, length=150, nullable=true)
+     * @ORM\Column(type="string", name="publisher", length=150, nullable=true)
      */
     protected $publisher;
     
 
     /**
-     * @ORM\Column(type="text", name="song_publish_date", nullable=false, length=150)
+     * @ORM\Column(type="text", name="song_publish_date", nullable=true, length=150)
      */
     protected $song_publish_date;
     
@@ -136,24 +135,21 @@ class EventRegistration
     protected $director;
 
     /**
-     * @ORM\Column(type="string", name="photographer", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @ORM\Column(type="string", name="photographer", nullable=true, length=150)
      */
     protected $photographer;
 
     /**
-     * @ORM\Column(type="string", name="designer", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @ORM\Column(type="string", name="designer", nullable=true, length=150)
      */
     protected $designer;
     /**
-     * @ORM\Column(type="string", name="editor", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @ORM\Column(type="string", name="editor", nullable=true, length=150)
      */
     protected $editor;
 
     /**
-     * @ORM\Column(type="string", name="technology", nullable=false, length=150)
+     * @ORM\Column(type="string", name="technology", nullable=true, length=150)
      */
     protected $technology;
 
@@ -172,7 +168,7 @@ class EventRegistration
 
 
     /**
-     * @ORM\Column(type="text", name="description", nullable=false)
+     * @ORM\Column(type="text", name="description", nullable=true)
      */
     protected $description;
 
