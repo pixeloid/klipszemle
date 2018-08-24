@@ -30,18 +30,16 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form:
-        resources:
-            - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
     form_themes:
+        - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
         - 'PixeloidAppBundle:Form:fields.html.twig'
 
 
 braincrafted_bootstrap:
-    less_filter: less
+    css_preprocessor: less
     customize:
-        variables_file: %kernel.root_dir%/../src/Pixeloid/AppBundle/Resources/public/less/variables.less
-        bootstrap_output: @PixeloidAppBundle/Pixeloid/AppBundle/Resources/public/less/bootstrap.less
+        variables_file: '%kernel.root_dir%/../src/Pixeloid/AppBundle/Resources/public/less/variables.less'
+        bootstrap_output: '@PixeloidAppBundle/Pixeloid/AppBundle/Resources/public/less/bootstrap.less'
     auto_configure:
         knp_paginator: false
         assetic: false
@@ -84,9 +82,8 @@ swiftmailer:
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    encryption: tls
     auth_mode:  login
-    # spool:     { type: memory }
+    spool:     { type: memory }
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
@@ -99,7 +96,7 @@ fos_user:
 ewz_recaptcha:
     public_key:  6LeGdgsTAAAAAETpYR8N7_O5HR9OrrMweeWG2tyd
     private_key: 6LeGdgsTAAAAAGrF8S35qEkQzzcoBnupPMe8gQzd
-    locale_key:  %kernel.default_locale%
+    locale_key:  '%kernel.default_locale%'
 
 
 knp_snappy:
@@ -111,7 +108,7 @@ knp_snappy:
         enabled:    true
         binary:     /usr/local/bin/wkhtmltoimage #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" for Windows users
         options:    []
-    temporary_folder: %kernel.cache_dir%/snappy
+    temporary_folder: "%kernel.cache_dir%/snappy"
 
 # ivory_ck_editor:
 #     default_config: my_config
@@ -134,11 +131,11 @@ knp_snappy:
 #                 lang:  '%locale%'
 
 
-avalanche_imagine:
-    filters:
-        carousel:
-            type:    thumbnail
-            options: { size: [900, 550], mode: outbound, quality: 80, format: png }
+# avalanche_imagine:
+#     filters:
+#         carousel:
+#             type:    thumbnail
+#             options: { size: [900, 550], mode: outbound, quality: 80, format: png }
 
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set
@@ -187,13 +184,13 @@ deploy:
         - app/console doctrine:schema:update --force --env=prod    
   prod:
     rsync-options: '-azC --force --delete --progress -h --checksum'
-    host: figamu.hu
-    dir: /var/www/klipszemle.com/
-    user: root
+    host: klipszemle.com
+    dir: /home/misand/web/klipszemle.com/
+    user: misand
     port: 22
     timeout: 0 # Connection timeout in seconds. 0 for no timeout.
     post_deploy_operations: 
-        # - composer install
+        - composer install
         - app/console cache:clear --env=prod
         - app/console assets:install --env=prod --symlink
-        - app/console doctrine:schema:update --force --env=prod    
+        - app/console doctrine:schema:update --force --env=prod  

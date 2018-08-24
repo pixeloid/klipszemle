@@ -10,6 +10,8 @@ use Pixeloid\AppBundle\Entity\Accomodation;
 use Pixeloid\AppBundle\Entity\RoomReservation;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use Doctrine\ORM\EntityRepository;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class DocumentType extends AbstractType
 {
@@ -21,10 +23,10 @@ class DocumentType extends AbstractType
     {
         
                 $builder
-                    ->add('lead', 'ckeditor', array('label' => 'Program bevezető'))
-                    ->add('day1', 'ckeditor', array('label' => '1. nap'))
-                    ->add('day2', 'ckeditor', array('label' => '2. nap'))
-                    ->add('submit', 'submit')
+                    ->add('lead', CKEditorType::class, array('label' => 'Program bevezető'))
+                    ->add('day1', CKEditorType::class, array('label' => '1. nap'))
+                    ->add('day2', CKEditorType::class, array('label' => '2. nap'))
+                    ->add('submit', SubmitType::class)
 
 
                 ;
@@ -38,7 +40,7 @@ class DocumentType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'pixeloid_appbundle_document';
     }

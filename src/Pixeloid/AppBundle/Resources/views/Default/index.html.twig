@@ -18,7 +18,7 @@
      <div class="intro-body">
          <div class="container">
              <div class="row">
-                 <div class="col-md-6 col-md-offset-2 text-center">
+                 <div class="col-md-6 col-md-offset-2 ">
 <!--                  	<br>
 						<h3>A nevezés lezárult!</h3>
                  	<br>
@@ -29,6 +29,7 @@
 
                      </h1> -->
                      <h1 class="intro-text">Harmadik<br>is lesz. </h1>
+                     <a href="{{ path('eventregistration_new') }}" class="btn">Jelentkezem!</a>
                     {# <p>
                      	<a class="btn btn-primary" href="{{ path('vote') }}">KÖZÖNSÉGSZAVAZÁS</a>
                      </p>#}
@@ -41,6 +42,17 @@
      </div>
  </header>
  <section id="about" class="container content-section ">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+            <img src="{{ asset('bundles/pixeloidapp/svg/szponzorcsik.svg') }}" width="100%" alt="">
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
      <div class="row">
          <div class="col-lg-6 col-md-12">
              <h2>MI AZ A KLIPSZEMLE?</h2>
@@ -51,9 +63,21 @@ Ezen változtattunk.
 Az első két évben közel 2000 nevezés érkezett, majd alkalmanként 5000 embert mozgattunk meg a magyar klipszakma ünnepén. </p>
 <p>Célunk egy olyan, itthon egyedülálló, független rendezvény létrehozása volt, ami ezen alkotások művészi értékét kiemelve, széles vásznon prezentálja a média, a szakma és az érdeklődők felé. </p>
 <p>Az augusztusban tartó online nevezést egy októberi rendezvény követi az Ankertben, ahol a legjobb klipeket nézhetitek meg nagy vásznon, majd a díjátadón kiderül, kik az idei nyerteseink. Az estét egy afterpartyval zárjuk.</p>
+{#
+<br>
+<hr>
+ <div class="row">
+    <div class="col-xs-2">
+        <img src="{{ asset('bundles/pixeloidapp/images/cafe.svg') }}" width="80" alt="">
+    </div>
+    <div class="col-xs-10">
+        A 03. Magyar Klipszemle a <b>CAFe Budapest Kortárs Művészeti Fesztivál</b> segítségével és támogatásával valósul meg.
+    </div>
+</div>
+<hr>
              </div>
      </div>
- </section>
+ #} </section>
 
 {# 
   <section id="winners" class="container content-section ">
@@ -241,12 +265,12 @@ Az első két évben közel 2000 nevezés érkezett, majd alkalmanként 5000 emb
             <div class="row">
                 <div class="col-lg-6 col-md-12 text-center">
                     <h2>Kapcsolat</h2>
- <ul class="list-unstyled"><li>             <a href="mailto:info@klipszemle.com">info@klipszemle.com</a></li>
+ <ul class="list-unstyled"><li>             <a href="mailto:info.klipszemle@gmail.com">info@klipszemle.com</a></li>
 {#                 <li>                Sajtó akkreditáció: <br> <a href="mailto:sajto@klipszemle.com">sajto@klipszemle.com</a> </li>
  #}                {# <li>                Toldi Malomkő Kft. 1054 Budapest, <br>Bajcsy-Zsilinszky út 36-38.</li> #}
 
-<li><a href="http://fb.com/klipszemle">fb.com/klipszemle</a></li>
-<li><a href="http://instagram.com/magyar_klipszemle">Instagram: magyar_klipszemle</a></li>
+<li><a href="http://fb.com/klipszemle" target="_blank">fb.com/klipszemle</a></li>
+<li><a href="http://instagram.com/magyar_klipszemle" target="_blank">Instagram: magyar_klipszemle</a></li>
                 </ul>               
             </div>
 
@@ -265,9 +289,8 @@ Az első két évben közel 2000 nevezés érkezett, majd alkalmanként 5000 emb
 
  <section id="faq" class="container content-section ">
 			<div class="row">
-                <div class="col-lg-2">
+                <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
                     <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-05.svg') }}"  class="content-section__ill content-section__ill--vertcenter">
-
                 </div>
 				<div class="col-lg-10">
                     <div class="row">

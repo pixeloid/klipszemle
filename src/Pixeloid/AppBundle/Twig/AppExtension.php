@@ -7,7 +7,7 @@ class AppExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('yt_id', array($this, 'youtubeIdFilter')),
+          //  new \Twig_SimpleFilter('yt_id', array($this, 'youtubeIdFilter')),
         );
     }
 

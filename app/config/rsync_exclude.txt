@@ -16,4 +16,5 @@ nbproject
 /app/sessions/*
 node_modules
 web/bundles
+vendor
 

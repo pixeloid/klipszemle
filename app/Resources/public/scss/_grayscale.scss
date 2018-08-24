@@ -94,6 +94,29 @@ a {
             text-transform: uppercase;
         }
     }
+
+    .btn{
+        font-size: 3em;
+        font-weight: 900;
+        font-style: italic;
+        text-transform: uppercase;
+        display: inline-block;
+        border: 3px solid $brand-primary;
+        padding: .5em 1em;
+        &:hover{
+            background:$brand-primary;
+            color: black;
+        }
+          animation: blinker 1s linear infinite;
+    }
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+
+
     padding: 60px 0;
 
     @media(min-width:$screen-sm) {
@@ -335,11 +358,11 @@ a {
     dl{
         dt{
             text-transform: uppercase;
-            font-size: 1.3em;
+            font-size: 1.1em;
         }
 
         dd{
-            font-size: 1.4rem;
+            // font-size: 1.4rem;
         }
     }
 }

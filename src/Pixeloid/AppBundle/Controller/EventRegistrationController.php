@@ -304,89 +304,90 @@ class EventRegistrationController extends Controller
         $form = $flow->createForm();
 
 
+        if ($form->isSubmitted()) {
+            if ($flow->isValid($form)) {
+                
+                $flow->saveCurrentStepData($form);
 
-        if ($flow->isValid($form)) {
-            
-            $flow->saveCurrentStepData($form);
+                if ($flow->nextStep()) {
+                    // form for the next step
+                    $form = $flow->createForm();
+                } else {
+                    // flow finished
+                    $userManager = $this->get('fos_user.user_manager');
+                    $em = $this->getDoctrine()->getManager();
 
-            if ($flow->nextStep()) {
-                // form for the next step
-                $form = $flow->createForm();
-            } else {
-                // flow finished
-                $userManager = $this->get('fos_user.user_manager');
-                $em = $this->getDoctrine()->getManager();
+                    $user = $userManager->findUserByEmail($entity->getEmail());
+                    $plainpass = null;
 
-                $user = $userManager->findUserByEmail($entity->getEmail());
-                $plainpass = null;
+                    if (!$user) {
+                        $plainpass = $this->generatePassword();
+                        $user = $userManager->createUser();
+                        $user->setEmail($entity->getEmail());
+                        $user->setUsername($entity->getEmail());
+                        $user->setPlainPassword($plainpass);
+                    }
 
-                if (!$user) {
-                    $plainpass = $this->generatePassword();
-                    $user = $userManager->createUser();
-                    $user->setEmail($entity->getEmail());
-                    $user->setUsername($entity->getEmail());
-                    $user->setPlainPassword($plainpass);
+                    $user->setEnabled(true);
+                    $userManager->updateUser($user);
+
+                    $entity->setUser($user);
+                    $entity->setCreated(new \DateTime);
+                    
+                    $em->persist($entity);
+                    $em->flush();
+
+
+                    $flow->reset(); // remove step data from the session
+
+                    // $userManager = $this->get('fos_user.user_manager');
+
+                    // $user = $userManager->findUserByEmail($entity->getUser()->getEmail());
+                    // $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
+                    // $this->get("security.context")->setToken($token);
+
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
+                        ->setFrom('info@klipszemle.com')
+                        ->setTo(array($entity->getUser()->getEmail()))
+                        ->setBody(
+                            $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
+                                'entity'      => $entity,
+                                'plainpass' => $plainpass,
+                            )), 'text/html'
+                        );
+
+                    $this->get('mailer')->send($message);
+
+
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
+                        ->setFrom('info@klipszemle.com')
+                        ->setTo(array('info@klipszemle.com', 'olah.gergely@pixeloid.hu'))
+                        ->setBody(
+                            $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
+                                'entity'      => $entity,
+                                'plainpass' => $plainpass,
+                            )), 'text/html'
+                        );
+
+                    $this->get('mailer')->send($message);
+
+
+                    return $this->redirect($this->generateUrl('eventregistration_success', array('id' => $entity->getId())));
                 }
 
-                $user->setEnabled(true);
-                $userManager->updateUser($user);
+            }else{
+                // $errors = array();
 
-                $entity->setUser($user);
-                $entity->setCreated(new \DateTime);
-                
-                $em->persist($entity);
-                $em->flush();
+                // foreach ($form->getErrors() as $key => $error) {
+                //         $errors[] = $error->getMessage();
+                // }
 
 
-                $flow->reset(); // remove step data from the session
+                // var_dump($errors);
+            }        }
 
-                // $userManager = $this->get('fos_user.user_manager');
-
-                // $user = $userManager->findUserByEmail($entity->getUser()->getEmail());
-                // $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
-                // $this->get("security.context")->setToken($token);
-
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
-                    ->setFrom('noreply@klipszemle.hu')
-                    ->setTo(array($entity->getUser()->getEmail()))
-                    ->setBody(
-                        $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
-                            'entity'      => $entity,
-                            'plainpass' => $plainpass,
-                        )), 'text/html'
-                    );
-
-                $this->get('mailer')->send($message);
-
-
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
-                    ->setFrom('noreply@klipszemle.hu')
-                    ->setTo(array('info@klipszemle.hu', 'olah.gergely@pixeloid.hu'))
-                    ->setBody(
-                        $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
-                            'entity'      => $entity,
-                            'plainpass' => $plainpass,
-                        )), 'text/html'
-                    );
-
-                $this->get('mailer')->send($message);
-
-
-                return $this->redirect($this->generateUrl('eventregistration_success', array('id' => $entity->getId())));
-            }
-
-        }else{
-            // $errors = array();
-
-            // foreach ($form->getErrors() as $key => $error) {
-            //         $errors[] = $error->getMessage();
-            // }
-
-
-            // var_dump($errors);
-        }
 
 
 
@@ -454,14 +455,13 @@ class EventRegistrationController extends Controller
     public function showAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $securityContext = $this->container->get('security.context');
 
-        $user = $securityContext->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
 
         $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->find($id);
 
-        if (!$entity || $entity->getUser() !== $user && !$securityContext->isGranted('ROLE_ADMIN')) {
+        if (!$entity || $entity->getUser() !== $user && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw $this->createNotFoundException('Unable to find EventRegistration entity.');
         }
 

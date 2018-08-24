@@ -8,10 +8,7 @@ services:
   pixeloid_app.flow.eventRegistration:
     class: Pixeloid\AppBundle\Form\EventRegistrationFlow
     parent: craue.form.flow
-    scope: request
-    calls:
-      - [ setFormType, [ "@pixeloid_app.form.eventRegistration" ] ]
-
+    public: true
   # pixeloid_app.datatable.eventregistration:
   #     class: Pixeloid\AppBundle\Datatables\EventRegistrationDatatable
   #     parent: sg_datatables.datatable.abstract
@@ -29,3 +26,39 @@ services:
   pixeloid_app.fosub.user_provider:
       class:        Pixeloid\AppBundle\Security\User\Provider\OAuthUserProvider
       arguments: ['@fos_user.user_manager', { facebook: facebook_id }]
+
+
+
+
+  pixeloid_app.menu_builder:
+    class: Pixeloid\AppBundle\Menu\Builder
+    arguments: ["@knp_menu.factory"]
+    calls:
+      - [ setContainer, ["@service_container"] ]
+
+  pixeloid_app.main_menu:
+    class: Knp\Menu\MenuItem # the service definition requires setting the class
+    factory: ["@pixeloid_app.menu_builder", mainMenu]
+    arguments: ["@request_stack"]
+    tags:
+        - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
+
+
+
+  pixeloid_app.secondary_menu:
+    class: Knp\Menu\MenuItem # the service definition requires setting the class
+    factory: ["@pixeloid_app.menu_builder", secondaryMenu]
+    arguments: ["@request_stack"]
+    tags:        
+      - { name: knp_menu.menu, alias: secondary } # The alias is what is used to retrieve the menu
+    
+
+
+
+  pixeloid_app.top_menu:
+    class: Knp\Menu\MenuItem # the service definition requires setting the class
+    factory: ["@pixeloid_app.menu_builder", topMenu]
+    arguments: ["@request_stack"]
+    tags:        
+      - { name: knp_menu.menu, alias: top } # The alias is what is used to retrieve the menu
+    

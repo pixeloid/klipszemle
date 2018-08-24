@@ -20,25 +20,17 @@ use Craue\FormFlowBundle\Event\PreBindEvent;
 
 class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface{
 
-    /**
-     * @var FormTypeInterface
-     */
-    protected $formType;
 
-    public function setFormType(FormTypeInterface $formType) {
-        $this->formType = $formType;
-    }
+    // public function getFormOptions($step, array $options = array()) {
+    //     // $options = parent::getFormOptions($step, $options);
 
-    public function getFormOptions($step, array $options = array()) {
-        $options = parent::getFormOptions($step, $options);
-
-        $options['cascade_validation'] = true;
-        // $options['validation_groups'] = function(FormInterface $form) use ($step){
-        //     $data = $form->getData();
-        //     return array('paymentMethod' . ucfirst($data->getPaymentMethod()), 'flow_eventRegistration_step'.$step);
-        // };
-        return $options;
-    }
+    //     // $options['cascade_validation'] = true;
+    //     // $options['validation_groups'] = function(FormInterface $form) use ($step){
+    //     //     $data = $form->getData();
+    //     //     return array('paymentMethod' . ucfirst($data->getPaymentMethod()), 'flow_eventRegistration_step'.$step);
+    //     // };
+    //     return $options;
+    // }
 
 
     public function getName() {
@@ -49,15 +41,15 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
         return array(
             array(
                 'label' => 'Személyes adatok',
-                'type' => $this->formType,
+                'form_type' => 'Pixeloid\AppBundle\Form\EventRegistrationType',
             ),
             array(
                 'label' => 'A nevezett mű adatai',
-                'type' => $this->formType,
+                'form_type' => 'Pixeloid\AppBundle\Form\EventRegistrationType',
             ),
             array(
                 'label' => 'Ellenőrzés',
-                'type' => $this->formType,
+                'form_type' => 'Pixeloid\AppBundle\Form\EventRegistrationType',
             ),
 
         );

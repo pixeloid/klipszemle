@@ -212,7 +212,7 @@ class EventRegistration
 
 
     /**
-     * @Recaptcha\IsTrue(groups={"flow_eventRegistration_step3"})
+     * @Recaptcha\IsTrue(groups={"xxxxx_flow_eventRegistration_step3"})
      */
     public $recaptcha;
 
@@ -224,7 +224,7 @@ class EventRegistration
     protected $user_title = null;
     /**
      * @ORM\ManyToOne(targetEntity="BudgetCategory")
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @ORM\JoinColumn(name="budget_category_id", referencedColumnName="id", nullable=true)
      */
     protected $budget_category = null;
     

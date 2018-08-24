@@ -31,7 +31,7 @@ class YoutubeValidator extends ConstraintValidator
 		}
 
 		if(!isset($values)){
-			$this->buildViolation($constraint->message)
+			$this->context->buildViolation($constraint->message)
 			    ->addViolation();
 		}
 

@@ -4,14 +4,28 @@ namespace Pixeloid\AppBundle\Menu;
 
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\HttpFoundation\RequestStack;
 
-class Builder extends ContainerAware
+class Builder implements ContainerAwareInterface
 {
-    public function mainMenu(FactoryInterface $factory, array $options)
+
+  use ContainerAwareTrait;
+
+
+  private $factory;
+
+  public function __construct(FactoryInterface $factory)
+  {
+      $this->factory = $factory;
+  }
+
+
+    public function mainMenu(RequestStack $requestStack)
     {
 
-        $menu = $factory->createItem('root');
+        $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(array('class' => 'nav navbar-nav'));
 
         $menu = $this->buildChildren($menu);
@@ -20,9 +34,9 @@ class Builder extends ContainerAware
         return $menu;
   }
 
-  public function secondaryMenu(FactoryInterface $factory, array $options){
+  public function secondaryMenu(RequestStack $requestStack){
 
-    $menu = $factory->createItem('root');
+    $menu = $this->factory->createItem('root');
     $menu->setChildrenAttributes(array('class' => 'nav navbar-nav hidden-md hidden-sm hidden-xs'));
     // $menu->addChild('Nevezési Határidő 09.03.', array('route' => 'eventregistration_new', 'routeParameters' => array()));
 //    $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'highlight');;
@@ -33,15 +47,14 @@ class Builder extends ContainerAware
 
   }
 
-  public function topMenu(FactoryInterface $factory, array $options){
+  public function topMenu(RequestStack $requestStack){
 
-    $menu = $factory->createItem('root');
+    $menu = $this->factory->createItem('root');
     $menu->setChildrenAttributes(array('class' => 'nav navbar-nav'));
 
 
-    $securityContext = $this->container->get('security.context');
 
-    if ($securityContext->isGranted('ROLE_USER')) {
+    if ($this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
         // The current (may be switched) username.
         // $username = $securityContext->getToken()->getUser()->getUsername();
 
@@ -51,7 +64,7 @@ class Builder extends ContainerAware
         $menu->addChild('Kilépés', array('route' => 'fos_user_security_logout'));
         // $menu->addChild('Fiókom', array('route' => 'fos_user_profile_show'));
 
-        if ($securityContext->isGranted('ROLE_ADMIN')) {
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
           $menu->addChild('Regisztrációk listája', array('route' => 'eventregistration'));
         }
     }
@@ -66,9 +79,8 @@ class Builder extends ContainerAware
 
   private function buildChildren($menu)
   {
-    $securityContext = $this->container->get('security.context');
 
-    if ($securityContext->isGranted('ROLE_ADMIN')) {
+    if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
       $menu->addChild('Shortlist', array('route' => 'shortlist_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
     }
 

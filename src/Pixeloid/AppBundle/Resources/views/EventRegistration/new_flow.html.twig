@@ -55,39 +55,46 @@
 
 
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             {{ form_row(form.author) }}
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             {{ form_row(form.songtitle) }}
         </div>
 
-        <div class="col-sm-2">
-            {{ form_row(form.length) }}
+        <div class="col-sm-4">
+            {{ form_row(form.director) }}
         </div>
 
 
     </div>
     <div class="row">
-        <div class="col-sm-4">
-            {{ form_row(form.publisher) }}
-        </div>
-
-        <div class="col-sm-4">
-            {{ form_row(form.song_publish_date) }}
+        <div class="col-sm-8">
+            {{ form_row(form.video_url) }}
         </div>
 
         <div class="col-sm-4">
             {{ form_row(form.video_publish_date) }}
         </div>
-
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-8">
+        {{ form_row(form.publisher) }}
     </div>
+    <div class="col-sm-4">
+        {{ form_row(form.length) }}
+    </div>
+
+
+
+</div>
     <div class="row">
         <div class="col-sm-4">
             {{ form_row(form.producer) }}
         </div>
         <div class="col-sm-4">
-            {{ form_row(form.director) }}
+            {{ form_row(form.song_publish_date) }}
         </div>
         <div class="col-sm-4">
             {{ form_row(form.photographer) }}
@@ -109,7 +116,6 @@
     <div class="row">
         <div class="col-sm-6">
         {{ form_row(form.budget_category) }}
-        {{ form_row(form.video_url) }}
 
 
         </div>
@@ -133,7 +139,7 @@
                 </div>
 
             </div>
-
+{# 
             <div class="row">
 
                 <div class="col-sm-8">
@@ -144,7 +150,7 @@
                 {{ form_errors(form.recaptcha) }}
                 </div>
                 </div>
-            </div>     
+            </div>      #}
         {% endif %}
 
         {{ form_rest(form) }}

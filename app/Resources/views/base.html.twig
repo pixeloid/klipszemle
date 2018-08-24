@@ -3,22 +3,22 @@
     <head>
         <title>03. Magyar Klipszemle!{% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta property="og:site_name" content="02. Magyar Klipszemle"/>
+        <meta property="og:site_name" content="03. Magyar Klipszemle"/>
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="hu_HU" />            <!-- Default -->
         <meta property="fb:app_id" content="646741755492022" />            <!-- Default -->
         
         {% block og_title %}
-        <meta property="og:title" content="Harmadik Magyar Klipszemle" />
+        <meta property="og:title" content="03. Magyar Klipszemle" />
         {% endblock %}
 
         {% block og_image %}
         <meta property="og:image"
-        content="http://www.klipszemle.com/images/mksz_2016_cover.png" />
+        content="http://www.klipszemle.com/images/Magyar_Klipszemle_1920x1080px-01.jpg" />
         {% endblock %}
 
         {% block og_description %}
-        <meta property="og:description" content="EZ A HARMADIK KLIPSZEMLE WEBKIKÖTŐJE // JELENTKEZÉS // ZSŰRI // MI EZ? // SZERVEZŐK // FAQ // STB." />
+        <meta property="og:description" content="JELENTKEZÉS // ZSŰRI // MI EZ? // SZERVEZŐK // FAQ // STB." />
         {% endblock %}
 
 
@@ -51,6 +51,8 @@
     </head>
 <body class="{% block bodyclass %}{% endblock %}">
     <div id="fb-root"></div>
+
+    
     <script>
         window.fbAsyncInit = function() {
             // init the FB JS SDK
@@ -102,11 +104,11 @@
             </a>
         </div>
         
-        {{ knp_menu_render('PixeloidAppBundle:Builder:secondaryMenu', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }}
+        {# {{ knp_menu_render('secondary', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }} #}
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-        {{ knp_menu_render('PixeloidAppBundle:Builder:mainMenu', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }}
+        {{ knp_menu_render('main', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }}
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -142,7 +144,7 @@
         </div>
 
         <div class="col-sm-4">
-            {{ knp_menu_render('PixeloidAppBundle:Builder:topMenu', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }}
+            {{ knp_menu_render('top', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }}
 
         </div>
     </div>
