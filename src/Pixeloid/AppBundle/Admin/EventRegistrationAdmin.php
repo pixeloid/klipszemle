@@ -77,9 +77,9 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('songtitle')
             ->add('video_url')
             ->add('moviecategories')
-            ->add('winner')
-            ->add('onshow')
-            ->add('premiere')
+            // ->add('winner')
+            // ->add('onshow')
+            // ->add('premiere')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -93,8 +93,23 @@ class EventRegistrationAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('user')
             ->add('name')
+            ->add('video_url')
+            ->add('moviecategories', 'sonata_type_collection', array(
+                'by_reference' => false
+                ),
+                array(
+                       'edit' => 'inline',
+                       'sortable' => 'position',
+                        'inline' => 'table',
+                  )
+            )
+            ->add('producer')
+            ->add('director')
+            ->add('photographer')
+            ->add('designer')
+            ->add('editor')
+
             ->add('company')
             ->add('website')
             ->add('address')
@@ -105,26 +120,10 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('publisher')
             ->add('song_publish_date', 'text')
             ->add('video_publish_date','text')
-            ->add('producer')
-            ->add('director')
-            ->add('photographer')
-            ->add('designer')
-            ->add('editor')
             ->add('technology')
-            ->add('moviecategories', 'sonata_type_collection', array(
-                'by_reference' => false
-                ),
-                array(
-                       'edit' => 'inline',
-                       'sortable' => 'position',
-                        'inline' => 'table',
-                  )
-            )
             ->add('budget_category')
             ->add('description')
-            ->add('video_url')
             ->add('email')
-            ->add('created')
             ->add('winner')
             ->add('onshow')
             ->add('premiere')

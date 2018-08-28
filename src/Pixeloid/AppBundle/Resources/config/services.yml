@@ -83,12 +83,6 @@ services:
   #         - { name: sonata.admin, manager_type: orm, group: admin, label: EventRegistrationCategory }
   #     public: true
 
-  # pixeloid_app.admin.movie_category:
-  #     class: Pixeloid\AppBundle\Admin\MovieCategoryAdmin
-  #     arguments: [~, Pixeloid\AppBundle\Entity\MovieCategory, SonataAdminBundle:CRUD]
-  #     tags:
-  #         - { name: sonata.admin, manager_type: orm, group: admin, label: MovieCategory }
-  #     public: true
 
   # pixeloid_app.admin.user:
   #     class: Pixeloid\AppBundle\Admin\UserAdmin
@@ -96,3 +90,18 @@ services:
   #     tags:
   #         - { name: sonata.admin, manager_type: orm, group: admin, label: User }
   #     public: true
+
+
+  pixeloid_app.admin.movie_category:
+      class: Pixeloid\AppBundle\Admin\MovieCategoryAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\MovieCategory, SonataAdminBundle:CRUD]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: admin, label: MovieCategory }
+      public: true
+
+  pixeloid_app.admin.event_registration_category:
+      class: Pixeloid\AppBundle\Admin\EventRegistrationCategoryAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\EventRegistrationCategory, SonataAdminBundle:CRUD]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: admin, label: EventRegistrationCategory }
+      public: true
