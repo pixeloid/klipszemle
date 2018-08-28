@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: sonata_admin.yml }
 
 framework:
     #esi:             ~
@@ -22,7 +23,7 @@ framework:
     trusted_proxies: ~
     session:
         handler_id: session.handler.native_file
-        save_path: '%kernel.root_dir%/sessions'
+        save_path: '%kernel.root_dir%/../var/sessions'
     fragments:       ~
     http_method_override: true
 
@@ -33,6 +34,7 @@ twig:
     form_themes:
         - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
         - 'PixeloidAppBundle:Form:fields.html.twig'
+        - '@SonataCore/Form/datepicker.html.twig'
 
 
 braincrafted_bootstrap:
@@ -179,9 +181,9 @@ deploy:
     port: 22
     timeout: 0 # Connection timeout in seconds. 0 for no timeout.
     post_deploy_operations: 
-        - app/console cache:clear --env=prod
-        - app/console assets:install --env=prod
-        - app/console doctrine:schema:update --force --env=prod    
+        - bin/console cache:clear --env=prod
+        - bin/console assets:install --env=prod
+        - bin/console doctrine:schema:update --force --env=prod    
   prod:
     rsync-options: '-azC --force --delete --progress -h --checksum'
     host: klipszemle.com
@@ -191,6 +193,6 @@ deploy:
     timeout: 0 # Connection timeout in seconds. 0 for no timeout.
     post_deploy_operations: 
         - composer install
-        - app/console cache:clear --env=prod
-        - app/console assets:install --env=prod --symlink
-        - app/console doctrine:schema:update --force --env=prod  
+        - bin/console cache:clear --env=prod
+        - bin/console assets:install --env=prod --symlink
+        - bin/console doctrine:schema:update --force --env=prod  

@@ -34,6 +34,12 @@ class AppKernel extends Kernel
             new Http\HttplugBundle\HttplugBundle(), // If you require the php-http/httplug-bundle package.
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
+
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+
             new Pixeloid\AppBundle\PixeloidAppBundle(),
           //  new Pixeloid\UserBundle\PixeloidUserBundle(),
         );

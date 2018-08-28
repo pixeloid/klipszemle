@@ -61,4 +61,38 @@ services:
     arguments: ["@request_stack"]
     tags:        
       - { name: knp_menu.menu, alias: top } # The alias is what is used to retrieve the menu
-    
+
+  pixeloid_app.admin.event_registration:
+      class: Pixeloid\AppBundle\Admin\EventRegistrationAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\EventRegistration, PixeloidAppBundle:EventRegistrationAdmin]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Content, label: Nevezett klipek }
+      public: true
+
+  # pixeloid_app.admin.budget_category:
+  #     class: Pixeloid\AppBundle\Admin\BudgetCategoryAdmin
+  #     arguments: [~, Pixeloid\AppBundle\Entity\BudgetCategory, SonataAdminBundle:CRUD]
+  #     tags:
+  #         - { name: sonata.admin, manager_type: orm, group: admin, label: BudgetCategory }
+  #     public: true
+
+  # pixeloid_app.admin.event_registration_category:
+  #     class: Pixeloid\AppBundle\Admin\EventRegistrationCategoryAdmin
+  #     arguments: [~, Pixeloid\AppBundle\Entity\EventRegistrationCategory, SonataAdminBundle:CRUD]
+  #     tags:
+  #         - { name: sonata.admin, manager_type: orm, group: admin, label: EventRegistrationCategory }
+  #     public: true
+
+  # pixeloid_app.admin.movie_category:
+  #     class: Pixeloid\AppBundle\Admin\MovieCategoryAdmin
+  #     arguments: [~, Pixeloid\AppBundle\Entity\MovieCategory, SonataAdminBundle:CRUD]
+  #     tags:
+  #         - { name: sonata.admin, manager_type: orm, group: admin, label: MovieCategory }
+  #     public: true
+
+  # pixeloid_app.admin.user:
+  #     class: Pixeloid\AppBundle\Admin\UserAdmin
+  #     arguments: [~, Pixeloid\AppBundle\Entity\User, SonataAdminBundle:CRUD]
+  #     tags:
+  #         - { name: sonata.admin, manager_type: orm, group: admin, label: User }
+  #     public: true

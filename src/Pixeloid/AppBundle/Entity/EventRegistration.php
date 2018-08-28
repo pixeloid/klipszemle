@@ -1274,6 +1274,8 @@ class EventRegistration
     {
         $this->moviecategories[] = $movieCategory;
 
+        $movieCategory->setEventRegistration($this);
+        
         return $this;
     }
 

@@ -125,4 +125,10 @@ class MovieCategory
 
         return $this->eventRegistrationCategories;
     }
+
+        public function __toString()
+    {
+        return $this->name;
+    }
+
 }

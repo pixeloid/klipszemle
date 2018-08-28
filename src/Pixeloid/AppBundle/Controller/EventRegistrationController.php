@@ -304,7 +304,6 @@ class EventRegistrationController extends Controller
         $form = $flow->createForm();
 
 
-        if ($form->isSubmitted()) {
             if ($flow->isValid($form)) {
                 
                 $flow->saveCurrentStepData($form);
@@ -386,8 +385,7 @@ class EventRegistrationController extends Controller
 
 
                 // var_dump($errors);
-            }        }
-
+            }      
 
 
 

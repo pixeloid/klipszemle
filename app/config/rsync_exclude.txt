@@ -11,9 +11,9 @@ nbproject
 .git
 
 /app/config/parameters.yml
-/app/logs/*
-/app/cache/*
-/app/sessions/*
+/var/logs/*
+/var/cache/*
+/var/sessions/*
 node_modules
 web/bundles
 vendor
