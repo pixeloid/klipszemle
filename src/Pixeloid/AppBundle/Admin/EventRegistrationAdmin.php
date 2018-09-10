@@ -32,7 +32,7 @@ class EventRegistrationAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
+            ->add('moviecategories')
             ->add('number')
             ->add('name')
             ->add('title')
@@ -71,15 +71,17 @@ class EventRegistrationAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('name')
-            ->add('user.email')
+            ->add('id')
             ->add('author')
-            ->add('songtitle')
-            ->add('video_url')
+            ->add('video_url', null, array('template' => 'PixeloidAppBundle:Admin:CRUD/list_youtube.html.twig'))
             ->add('moviecategories')
-            // ->add('winner')
-            // ->add('onshow')
-            // ->add('premiere')
+            ->add('director')
+            ->add('premiere', null, [
+                "editable" => true,
+            ])
+            ->add('shortlist', null, [
+                "editable" => true,
+            ])
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -93,6 +95,7 @@ class EventRegistrationAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('shortlist')
             ->add('name')
             ->add('video_url')
             ->add('moviecategories', 'sonata_type_collection', array(
