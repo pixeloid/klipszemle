@@ -124,8 +124,9 @@ class EventRegistrationCategory
 
         public function __toString()
     {
-        return $this->category->getName();
+        return $this->category ? $this->category->getName() : '';
     }
+
 
 
 

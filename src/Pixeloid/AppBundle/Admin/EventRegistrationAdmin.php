@@ -79,6 +79,9 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('premiere', null, [
                 "editable" => true,
             ])
+            ->add('onshow', null, [
+                "editable" => true,
+            ])
             ->add('shortlist', null, [
                 "editable" => true,
             ])
@@ -99,7 +102,8 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('name')
             ->add('video_url')
             ->add('moviecategories', 'sonata_type_collection', array(
-                'by_reference' => false
+                'by_reference' => false,
+                'required' => false,
                 ),
                 array(
                        'edit' => 'inline',
@@ -107,6 +111,10 @@ class EventRegistrationAdmin extends AbstractAdmin
                         'inline' => 'table',
                   )
             )
+            ->add('keywords', 'sonata_type_model', array(
+                'property' => "name",
+                'multiple' => true,
+            ))
             ->add('producer')
             ->add('director')
             ->add('photographer')
@@ -121,12 +129,17 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('songtitle')
             ->add('length')
             ->add('publisher')
-            ->add('song_publish_date', 'text')
+            ->add('song_publish_date', 'text', [
+                'required' => false
+            ])
             ->add('video_publish_date','text')
             ->add('technology')
             ->add('budget_category')
             ->add('description')
             ->add('email')
+            ->add('created', null, [
+                'data' => new \DateTime
+            ])
             ->add('winner')
             ->add('onshow')
             ->add('premiere')
@@ -177,6 +190,22 @@ class EventRegistrationAdmin extends AbstractAdmin
     protected $maxPerPage = 1000;
 
 
+    public function prePersist($object)
+    {
+        $object->setKeywords(array());
+        foreach ($object->getKeywords() as $keyword) {
+            $keyword->addEventRegistration($object);
+        }
+    }
+
+    public function preUpdate($object)
+    {
+        $object->setKeywords(array());
+
+        foreach ($object->getKeywords() as $keyword) {
+            $keyword->addEventRegistration($object);
+        }
+    }
 
 
 }
