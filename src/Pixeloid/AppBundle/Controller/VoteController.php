@@ -180,7 +180,7 @@ class VoteController extends Controller
 
         $filename = 'fb_post_images/klipszemle2016_fb_post_' . $id .'-'.time().'.jpg';
 
-        $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
+        // $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
         $this->get('knp_snappy.image')->generate(
             'http://klipszemle.com/vote/fb_post_image_generator/' . $video->getId()
             ,$filename
