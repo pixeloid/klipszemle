@@ -133,7 +133,7 @@ var ESPCR = ESPCR || {};
                 
                 e.preventDefault();
 
-                $('#player').fadeIn();
+                $('#player').show();
 
                 player.playVideo();
               

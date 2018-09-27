@@ -26,7 +26,7 @@
 		<div class="col-lg-3 col-md-4 col-sm-6 voteitem" id="video-{{ video.id }}">
 			<a href="{{path('vote_show', {'id' : video.id})}}" class="show-video" data-id="{{ video.id }}" >
 			<span class="video-item video-item--highlight">
-			{% include 'PixeloidAppBundle:Vote:_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
+			{% include 'PixeloidAppBundle:vote:_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
 			</span>
 			</a>
 		</div>    

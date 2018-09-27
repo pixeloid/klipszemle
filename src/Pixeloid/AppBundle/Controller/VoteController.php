@@ -26,7 +26,7 @@ class VoteController extends Controller
                 'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, COUNT(v.id) AS numvotes FROM PixeloidAppBundle:EventRegistration e
                 LEFT JOIN e.votes v
                 WHERE 
-                        e.shortlist = TRUE 
+                        e.onshow = TRUE 
                     AND e.created > :start
                 GROUP BY e.id'
             )
@@ -78,7 +78,7 @@ class VoteController extends Controller
     /**
      * @Route("/vote/{id}", name="vote_vote")
      * @Security("is_granted(['ROLE_USER'])")
-     * @Template("PixeloidAppBundle:Vote:thanks.html.twig")
+     * @Template("PixeloidAppBundle:vote:thanks.html.twig")
      */
     public function voteAction($id)
     {
@@ -125,7 +125,7 @@ class VoteController extends Controller
 
     /**
      * @Route("/fb_post_image/{id}", name="vote_fb_post_image")
-     * @Template("PixeloidAppBundle:Vote:facebook_post_image_show.html.twig")
+     * @Template("PixeloidAppBundle:vote:facebook_post_image_show.html.twig")
      */
     public function facebookPostImageAction($id)
     {
@@ -153,7 +153,7 @@ class VoteController extends Controller
 
     /**
      * @Route("/fb_post_image_generator/{id}", name="vote_fb_post_image_generator")
-     * @Template("PixeloidAppBundle:Vote:facebook_post_image.html.twig")
+     * @Template("PixeloidAppBundle:vote:facebook_post_image.html.twig")
      */
     public function facebookPostImageGeneratorAction($id)
     {
@@ -182,11 +182,10 @@ class VoteController extends Controller
 
         $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
         $this->get('knp_snappy.image')->generate(
-            'http://localhost:8000/vote/fb_post_image_generator/' . $video->getId()
+            'http://klipszemle.com/vote/fb_post_image_generator/' . $video->getId()
             ,$filename
         );
-var_dump($filename);
-exit;
+
         $file = imagecreatefromjpeg($filename);
         $cropped = imagecreatetruecolor( 1180, 620 );
         
