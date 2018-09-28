@@ -233,12 +233,15 @@ class EventRegistration
      */
     protected $moviecategories;
     
+    /**
+     * @ORM\ManyToMany(targetEntity="Keyword", mappedBy="eventregistrations", cascade={"persist","remove"})
+     */
+    protected $keywords;
     
 
 
-
     /**
-     * @ORM\Column(name="have_rights", type="boolean")
+     * @ORM\Column(name="have_rights", type="boolean", nullable=true)
      * @Assert\IsTrue(groups={"flow_eventRegistration_step3"},message = "Kötelező mező")
      */
     protected $have_rights = null;
@@ -288,6 +291,7 @@ class EventRegistration
      */
     public function __construct()
     {
+        $this->keywords = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function isShortlisted()
@@ -1447,5 +1451,66 @@ class EventRegistration
     public function getVotes()
     {
         return $this->votes;
+    }
+
+    /**
+     * Add keyword
+     *
+     * @param \Pixeloid\AppBundle\Entity\Keyword $keyword
+     *
+     * @return EventRegistration
+     */
+    public function addKeyword(\Pixeloid\AppBundle\Entity\Keyword $keyword)
+    {
+        // $keyword->addEventRegistration($this);
+        $this->keywords[] = $keyword;
+
+        return $this;
+    }
+
+    /**
+     * Add keyword
+     *
+     * @param \Pixeloid\AppBundle\Entity\Keyword $keyword
+     *
+     * @return EventRegistration
+     */
+    public function addKeywords(\Pixeloid\AppBundle\Entity\Keyword $keywords)
+    {
+        $this->keywords = $keywords;
+
+        $keywords->setEventRegistration($this);
+        
+        return $this;
+    }
+
+    /**
+     * Remove keyword
+     *
+     * @param \Pixeloid\AppBundle\Entity\Keyword $keyword
+     */
+    public function removeKeyword(\Pixeloid\AppBundle\Entity\Keyword $keyword)
+    {
+        $this->keywords->removeElement($keyword);
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+    /**
+     * Get keywords
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function setKeywords($keywords)
+    {
+        $this->keywords = $keywords;
+        return $this;
     }
 }

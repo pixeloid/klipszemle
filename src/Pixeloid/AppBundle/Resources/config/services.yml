@@ -105,3 +105,10 @@ services:
       tags:
           - { name: sonata.admin, manager_type: orm, group: admin, label: EventRegistrationCategory }
       public: true
+
+  pixeloid_app.admin.keyword:
+      class: Pixeloid\AppBundle\Admin\KeywordAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\Keyword, SonataAdminBundle:CRUD]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: admin, label: Keyword }
+      public: true

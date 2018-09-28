@@ -35,6 +35,8 @@ twig:
         - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
         - 'PixeloidAppBundle:Form:fields.html.twig'
         - '@SonataCore/Form/datepicker.html.twig'
+    globals:
+        fb_app_id: "%fb_app_id%"
 
 
 braincrafted_bootstrap:

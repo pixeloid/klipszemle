@@ -8,7 +8,6 @@
 
 
     .video-item{
-
         &.video-item--fb-post{
             width: 1210px;
             height: 635px;
@@ -21,14 +20,28 @@
         }
         overflow: hidden;
 
-        background: red;
+        background: black;
         position: relative;
         overflow: hidden;
         font-weight: 900;
         @include clearfix;
+
+        .share-btn {
+            
+            position: absolute;
+            z-index: 10;
+            bottom: 0;
+            left: 50%;
+            font-size: 0.8em;
+            transform: translate(-50%, 10px)
+        }
+
     }
 
     .video-item__image{
+
+        border: 1px solid $brand-primary;
+
         img{
             width: 100%;
             .video-item--fb-post &{
@@ -69,8 +82,8 @@
         margin-right: 30px;
         padding: 5px 5px;
         line-height: 1em;
-        background: #fff;
-        color: $brand-primary;
+        background: $brand-primary;
+        color: black;
         .video-item--fb-post &{
             background: $brand-primary;
             color: #fff;
@@ -152,14 +165,14 @@
     .video-item__btn{
         text-transform: uppercase;
         text-decoration: none;
-        font-size: 30px;
+        font-size: 20px;
         display: inline-block;
-        padding: 10px 20px;
+        padding: 5px 10px;
         background: $brand-primary;
-        color: #fff;
+        color: black;
         position: absolute;
         bottom: 20px;
-        z-index: 5;
+        z-index: 20;
         &:hover{
             text-decoration: none;
             color: black;
@@ -185,7 +198,6 @@
 
         right: 20px;
         background: white;
-        color: $brand-primary;
 
     }
     .video-item__btn--already-vote{
@@ -227,5 +239,8 @@
         left: 0;
         z-index: 10;
         display: none;
+        width: 100%;
+        height: calc(100%);
     }
+
 

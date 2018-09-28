@@ -2,27 +2,33 @@
 
 {% block body %}
 	
-	
-	<img src="/{{ video.getPostImage() }}" width="100%" alt=""> 
-	
-	<a href="#" class="btn btn-primary share-btn">Megosztom Facebookon!</a>
+	<div class="text-center">
+		<br>
+		<br>
+		<br>
+		<h3 style="color: black;">Köszönjük a szavazatodat!</h3>
+		<br>
+		<a href="#" class="btn btn-primary share-btn">Megosztom Facebookon!</a>
 
 
-	<script>
+		<script>
 
-	$(document).ready(function(){
-		$('.share-btn').click(function(e){
-			e.preventDefault();
-			FB.ui({
-			  method: 'share',
-			  mobile_iframe: true,
-			  display: 'dialog',
-			  href: '{{ app.request.getSchemeAndHttpHost() }}/vote/fb_post_image/{{video.getId}}',
-			}, function(response){
-				$('#main-modal').modal('hide')
-			});
+		$(document).ready(function(){
+			$('.share-btn').click(function(e){
+				e.preventDefault();
+				FB.ui({
+				  method: 'share',
+				  mobile_iframe: true,
+				  display: 'dialog',
+				  href: '{{ app.request.getSchemeAndHttpHost() }}/vote/fb_post_image/{{video.getId}}',
+				}, function(response){
+					$('#main-modal').modal('hide')
+				});
+			})
 		})
-	})
 
-	</script>
+		</script>
+		<br>
+	</div>
+	
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+ 
+{% block field%}
+
+	<span class="text-success">
+		<a href="{{ object.videourl }}" target="_blank">
+			{{ object.getSongTitle() }}
+		</a>
+	</span>
+
+    
+{% endblock %}
