@@ -122,6 +122,23 @@ class VoteController extends Controller
                  'video' => $video,
             );
     }
+    /**
+     * @Route("/test/{id}", name="vote_test")
+     * @Template("PixeloidAppBundle:vote:thanks.html.twig")
+     */
+    public function testAction($id)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
+
+     
+        $this->generatePostImage($video->getId());
+    
+        exit;    
+    }
 
     /**
      * @Route("/fb_post_image/{id}", name="vote_fb_post_image")
