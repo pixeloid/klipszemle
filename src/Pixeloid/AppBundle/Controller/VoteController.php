@@ -122,7 +122,62 @@ class VoteController extends Controller
                  'video' => $video,
             );
     }
+
+
+
     /**
+     * @Route("toplist", name="vote_vote_toplist")
+     * @Security("is_granted(['ROLE_ADMIN'])")
+     * @Template("PixeloidAppBundle:vote:toplist.html.twig")
+     */
+    public function voteToplistAction()
+    {
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        
+        $query = $em->createQuery(
+        'SELECT e, COUNT(vote.id) numvote FROM PixeloidAppBundle:EventRegistration e LEFT JOIN e.votes vote
+
+        WHERE 
+                e.onshow = TRUE 
+            AND e.created > :start
+        GROUP BY e.id
+        ORDER BY numvote DESC')
+        ->setParameter('start', new \DateTime($this->container->getParameter('start_date')));
+
+
+        $votes = $query->getArrayResult();
+
+
+
+        // $votes = $query->getResult();
+
+        // if (count($votes) === 0) {
+        //     $vote = new Vote;
+
+        //     $vote->setUser($user);
+        //     $vote->setEventRegistration($video);
+        //     $vote->setCreated(new \DateTime);
+
+        //     $em->persist($vote);
+        //     $em->flush();
+        //     $success = true;
+        // }
+
+
+
+        // if (!$video->getPostImage()) {
+        //     $this->generatePostImage($video->getId());
+        // }
+
+        return    array(
+                 'votes' => $votes,
+            );
+    }
+
+        /**
      * @Route("/test/{id}", name="vote_test")
      * @Template("PixeloidAppBundle:vote:thanks.html.twig")
      */
