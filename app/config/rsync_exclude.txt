@@ -16,5 +16,6 @@ nbproject
 /var/sessions/*
 node_modules
 web/bundles
+web/fb_post_images
 vendor
 
