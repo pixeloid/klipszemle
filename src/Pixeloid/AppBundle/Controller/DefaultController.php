@@ -2,7 +2,7 @@
 
 namespace Pixeloid\AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,10 +13,14 @@ use Pixeloid\AppBundle\Form\DocumentType;
 use Pixeloid\AppBundle\Entity\Documents;
 
 
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
 
-    public function indexAction($event, Request $request)
+    /**
+     * @Route("/index", name="default_home")
+     */
+
+    public function indexAction(Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -170,6 +174,11 @@ class DefaultController extends Controller
     public function importantAction()
     {
         return $this->render('PixeloidAppBundle:Default:important.html.twig');
+    }
+
+    public function splashAction()
+    {
+        return $this->render('PixeloidAppBundle:Default:splash.html.twig');
     }
 
 }

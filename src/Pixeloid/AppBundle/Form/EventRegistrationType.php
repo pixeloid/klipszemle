@@ -31,7 +31,6 @@ class EventRegistrationType extends AbstractType
             case 1:
                 $builder
                     ->add('name', null, array('label' => 'Név'))
-                    ->add('company', null, array('label' => 'Cégnév'))
                     ->add('user_title', EntityType::class, array(
                         'label' => 'Jogcím',
                         'class'   => UserTitle::class,
@@ -39,10 +38,8 @@ class EventRegistrationType extends AbstractType
                        // 'attr' => array('class' => 'selectpicker')
                         )
                     )
-                    ->add('website', null, array('label' => 'Webcím'))
                     ->add('email', null, array('label' => 'E-mail'))
                     ->add('phone', null, array('label' => 'Telefonszám', 'attr' => array('data-mask' => '(#0) 000-0000', 'placeholder' => '(55) 555-5555')))
-                    ->add('address', null, array('label' => 'Postacím'))
 
                     ;
 
@@ -51,14 +48,14 @@ class EventRegistrationType extends AbstractType
             $builder
                 ->add('author', null, array('label' => 'Előadó'))
                 ->add('songtitle', null, array('label' => 'Dal címe'))
-                ->add('length', null, array('label' => 'Hossz (min:sec)', 'attr' => array('data-mask' => '00:00', 'placeholder' => '00:00')))
-                ->add('publisher', null, array('label' => 'Kiadó'))
-                ->add('song_publish_date', TextType::class, array(
-                    'label' => 'A dal megjelenése', 
-                    'required' => false,
-                    'attr' => array('class' => 'datepicker','input_group' => array(
-                'append' => '<i class="fa fa-calendar"></i>',
-            ))))
+                // ->add('length', null, array('label' => 'Hossz (min:sec)', 'attr' => array('data-mask' => '00:00', 'placeholder' => '00:00')))
+                // ->add('publisher', null, array('label' => 'Kiadó'))
+            //     ->add('song_publish_date', TextType::class, array(
+            //         'label' => 'A dal megjelenése', 
+            //         'required' => false,
+            //         'attr' => array('class' => 'datepicker','input_group' => array(
+            //     'append' => '<i class="fa fa-calendar"></i>',
+            // ))))
                 ->add('video_publish_date', TextType::class, array('label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
                 'append' => '<i class="fa fa-calendar"></i>',
             ))))
@@ -67,10 +64,10 @@ class EventRegistrationType extends AbstractType
                 ->add('photographer', null, array('label' => 'Operatőr'))
                 ->add('designer', null, array('label' => 'Látványtervező'))
                 ->add('editor', null, array('label' => 'Vágó'))
-                ->add('technology', null, array(
-                    'label' => 'Rögzítéstechnika',
-                    )
-                )
+                // ->add('technology', null, array(
+                //     'label' => 'Rögzítéstechnika',
+                //     )
+                // )
                 ->add('budget_category', EntityType::class, array(
                         'label' => 'Budget',
                         'class'   => BudgetCategory::class,

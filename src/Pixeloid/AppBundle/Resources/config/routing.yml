@@ -7,6 +7,10 @@ pixeloid_app_eventregistration_annotation:
     resource: "@PixeloidAppBundle/Controller/EventRegistrationController.php"
     prefix:   /eventregistration
     type:     annotation
+pixeloid_app_default:
+    resource: "@PixeloidAppBundle/Controller/DefaultController.php"
+    prefix:   /
+    type:     annotation
 
 # pixeloid_app_vote:
 #     resource: "@PixeloidAppBundle/Controller/VoteController.php"
@@ -21,7 +25,7 @@ pixeloid_app_presentation:
 
 pixeloid_app_index:
     path:     /
-    defaults: { _controller: PixeloidAppBundle:Default:index, event: "ESCPR" }
+    defaults: { _controller: PixeloidAppBundle:Default:splash, event: "ESCPR" }
 
 
 pixeloid_app_privacy:

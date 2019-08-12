@@ -18,36 +18,14 @@
 
         {% if flow.getCurrentStepNumber() == 1 %}
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4 col-sm-offset-4">
                 {{ form_row(form.name) }}
-            </div>
-            <div class="col-sm-6">
                 {{ form_row(form.email) }}
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
+                {{ form_row(form.phone) }}
                 {{ form_row(form.user_title) }}
             </div>
-            <div class="col-sm-4">
-                {{ form_row(form.company) }}
-            </div>
-
-            <div class="col-sm-4">
-                {{ form_row(form.website) }}
-            </div>
-
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                {{ form_row(form.phone) }}
-            </div>
-            <div class="col-sm-6">
-                {{ form_row(form.address) }}
-            </div>
 
-        </div>
 
 <!--         <div class="alert alert-success">A továbbképző napon <b>12 kreditpont</b>, a tudományos ülésen való részvétellel <b>30 kreditpont</b> szerezhető. Szakdolgozók részére <b>20 kreditpont</b> szerezhető.</div>
 
@@ -56,71 +34,22 @@
 
     <div class="row">
         <div class="col-sm-4">
-            {{ form_row(form.author) }}
-        </div>
-        <div class="col-sm-4">
-            {{ form_row(form.songtitle) }}
-        </div>
-
-        <div class="col-sm-4">
-            {{ form_row(form.director) }}
-        </div>
-
-
-    </div>
-    <div class="row">
-        <div class="col-sm-8">
             {{ form_row(form.video_url) }}
-        </div>
-
-        <div class="col-sm-4">
+            {{ form_row(form.author) }}
+            {{ form_row(form.songtitle) }}
             {{ form_row(form.video_publish_date) }}
+            {{ form_row(form.description) }}
         </div>
-</div>
-<hr>
-<div class="row">
-    <div class="col-sm-8">
-        {{ form_row(form.publisher) }}
-    </div>
-    <div class="col-sm-4">
-        {{ form_row(form.length) }}
-    </div>
-
-
-
-</div>
-    <div class="row">
         <div class="col-sm-4">
             {{ form_row(form.producer) }}
-        </div>
-        <div class="col-sm-4">
-            {{ form_row(form.song_publish_date) }}
-        </div>
-        <div class="col-sm-4">
+            {{ form_row(form.director) }}
             {{ form_row(form.photographer) }}
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-sm-4">
             {{ form_row(form.designer) }}
-        </div>
-        <div class="col-sm-4">
             {{ form_row(form.editor) }}
+            {{ form_row(form.budget_category) }}
         </div>
+
         <div class="col-sm-4">
-      {{ form_row(form.technology) }}
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-        {{ form_row(form.budget_category) }}
-
-
-        </div>
-        <div class="col-sm-6">
-            {{ form_row(form.description) }}
         </div>
 
     </div>

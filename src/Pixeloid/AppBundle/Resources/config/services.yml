@@ -112,3 +112,10 @@ services:
       tags:
           - { name: sonata.admin, manager_type: orm, group: admin, label: Keyword }
       public: true
+
+  pixeloid_app.admin.hero:
+      class: Pixeloid\AppBundle\Admin\HeroAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\Hero, Sonata\AdminBundle\Controller\CRUDController]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: admin, label: Hero }
+      public: true

@@ -1,458 +1,107 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	
-<header class="intro" id="intro">
-    <div class="intro-ill intro-ill--1">
-        <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-01.svg') }}" >
-    </div>
-    <div class="intro-ill intro-ill--2">
-        <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-03.svg') }}" >
-    </div>
-    <div class="intro-ill intro-ill--3">
-        <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-02.svg') }}" >
-    </div>
-    <div class="intro-ill intro-ill--4">
-        <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-04.svg') }}" >
-    </div>
 
-     <div class="intro-body">
-         <div class="container">
-             <div class="row">
-                 <div class="col-md-6 col-md-offset-2 ">
-<!--                  	<br>
-						<h3>A nevezés lezárult!</h3>
-                 	<br>
- -->                     <!-- <h1 class="brand-heading text-center">
-
-                     
-				
-
-                     </h1> -->
-                     <h1 class="intro-text">Harmadik<br>is lesz. </h1>
-                     <a class="btn">A közönségszavazásnak vége!</a>
-                    {# <p>
-                     	<a class="btn btn-primary" href="{{ path('vote') }}">KÖZÖNSÉGSZAVAZÁS</a>
-                     </p>#}
-<!--                      <a href="#about" class="btn btn-circle page-scroll">
-                         <i class="fa fa-angle-double-down animated"></i>
-                     </a>
- -->                 </div>
-             </div>
-         </div>
-     </div>
- </header>
- <section id="about" class="container content-section ">
-    <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-10">
-            <img src="{{ asset('bundles/pixeloidapp/svg/szponzorcsik.svg') }}" width="100%" alt="">
+<div class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="hero__content">
+                    <h1>Lorem</h1>
+                    <p>ipsum</p>
+                    <a href="" class="btn btn-primary">Default button</a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <img src="https://via.placeholder.com/800" alt="" class="hero__image">
+            </div>
         </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-     <div class="row">
-         <div class="col-lg-6 col-md-12">
-             <h2>MI AZ A KLIPSZEMLE?</h2>
-<p>A Magyar Klipszemle a magyar vonatkozású zenei videók szakmai versenye. Magyarországon heti szinten több tucat videoklip készül, ami a legjobb esetben egy kiemelkedő online megtekintési szám elérésén kívül nem kap kellő figyelmet.
-<br>
-Ezen változtattunk.
-<br>
-Az első két évben közel 2000 nevezés érkezett, majd alkalmanként 5000 embert mozgattunk meg a magyar klipszakma ünnepén. </p>
-<p>Célunk egy olyan, itthon egyedülálló, független rendezvény létrehozása volt, ami ezen alkotások művészi értékét kiemelve, széles vásznon prezentálja a média, a szakma és az érdeklődők felé. </p>
-<p>Az augusztusban tartó online nevezést egy októberi rendezvény követi az Ankertben, ahol a legjobb klipeket nézhetitek meg nagy vásznon, majd a díjátadón kiderül, kik az idei nyerteseink. Az estét egy afterpartyval zárjuk.</p>
-{#
-<br>
-<hr>
- <div class="row">
-    <div class="col-xs-2">
-        <img src="{{ asset('bundles/pixeloidapp/images/cafe.svg') }}" width="80" alt="">
-    </div>
-    <div class="col-xs-10">
-        A 03. Magyar Klipszemle a <b>CAFe Budapest Kortárs Művészeti Fesztivál</b> segítségével és támogatásával valósul meg.
     </div>
 </div>
-<hr>
-             </div>
-     </div>
- #} </section>
-
-{# 
-  <section id="winners" class="container content-section ">
-              <h2>2016-os nyertesek</h2>
-
- 			<div class="row">
-
- 				{% for reg in winners %}
- 				    <div class="col-xs-12 col-sm-4 voteitem">
 
 
- 				    	<a href="{{reg.videourl}}" target="_blank" data-id="#" >
- 				    	<span class="video-item video-item">
-
-
- 				    	<div class="video-item__image">
- 				    		<img src="http://img.youtube.com/vi/{{ reg.videourl|yt_id }}/hqdefault.jpg">
-
- 				    		<div class="video-item__text-holder">
-	 				    		<p class="video-item__text video-item__text">{{ reg.getShortlistCategories.0.category.name }}</p>
-
- 				    			<h3 class="video-item__text video-item__text--author">{{ reg.author }}</h3>
- 				    			<h4 class="video-item__text video-item__text--song">{{ reg.songtitle }}</h4>
- 				    		</div>
-						</div>
- 				    	</span>
- 				    	</a>
- 				    </div>    
-
- 				{% endfor %}
- 			</div>
-  </section>  
- #}
-
-   <section id="jury" class="container content-section ">
-              <h2>A ZSŰRI</h2>
-
- 			<div class="row">
-
- 			 				<div class="col-sm-3 jury-person">
- 			 					<h3>  Daniel Blik 
- 			</h3>
-<p>kreatív producer - 235 Productions</p>
- 			 				</div>
-
-
- 				<div class="col-sm-3 jury-person">
- 					<h3>  Gábor Fabricius
-</h3>
-<p>Mediadesigner, író, filmkészítő - Republic Group</p>
- 				</div>
- 				 				<div class="col-sm-3  jury-person">
- 				 					<h3>  Jakab Juli
- 				</h3>
-
-                <p>filmkészítő</p>
- 				 				</div>
- 				<div class="col-sm-3 jury-person">
- 					<h3>Zsuzsa Sallai “Sazsu”</h3>
-                    <p>Viacom Hungary ( MTV Hungary, VH1,  Comedy Central Magyarország, Nickelodeon, Paramount) előadókért és zenéért felelős menedzsere</p>
- 				</div>
-
- 				<div class="col-sm-3 jury-person">
- 					<h3>  Attila Varga "Sixx"
-</h3>
-<p>az Index.hu újságírója</p>
-
- 				</div>
-                <div class="col-sm-3 jury-person">
-    <h3>Oltai Kata</h3>
-    <p>művészettörténész, kurátor</p>
- 				</div>
-
- 			</div>
-  </section> 
-
-
-
-
-{# 
-  <section id="we-are" class="container content-section ">
-         <div class="row">
-
-         	<div class="col-sm-6 title">
-         		<div class="fill">
-	         		<h2>A szervezők</h2>
-         		</div>
-         	</div>
-
-
-
-         	<div class="col-sm-3 staff">
-         	<img src="images/manek.jpg" alt="">
-         		<h3>Csete Gábor / Manek</h3>
-         	</div>
-         	<div class="col-sm-3 staff">
-         	<img src="images/laura.jpg" alt="">
-         		<h3>Gyenge Laura</h3>
-         	</div>
-         	<div class="col-sm-3 staff">
-         	<img src="images/kristof.jpg" alt="">
-         		<h3>Kiss Benedek Kristóf</h3>
-         	</div>
-         	<div class="col-sm-3 staff">
-         	<img src="images/miki357.jpg" alt="">
-         		<h3>miki357</h3>
-         	</div>
-
-         	<div class="col-sm-3 staff">
-         	<img src="images/orsi.jpg" alt="">
-         		<h3>Vermes Orsolya</h3>
-         	</div>
-         	<div class="col-sm-3 staff">
-         	<img src="images/vera.jpg" alt="">
-         		<h3>Vida Vera</h3>
-         	</div>
-
-         </div>
- </section>
- #}
-
-
-
- <section id="jury" class="container content-section ">
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-01.svg') }}" class="content-section__ill">
-
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <h2>Rólunk</h2>
-                <p>    A Klipszemlét Miki357, Vermes Orsi, Manek és Vida Vera indította 2015-ben. </p>
-<p>Zsűrijeink voltak: Ács Dani, Libor Anita, Izil, Garai Gábor, Németh Juci, TBG, Dobos Tamás, Vágvölgyi András, Klág Dávid és Szirmai Gergely. </p>
-<p>Grafikusunk Kiss-Benedek Kristóf, honlapfejlesztőnk Oláh Gergő.</p>
-
-                </div>
-            </div>
- </section>
-
-
-
-
- <section id="program" class="container content-section">
-
-
-
-    <h2 class="text-center">Program</h2>
-
-    {% if is_granted('ROLE_ADMIN') %} 
-        <button class="btn btn-primary pull-right" type="button" data-toggle="collapse" data-target="#progedit" aria-expanded="false" aria-controls="progedit">
-   Szerkesztés
- </button>
- <div class="clearfix"></div>
- <div class="collapse" id="progedit">
-    {{ form_start(form) }}
-    {{ form_widget(form.lead) }}
+<div class="container">
     <div class="row">
-        <div class="col-lg-6 col-md-12">{{ form_widget(form.day1) }}</div>
-        <div class="col-lg-6 col-md-12">{{ form_widget(form.day2) }}</div>
-    </div>  
-            {{ form_widget(form.submit) }}
-    {{ form_end(form) }}
-
- </div>
- {% endif %}
-
-    <div class="row daily">
-
-    {{ lead|raw }}
-
-        <div class="col-lg-6 col-md-12">
-            {{ day1|raw }}
-
+        <div class="col-sm-12 col-md-6">
+            <img src="https://via.placeholder.com/300x400" alt="" class="hero__image">
         </div>
-
-        <div class="col-lg-6 col-md-12">
-            {{ day2|raw }}
-
+        <div class="col-sm-12 col-md-6">
+                         <h2>MI AZ A KLIPSZEMLE?</h2>
+<p>            A kérdést, hogy mi a francért nincs itthon a zenei videóknak rendes, országos versenye, eloször 2015-ben tették fel maguknak a szervezők.</p>
+<p>Ezután két éven át a budapesti Toldi Moziban rendezték meg a szemlét. Két napos, maratoni klipnézos népünnepek voltak. Egy év kihagyás után, a harmadik verseny tavaly, az Anker’tben volt.</p>
+<p>Az évente változó, független zsuri újságírókból, filmesekbol és zenei szakemberekből állt össze. Egy díjat azonban mindig a közönség szavazott meg. A korábbi feltörekvo nyertesek jó része azóta Los Angelestől Szabadkáig filmes, reklámos, vagy kreatív szakember lett.</p>
+<p>Most érkeztünk el a negyedikig, de a cél azóta se változott: legyen platform a hazai zenei videóknak, legyen tétje jó klipet csinálni, hadd nézzük meg oket egyszer nagyvásznon!</p>
         </div>
     </div>
- </section>
+</div>
 
+ <section id="about" class="container content-section ">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+              <section id="jury" >
+                         <h2>A ZSŰRI</h2>
 
-  <section id="contact" class="container content-section ">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 text-center">
-                    <h2>Kapcsolat</h2>
- <ul class="list-unstyled"><li>             <a href="mailto:info.klipszemle@gmail.com">info@klipszemle.com</a></li>
-{#                 <li>                Sajtó akkreditáció: <br> <a href="mailto:sajto@klipszemle.com">sajto@klipszemle.com</a> </li>
- #}                {# <li>                Toldi Malomkő Kft. 1054 Budapest, <br>Bajcsy-Zsilinszky út 36-38.</li> #}
-
-<li><a href="http://fb.com/klipszemle" target="_blank">fb.com/klipszemle</a></li>
-<li><a href="http://instagram.com/magyar_klipszemle" target="_blank">Instagram: magyar_klipszemle</a></li>
-                </ul>               
-            </div>
-
-        <div class="col-lg-6 col-md-12">
-            <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-04.svg') }}"  class="content-section__ill">
-
-            </div>
-
-            </div>
-  </section>
-
-
-
-
-
-
- <section id="faq" class="container content-section ">
-			<div class="row">
-                <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
-                    <img src="{{ asset('bundles/pixeloidapp/svg/Feher_MKSZ-05.svg') }}"  class="content-section__ill content-section__ill--vertcenter">
-                </div>
-				<div class="col-lg-10">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>FAQ</h2>
+                        <div class="row">
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
+                           <div class="col-md-4 col-sm-6 jury-person">
+                               <img src="https://via.placeholder.com/200" alt="">
+                               <p>Lorem ipsum</p>
+                           </div>
                         </div>
-                        <div class="col-md-6">
-<dl>
-    <dt>Mikori klipekkel lehet jelentkezni?
-    <dd>A 2016. október óta bemutatott, az első két Klipszemlére nem nevezett videókat versenyeztetjük idén.</dd>
-</dl>
-<dl>
-    <dt>Benevezhetem a kedvenc klipemet?</dt>
-    <dd>Nem, csak akkor, ha te vagy a kedvenc kliped rendezője, vagy kiadója, vagy gyártója, esetleg előadója. </dd>
-</dl>
-<dl>
-    <dt>Mik a “videoklip jelöléséhez szükséges jogok/engedélyek”, amikkel rendelkeznem kell?</dt>
-    <dd>A jelentkezési űrlapon megadtad a klippel kapcsolatos jogosultságod (előadó, gyártó, stb.), ezek közül valamelyikkel. </dd>
-</dl>
-<dl>
-    <dt>Ha egyik jogcím se érvényes rám, úgy is jelentkezhetek?</dt>
-    <dd>Nem.</dd>
-</dl>
-<dl>
-    <dt>Mit jelent a “magyar vonatkozású” klip?</dt>
-    <dd>Magyar legyen a rendező, az operatőr vagy az előadó. A gyártó cég is jó lenne, de az nem muszáj.</dd>
-</dl>
-<dl>
-    <dt>Fan videóval lehet nevezni?</dt>
-    <dd>Dehogy.</dd>
-</dl>
-<dl>
-    <dt>És cover dal videójával?</dt>
-    <dd>Azzal se.</dd>
-</dl>
-<dl>
-    <dt>Vimeón van csak fent a klipem. Mit csináljak?</dt>
-    <dd>Akkor az a legjobb, ha feltöltöd YouTube-ra nem listázottként, és azzal nevezel. </dd>
-</dl>
-<dl>
-    <dt>A link a végleges nevezésem? A file nem kell nektek?</dt>
-    <dd>De, a shortlistre jutott klipeket külön emailben kérjük majd be.</dd>
-</dl>
-<dl>
-    <dt>Minek kell a telefonszámom is?</dt>
-    <dd>Ha nem érünk el mailben, felhívunk. Meg ha megnyersz egy kategóriát, akkor is hívunk, hogy legyen kinek átadni a díjat.</dd>
-</dl>
-<dl>
-    <dt>Ha nyernék, de nem tudunk ott lenni az eseményen, odaadjátok a díjat másnak?</dt>
-    <dd>Telefonon egyeztetünk majd, de megoldjuk!</dd>
-</dl>
-<dl>
-<dt>Bekértétek e-mailben a premieres klipem file-ját, de nem látom a közönségszavazásban. Hogy lehet ez?
-</dt><dd>Testvér, szerinted publikálatlan klipre hogyan tudnak szavazni? Sehogy! A premieresek nem vesznek részt a közönségszavazásban.</dd>
-</dl>
-<dl><dt>A premieres klipek indulnak a versenyben?<dt/>
-<dd>Van köztük 1-2, ami versenybe került, de a nagyrésze a Klipszemlén a premieres blokkban megy le először, és jövőre mérettetik meg.
-</dd></dl>
-<dl><dt>Amelyik klip szerepel a közönségszavazásban, az attól még nyerhet más kategóriában is?</dt>
-<dd>Alap.</dd>
-</dl>
-<dl><dt>Mi a különbség a shortlist és a szemlén vetített klipek közt? (Avagy 15 klipünk van kint közönségszavazáson, miért csak 3-at kértek be?)</dt>
-<dd>Mivel idén 1 napos a rendezvény, október 11-én a zsűri pontozása alapján kialakult, kategóriánkénti legjobbakat vetítjük. A shortlist egy nagyobb merítés, ennek minden alkotására voksolhattok a közönségszavazáson.
-</dd></dl>
+             </section> 
+        </div>
 
-<dl><dt>Hogy nézzen ki a levél, amiben küldöm nektek a klipemet a vetítéshez?</dt>
-<dd>A file és főleg a levél tárgya így nézzen ki:
-id_előadó_dalcím AZAZ: 1234_amokfutok_szomoru_szamuraj
-</dd></dl>
-<dl><dt>Milyen formátumban küldjem a klipet?</dt>
-<dd>Olyanban, amit a bekérő levélben írtunk. 
-</dd></dl>
-</DL>
+        <div class="col-sm-12 col-md-6">
+            <img src="https://via.placeholder.com/400x700" alt="" class="hero__image">
+        </div>
+
+    </div>
+
+</section>
 
 
-                                        </div>
-                                        <div class="col-md-6">
 
-                                            <dl><dt>Hogy küldjem nektek el a klipet? Tök nagy!</dt>
-                                            <dd>Használd a file-küldőt! És semmiképp ne próbáld mail mellékleteként. Ha sikerül, az azt jelenti, hogy nagyon szar a felbontás, és nem tudjuk majd vetíteni.
-                                            </dd>
-                                            </dl><dl><dt>Személyesen nem lehet odaadni a klipet?</dt>
-                                            <dd>Menni fog az online is!</dd>
-                                            </dl>
-                                            <dl><dt>Számokat szeretnék látni! Lehet?</dt>
-                                            <dd>Nesze: <br>
-                                            665 klipet neveztetek <br>
-                                            188 került ebből shortlistre <br>
-                                            72 klipet vetítünk le a szemlén
-                                            </dd></dl>
-                                            <DL><DT>Milyen díjak vannak idén?</DT>
-                                            <dd>LEGJOBB ALAKÍTÁS<br>
-                                            LEGJOBB ANIMÁCIÓ<br>
-                                            LEGJOBB KONCEPCIÓ<br>
-                                            LEGJOBB LÁTVÁNY<br>
-                                            LEGJOBB LYRIC VIDEO<br>
-                                            LEGJOBB MOOD VIDEO<br>
-                                            LEGJOBB NO BUDGET VIDEO<br>
-                                            LEGJOBB OPERATŐRI MUNKA<br>
-                                            LEGJOBB RENDEZÉS<br>
-                                            LEGJOBB STYLING/JELMEZ<br>
-                                            LEGJOBB SZTORI<br>
-                                            LEGJOBB TRASH VIDEO<br>
-                                            LEGJOBB VÁGÁS<br>
-                                            LEGJOBB VFX<br>
-                                            + LEGJOBB KLIP <br>
-                                            <br>
-                                            FŐTÁMOGATÓ KÜLÖNDÍJA <br>
-                                            SZERVEZŐK KÜLÖNDÍJA<br>
-                                            ZSŰRI KÜLÖNDÍJA <br>
-                                            + KÖZÖNSÉGDÍJ<br>
-                                            </dd><br>
-                                            <dl>
-                                                <dt>Publikusak az infók, amiket beírok a jelentkezésbe?</dt>
-                                                <dd>Kizárólag a szemlét érintő belső használatra szükségesek.</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>Nem akarom YouTube-ra tölteni, tolhatom a klipet file-küldőn?</dt>
-                                                <dd>Nem sajnos. Rakd nem listázottra. Aztán ha kell, bekérjük.</dd>
-                                            </dl>
-
-
-                                            <dl>
-                                                <dt>Eddig online vagy tv-ben be nem mutatott klippel is lehet nevezni? Lehet a klip premierje</dt>  <dd>a Klipszemle?
-                                            Természetesen, szívesen vesszük. A nevezéshez egy YouTube-linkre lesz szükséged. A beérkezett anyagokat bizalmasan kezeljük, és csak a szervezők és a zsűri fogja látni a szemléig.</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>Ha felhasználtok részletet a klipemből promóciós célra, kapok érte pénzt?</dt>
-                                                <dd>Nem. Mi sem kapunk.</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>Elrontottam valamit az adatlap kitöltésénél, újra kitölthetem?</dt>
-                                                <dd>Igen.</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>Minden jelölt klip biztosan versenybe kerül?</dt>
-                                                <dd>Nem, csak azok, amik az előszűrésen átmennek.</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>Egy ember hány klippel nevezhet?</dt>
-                                                <dd>Bármennyivel.</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>Ha hosszabb a klip, mint az átlag 3-3,5 perc, akkor is végignézitek, vagy ne is jelöljem?</dt>
-                                                <dd>Persze!</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>Ha bekerülök, mennyi elfoglaltságot jelent ez? Mikor kell mindenképp ott lenni?</dt>
-                                                <dd>Október 11-én az Ankertben!</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>Vidékről jönnék. Ha versenyben leszünk, fizetitek az utazás költségeit, és/vagy tudtok segíteni szállást intézni?
-                                                </dt>   <dd>Nem. :(</dd>
-                                            </dl>
-                                            <dl>
-                                                <dt>A vetítések és a bulik ingyenesek?</dt>
-                                                <dd>Hogyne.</dd>
-                                            </dl>
-
-                    </div>
-				</div>
-			</div>
- </section>
 
 {% endblock %}

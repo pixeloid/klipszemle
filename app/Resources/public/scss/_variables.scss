@@ -4,13 +4,13 @@ $fa-font-path: '../fonts/font-awesome';
 //
 // Variables
 // --------------------------------------------------
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext');
 
 
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
 $black:					#000 !default;
+$white:         #fff !default;
 $gray-base:              #000 !default;
 $gray-darker:            lighten($gray-base, 13.5%) !default; // #222
 $gray-dark:              lighten($gray-base, 20%) !default;   // #333
@@ -18,7 +18,7 @@ $gray:                   lighten($gray-base, 33.5%) !default; // #555
 $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
-$brand-primary:         #fcee21; // #337ab7
+$brand-primary:         #f27f96; // #337ab7
 $brand-secondary:         #fcee21; // #337ab7
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;
@@ -31,7 +31,7 @@ $brand-danger:          #d9534f !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               $black !default;
+$body-bg:               $brand-primary !default;
 //** Global text color on `<body>`.
 $text-color:            white !default;
 
@@ -70,10 +70,10 @@ $line-height-base:        1.428571429 !default; // 20/14
 $line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
 
 //** By default, this inherits from the `<body>`.
-$headings-font-family:    inherit !default;
+$headings-font-family:    'Agrandir Extra Wide', sans-serif !default;
 $headings-font-weight:    500 !default;
 $headings-line-height:    1.1 !default;
-$headings-color:          $brand-primary !default;
+$headings-color:          $white !default;
 
 
 //== Iconography
