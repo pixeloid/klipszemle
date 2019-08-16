@@ -124,27 +124,27 @@ class EventRegistration
     protected $video_publish_date;
     
     /**
-     * @ORM\Column(type="string", name="producer", nullable=true, length=150, nullable=true)
+     * @ORM\Column(type="string", name="producer", length=150, nullable=true)
      */
     protected $producer;
 
     /**
-     * @ORM\Column(type="string", name="director", nullable=true, length=150)
+     * @ORM\Column(type="string", name="director", length=150, nullable=true)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      */
     protected $director;
 
     /**
-     * @ORM\Column(type="string", name="photographer", nullable=true, length=150)
+     * @ORM\Column(type="string", name="photographer", length=150, nullable=true)
      */
     protected $photographer;
 
     /**
-     * @ORM\Column(type="string", name="designer", nullable=true, length=150)
+     * @ORM\Column(type="string", name="designer", length=150, nullable=true)
      */
     protected $designer;
     /**
-     * @ORM\Column(type="string", name="editor", nullable=true, length=150)
+     * @ORM\Column(type="string", name="editor", length=150, nullable=true)
      */
     protected $editor;
 
@@ -281,9 +281,14 @@ class EventRegistration
     
 
     /**
-     * @ORM\Column(type="boolean", name="premiere")
+     * @ORM\Column(type="boolean", name="premiere", nullable=true)
      */
     protected $premiere = false;
+    
+    /**
+     * @ORM\Column(type="text", name="extra_info", nullable=true)
+     */
+    protected $extra_info = false;
     
 
     /**
@@ -1512,5 +1517,29 @@ class EventRegistration
     {
         $this->keywords = $keywords;
         return $this;
+    }
+
+    /**
+     * Set extraInfo.
+     *
+     * @param string $extraInfo
+     *
+     * @return EventRegistration
+     */
+    public function setExtraInfo($extraInfo)
+    {
+        $this->extra_info = $extraInfo;
+
+        return $this;
+    }
+
+    /**
+     * Get extraInfo.
+     *
+     * @return string
+     */
+    public function getExtraInfo()
+    {
+        return $this->extra_info;
     }
 }

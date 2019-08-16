@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Pixeloid\AppBundle\Entity\UserTitle;
 use Pixeloid\AppBundle\Entity\BudgetCategory;
@@ -48,71 +49,73 @@ class EventRegistrationType extends AbstractType
             $builder
                 ->add('author', null, array('label' => 'Előadó'))
                 ->add('songtitle', null, array('label' => 'Dal címe'))
-                // ->add('length', null, array('label' => 'Hossz (min:sec)', 'attr' => array('data-mask' => '00:00', 'placeholder' => '00:00')))
-                // ->add('publisher', null, array('label' => 'Kiadó'))
-            //     ->add('song_publish_date', TextType::class, array(
-            //         'label' => 'A dal megjelenése', 
-            //         'required' => false,
-            //         'attr' => array('class' => 'datepicker','input_group' => array(
-            //     'append' => '<i class="fa fa-calendar"></i>',
-            // ))))
                 ->add('video_publish_date', TextType::class, array('label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
-                'append' => '<i class="fa fa-calendar"></i>',
-            ))))
+                    'append' => '<i class="fa fa-calendar"></i>',
+                ))))
                 ->add('producer', null, array('label' => 'Gyártócég'))
                 ->add('director', null, array('label' => 'Rendező'))
                 ->add('photographer', null, array('label' => 'Operatőr'))
                 ->add('designer', null, array('label' => 'Látványtervező'))
                 ->add('editor', null, array('label' => 'Vágó'))
-                // ->add('technology', null, array(
-                //     'label' => 'Rögzítéstechnika',
-                //     )
-                // )
                 ->add('budget_category', EntityType::class, array(
                         'label' => 'Budget',
                         'class'   => BudgetCategory::class,
                         'choice_label' => 'name',
                         'placeholder' => 'Válassz...',
                         'required' => false,
-
                     )
                 )
-
                 ->add('description', TextareaType::class, array('label' => 'Valamit még mondanál?', 
                     'required' => false,
                     'attr' => array('rows' => 5)))
                 ->add('video_url', TextType::class, array('label' => 'A klip youtube linkje'))
+                ->add('extra_info', null, array('label' => 'Extra fontos információm van'))
+                ->add('premiere', null, array('label' => 'A Klipszemlén szeretném premierezni a klipet.'))
+                ->add('accept_terms', CheckboxType::class, array('label' => 'Az <a href="/privacy" target="_blank" onclick="">adatvédelmi feltételeket</a> elolvastam és elfogadom'))
 
-                // ->add('moviecategories', EntityType::class, array(
-                //     'label' => 'Melyik kategóriákba nevezed? (maximum 3)',
-                //     'multiple' => true,
-                //     'mapped' => false,
-                //     'expanded' => true,
-                //             'class'   => 'PixeloidAppBundle:MovieCategory',
-                //             'choice_label' => 'name'
-                //     )
-                // )
+                ->add('have_rights', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'Rendelkezem a klip nevezéséhez szükséges jogokkal/engedélyekkel',
+                    'constraints' => [
+                        new NotNull([
+                            'message' => 'I know, it\'s silly, but you must agree to our terms.'
+                        ])
+                    ]
+                ])
+
+                ->add('is_local', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'A klip magyar vonatkozású, vagyis a rendező, az operatőr és/vagy az előadó magyar',
+                    'constraints' => new IsTrue(),
+                ])
+                ->add('accept_rights', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'A nevezéssel tudomásul veszem, hogy a klip vagy annak részlete a Klipszemlén készülő beszámolókban megjelenhet, felhasználásidíj-fizetésre a szervezőség nem kötelezhető.',
+                    'constraints' => [
+                        new IsTrue()
+                    ]
+                ])
+
 
                 ;
 
                 break;
             case 3:
 
-            $builder
-            ->add('have_rights', CheckboxType::class, array('label' => 'Jogosultságom van a klipet nevezni'))
-            ->add('accept_terms', CheckboxType::class, array('label' => '<a href="/privacy" target="_blank" onclick="">Elfogadom a feltételeket</a>'))
-            ->add('recaptcha', EWZRecaptchaType::class, array(
-                    'attr'        => array(
-                        'options' => array(
-                            'theme' => 'light',
-                            'type'  => 'image',
-                            'size' => 'compact',
-                            'type'  => 'image'
+            // $builder
+            // ->add('have_rights', CheckboxType::class, array('label' => 'Jogosultságom van a klipet nevezni'))
+            // ->add('recaptcha', EWZRecaptchaType::class, array(
+            //         'attr'        => array(
+            //             'options' => array(
+            //                 'theme' => 'light',
+            //                 'type'  => 'image',
+            //                 'size' => 'compact',
+            //                 'type'  => 'image'
 
-                        )
-                    ),
-            ));
-            ;
+            //             )
+            //         ),
+            // ));
+            // ;
 
                 break;
 

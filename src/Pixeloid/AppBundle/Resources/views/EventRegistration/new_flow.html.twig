@@ -38,6 +38,7 @@
             {{ form_row(form.author) }}
             {{ form_row(form.songtitle) }}
             {{ form_row(form.video_publish_date) }}
+            <div class="form-help">2018. 09. 10. óta megjelent klipek nevezhetők!</div>
             {{ form_row(form.description) }}
         </div>
         <div class="col-sm-4">
@@ -49,7 +50,21 @@
             {{ form_row(form.budget_category) }}
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-4">            
+            {{ form_row(form.extra_info) }}
+            {{ form_row(form.premiere) }}
+            <div class="well">
+
+                <div class="form-help">
+                    A klip előadója, stábja, a menedzsment, a kiadó és minden érintett tudomásul veszi, hogy 2019.10.10. előtt nem kerülhet nyilvánosságra a videó (ezért a klip a közönségszavazáson sem vesz részt), a végleges változatot pedig legkésőbb 2019.09.20-ig el kell juttatnunk a szemle szervezőségének.
+                </div>
+                
+            </div>
+            {{ form_row(form.accept_terms) }}
+            {{ form_row(form.have_rights) }}
+            {{ form_row(form.is_local) }}
+            {{ form_row(form.accept_rights) }}
+
         </div>
 
     </div>

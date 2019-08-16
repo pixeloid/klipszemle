@@ -85,13 +85,17 @@ class Builder implements ContainerAwareInterface
     }
 
        // $menu->addChild('Szavazás', array('route' => 'vote', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
-        // $menu->addChild('Jelentkezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
-        $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
-        $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
-        $menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
-        $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
-        $menu->addChild('FAQ', array('uri' => '/#faq'))->setLinkAttribute('class', 'animated page-scroll');
-        $menu->addChild(' ', array('uri' => 'https://facebook.com/klipszemle'))->setLinkAttribute('class', 'fa fa-facebook-official fb');
+        $menu->addChild('Nevezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+        // $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
+        // $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
+        // $menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
+        // $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
+        $menu->addChild('Hírek', array('uri' => '#'));
+        $menu->addChild('Rólunk írták', array('uri' => '#'));
+        $menu->addChild('Cuccok', array('uri' => '#'));
+        $menu->addChild('Faq', array('uri' => '#'));
+        $menu->addChild('Facebook', array('uri' => 'https://facebook.com/klipszemle'))->setLinkAttribute('class', 'fa fa-facebook-official fb')->setAttribute('icon', 'icon-class');;
+        $menu->addChild('Instagram', array('uri' => 'https://instagram.com/klipszemle'))->setLinkAttribute('class', 'fa fa-instagram fb');
 
 
 

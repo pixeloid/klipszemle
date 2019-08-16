@@ -40,15 +40,11 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
     protected function loadStepsConfig() {
         return array(
             array(
-                'label' => 'Személyes adatok',
+                'label' => 'Nevező adatai',
                 'form_type' => 'Pixeloid\AppBundle\Form\EventRegistrationType',
             ),
             array(
-                'label' => 'A nevezett mű adatai',
-                'form_type' => 'Pixeloid\AppBundle\Form\EventRegistrationType',
-            ),
-            array(
-                'label' => 'Ellenőrzés',
+                'label' => 'Klip feltöltés',
                 'form_type' => 'Pixeloid\AppBundle\Form\EventRegistrationType',
             ),
 

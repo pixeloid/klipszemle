@@ -3,38 +3,10 @@
 .btn-breadcrumb{
   margin: 50px 0;
   overflow: hidden;
+  width: 100%;  
+  display: flex;
 }
 
-.btn-breadcrumb .btn:not(:last-child):after {
-  content: " ";
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 22px solid transparent;
-  border-bottom: 22px solid transparent;
-  border-left: 12px solid white;
-  position: absolute;
-  top: 50%;
-  margin-top: -22px;
-  left: 100%;
-  margin-left: -1px;
-  z-index: 3;
-}
-.btn-breadcrumb .btn:not(:last-child):before {
-  content: " ";
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 22px solid transparent;
-  border-bottom: 22px solid transparent;
-  border-left: 12px solid rgb(173, 173, 173);
-  position: absolute;
-  top: 50%;
-  margin-top: -22px;
-  margin-left: 0px;
-  left: 100%;
-  z-index: 3;
-}
 
 /** The Spacing **/
 .btn-breadcrumb .btn {
@@ -43,13 +15,15 @@
   text-decoration: none;
   border: none;
   font-weight: 500;
+  flex: 1;
+  border: 2px solid $black;
 }
-.btn-breadcrumb .btn:first-child {
-  padding:10px 16px 10px 20px;
+
+.btn-breadcrumb .btn-primary {
+  background:$black;
+  color: $white;
 }
-.btn-breadcrumb .btn:last-child {
-  padding:10px 28px 10px 34px;
-}
+
 
 /** Default button **/
 .btn-breadcrumb .btn.btn-default:not(:last-child):after {
