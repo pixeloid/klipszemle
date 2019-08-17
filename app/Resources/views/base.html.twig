@@ -9,12 +9,12 @@
         <meta property="fb:app_id" content="{{ fb_app_id }}" />            <!-- Default -->
         
         {% block og_title %}
-        <meta property="og:title" content="03. Magyar Klipszemle" />
+        <meta property="og:title" content="04. Magyar Klipszemle" />
         {% endblock %}
 
         {% block og_image %}
         <meta property="og:image"
-        content="http://www.klipszemle.com/images/Magyar_Klipszemle_1920x1080px-01.jpg" />
+        content="http://www.klipszemle.com/images/klipszemle_cover.jpg" />
         {% endblock %}
 
         {% block og_description %}
@@ -26,27 +26,27 @@
         <meta property="og:url" content="http://www.klipszemle.com" />
         {% endblock %}
 
-        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png?v2">
-        <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png?v2">
-        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png?v2">
-        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png?v2">
-        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png?v2">
-        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png?v2">
-        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png?v2">
-        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png?v2">
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png?v2">
-        <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png?v2">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v2">
-        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png?v2">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v2">
-        <link rel="manifest" href="/manifest.json">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png?v2">
-        <meta name="theme-color" content="#ffffff">
-
+        <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/icon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+        <link rel="manifest" href="/icon/manifest.json">
+        <meta name="msapplication-TileColor" content="#f37e98">
+        <meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#f37e98">
 
         {% block stylesheets %}
-            <link href="/styles/styles.css" type="text/css" rel="stylesheet" media="all"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+            <link href="/styles/styles.css?v1.125" type="text/css" rel="stylesheet" media="all"/>
         {% endblock %}
     </head>
 <body class="{% block bodyclass %}{% endblock %}">
@@ -94,12 +94,12 @@
 
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
+    <div class="">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="/#intro">
+            <a class="navbar-brand page-scroll" href="/">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      width="242.68px" height="76.21px" viewBox="0 0 242.68 76.21" style="enable-background:new 0 0 242.68 76.21;"
                      xml:space="preserve">
@@ -213,6 +213,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
         {{ knp_menu_render('main', {'nav_type': '', 'currentAsLink': true, 'currentClass': 'active'}) }}
+        <ul class="nav navbar-nav social">
+            <li>
+                <a href="https://www.facebook.com/klipszemle/" target="_blank">
+                    <i class="fa fa-facebook"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/magyar_klipszemle/" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </li>
+        </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -231,6 +243,8 @@
 </div>
         
 
+
+{{ render(controller('Pixeloid\AppBundle:Default:sponsors')) }}
 
 
 <!-- Footer -->
@@ -262,12 +276,11 @@
 </div>
 
 <script type="text/javascript" src="/libs/vendor.js"></script>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
 
 {% block javascripts %}{% endblock %}
 
-<script type="text/javascript" src="/scripts/app.js"></script>
+<script type="text/javascript" src="/scripts/app.js?v1.125"></script>
 
 
 

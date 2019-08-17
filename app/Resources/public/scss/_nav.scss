@@ -1,5 +1,5 @@
 .navbar-custom {
-    padding: 10px 0;
+    padding: 10px 20px;
 
     margin-bottom: 0;
     border-bottom: none;
@@ -8,10 +8,15 @@
 
     .navbar-toggle{
         font-size: 30px;
+        color: $white;
+        margin: 1px;
+        padding: 0;
     }
     .navbar-brand {
         font-weight: 700;
+        height: auto;
         svg {
+            display: block;
             height: 45px;
             width: auto;
             polygon,
@@ -23,7 +28,7 @@
             outline: none;
         }
 
-        padding: 5px;
+        padding: 0;
         .navbar-toggle {
             padding: 4px 6px;
             font-size: 16px;
@@ -34,10 +39,28 @@
             }
         }
     }
-    a {
-        //color: $brand-primary;
+    .social {
+        font-size: 1.8em;
+        display: flex;
+        justify-content: center;
+        @media(min-width:$screen-md) {
+            margin-left: 0.3em;
+            float: left;
+        }
+
+        li {
+            margin: 0 0.2em;
+        }
     }
     .nav {
+        text-align: center;
+        @media(min-width:$screen-md) {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+
         li {
             a {
                 transition: all .3s ease-in-out;
@@ -45,8 +68,7 @@
                 text-decoration: none;
                 font-weight: bold;
                 font-size: 0.9em;
-                padding-left: 10px;
-                padding-right: 10px;
+                padding: 12px 10px;
                 font-family: $headings-font-family;
                 &.fa{
                     font-size: 2em;
@@ -61,8 +83,8 @@
                     background: $brand-secondary;
                     padding-top: 5px;
                     padding-bottom: 5px;
-                    margin-top:10px;
-                    margin-bottom: 10px;
+                    margin-top:3px;
+                    margin-bottom: 3px;
                     &:hover {
                         color: white;
                         outline: none;
@@ -96,18 +118,18 @@
         }
     }
     @media(min-width:768px) {
-        padding: 20px 0;
+        padding: 20px ;
         border-bottom-color: lighten($brand-primary, 10%);
         letter-spacing: 1px;
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
         &.top-nav-collapse {
-            padding: 0;
+            padding: 10px 20px;
             border-bottom: 1px solid fade(white, 30%);
 
-            .navbar-brand img{
-                height: 38px;
+            .navbar-brand svg{
+                height: 45px;
                 -webkit-transition: height .3s ease-in-out;
                 -moz-transition: height .3s ease-in-out;
                 transition: height .3s ease-in-out;

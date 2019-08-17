@@ -40,7 +40,7 @@ class EventRegistrationType extends AbstractType
                         )
                     )
                     ->add('email', null, array('label' => 'E-mail'))
-                    ->add('phone', null, array('label' => 'Telefonszám', 'attr' => array('data-mask' => '(#0) 000-0000', 'placeholder' => '(55) 555-5555')))
+                    ->add('phone', null, array('label' => 'Telefonszám'))
 
                     ;
 
@@ -49,7 +49,7 @@ class EventRegistrationType extends AbstractType
             $builder
                 ->add('author', null, array('label' => 'Előadó'))
                 ->add('songtitle', null, array('label' => 'Dal címe'))
-                ->add('video_publish_date', TextType::class, array('label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
+                ->add('video_publish_date', null, array('widget' => 'single_text', 'label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker','input_group' => array(
                     'append' => '<i class="fa fa-calendar"></i>',
                 ))))
                 ->add('producer', null, array('label' => 'Gyártócég'))
@@ -71,30 +71,13 @@ class EventRegistrationType extends AbstractType
                 ->add('video_url', TextType::class, array('label' => 'A klip youtube linkje'))
                 ->add('extra_info', null, array('label' => 'Extra fontos információm van'))
                 ->add('premiere', null, array('label' => 'A Klipszemlén szeretném premierezni a klipet.'))
-                ->add('accept_terms', CheckboxType::class, array('label' => 'Az <a href="/privacy" target="_blank" onclick="">adatvédelmi feltételeket</a> elolvastam és elfogadom'))
+                ->add('accept_terms', CheckboxType::class, array(
+                    'label' => 'Az <a href="/privacy" target="_blank" onclick="">adatvédelmi feltételeket</a> elolvastam és elfogadom <br>
+                    Rendelkezem a klip nevezéséhez szükséges jogokkal/engedélyekkel <br>
+                    A klip magyar vonatkozású, vagyis a rendező, az operatőr és/vagy az előadó magyar <br>
+                    A nevezéssel tudomásul veszem, hogy a klip vagy annak részlete a Klipszemlén készülő beszámolókban megjelenhet, felhasználásidíj-fizetésre a szervezőség nem kötelezhető.'
+                ))
 
-                ->add('have_rights', CheckboxType::class, [
-                    'mapped' => false,
-                    'label' => 'Rendelkezem a klip nevezéséhez szükséges jogokkal/engedélyekkel',
-                    'constraints' => [
-                        new NotNull([
-                            'message' => 'I know, it\'s silly, but you must agree to our terms.'
-                        ])
-                    ]
-                ])
-
-                ->add('is_local', CheckboxType::class, [
-                    'mapped' => false,
-                    'label' => 'A klip magyar vonatkozású, vagyis a rendező, az operatőr és/vagy az előadó magyar',
-                    'constraints' => new IsTrue(),
-                ])
-                ->add('accept_rights', CheckboxType::class, [
-                    'mapped' => false,
-                    'label' => 'A nevezéssel tudomásul veszem, hogy a klip vagy annak részlete a Klipszemlén készülő beszámolókban megjelenhet, felhasználásidíj-fizetésre a szervezőség nem kötelezhető.',
-                    'constraints' => [
-                        new IsTrue()
-                    ]
-                ])
 
 
                 ;

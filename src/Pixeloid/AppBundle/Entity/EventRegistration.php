@@ -118,8 +118,13 @@ class EventRegistration
     protected $song_publish_date;
     
     /**
-     * @ORM\Column(type="text", name="video_publish_date", nullable=false, length=150)
+     * @ORM\Column(type="date", name="video_publish_date", nullable=false, length=150)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
+     * @Assert\Range(
+     *      min = "2018-09-15",
+     *      max = "2019-10-10",
+     *      groups={"flow_eventRegistration_step2"}
+     * )
      */
     protected $video_publish_date;
     
@@ -263,7 +268,7 @@ class EventRegistration
 
     /**
      * @ORM\Column(name="accept_terms", type="boolean", nullable=true)
-     * @Assert\IsTrue(groups={"flow_eventRegistration_step3"}, message = "Kötelező mező")
+     * @Assert\IsTrue(groups={"flow_eventRegistration_step2"}, message = "Kötelező mező")
      */
     protected $accept_terms = null;
     

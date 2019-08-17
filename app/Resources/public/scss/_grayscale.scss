@@ -450,19 +450,8 @@ a {
 .content-section {
 
         padding-top: 50px;
-        h2{
-            line-height: 0.75;
-            letter-spacing: -0.03em;
-            font-size: 5rem;
-            font-weight: 900;
-            font-style: italic;
-        }
-
 
     @media(min-width:$screen-md) {
-        h2{
-            font-size: 8rem;
-        }
     }
 
 }

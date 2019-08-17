@@ -1,100 +1,77 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-<div class="hero">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <div class="hero__content">
-                    <h1>Lorem</h1>
-                    <p>ipsum</p>
-                    <a href="" class="btn btn-primary">Default button</a>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <img src="https://via.placeholder.com/800" alt="" class="hero__image">
-            </div>
+
+<div class="heroes">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      {% for hero in heroes %}
+        <div class="swiper-slide">
+          <div class="hero">
+              <div class="container">
+                  <div class="grid">
+                      <div class="col col--1">
+                          <div class="hero__content">
+                              <h1><span>{{ hero.title }}</span></h1>
+                              <p>{{ hero.description }}</p>
+                              <a href="{{ hero.url }}" class="btn btn-primary">{{ hero.buttontext }}</a>
+                          </div>
+                      </div>
+                      <div class="col col--2">
+                         {% media hero.image, 'big' with {'srcset': ['small', 'big'], class: "img-responsive"} %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+    <a href="{{ path('eventregistration_new') }}" class="btn btn-black btn-lg">Nevezés <i class="fa fa-arrow-right"></i> </a>
+</div>
+
+<div class="container content-section">
+    <div class="grid about">
+        <div class="col col--1">
+            <img src="{{ asset('bundles/pixeloidapp/images/2019/blue_1.png') }}" alt="" class="img-responsive">
+        </div>
+        <div class="col col--2">
+          <div class="about__text">
+             <h2>MI AZ A KLIPSZEMLE?</h2>
+            <p>            A kérdést, hogy mi a francért nincs itthon a zenei videóknak rendes, országos versenye, eloször 2015-ben tették fel maguknak a szervezők.</p>
+            <p>Ezután két éven át a budapesti Toldi Moziban rendezték meg a szemlét. Két napos, maratoni klipnézos népünnepek voltak. Egy év kihagyás után, a harmadik verseny tavaly, az Anker’tben volt.</p>
+            <p>Az évente változó, független zsuri újságírókból, filmesekbol és zenei szakemberekből állt össze. Egy díjat azonban mindig a közönség szavazott meg. A korábbi feltörekvo nyertesek jó része azóta Los Angelestől Szabadkáig filmes, reklámos, vagy kreatív szakember lett.</p>
+            <p>Most érkeztünk el a negyedikig, de a cél azóta se változott: legyen platform a hazai zenei videóknak, legyen tétje jó klipet csinálni, hadd nézzük meg oket egyszer nagyvásznon!</p>
+
+          </div>
         </div>
     </div>
 </div>
 
-
-<div class="container">
+ <section class="container content-section jury">
     <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <img src="https://via.placeholder.com/300x400" alt="" class="hero__image">
-        </div>
-        <div class="col-sm-12 col-md-6">
-                         <h2>MI AZ A KLIPSZEMLE?</h2>
-<p>            A kérdést, hogy mi a francért nincs itthon a zenei videóknak rendes, országos versenye, eloször 2015-ben tették fel maguknak a szervezők.</p>
-<p>Ezután két éven át a budapesti Toldi Moziban rendezték meg a szemlét. Két napos, maratoni klipnézos népünnepek voltak. Egy év kihagyás után, a harmadik verseny tavaly, az Anker’tben volt.</p>
-<p>Az évente változó, független zsuri újságírókból, filmesekbol és zenei szakemberekből állt össze. Egy díjat azonban mindig a közönség szavazott meg. A korábbi feltörekvo nyertesek jó része azóta Los Angelestől Szabadkáig filmes, reklámos, vagy kreatív szakember lett.</p>
-<p>Most érkeztünk el a negyedikig, de a cél azóta se változott: legyen platform a hazai zenei videóknak, legyen tétje jó klipet csinálni, hadd nézzük meg oket egyszer nagyvásznon!</p>
-        </div>
-    </div>
-</div>
-
- <section id="about" class="container content-section ">
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-              <section id="jury" >
+        <div class="col-sm-12 col-md-7 col-lg-6">
                          <h2>A ZSŰRI</h2>
 
                         <div class="row">
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
-                           <div class="col-md-4 col-sm-6 jury-person">
-                               <img src="https://via.placeholder.com/200" alt="">
-                               <p>Lorem ipsum</p>
-                           </div>
+
+                          {% for jury in juries %}
+                              <div class="col-md-4 col-sm-4 col-xs-6 jury-person">
+                                  {% thumbnail jury.image, 'med' with { class: "img-responsive" } %}
+                                  <p>{{ jury.name }}</p>
+                                  <p><i>{{ jury.details }}</i></p>
+                              </div>
+
+                          {% endfor %}
+
                         </div>
-             </section> 
         </div>
 
-        <div class="col-sm-12 col-md-6">
-            <img src="https://via.placeholder.com/400x700" alt="" class="hero__image">
+        <div class="col-sm-12 col-md-5 col-lg-offset-1 image-holder">
+          <img src="{{ asset('bundles/pixeloidapp/images/2019/blue_2.png') }}" alt="" class="img-responsive">
         </div>
 
     </div>

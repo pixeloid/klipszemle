@@ -38,14 +38,19 @@ class Hero
     /**
      * @var string
      *
+     * @ORM\Column(name="button_text", type="string", length=40)
+     */
+    private $button_text;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
      */
     private $image;
 
@@ -154,5 +159,29 @@ class Hero
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set buttonText.
+     *
+     * @param string $buttonText
+     *
+     * @return Hero
+     */
+    public function setButtonText($buttonText)
+    {
+        $this->button_text = $buttonText;
+
+        return $this;
+    }
+
+    /**
+     * Get buttonText.
+     *
+     * @return string
+     */
+    public function getButtonText()
+    {
+        return $this->button_text;
     }
 }

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="content-section container">
+{% for post in posts %}
+  <h1>{{ post.title }}</h1>
+  <p><b>{{ post.lead}}</b></p>
+  {{ post.body|raw  }}
+
+  <div class="row">
+      
+  {% for media in post.gallery.galleryHasMedias %}
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <a href="{% path media.media, 'big' %}" data-lightbox="gallery">
+    {% thumbnail media.media, 'big' with { 'class': 'img-responsive'} %}
+  </a>
+  </div>
+  {% endfor %}
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+    {{ parent() }}
+{% endblock %}

@@ -44,7 +44,7 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
                 'form_type' => 'Pixeloid\AppBundle\Form\EventRegistrationType',
             ),
             array(
-                'label' => 'Klip feltöltés',
+                'label' => 'Klip adatai',
                 'form_type' => 'Pixeloid\AppBundle\Form\EventRegistrationType',
             ),
 

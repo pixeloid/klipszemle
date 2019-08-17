@@ -35,6 +35,7 @@ twig:
         - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
         - 'PixeloidAppBundle:Form:fields.html.twig'
         - '@SonataCore/Form/datepicker.html.twig'
+        - '@SonataFormatter/Form/formatter.html.twig'
     globals:
         fb_app_id: "%fb_app_id%"
 
@@ -79,6 +80,9 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        mappings:
+            SonataMediaBundle: ~
+            ApplicationSonataMediaBundle: ~
 
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/DoctrineMigrations"
@@ -140,6 +144,36 @@ knp_snappy:
 #                 maxWordCount: 3000
 #                 countHTML: false
 #                 lang:  '%locale%'
+sonata_media:
+    # if you don't use default namespace configuration
+    #class:
+    #    media: MyVendor\MediaBundle\Entity\Media
+    #    gallery: MyVendor\MediaBundle\Entity\Gallery
+    #    gallery_has_media: MyVendor\MediaBundle\Entity\GalleryHasMedia
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr it is mandatory to choose one here
+    default_context: default # you need to set a context
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.image
+
+            formats:
+                small: { width: 100 , quality: 70}
+                med: { width: 400 , quality: 70}
+                big:   { width: 900 , quality: 70}
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  '%kernel.root_dir%/../web/uploads/media'    
+            create:     true
+    class:
+        media: Application\Sonata\MediaBundle\Entity\Media
+        gallery: Application\Sonata\MediaBundle\Entity\Gallery
+        gallery_has_media: Application\Sonata\MediaBundle\Entity\GalleryHasMedia
 
 
 # avalanche_imagine:
@@ -180,7 +214,44 @@ hwi_oauth:
     # here you will add one (or more) configurations for resource owners
     # and other settings you want to adjust in this bundle, just checkout the list below!
 
+sonata_formatter:
+    default_formatter: text
+    formatters:
+        markdown:
+            service: sonata.formatter.text.markdown
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig #keep this commented unless you are using media bundle.
 
+
+        text:
+            service: sonata.formatter.text.text
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig
+
+
+        rawhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig
+
+
+        richhtml:
+            service: sonata.formatter.text.raw
+            extensions:
+                - sonata.formatter.twig.control_flow
+                - sonata.formatter.twig.gist
+        #        - sonata.media.formatter.twig
+
+
+        twig:
+            service: sonata.formatter.text.twigengine
+            extensions: [] # Twig formatter cannot have extensions
 deploy:
   staging:
     rsync-options: '-azC --force --delete --progress -h --checksum'

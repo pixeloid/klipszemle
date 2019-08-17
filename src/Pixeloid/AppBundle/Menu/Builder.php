@@ -65,7 +65,6 @@ class Builder implements ContainerAwareInterface
         // $menu->addChild('Fiókom', array('route' => 'fos_user_profile_show'));
 
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-          $menu->addChild('Regisztrációk listája', array('route' => 'eventregistration'));
         }
     }
     else
@@ -81,7 +80,7 @@ class Builder implements ContainerAwareInterface
   {
 
     if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-      $menu->addChild('Shortlist', array('route' => 'shortlist_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+      // $menu->addChild('Shortlist', array('route' => 'shortlist_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
     }
 
        // $menu->addChild('Szavazás', array('route' => 'vote', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
@@ -90,12 +89,12 @@ class Builder implements ContainerAwareInterface
         // $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
         // $menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
         // $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
-        $menu->addChild('Hírek', array('uri' => '#'));
-        $menu->addChild('Rólunk írták', array('uri' => '#'));
-        $menu->addChild('Cuccok', array('uri' => '#'));
-        $menu->addChild('Faq', array('uri' => '#'));
-        $menu->addChild('Facebook', array('uri' => 'https://facebook.com/klipszemle'))->setLinkAttribute('class', 'fa fa-facebook-official fb')->setAttribute('icon', 'icon-class');;
-        $menu->addChild('Instagram', array('uri' => 'https://instagram.com/klipszemle'))->setLinkAttribute('class', 'fa fa-instagram fb');
+        // $menu->addChild('Hírek', array('uri' => '#'));
+        // $menu->addChild('Rólunk írták', array('uri' => '#'));
+        // $menu->addChild('Cuccok', array('uri' => '#'));
+        $menu->addChild('Faq', array('route' => 'faq'));
+        // $menu->addChild('Facebook', array('uri' => 'https://facebook.com/klipszemle'))->setLinkAttribute('class', 'fa fa-facebook-official fb')->setAttribute('icon', 'icon-class');;
+        // $menu->addChild('Instagram', array('uri' => 'https://instagram.com/klipszemle'))->setLinkAttribute('class', 'fa fa-instagram fb');
 
 
 

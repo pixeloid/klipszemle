@@ -291,7 +291,7 @@ class EventRegistrationController extends Controller
 
 
     /**
-     * Creates a new EventRegistration entity.
+     * @Route("/create", name="eventregistration_create")
      */
     public function createAction(Request $request)
     {
@@ -347,7 +347,7 @@ class EventRegistrationController extends Controller
 
                     $message = \Swift_Message::newInstance()
                         ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
-                        ->setFrom('info@klipszemle.com')
+                        ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
                         ->setTo(array($entity->getUser()->getEmail()))
                         ->setBody(
                             $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
@@ -361,7 +361,7 @@ class EventRegistrationController extends Controller
 
                     $message = \Swift_Message::newInstance()
                         ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
-                        ->setFrom('info@klipszemle.com')
+                        ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
                         ->setTo(array('info@klipszemle.com', 'olah.gergely@pixeloid.hu'))
                         ->setBody(
                             $this->renderView('PixeloidAppBundle:EventRegistration:success-mail.html.twig', array(
@@ -423,8 +423,9 @@ class EventRegistrationController extends Controller
 
 
     /**
-     * Displays a form to create a new EventRegistration entity.
+     * @Route("/", name="eventregistration_new")
      */
+
     public function newAction()
     {
         $entity = new EventRegistration();
@@ -490,6 +491,9 @@ class EventRegistrationController extends Controller
         return $page;
     }
 
+    /**
+     * @Route("/", name="eventregistration_success")
+     */
     public function registrationSuccessAction($id)
     {
      

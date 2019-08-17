@@ -62,6 +62,8 @@ var ESPCR = ESPCR || {};
 
 
       init: function(){
+
+
         $('input[type=checkbox]').addClass('styled').each(function(){
         	$(this).insertBefore($(this).parent())
         });
@@ -71,9 +73,19 @@ var ESPCR = ESPCR || {};
         //   style: 'btn-info',
         //   size: 4
         // });
+        // 
+        var $cb = $('<input class="styled" type="checkbox"> ');
+        $('#pixeloid_appbundle_eventregistration_extra_info').parent().wrap('<div class="checkbox">').prepend($cb);
+        $cb.on('change', function () {
+          if($(this).prop('checked')) {
+            $('#pixeloid_appbundle_eventregistration_extra_info').show()
+          } else {
+            $('#pixeloid_appbundle_eventregistration_extra_info').hide();
+          }
+        }).change();
+
         $('#pixeloid_appbundle_eventregistration_song_publish_date').datepicker({'language': 'hu', 'format': 'yyyy-mm-dd'});
         $('#pixeloid_appbundle_eventregistration_video_publish_date').datepicker({'language': 'hu', 'format': 'yyyy-mm-dd',  'startDate': '2015-05-01'});
-
       }
     }
   })
@@ -260,6 +272,58 @@ var ESPCR = ESPCR || {};
 
 
 
+  extend(ESPCR, {
+
+    swiper:{
+    
+
+
+      init: function(){
+        var heroSwiper = new Swiper ('.heroes .swiper-container', {
+          // Optional parameters
+          loop: true,
+          loopedSlides: 1
+        })
+        var sponsorSwiper = new Swiper ('.sponsors .swiper-container', {
+          // Optional parameters
+          loop: true,
+          slidesPerView: 10,
+          breakpoints: {
+            // when window width is <= 320px
+            600: {
+              slidesPerView: 2,
+            },
+            // when window width is <= 480px
+            800: {
+              slidesPerView: 3,
+            },
+            // when window width is <= 640px
+            1000: {
+              slidesPerView: 4,
+            },
+            1100: {
+              slidesPerView: 5,
+            },
+            1200: {
+              slidesPerView: 6,
+            },
+            1300: {
+              slidesPerView: 8,
+            }
+          },
+          autoplay: {
+            delay: 2000,
+          },
+
+
+        })
+      }
+    }
+  })
+
+
+
+
 
 
 
@@ -268,6 +332,7 @@ var ESPCR = ESPCR || {};
     ESPCR.navbar.init();
     ESPCR.customFormElements.init();
     ESPCR.vote.init();
+    ESPCR.swiper.init();
     
     $('#eventregistration_datatable').on( 'draw.dt', function () {
       ESPCR.youtubeList.init();

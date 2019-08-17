@@ -15,6 +15,7 @@ nbproject
 /var/cache/*
 /var/sessions/*
 node_modules
+web/uploads
 web/bundles
 web/fb_post_images
 vendor

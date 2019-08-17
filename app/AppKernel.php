@@ -27,7 +27,6 @@ class AppKernel extends Kernel
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new TeamLab\Bundle\FixturesBundle\DoctrineDumpFixturesBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new FOS\CKEditorBundle\FOSCKEditorBundle(),
             // new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
@@ -39,8 +38,15 @@ class AppKernel extends Kernel
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\MediaBundle\SonataMediaBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
+            new Sonata\FormatterBundle\SonataFormatterBundle(),
 
             new Pixeloid\AppBundle\PixeloidAppBundle(),
+            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
           //  new Pixeloid\UserBundle\PixeloidUserBundle(),
         );
 

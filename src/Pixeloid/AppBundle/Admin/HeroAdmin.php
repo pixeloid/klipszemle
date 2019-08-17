@@ -44,11 +44,11 @@ final class HeroAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('id')
             ->add('title')
             ->add('description')
             ->add('url')
-            ->add('image')
+            ->add('button_text')
+            ->add('image', 'sonata_type_model_list')
         ;
     }
 

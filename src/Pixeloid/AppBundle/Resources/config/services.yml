@@ -66,29 +66,29 @@ services:
       class: Pixeloid\AppBundle\Admin\EventRegistrationAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\EventRegistration, PixeloidAppBundle:EventRegistrationAdmin]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: Content, label: Nevezett klipek }
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Nevezett klipek }
       public: true
 
-  # pixeloid_app.admin.budget_category:
-  #     class: Pixeloid\AppBundle\Admin\BudgetCategoryAdmin
-  #     arguments: [~, Pixeloid\AppBundle\Entity\BudgetCategory, SonataAdminBundle:CRUD]
-  #     tags:
-  #         - { name: sonata.admin, manager_type: orm, group: admin, label: BudgetCategory }
-  #     public: true
+  pixeloid_app.admin.budget_category:
+      class: Pixeloid\AppBundle\Admin\BudgetCategoryAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\BudgetCategory, SonataAdminBundle:CRUD]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: BudgetCategory }
+      public: true
 
-  # pixeloid_app.admin.event_registration_category:
-  #     class: Pixeloid\AppBundle\Admin\EventRegistrationCategoryAdmin
-  #     arguments: [~, Pixeloid\AppBundle\Entity\EventRegistrationCategory, SonataAdminBundle:CRUD]
-  #     tags:
-  #         - { name: sonata.admin, manager_type: orm, group: admin, label: EventRegistrationCategory }
-  #     public: true
+  pixeloid_app.admin.event_registration_category:
+      class: Pixeloid\AppBundle\Admin\EventRegistrationCategoryAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\EventRegistrationCategory, SonataAdminBundle:CRUD]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: EventRegistrationCategory }
+      public: true
 
 
   # pixeloid_app.admin.user:
   #     class: Pixeloid\AppBundle\Admin\UserAdmin
   #     arguments: [~, Pixeloid\AppBundle\Entity\User, SonataAdminBundle:CRUD]
   #     tags:
-  #         - { name: sonata.admin, manager_type: orm, group: admin, label: User }
+  #         - { name: sonata.admin, manager_type: orm, group: Tartalom, label: User }
   #     public: true
 
 
@@ -96,26 +96,47 @@ services:
       class: Pixeloid\AppBundle\Admin\MovieCategoryAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\MovieCategory, SonataAdminBundle:CRUD]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: admin, label: MovieCategory }
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: MovieCategory }
       public: true
 
-  pixeloid_app.admin.event_registration_category:
-      class: Pixeloid\AppBundle\Admin\EventRegistrationCategoryAdmin
-      arguments: [~, Pixeloid\AppBundle\Entity\EventRegistrationCategory, SonataAdminBundle:CRUD]
-      tags:
-          - { name: sonata.admin, manager_type: orm, group: admin, label: EventRegistrationCategory }
-      public: true
+  # pixeloid_app.admin.event_registration_category:
+  #     class: Pixeloid\AppBundle\Admin\EventRegistrationCategoryAdmin
+  #     arguments: [~, Pixeloid\AppBundle\Entity\EventRegistrationCategory, SonataAdminBundle:CRUD]
+  #     tags:
+  #         - { name: sonata.admin, manager_type: orm, group: Tartalom, label: EventRegistrationCategory }
+  #     public: true
 
-  pixeloid_app.admin.keyword:
-      class: Pixeloid\AppBundle\Admin\KeywordAdmin
-      arguments: [~, Pixeloid\AppBundle\Entity\Keyword, SonataAdminBundle:CRUD]
-      tags:
-          - { name: sonata.admin, manager_type: orm, group: admin, label: Keyword }
-      public: true
+  # pixeloid_app.admin.keyword:
+  #     class: Pixeloid\AppBundle\Admin\KeywordAdmin
+  #     arguments: [~, Pixeloid\AppBundle\Entity\Keyword, SonataAdminBundle:CRUD]
+  #     tags:
+  #         - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Keyword }
+  #     public: true
 
   pixeloid_app.admin.hero:
       class: Pixeloid\AppBundle\Admin\HeroAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\Hero, Sonata\AdminBundle\Controller\CRUDController]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: admin, label: Hero }
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Hero }
+      public: true
+
+  pixeloid_app.admin.jury:
+      class: Pixeloid\AppBundle\Admin\JuryAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\Jury, Sonata\AdminBundle\Controller\CRUDController]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Jury }
+      public: true
+
+  pixeloid_app.admin.sponsor:
+      class: Pixeloid\AppBundle\Admin\SponsorAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\Sponsor, Sonata\AdminBundle\Controller\CRUDController]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Sponsor }
+      public: true
+
+  pixeloid_app.admin.post:
+      class: Pixeloid\AppBundle\Admin\PostAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\Post, Sonata\AdminBundle\Controller\CRUDController]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Post }
       public: true

@@ -11,98 +11,27 @@ use Pixeloid\AppBundle\Entity\Accomodation;
 use Pixeloid\AppBundle\Entity\Room as Room;
 use Pixeloid\AppBundle\Form\DocumentType;
 use Pixeloid\AppBundle\Entity\Documents;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpKernel\Kernel;
 
 
 class DefaultController extends AbstractController
 {
 
     /**
-     * @Route("/index", name="default_home")
+     * @Route("/", name="default_home")
      */
 
     public function indexAction(Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
-        $day1 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day1');
-        $day2 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day2');
-        $lead = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('lead');
-
-        if(!$day1){
-          $day1 = new Documents;
-          $day1->setName('day1');  
-        } 
-
-        if(!$day2){
-          $day2 = new Documents;
-          $day2->setName('day2');  
-        } 
-        if(!$lead){
-          $lead = new Documents;
-          $lead->setName('lead');  
-        } 
-
-
-
-        $form = $this->createForm(DocumentType::class, null, array(
-        ));
-
-        $form['day1']->setData($day1->getContent());
-        $form['day2']->setData($day2->getContent());
-        $form['lead']->setData($lead->getContent());
-
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted()) {
-
-            if ($form->isValid()) {
-
-                $em = $this->getDoctrine()->getManager();
-                $day1 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day1');
-                $day2 = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('day2');
-                $lead = $em->getRepository('PixeloidAppBundle:Documents')->findOneByName('lead');
-
-                if(!$day1){
-                  $day1 = new Documents;
-                  $day1->setName('day1');  
-                } 
-
-                if(!$day2){
-                  $day2 = new Documents;
-                  $day2->setName('day2');  
-                } 
-                if(!$lead){
-                  $lead = new Documents;
-                  $lead->setName('lead');  
-                } 
-
-
-
-
-                $day1->setContent($form['day1']->getData());
-                $day2->setContent($form['day2']->getData());
-                $lead->setContent($form['lead']->getData());
-
-                $em->persist($day1);
-                $em->persist($day2);
-                $em->persist($lead);
-                $em->flush();
-
-            }
-        }
-
-
-        // $winners =  $em->getRepository('PixeloidAppBundle:EventRegistration')->findBy(array('winner' => 1));
-
-        $winners =  [];
+        $hero = $em->getRepository('PixeloidAppBundle:Hero')->findAll();
+        $jury = $em->getRepository('PixeloidAppBundle:Jury')->findAll();
 
         return $this->render('PixeloidAppBundle:Default:index.html.twig', array(
-            'day1' => $day1->getContent(),
-            'day2' => $day2->getContent(),
-            'lead' => $lead->getContent(),
-            'form' => $form->createView(),
-            'winners' => $winners,
+            'heroes' => $hero,
+            'juries' => $jury,
             )
         );
 
@@ -111,27 +40,15 @@ class DefaultController extends AbstractController
 
     }
 
-    public function infoAction()
+    public function sponsorsAction()
     {
 
         $em = $this->getDoctrine()->getManager();
 
+        $sponsors = $em->getRepository('PixeloidAppBundle:Sponsor')->findAll();
 
-        $event = $em->getRepository('PixeloidAppBundle:Event')->findOneById(2);
-
-        $qb = $em->createQueryBuilder();
-        $qb->select('a, r')
-            ->from('PixeloidAppBundle:Accomodation', 'a')
-            ->join('a.rooms', 'r')
-            ->where('r.event = :event')
-            ->setParameter('event', $event)
-            ->distinct(true)
-        ;
-
-        $accomodations =$qb->getQuery()->getResult();
-
-        return $this->render('PixeloidAppBundle:Default:info.html.twig', array(
-            'accomodations' => $accomodations));
+        return $this->render('PixeloidAppBundle:Default:sponsors.html.twig', array(
+            'sponsors' => $sponsors));
     }
 
     public function mapAction()
@@ -162,18 +79,31 @@ class DefaultController extends AbstractController
         return $this->render('PixeloidAppBundle:Default:register.html.twig');
     }
 
-    public function abstractSubmissionAction($step)
+
+    /**
+     * @Route("/hirek", name="news")
+     */
+
+    public function newsAction()
     {
-        return $this->render('PixeloidAppBundle:Default:abstract-submission.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('PixeloidAppBundle:Post')->findAll();
+
+        return $this->render('PixeloidAppBundle:Default:news.html.twig', ['posts' => $posts]);
     }
 
     public function privacyAction()
     {
         return $this->render('PixeloidAppBundle:Default:privacy.html.twig');
     }
-    public function importantAction()
+
+    /**
+     * @Route("/faq", name="faq")
+     */
+    public function faqAction()
     {
-        return $this->render('PixeloidAppBundle:Default:important.html.twig');
+        $faq = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/../src/Pixeloid/AppBundle/Resources/config/faq.yml'));
+        return $this->render('PixeloidAppBundle:Default:faq.html.twig', ['faq' => $faq]);
     }
 
     public function splashAction()

@@ -1,11 +1,8 @@
 
-pixeloid_app_eventregistration:
-    resource: "@PixeloidAppBundle/Resources/config/routing/eventregistration.yml"
-    prefix:   /eventregistration
 
 pixeloid_app_eventregistration_annotation:
     resource: "@PixeloidAppBundle/Controller/EventRegistrationController.php"
-    prefix:   /eventregistration
+    prefix:   /nevezes
     type:     annotation
 pixeloid_app_default:
     resource: "@PixeloidAppBundle/Controller/DefaultController.php"
@@ -21,11 +18,6 @@ pixeloid_app_default:
 pixeloid_app_presentation:
     resource: "@PixeloidAppBundle/Resources/config/routing/presentation.yml"
     prefix:   /presentation
-
-
-pixeloid_app_index:
-    path:     /
-    defaults: { _controller: PixeloidAppBundle:Default:splash, event: "ESCPR" }
 
 
 pixeloid_app_privacy:

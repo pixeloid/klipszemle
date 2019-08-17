@@ -1,10 +1,4 @@
-@font-face {
-    font-family: 'Avenir Heavy';
-    src: url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.eot');
-    src: url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.eot?#iefix') format("embedded-opentype"), url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.woff') format("woff"), url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.ttf') format("truetype"), url('http://klipszemle.sf.dev.pixeloid.hu/fonts/AvenirNext-Heavy.svg#92550229aad14ffa2dc273e49410d17e') format("svg");
-    font-style: normal;
-    font-weight: 700
-}
+
 
 
     .video-item{
@@ -69,7 +63,6 @@
     }
 
     .video-item__text{
-        font-family: "Avenir Next";
         font-weight: 700;
         white-space: nowrap;
         overflow: hidden;
@@ -128,7 +121,6 @@
 
 
     .video-item__headline{
-        font-family: "Avenir Next";
         font-weight: 700;
         font-weight: bold;
         position: absolute;
