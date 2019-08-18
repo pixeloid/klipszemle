@@ -492,13 +492,15 @@ class EventRegistrationController extends Controller
     }
 
     /**
-     * @Route("/", name="eventregistration_success")
+     * @Route("/success/{id}", name="eventregistration_success")
      */
     public function registrationSuccessAction($id)
     {
-     
-        return $this->render('PixeloidAppBundle:EventRegistration:success.html.twig', array(
+      $em = $this->getDoctrine()->getManager();
 
+      $entity = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
+        return $this->render('PixeloidAppBundle:EventRegistration:success.html.twig', array(
+          'reg' => $entity, 
         ));
 
 

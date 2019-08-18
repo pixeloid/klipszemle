@@ -484,11 +484,24 @@ body{
 .craue_formflow_button_last {
   background:$brand-secondary;
   color: $white;
+  order: 3;
 
   @media(max-width:$screen-sm) {
     width: 100%;
     margin-top: 2rem;
     padding: 3rem;
+    order: -1;
+    margin-bottom: 2em;
   }
 
+}
+
+.craue_formflow_buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  .pull-left {
+    float: none;
+    margin-right: auto;
+  }
 }

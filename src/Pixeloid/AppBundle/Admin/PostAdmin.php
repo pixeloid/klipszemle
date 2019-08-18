@@ -29,8 +29,6 @@ final class PostAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('title')
-            ->add('lead')
-            ->add('body')
             ->add('created')
             ->add('_action', null, [
                 'actions' => [

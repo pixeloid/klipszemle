@@ -73,15 +73,15 @@ services:
       class: Pixeloid\AppBundle\Admin\BudgetCategoryAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\BudgetCategory, SonataAdminBundle:CRUD]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: BudgetCategory }
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Budget }
       public: true
 
   pixeloid_app.admin.event_registration_category:
       class: Pixeloid\AppBundle\Admin\EventRegistrationCategoryAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\EventRegistrationCategory, SonataAdminBundle:CRUD]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: EventRegistrationCategory }
-      public: true
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Kategória-Klip }
+      public: false
 
 
   # pixeloid_app.admin.user:
@@ -96,7 +96,7 @@ services:
       class: Pixeloid\AppBundle\Admin\MovieCategoryAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\MovieCategory, SonataAdminBundle:CRUD]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: MovieCategory }
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Kategóriák }
       public: true
 
   # pixeloid_app.admin.event_registration_category:
@@ -124,19 +124,19 @@ services:
       class: Pixeloid\AppBundle\Admin\JuryAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\Jury, Sonata\AdminBundle\Controller\CRUDController]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Jury }
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Zsűri }
       public: true
 
   pixeloid_app.admin.sponsor:
       class: Pixeloid\AppBundle\Admin\SponsorAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\Sponsor, Sonata\AdminBundle\Controller\CRUDController]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Sponsor }
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Támogatók }
       public: true
 
   pixeloid_app.admin.post:
       class: Pixeloid\AppBundle\Admin\PostAdmin
       arguments: [~, Pixeloid\AppBundle\Entity\Post, Sonata\AdminBundle\Controller\CRUDController]
       tags:
-          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Post }
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Cikkek }
       public: true

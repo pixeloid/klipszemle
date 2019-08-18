@@ -1,5 +1,5 @@
 .navbar-custom {
-    padding: 10px 20px;
+    padding: 10px 30px;
 
     margin-bottom: 0;
     border-bottom: none;
@@ -108,7 +108,8 @@
             &.active {
                 outline: none;
                 a {
-                    background-color: fade(white, 30%);
+                    background-color: transparent;
+                    color: $brand-primary;
                     &:hover {
                         color: white;
                     }
@@ -118,7 +119,7 @@
         }
     }
     @media(min-width:768px) {
-        padding: 20px ;
+        padding: 20px 40px;
         border-bottom-color: lighten($brand-primary, 10%);
         letter-spacing: 1px;
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;

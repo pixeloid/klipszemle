@@ -23,7 +23,7 @@ class EventRegistrationAdmin extends AbstractAdmin
 
         $query->andWhere($query->getRootAliases()[0] . '.created > :created');
 
-        $query->setParameter('created', '2018-07-01');
+        $query->setParameter('created', '2019-08-16');
         return $query;
     }
 
@@ -185,9 +185,9 @@ class EventRegistrationAdmin extends AbstractAdmin
         ;
     }
 
-    protected $perPageOptions = array(1000, 200, 50);
+    protected $perPageOptions = array(1000, 500, 100);
     
-    protected $maxPerPage = 1000;
+    protected $maxPerPage = 100;
 
 
     public function prePersist($object)
