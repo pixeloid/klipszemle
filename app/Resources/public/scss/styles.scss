@@ -20,6 +20,17 @@ html, body {
   width: 100%;
 }
 
+
+h1 {
+  font-size: 1.7rem;
+  @media(min-width:$screen-sm) {
+    font-size: 2rem;
+  }
+  @media(min-width:$screen-md) {
+    font-size: 4rem;
+  }
+}
+
 .splash {
   background: $brand-primary;
   &__container {
@@ -220,6 +231,11 @@ display: none;    }
     padding: 1em 3em;
   }
 
+}
+
+hr {
+  display: block;
+  margin: 4rem 0;
 }
 .hero {
   .col--1 {

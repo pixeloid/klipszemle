@@ -13,7 +13,9 @@ use Pixeloid\AppBundle\Form\DocumentType;
 use Pixeloid\AppBundle\Entity\Documents;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\HttpKernel\Kernel;
-
+use MediaMonks\SonataMediaBundle\Generator\ImageUrlGenerator;
+use MediaMonks\SonataMediaBundle\ParameterBag\ImageParameterBag;
+use MediaMonks\SonataMediaBundle\Utility\ImageUtility;
 
 class DefaultController extends AbstractController
 {
@@ -88,6 +90,25 @@ class DefaultController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('PixeloidAppBundle:Post')->findAll();
+        $imageprovider = $this->get('sonata.media.provider.image');
+
+        foreach ($posts as $key => $post) {
+            $body = $post->getBody();
+            preg_match_all('/\[image-(.*?)\]/', $body, $matches);
+
+            foreach ($matches[0]  as $i => $match) {
+                $index = $matches[1][$i] - 1;
+                $media = $post->getGallery()->getGalleryHasMedias()->get($index);
+                if ($media) {
+                    $format = $imageprovider->getFormatName($media->getMedia(), 'big');
+                    $imageUrl = $imageprovider->generatePublicUrl($media->getMedia(), $format);
+                     $imgtag = '<br><img src="'.$imageUrl.'" width="100%"><br>';
+                    $body = str_replace($matches[0][$i], $imgtag, $body);
+                    $post->getGallery()->getGalleryHasMedias()->remove($index);
+                }
+            }
+            $posts[$key]->setBody($body);
+        }
 
         return $this->render('PixeloidAppBundle:Default:news.html.twig', ['posts' => $posts]);
     }
