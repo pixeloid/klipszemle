@@ -51,3 +51,4 @@ node_modules
 app/Resources/public/.styles
 app/Resources/public/vendor/
 bundle
+var/sessions
