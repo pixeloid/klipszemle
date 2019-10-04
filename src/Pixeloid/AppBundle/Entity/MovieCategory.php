@@ -2,13 +2,15 @@
 
 namespace Pixeloid\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * MovieCategory
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Pixeloid\AppBundle\Repository\MovieCategoryRepository")
  */
 class MovieCategory
 {

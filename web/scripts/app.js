@@ -1,9 +1,29 @@
+
+
 var ESPCR = ESPCR || {};
 
-;(function ($, window, document, undefined) {
+;(function ($, window, document) {
 
   'use strict';
 
+
+
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
 
   function extend(destination, source) {
@@ -117,6 +137,14 @@ var ESPCR = ESPCR || {};
 
 
 
+             var lastvideo = getCookie('lastvideo');
+            if (lastvideo) {
+               $('.show-video[data-id="' + lastvideo + '"]').click();
+               document.cookie = "lastvideo=0";
+
+            }
+
+
 
 
 
@@ -196,6 +224,150 @@ var ESPCR = ESPCR || {};
 
 
 
+  extend(ESPCR, {
+
+    rate:{
+    
+
+
+      init: function(){
+
+
+            $(document).on('click','.show-rate-video', function(e){
+              e.preventDefault();
+              var url = $(this).attr('href');
+
+              $('#main-modal .modal-content').load(url, function(){
+                $('#main-modal').modal('show')
+                var id = $(this).closest('[data-id]').data('current-id')
+                document.cookie = "lastrated=" + id;
+                ESPCR.rate.load();
+              });
+            })
+
+            $(document).on(
+                'submit',
+                'form[name="jury_vote"]',
+                ESPCR.rate.handleNewFormSubmit.bind(this)
+            );
+
+            $(document).on('show.bs.modal', '#confirm-finalize', function(e) {
+                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                alert('OK')
+            });
+
+            ESPCR.rate.calcPercents();
+
+      },
+
+      calcPercents: function () {
+        $('.rates .panel').each(function (i, el) {
+          var total = $('tr', el).length - 1;
+          var rated = $('tr.rated', el).length;
+           var percent = Math.round(rated / total * 100);
+          $('.rate-percent', el).text( total + '/' + rated);
+          $('.rate-bar', el).css('width',  percent + '%');
+          $('.rate-bar', el).addClass('length-' +  Math.round(percent) );
+        })
+      },
+
+      handleNewFormSubmit: function(e) {
+          e.preventDefault();
+          var $form = $(e.currentTarget);
+          var id = $('[data-current-id]').data('current-id');
+          $.ajax({
+              url: $form.attr('action'),
+              method: 'POST',
+              data: $form.serialize(),
+              success: function(data) {
+              },
+              success: function(data) {
+                  $('#main-modal').modal('hide');
+                  $('tr[data-id="'+id+'"]').replaceWith(data)
+                  ESPCR.rate.calcPercents();
+
+              },
+              error: function(jqXHR) {
+                $form.closest('.rate-form-wrapper').html(jqXHR.responseText);
+                ESPCR.rate.load();
+              }
+
+
+          });
+      },
+
+      load: function(){
+
+        $('.video-item__btn--close').click(function(e){
+          e.preventDefault();
+          $('#main-modal .modal-content').empty()        
+          $('#main-modal').modal('hide');
+        })
+
+
+
+        $('#jury_vote_rate').rating({stars: 10, step: 1, min: 0, max: 10, size:'lg'});
+              
+              ESPCR.customFormElements.init();
+              ESPCR.rate.calcPercents();
+
+              var player = new YT.Player('player', {
+                height: $('#player').closest('.video-item').height(),
+                width: $('#player').closest('.video-item').width(),
+                videoId: $("#player").data('video-id'),
+                events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange
+                }
+              });
+
+
+              $('.video-item__btn--play, .video-item__image').click(function(e){
+                
+                e.preventDefault();
+
+                $('#player').show();
+
+                player.playVideo();
+              
+              })
+              
+              $('.video-item__btn--stop').click(function(e){
+                e.preventDefault();
+                $('#player').fadeOut();
+                $(this).fadeOut();
+                player.stopVideo();
+              })
+
+              // 4. The API will call this function when the video player is ready.
+              function onPlayerReady(event) {
+              //  event.target.playVideo();
+              }
+
+              // 5. The API calls this function when the player's state changes.
+              //    The function indicates that when playing a video (state=1),
+              //    the player should play for six seconds and then stop.
+              var done = false;
+              function onPlayerStateChange(event) {
+                if (event.data == YT.PlayerState.ENDED) {
+                  $('#player').fadeOut();
+                  $('.video-item__btn--play').fadeIn()
+                }
+                if (event.data == YT.PlayerState.PLAYING) {
+                  $('.video-item__btn--stop').fadeIn();
+                  $('.video-item__btn--play').fadeOut()
+                }
+              }
+              function stopVideo() {
+                player.stopVideo();
+              }
+
+      }
+    }
+  })
+
+
+
 
   extend(ESPCR, {
 
@@ -207,11 +379,12 @@ var ESPCR = ESPCR || {};
 
 
 
+
         if(!$('.yt-player').length) return false;
         var players = [];
 
         YTdeferred.done(function(YT) {
-          console.log('YTdeferred.done');
+
 
           function createVideo(el, h, videoid) {
             return new YT.Player(el, {
@@ -245,28 +418,39 @@ var ESPCR = ESPCR || {};
 
       init: function(){
 
+
+        $(document).on('click', '.fb-login', function (e) {
+          var id = $(this).closest('[data-current-id]').data('current-id')
+          document.cookie = "lastvideo=" + id;
+        })
+
+
+
+
         var tag = document.createElement('script');
-        tag.src = "http://youtube.com/iframe_api";
-        tag.id = "youtubeScript";
-        var firstScriptTag = document.getElementsByTagName('script')[1];
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 
         window.YTdeferred = $.Deferred();
         window.onYouTubeIframeAPIReady = function() {
-          console.log('API ready');
           // resolve when youtube callback is called
           // passing YT as a parameter
           YTdeferred.resolve(window.YT);
 
           var id = window.location.hash.replace('#video-', '');
           if(id){
-            $('.votes').find("[data-id='" + id + "']").click();
+            $('.votes, .rate').find("[data-id='" + id + "']").click();
             window.location.href.split('#')[0]
           }
 
         };
       }
     }
+
+
   })
 
 
@@ -333,11 +517,8 @@ var ESPCR = ESPCR || {};
     ESPCR.customFormElements.init();
     ESPCR.vote.init();
     ESPCR.swiper.init();
+    ESPCR.rate.init();
     
-    $('#eventregistration_datatable').on( 'draw.dt', function () {
-      ESPCR.youtubeList.init();
-    });
-
   });
 
 

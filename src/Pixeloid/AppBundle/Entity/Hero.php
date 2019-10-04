@@ -2,13 +2,14 @@
 
 namespace Pixeloid\AppBundle\Entity;
 
+use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Hero
  *
  * @ORM\Table(name="hero")
- * @ORM\Entity(repositoryClass="Pixeloid\AppBundle\Repository\HeroRepository")
+ * @ORM\Entity
  */
 class Hero
 {

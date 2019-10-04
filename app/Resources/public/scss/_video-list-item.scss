@@ -8,8 +8,9 @@
         }
 
         &.video-item--highlight{
+            position: relative;
             img{
-                opacity: 0.6;
+                
             }
         }
         overflow: hidden;
@@ -34,16 +35,43 @@
 
     .video-item__image{
 
-        border: 1px solid $brand-primary;
+        border: 1px solid $brand-secondary;
+        position: relative;
 
         img{
             width: 100%;
+            position: relative;
+                        z-index: 4;
             .video-item--fb-post &{
                 position: absolute;
                 top: -130px;
             }
         }
+
+
     }
+
+
+    .video-item--highlight .video-item__image{
+        &:after {
+            display: block;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:$brand-primary;
+            z-index: 3;
+
+        }
+
+        img {
+            mix-blend-mode: multiply;
+        }
+
+    }
+
 
     .video-item__text-holder{
         position: absolute;
@@ -51,6 +79,7 @@
         left: 5px;
         right: 5px;
         max-width: 100%;
+        z-index: 5;
         .video-item--fb-post &{
             bottom: 220px;
             left: 20px;
@@ -64,9 +93,9 @@
 
     .video-item__text{
         font-weight: 700;
-        white-space: nowrap;
+        // white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
+        // text-overflow: ellipsis;
         margin: 0;
         max-width: 350px;
         display: block;
@@ -75,10 +104,9 @@
         margin-right: 30px;
         padding: 5px 5px;
         line-height: 1em;
-        background: $brand-primary;
-        color: black;
+        background: $brand-secondary;
+        color: white;
         .video-item--fb-post &{
-            background: $brand-primary;
             color: #fff;
             text-overflow: normal;
             white-space: nowrap;
@@ -92,26 +120,42 @@
         }
     }
 
+    .video-item__text--cat{
+        font-size: 8px;
+        background:$brand-primary;
+        color: black;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
     .video-item__text--song{
-        font-size: 15px;
+        font-size: 9px;
+        background:white;
+        color: black;
+        font-weight: 900;
+        margin-top: 0.3em;
         .video-item--fb-post &{
-            font-size: 35px;
+            color: black;
+            font-size: 25px;
         }
         .video-item--vote &{
-            font-size: 20px;
+            font-size: 16px;
             @media(max-width:$screen-sm) {
                 font-size: 12px;
+                color: black;
+
             }
 
         }
     }
     .video-item__text--author{
-        font-size: 22px;
+        font-size: 17px;
+        text-align: left;
         .video-item--fb-post &{
             font-size: 45px;
         }
         .video-item--vote &{
-            font-size: 28px;
+            font-size: 20px;
+            margin-right: 4em;
             @media(max-width:$screen-sm) {
                 font-size: 16px;
             }

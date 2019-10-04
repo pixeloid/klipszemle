@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class EventRegistrationRepository extends EntityRepository
 {
 	public function getAllForVoting()
-	{	
+	{
 		return $this->getEntityManager()
 		    ->createQuery(
 		        'SELECT e FROM PixeloidAppBundle:EventRegistration e WHERE e.voteable = TRUE'
@@ -21,7 +21,7 @@ class EventRegistrationRepository extends EntityRepository
 		    ->getResult();
 	}
 	public function get()
-	{	
+	{
 		return $this->_em->createQuery('SELECT e FROM PixeloidAppBundle:EventRegistration e WHERE e.winner > 0 ORDER BY e.winner ASC')
 		                 ->getResult();
 	}
@@ -45,4 +45,42 @@ class EventRegistrationRepository extends EntityRepository
 		                 ->getArrayResult();
 		     return count($result) > 0;
 	}
+
+	public function getRatings(\DateTime $from, MovieCategory $cat): ?Array
+	{
+	    $res = $this->createQueryBuilder('er')
+	        ->select('er.id, er.video_url, er.author,  er.songtitle, count(juryvotes.id) AS numvotes, sum(juryvotes.rate) AS sumvotes, sum(juryvotes.specialprize) AS sumspecial, sum(juryvotes.best) AS sumbest, avg(juryvotes.rate) AS avgrating')
+	        ->leftJoin('er.juryvotes', 'juryvotes')
+	        ->leftJoin('er.moviecategories', 'erc')
+	        ->leftJoin('erc.category', 'mc')
+	        ->andWhere('er.created > :created')
+	        ->andWhere('er.shortlist = 1')
+	        ->andWhere('mc = :cat')
+	        ->setParameter('created', $from)
+	        ->setParameter('cat', $cat)
+	        ->groupBy('er.id')
+	        ->orderBy('sumvotes', 'DESC')
+	        ->getQuery()
+	        ->getResult()
+	    ;
+
+	    return $res;
+	}
+
+
+	public function getOnshow(\DateTime $from): ?Array
+	{
+	    $res = $this->createQueryBuilder('er')
+	        ->select('er')
+	        ->andWhere('er.created > :created')
+	        ->andWhere('er.onshow = 1')
+	        ->setParameter('created', $from)
+	        ->getQuery()
+	        ->getResult()
+	    ;
+
+	    return $res;
+	}
+
+
 }

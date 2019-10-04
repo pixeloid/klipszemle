@@ -2,13 +2,14 @@
 
 namespace Pixeloid\AppBundle\Entity;
 
+use Application\Sonata\MediaBundle\Entity\Gallery;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Post
  *
  * @ORM\Table(name="post")
- * @ORM\Entity(repositoryClass="Pixeloid\AppBundle\Repository\PostRepository")
+ * @ORM\Entity
  */
 class Post
 {

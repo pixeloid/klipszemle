@@ -79,16 +79,17 @@ class Builder implements ContainerAwareInterface
   private function buildChildren($menu)
   {
 
-    if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-      // $menu->addChild('Shortlist', array('route' => 'shortlist_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+    if ($this->container->get('security.authorization_checker')->isGranted('ROLE_JURY')) {
+      $menu->addChild('Zsűri', array('route' => 'rate_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
     }
 
-       // $menu->addChild('Szavazás', array('route' => 'vote', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
-        $menu->addChild('Nevezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+        // $menu->addChild('Szavazás', array('route' => 'vote', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+        // $menu->addChild('Nevezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
         // $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
         // $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
         // $menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
         // $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
+        $menu->addChild('Program', array('route' => 'program'));
         $menu->addChild('Hírek', array('route' => 'news'));
         // $menu->addChild('Rólunk írták', array('uri' => '#'));
         // $menu->addChild('Cuccok', array('uri' => '#'));

@@ -3,6 +3,8 @@
 
 namespace Pixeloid\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Pixeloid\AppBundle\Entity\EventRegistration;
 use Pixeloid\AppBundle\Entity\Vote;
@@ -39,11 +41,25 @@ class User extends BaseUser
      */
     protected $votes;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Pixeloid\AppBundle\Entity\VoteSheet", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $voteSheet;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Pixeloid\AppBundle\Entity\JuryVote", mappedBy="user", orphanRemoval=true)
+     */
+    private $juryVotes;
+
+
+
 
     public function __construct()
     {
         parent::__construct();
         $this->eventRegistrations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->votes = new ArrayCollection();
+        $this->juryVotes = new ArrayCollection();
         // your own logic
     }
 
@@ -162,4 +178,53 @@ class User extends BaseUser
     {
         return $this->votes;
     }
+
+    public function getVoteSheet(): ?VoteSheet
+    {
+        return $this->voteSheet;
+    }
+
+    public function setVoteSheet(VoteSheet $voteSheet): self
+    {
+        $this->voteSheet = $voteSheet;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $voteSheet->getUser()) {
+            $voteSheet->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|JuryVote[]
+     */
+    public function getJuryVotes(): Collection
+    {
+        return $this->juryVotes;
+    }
+
+    public function addJuryVote(JuryVote $juryVote): self
+    {
+        if (!$this->juryVotes->contains($juryVote)) {
+            $this->juryVotes[] = $juryVote;
+            $juryVote->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJuryVote(JuryVote $juryVote): self
+    {
+        if ($this->juryVotes->contains($juryVote)) {
+            $this->juryVotes->removeElement($juryVote);
+            // set the owning side to null (unless already changed)
+            if ($juryVote->getUser() === $this) {
+                $juryVote->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

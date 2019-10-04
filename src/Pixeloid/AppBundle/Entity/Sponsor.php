@@ -2,13 +2,14 @@
 
 namespace Pixeloid\AppBundle\Entity;
 
+use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Sponsor
  *
  * @ORM\Table(name="sponsor")
- * @ORM\Entity(repositoryClass="Pixeloid\AppBundle\Repository\SponsorRepository")
+ * @ORM\Entity
  */
 class Sponsor
 {

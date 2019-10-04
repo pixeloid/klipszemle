@@ -11,6 +11,7 @@
 @import '../fonts/styles';
 @import 'footer';
 @import 'video-list-item';
+@import 'rating';
 // @import 'datepicker3';
 // @import 'tablesorter/blue/style';
 
@@ -519,5 +520,64 @@ body{
   .pull-left {
     float: none;
     margin-right: auto;
+  }
+}
+
+.rates {
+  .panel-heading {
+    position: relative;
+  }
+
+  .panel-title {
+    display: flex;
+    justify-content: space-between; 
+    font-size: 12px;
+  }
+  .rate-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: #08C026;
+    opacity: 0;
+    z-index: 1;
+    transition: all 1s ease-in;
+  }
+
+
+  $qty: 100;
+
+  @for $i from 1 through $qty {
+      .rate-bar.length-#{$i} {
+          opacity: $i / 100;
+      }
+  }
+
+
+  .rate-percent {
+  }
+
+  a {
+    position: relative;
+    display: block;
+    z-index: 2;
+  }
+}
+
+.rate-form {
+  text-align: left;
+  form {
+    padding: 2rem;
+    .has-error, .has-error .help-block, .has-error label {
+      color: white;
+      background: red;
+    }
+    .rating-container {
+      .caption,
+      .clear-rating {
+        display: none;
+      }
+    }
   }
 }

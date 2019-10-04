@@ -14,12 +14,11 @@ content="{{ app.request.getSchemeAndHttpHost() }}/app_dev.php/vote/fb_post_image
 {% endblock %}
 
 {% block og_title %}
-<meta property="og:title" content="{{video.author}}: {{video.songtitle }} //// Harmadik Magyar Klipszemle" />
+<meta property="og:title" content="{{video.author}}: {{video.songtitle }} //// Negyedik Magyar Klipszemle" />
 {% endblock %}
 
 {% block body %}
 
 <img src="{{ app.request.getSchemeAndHttpHost() }}/{{ video.getPostImage }}" width="100%" alt="">
-
 {% endblock %}
 

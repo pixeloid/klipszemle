@@ -1,5 +1,11 @@
 services:
 
+
+  Pixeloid\AppBundle\Repository\:
+    resource: '../../Repository'
+    autowire: true
+    tags: ['doctrine.repository_service']
+
   pixeloid_app.form.eventRegistration:
     class: Pixeloid\AppBundle\Form\EventRegistrationType
     tags:
@@ -140,3 +146,11 @@ services:
       tags:
           - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Cikkek }
       public: true
+
+  pixeloid_app.admin.program:
+      class: Pixeloid\AppBundle\Admin\ProgramAdmin
+      arguments: [~, Pixeloid\AppBundle\Entity\Program, Sonata\AdminBundle\Controller\CRUDController]
+      tags:
+          - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Program }
+      public: true
+

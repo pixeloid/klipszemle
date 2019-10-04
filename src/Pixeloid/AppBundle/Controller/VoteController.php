@@ -1,7 +1,5 @@
 <?php
-
 namespace Pixeloid\AppBundle\Controller;
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,119 +14,116 @@ use Pixeloid\AppBundle\Entity\User as User;
 class VoteController extends Controller
 {
     /**
-     * @Route("/", name="vote")
-     * @Template()
+     * @Route("/", name="-vote")
+     * @Template("PixeloidAppBundle:Vote:index.html.twig")
      */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery(
-                'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, COUNT(v.id) AS numvotes FROM PixeloidAppBundle:EventRegistration e
-                LEFT JOIN e.votes v
-                WHERE 
-                        e.onshow = TRUE 
-                    AND e.created > :start
-                GROUP BY e.id'
-            )
-            ->setParameter('start', new \DateTime($this->container->getParameter('start_date')));
+    // public function indexAction()
+    // {
+    //     $em = $this->getDoctrine()->getManager();
+    //     $query = $em->createQuery(
+    //             'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, COUNT(v.id) AS numvotes FROM PixeloidAppBundle:EventRegistration e
+    //             LEFT JOIN e.votes v
+    //             WHERE 
+    //                     e.premiere != 1
+    //                 AND e.created > :start
+    //             GROUP BY e.id'
+    //         )
+    //         ->setParameter('start', new \DateTime($this->container->getParameter('start_date')));
 
     
-        $videos = $query->getArrayResult();
-        shuffle($videos);
+    //     $videos = $query->getArrayResult();
+    //     shuffle($videos);
 
-        return array(
-            'videos' => $videos,
-        );    
+    //     return array(
+    //         'videos' => $videos,
+    //     );    
     
-    }
+    // }
 
     /**
-     * @Route("/show/{id}", name="vote_show")
-     * @Template()
+     * @Route("/show/{id}", name="-vote_show")
+     * @Template("PixeloidAppBundle:Vote:show.html.twig")
      */
-    public function showAction($id)
-    {
+    // public function showAction($id)
+    // {
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+    //     $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $em = $this->getDoctrine()->getManager();
+    //     $em = $this->getDoctrine()->getManager();
 
-        $repo = $em->getRepository('PixeloidAppBundle:EventRegistration');
+    //     $repo = $em->getRepository('PixeloidAppBundle:EventRegistration');
 
-        $video = $repo->findOneById($id);
+    //     $video = $repo->findOneById($id);
 
 
-        $alreadyVoted = true;
+    //     $alreadyVoted = true;
 
-        if ($user instanceof User) {
-            $alreadyVoted = $user && $repo->hasAlreadyVoted($user, $video); 
-        }
+    //     if ($user instanceof User) {
+    //         $alreadyVoted = $user && $repo->hasAlreadyVoted($user, $video); 
+    //     }
 
 
         
 
 
-        return array(
-            'user' => ($user instanceof User),
-            'video' => $video,
-            'alreadyVoted' => $alreadyVoted
-        );    
-    }
+    //     return array(
+    //         'user' => ($user instanceof User),
+    //         'video' => $video,
+    //         'alreadyVoted' => $alreadyVoted
+    //     );    
+    // }
 
     /**
-     * @Route("/vote/{id}", name="vote_vote")
+     * @Route("/vote/{id}", name="-vote_vote")
      * @Security("is_granted(['ROLE_USER'])")
-     * @Template("PixeloidAppBundle:vote:thanks.html.twig")
+     * @Template("PixeloidAppBundle:Vote:thanks.html.twig")
      */
-    public function voteAction($id)
-    {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+    // public function voteAction($id)
+    // {
+    //     $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $em = $this->getDoctrine()->getManager();
+    //     $em = $this->getDoctrine()->getManager();
         
-        $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
+    //     $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
 
-        $success = false;
+    //     $success = false;
 
-        $query = $em->createQuery(
-        'SELECT v FROM PixeloidAppBundle:Vote v WHERE v.user = :user AND v.eventRegistration = :er')
+    //     $query = $em->createQuery(
+    //     'SELECT v FROM PixeloidAppBundle:Vote v WHERE v.user = :user AND v.eventRegistration = :er')
 
-        ->setParameters(array(
-            'user' => $user,
-            'er' => $video
-        ));
+    //     ->setParameters(array(
+    //         'user' => $user,
+    //         'er' => $video
+    //     ));
 
-        $votes = $query->getResult();
+    //     $votes = $query->getResult();
 
-        if (count($votes) === 0) {
-            $vote = new Vote;
+    //     if (count($votes) === 0) {
+    //         $vote = new Vote;
 
-            $vote->setUser($user);
-            $vote->setEventRegistration($video);
-            $vote->setCreated(new \DateTime);
+    //         $vote->setUser($user);
+    //         $vote->setEventRegistration($video);
+    //         $vote->setCreated(new \DateTime);
 
-            $em->persist($vote);
-            $em->flush();
-            $success = true;
-        }
+    //         $em->persist($vote);
+    //         $em->flush();
+    //         $success = true;
+    //     }
 
 
 
-        if (!$video->getPostImage()) {
-            $this->generatePostImage($video->getId());
-        }
 
-        return    array(
-                 'video' => $video,
-            );
-    }
+    //     return    array(
+    //              'video' => $video,
+    //         );
+    // }
 
 
 
     /**
      * @Route("toplist", name="vote_vote_toplist")
      * @Security("is_granted(['ROLE_ADMIN'])")
-     * @Template("PixeloidAppBundle:vote:toplist.html.twig")
+     * @Template("PixeloidAppBundle:Vote:toplist.html.twig")
      */
     public function voteToplistAction()
     {
@@ -141,8 +136,7 @@ class VoteController extends Controller
         'SELECT e, COUNT(vote.id) numvote FROM PixeloidAppBundle:EventRegistration e LEFT JOIN e.votes vote
 
         WHERE 
-                e.onshow = TRUE 
-            AND e.created > :start
+             e.created > :start
         GROUP BY e.id
         ORDER BY numvote DESC')
         ->setParameter('start', new \DateTime($this->container->getParameter('start_date')));
@@ -179,7 +173,7 @@ class VoteController extends Controller
 
         /**
      * @Route("/test/{id}", name="vote_test")
-     * @Template("PixeloidAppBundle:vote:thanks.html.twig")
+     * @Template("PixeloidAppBundle:Vote:thanks.html.twig")
      */
     public function testAction($id)
     {
@@ -197,15 +191,18 @@ class VoteController extends Controller
 
     /**
      * @Route("/fb_post_image/{id}", name="vote_fb_post_image")
-     * @Template("PixeloidAppBundle:vote:facebook_post_image_show.html.twig")
+     * @Template("PixeloidAppBundle:Vote:facebook_post_image_show.html.twig")
      */
     public function facebookPostImageAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
+        if (!$video->getPostImage() || !is_file($video->getPostImage())) {
+            $this->generatePostImage($video->getId());
+        }
 
-        if (
-            strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||          
+
+        if (strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||          
             strpos($_SERVER["HTTP_USER_AGENT"], "Facebot") !== false
         ) {
 
@@ -216,8 +213,8 @@ class VoteController extends Controller
                     );
         }
         else {
-            $url = $this->generateUrl('vote');
-            return $this->redirect($url . '#video-' . $video->getId());
+            $url = $this->generateUrl('default_home');
+            return $this->redirect($url);
         }
 
 
@@ -225,7 +222,7 @@ class VoteController extends Controller
 
     /**
      * @Route("/fb_post_image_generator/{id}", name="vote_fb_post_image_generator")
-     * @Template("PixeloidAppBundle:vote:facebook_post_image.html.twig")
+     * @Template("PixeloidAppBundle:Vote:facebook_post_image.html.twig")
      */
     public function facebookPostImageGeneratorAction($id)
     {
@@ -250,7 +247,7 @@ class VoteController extends Controller
         $video = $em->getRepository('PixeloidAppBundle:EventRegistration')->findOneById($id);
 
 
-        $filename = 'fb_post_images/klipszemle2016_fb_post_' . $id .'-'.time().'.jpg';
+        $filename = 'fb_post_images/klipszemle2019_fb_post_' . $id .'-'.time().'.jpg';
 
         // $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
         $this->get('knp_snappy.image')->generate(

@@ -11,7 +11,8 @@
     "datatables": "^1.10.12",
     "awesome-bootstrap-checkbox": "^0.3.7",
     "bootstrap-sass-datepicker": "^1.3.7",
-    "jquery-mask-plugin": "^1.14.0"
+    "jquery-mask-plugin": "^1.14.0",
+    "bootstrap-star-rating": "^4.0.6"
   },
   "authors": [
     "Pixeloid Office <olah.gergely@pixeloid.hu>"

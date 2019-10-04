@@ -1,18 +1,22 @@
 
 
-pixeloid_app_eventregistration_annotation:
-    resource: "@PixeloidAppBundle/Controller/EventRegistrationController.php"
-    prefix:   /nevezes
-    type:     annotation
+# pixeloid_app_eventregistration_annotation:
+#     resource: "@PixeloidAppBundle/Controller/EventRegistrationController.php"
+#     prefix:   /nevezes
+#     type:     annotation
 pixeloid_app_default:
     resource: "@PixeloidAppBundle/Controller/DefaultController.php"
     prefix:   /
     type:     annotation
 
-# pixeloid_app_vote:
-#     resource: "@PixeloidAppBundle/Controller/VoteController.php"
-#     prefix:   /vote
-#     type:     annotation
+pixeloid_app_vote:
+    resource: "@PixeloidAppBundle/Controller/VoteController.php"
+    prefix:   /vote
+    type:     annotation
+pixeloid_app_rate:
+    resource: "@PixeloidAppBundle/Controller/RateController.php"
+    prefix:   /rate
+    type:     annotation
 
 
 pixeloid_app_presentation:

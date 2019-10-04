@@ -1,6 +1,8 @@
 <?php
 namespace Pixeloid\AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
@@ -169,6 +171,10 @@ class EventRegistration
      * @ORM\Column(type="string", name="budget", nullable=true, length=150)
      */
     protected $budget;
+    /**
+     * @ORM\Column(type="string", name="dropbox_request", nullable=true, length=255)
+     */
+    protected $dropbox_request;
 
 
 
@@ -294,6 +300,11 @@ class EventRegistration
      * @ORM\Column(type="text", name="extra_info", nullable=true)
      */
     protected $extra_info = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Pixeloid\AppBundle\Entity\JuryVote", mappedBy="eventRegistration", orphanRemoval=true)
+     */
+    private $juryvotes;
     
 
     /**
@@ -302,6 +313,9 @@ class EventRegistration
     public function __construct()
     {
         $this->keywords = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->juryvotes = new ArrayCollection();
+        $this->moviecategories = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function isShortlisted()
@@ -1546,5 +1560,60 @@ class EventRegistration
     public function getExtraInfo()
     {
         return $this->extra_info;
+    }
+
+    /**
+     * @return Collection|JuryVote[]
+     */
+    public function getJuryvotes(): Collection
+    {
+        return $this->juryvotes;
+    }
+
+    public function addJuryvote(JuryVote $juryvote): self
+    {
+        if (!$this->juryvotes->contains($juryvote)) {
+            $this->juryvotes[] = $juryvote;
+            $juryvote->setEventRegistration($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJuryvote(JuryVote $juryvote): self
+    {
+        if ($this->juryvotes->contains($juryvote)) {
+            $this->juryvotes->removeElement($juryvote);
+            // set the owning side to null (unless already changed)
+            if ($juryvote->getEventRegistration() === $this) {
+                $juryvote->setEventRegistration(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set dropboxRequest.
+     *
+     * @param string|null $dropboxRequest
+     *
+     * @return EventRegistration
+     */
+    public function setDropboxRequest($dropboxRequest = null)
+    {
+        $this->dropbox_request = $dropboxRequest;
+
+        return $this;
+    }
+
+    /**
+     * Get dropboxRequest.
+     *
+     * @return string|null
+     */
+    public function getDropboxRequest()
+    {
+        return $this->dropbox_request;
     }
 }

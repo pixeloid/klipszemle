@@ -54,6 +54,7 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts: [admin]
 sonata_admin:
+    persist_filters: true
     assets:
         extra_javascripts:
             # ...

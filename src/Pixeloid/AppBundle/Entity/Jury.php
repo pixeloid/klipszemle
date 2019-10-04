@@ -2,13 +2,14 @@
 
 namespace Pixeloid\AppBundle\Entity;
 
+use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Jury
  *
  * @ORM\Table(name="jury")
- * @ORM\Entity(repositoryClass="Pixeloid\AppBundle\Repository\JuryRepository")
+ * @ORM\Entity
  */
 class Jury
 {
@@ -39,6 +40,16 @@ class Jury
      * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $password;
 
 
     /**
@@ -121,5 +132,29 @@ class Jury
     public function getDetails()
     {
         return $this->details;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(?string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 }

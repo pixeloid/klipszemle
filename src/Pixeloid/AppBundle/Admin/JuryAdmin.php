@@ -42,6 +42,8 @@ final class JuryAdmin extends AbstractAdmin
         $formMapper
             ->add('name')
             ->add('details')
+            ->add('email')
+            ->add('password')
             ->add('image', 'sonata_type_model_list')
         ;
     }

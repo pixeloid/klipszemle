@@ -43,11 +43,28 @@ class EventRegistrationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('author')
-            ->add('video_url', null, array('template' => 'PixeloidAppBundle:Admin:CRUD/list_youtube.html.twig'))
-            ->add('moviecategories')
-            ->add('director')
-            ->add('extra_info')
+            ->add('author', null, [
+                'header_style' => 'width: 120px',
+            ])
+            ->add('songtitle', null, [
+                'header_style' => 'width: 120px',
+            ])
+            ->add('video_url', null, array(
+                'template' => 'PixeloidAppBundle:Admin:CRUD/list_youtube.html.twig',
+                'header_style' => 'width: 120px',
+            ))
+            ->add('moviecategories', null, [
+                'header_style' => 'width: 120px',
+            ])
+            ->add('director', null, [
+                'header_style' => 'width: 120px',
+            ])
+            ->add('description', null, [
+                'header_style' => 'width: 120px',
+            ])
+            ->add('extra_info', null, [
+                'header_style' => 'width: 120px',
+            ])
             ->add('premiere', null, [
                 "editable" => true,
             ])

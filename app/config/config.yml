@@ -117,11 +117,11 @@ ewz_recaptcha:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     "xvfb-run -- /usr/bin/wkhtmltopdf" #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
+        binary:     "xvfb-run -a -- /usr/bin/wkhtmltopdf" #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
         options:    []
     image:
         enabled:    true
-        binary:     "xvfb-run -- /usr/bin/wkhtmltoimage" #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" for Windows users
+        binary:     "xvfb-run -a -- /usr/bin/wkhtmltoimage" #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" for Windows users
         options:    []
     temporary_folder: "%kernel.cache_dir%/snappy"
 
@@ -273,6 +273,6 @@ deploy:
     timeout: 0 # Connection timeout in seconds. 0 for no timeout.
     post_deploy_operations: 
         - composer install
-        - bin/console doctrine:migrations:migrate  
+        - bin/console doctrine:schema:update --force  
         - bin/console cache:clear --env=prod
         - bin/console assets:install --env=prod --symlink

@@ -1,10 +1,10 @@
 
 {% block body %}
 
-		<div class="video-item video-item--vote">
+		<div class="video-item video-item--vote" data-current-id="{{ video.id }}">
 			<div id="player" data-video-id="{{ video.getVideoUrl|yt_id }}">			</div>
 
-				{% include 'PixeloidAppBundle:vote:_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
+				{% include 'PixeloidAppBundle:Vote:_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
 			<a href="#" class="video-item__btn video-item__btn--play">Lejátszom</a>
 			
 			{% if user %}
@@ -14,7 +14,7 @@
 					<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok</a>
 				{% endif %}
 			{% else %}
-			<a class="video-item__btn video-item__btn--already-vote" href="{{ hwi_oauth_login_url('facebook') }}">
+			<a class="video-item__btn video-item__btn--already-vote fb-login" href="{{ hwi_oauth_login_url('facebook') }}">
 			    <i class="fa fa-facebook"></i> A szavazáshoz <br>lépj be Facebookkal!
 			</a>
 			{% endif %}

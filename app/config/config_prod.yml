@@ -20,7 +20,7 @@ monolog:
             handler: swift
         swift:
             type:       swift_mailer
-            from_email: 'info@klipszemle.com'
+            from_email: 'info.klipszemle@gmail.com'
             to_email:   'info@pixeloid.hu'
             # or list of recipients
             # to_email:   ['dev1@example.com', 'dev2@example.com', ...]
