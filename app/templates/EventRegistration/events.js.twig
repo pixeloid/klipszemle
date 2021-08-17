@@ -1,0 +1,43 @@
+function setupCheckboxes(nRow, aData, index) {
+
+	$('.sg-editable-shortlist, .sg-editable-onshow, sg-editable-premiere').closest("td").addClass("hidden");
+
+	$(document).on('change', 'input.editor-shortlist', function(){
+		
+		$(this).closest('tr').find('.sg-editable-shortlist')
+			.editable('setValue', Boolean($(this).prop('checked')))
+			.editable('submit', {
+				success: function(){
+					$('.stat').load('/eventregistration/stat')
+				}
+			});
+			
+	});
+	$(document).on('change', 'input.editor-onshow', function(){
+		$(this).closest('tr').find('.sg-editable-onshow')
+			.editable('setValue', Boolean($(this).prop('checked')))
+			.editable('submit', {
+				success: function(){
+					$('.stat').load('/eventregistration/stat')
+				}
+			});
+			
+	});
+	$(document).on('change', 'input.editor-premiere', function(){
+		$(this).closest('tr').find('.sg-editable-premiere')
+			.editable('setValue', Boolean($(this).prop('checked')))
+			.editable('submit', {
+				success: function(){
+					$('.stat').load('/eventregistration/stat')
+				}
+			});
+			
+
+	});
+
+
+	$('.stat').load('/eventregistration/stat')
+
+
+}
+

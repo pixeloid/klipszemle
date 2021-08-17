@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Hero;
 use App\Entity\Jury;
+use App\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,27 +86,27 @@ class DefaultController extends AbstractController
     public function newsAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('App:Post')->findBy(array(), array('created' => 'DESC'));
-        $imageprovider = $this->get('sonata.media.provider.image');
+        $posts = $em->getRepository(Post::class)->findBy(array(), array('created' => 'DESC'));
+        /*
+                $imageprovider = $this->get('sonata.media.provider.image');
+                foreach ($posts as $key => $post) {
+                    $body = $post->getBody();
+                    preg_match_all('/\[image-(.*?)\]/', $body, $matches);
 
-        foreach ($posts as $key => $post) {
-            $body = $post->getBody();
-            preg_match_all('/\[image-(.*?)\]/', $body, $matches);
-
-            foreach ($matches[0]  as $i => $match) {
-                $index = $matches[1][$i] - 1;
-                $media = $post->getGallery()->getGalleryHasMedias()->get($index);
-                if ($media) {
-                    $format = $imageprovider->getFormatName($media->getMedia(), 'big');
-                    $imageUrl = $imageprovider->generatePublicUrl($media->getMedia(), $format);
-                     $imgtag = '<br><img src="'.$imageUrl.'" width="100%"><br>';
-                    $body = str_replace($matches[0][$i], $imgtag, $body);
-                    $post->getGallery()->getGalleryHasMedias()->remove($index);
+                    foreach ($matches[0]  as $i => $match) {
+                        $index = $matches[1][$i] - 1;
+                        $media = $post->getGallery()->getGalleryHasMedias()->get($index);
+                        if ($media) {
+                            $format = $imageprovider->getFormatName($media->getMedia(), 'big');
+                            $imageUrl = $imageprovider->generatePublicUrl($media->getMedia(), $format);
+                             $imgtag = '<br><img src="'.$imageUrl.'" width="100%"><br>';
+                            $body = str_replace($matches[0][$i], $imgtag, $body);
+                            $post->getGallery()->getGalleryHasMedias()->remove($index);
+                        }
+                    }
+                    $posts[$key]->setBody($body);
                 }
-            }
-            $posts[$key]->setBody($body);
-        }
-
+        */
         return $this->render('Default/news.html.twig', ['posts' => $posts]);
     }
 
@@ -133,7 +134,7 @@ class DefaultController extends AbstractController
      */
     public function faqAction()
     {
-        $faq = Yaml::parse(file_get_contents($this->get('kernel')->getRootDir() . '/../src/Pixeloid/AppBundle/Resources/config/faq.yml'));
+        $faq = Yaml::parse(file_get_contents($this->getParameter('kernel.project_dir') . '/src/Resources/config/faq.yml'));
         return $this->render('Default/faq.html.twig', ['faq' => $faq]);
     }
 

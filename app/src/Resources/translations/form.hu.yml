@@ -1,0 +1,32 @@
+form:
+  label:
+    registranttype:	Regisztráció tipusa
+    regnumber:		Pecsétszám
+    lastname:		Keresztnév
+    firstname:		Vezetéknév
+    title:			Cím
+    institution:	Intézmény
+    country:		Ország
+    city:			Város
+    address:		'Utca, házszám, emelet, ajtó'
+    postal:			Irányítószám
+    email:			E-mail cím
+    phone:			Telefonszám
+    fax:			Fax
+    checkin:		Érkezés
+    checkout:		Elutazás
+    roommate:		Szobatárs neve
+    roomtype:		Szoba tipusa
+    specialdining:	Speciális diéta igény
+    paymentmethod:    Fizetési mód
+    invoicetype:    A teljesítés módja
+    billingnamesponsored: Költségvállaló neve
+    billingaddresssponsored: Költségvállaló címe
+    billingcontactpersonsponsored: Kapcsolattartó neve és elérhetősége
+    billingnametransfer: Számlázási név
+    billingaddresstransfer: Számlázási cím
+    
+Rate: 'Értékelésem (1-10)'
+Best: 'Legjobb klipnek jelölöm'
+Specialprize: 'Különdíjra jelölöm'
+Info: 'Extra fontos megjegyzésem van'

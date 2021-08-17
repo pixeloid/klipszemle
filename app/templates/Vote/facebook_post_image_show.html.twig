@@ -1,0 +1,24 @@
+{% extends "::base.html.twig" %}
+
+{% block og_image %}
+<meta property="og:image"
+content="{{ app.request.getSchemeAndHttpHost() }}/{{ video.getPostImage }}" />
+{% endblock %}
+{% block og_url %}
+<meta property="og:url"
+content="{{ app.request.getSchemeAndHttpHost() }}/app_dev.php/vote/fb_post_image/{{ video.id }}" />
+{% endblock %}
+
+{% block og_description %}
+<meta property="og:description" content="Én már leadtam a szavazatomat! SZAVAZZ RÁJUK TE IS!" />
+{% endblock %}
+
+{% block og_title %}
+<meta property="og:title" content="{{video.author}}: {{video.songtitle }} //// Negyedik Magyar Klipszemle" />
+{% endblock %}
+
+{% block body %}
+
+<img src="{{ app.request.getSchemeAndHttpHost() }}/{{ video.getPostImage }}" width="100%" alt="">
+{% endblock %}
+

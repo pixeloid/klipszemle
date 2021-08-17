@@ -1,0 +1,102 @@
+{% extends '::base.html.twig' %}
+
+{% block bodyclass %}blank{% endblock %}
+
+{% block body -%}
+<div class="container">
+
+{% for reg in registrations %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+    <div class="row">
+        <div class="col-sm-2 col-sm-push-5 text-center">
+        <img src="/images/klipszemle_logo.svg" class="" height="45" alt=""/>
+        </div>
+</div>
+        <div class="row">
+
+            
+            <div class="col-sm-6">
+                    <br><br>
+                    <div class="row">
+                        <h3>
+                            <div class="col-sm-5">Regszám:</div>
+                            <div class="col-sm-7">#{{ reg.getId }}</div>
+                        </h3>
+                    </div>
+
+            </div>
+
+
+            <div class="col-sm-5 col-sm-push-1  header">
+                <div class="item">         
+                    <b>Premier: </b> <br>
+                    {% if reg.getPremiere %}
+                        <span class="box">igen</span> Nem
+                    {% else %}
+                                                igen <span class="box">nem</span>
+
+                    {% endif %}
+                </div>        
+            </div>
+
+
+
+        </div>
+
+
+        <ul class="list-unstyled">
+            <li><b>Kategória: </b><span>
+                {% if reg.getMoviecategories.count %}{% for cat in reg.getMoviecategories %}{{cat.getCategory.getName }}{% if not loop.last %}  | {% endif %}{% endfor %}{% endif %}
+            </span></li>
+            <li><b>Előadó: </b><span>{{ reg.getAuthor }}</span></li>
+            <li><b>Dalcím: </b><span>{{ reg.getSongTitle }}</span></li>
+            {% if reg.getDirector|length > 5 %}<li><b>Rendező: </b><span>{{ reg.getDirector }}</span></li>{% endif %}
+            {% if reg.getPhotographer|length > 5  %}<li><b>Operatőr: </b><span>{{ reg.getPhotographer }}</span></li>{% endif %}
+            {% if reg.getDesigner|length > 5  %}<li><b>Látványtervező:  </b><span>{{ reg.getDesigner }}</span></li>{% endif %}
+            {% if reg.getEditor|length > 5  %}<li><b>Vágó:  </b><span>{{ reg.getEditor }}</span></li>{% endif %}
+            {% if reg.getDescription|length > 5  %}<li><b>Leírás: </b> <br> <span style="text-transform: none; font-weight: 400;">{{ reg.getDescription }}</span></li>{% endif %}
+            
+        </ul>
+        <h3>Jegyzetek</h3>
+        <div class="row">
+            <div class="col-sm-12"><div class="underline"></div></div>
+            <div class="col-sm-12"><div class="underline"></div></div>
+            <div class="col-sm-12"><div class="underline"></div></div>
+            <div class="col-sm-12"><div class="underline"></div></div>
+            <div class="col-sm-12"><div class="underline"></div></div>
+            <div class="col-sm-12"><div class="underline"></div></div>
+            <div class="col-sm-12"><div class="underline"></div></div>
+            <div class="col-sm-12"><div class="underline"></div></div>
+            <div class="col-sm-12"><div class="underline"></div></div>
+        </div>
+
+<!-- 
+        <br>        
+
+        <br>        
+
+        <div class="points">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+            <span>10</span>
+        </div> -->
+        
+    </div>
+</div>
+
+<div class="break"></div>
+
+{% endfor %}
+
+    </div>
+{% endblock %}

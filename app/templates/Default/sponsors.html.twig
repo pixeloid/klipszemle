@@ -1,0 +1,17 @@
+<div class="sponsors">
+   <h2>Partnereink</h2>
+   <div class="swiper-container">
+      <div class="swiper-wrapper">
+         {% for sponsor in sponsors %}
+             <div class="swiper-slide">
+                <div class="sponsor">
+                  <a href="{{ sponsor.url }}" target="_blank">
+                    {% thumbnail sponsor.image, 'med' %}
+                    <p>{{ sponsor.name }}</p>
+                  </a>
+                </div>
+             </div>
+         {% endfor %}
+      </div>
+   </div>
+</div>

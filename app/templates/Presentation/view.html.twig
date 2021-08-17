@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <dl class="dl-horizontal">
+        <dt>Név: </dt>
+        <dd>{{ entity.name }}</dd>
+        <dt>Email: </dt>
+        <dd>{{ entity.email }}</dd>
+    </dl>
+<hr>
+    <h2>
+        <center>{{ entity.title }}</center>
+    </h2>
+    <p>
+    
+    <center>
+    <small>
+    {% for author in entity.authors %}
+        {{ author }},<br>
+    {% endfor %}
+        
+    </small>
+        
+    </center>  
+    </p>
+        <p></p>
+        {{ entity.body1|raw }}
+
+
+{% endblock %}

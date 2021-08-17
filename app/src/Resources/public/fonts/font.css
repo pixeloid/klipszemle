@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Sweden Sans';
+  src: url('swedensansbold-webfont_HU.eot'); /* IE9 Compat Modes */
+  src: url('swedensansbold-webfont_HU.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('swedensansbold-webfont_HU.woff') format('woff'), /* Modern Browsers */
+       url('swedensansbold-webfont_HU.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('swedensansbold-webfont_HU.svg#5dcda7413c7b35dea6326d312653c7a3') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  700;
+}
+

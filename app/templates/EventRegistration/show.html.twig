@@ -1,0 +1,112 @@
+{% extends '::admin.html.twig' %}
+
+{% block body -%}
+
+<div class="container">
+	
+	<div class="row">
+		<div class="col-sm-6"><h2>{{reg.getAuthor}}: {{reg.getSongTitle}} </h2></div>
+		<div class="col-sm-3">
+			{#{ form_start(form) }}
+			<div class="row">
+				<div class="col-sm-10">{{ form_widget(form.number) }}</div>
+				<div class="col-sm-2">{{ form_widget(form.save) }}</div>
+			</div>
+
+			        
+			        
+			{{ form_end(form) }#}
+
+		</div>
+	</div>
+	
+
+	<div class="row">
+		
+		<div class="col-sm-6">
+				<p>
+					{{ reg.getDescription }}
+				</p>
+
+				
+				<p>
+					Budget: {{ reg.budgetCategory.getName }}
+
+				</p>
+
+
+			<p>				{% for cat in reg.getMovieCategories %}
+
+			{% if cat.getShortlist %}
+				<a href="{{path('eventregistration_add_to_shortlist', {'id' : cat.getId, 'flag': 0})}}" class="btn btn-success btn-sm">
+			{% else %}
+			    
+				<a href="{{path('eventregistration_add_to_shortlist', {'id' : cat.getId, 'flag': 1})}}" class="btn btn-default btn-sm">
+			{% endif %}
+
+				{{ cat.getCategory.getName }}
+			</a>
+							{% endfor %}
+			</p>
+
+
+			<a href="{{path('eventregistration')}}" class="btn btn-info">Vissza</a>
+			<a href="{{path('eventregistration_edit', {'id' : reg.getId})}}" class="btn btn-success">Szerkesztés</a></h2>
+
+
+		</div>
+
+		<div class="col-sm-6">
+			<div class="yt-player" data-height="400" data-yt="{{ reg.getVideoUrl }}"></div>
+		</div>
+	</div>
+	<hr>
+
+    <div class="row">
+    
+        <div class="col-sm-4">
+
+        	<ul class="list-unstyled">
+        		<li>Név: {{reg.getName}}</li>
+        		<li>E-mail: {{reg.getEmail}}</li>
+        		<li>Szerep: {{reg.getUserTitle.getName}}</li>
+        		<li>Cég: {{reg.getCompany}}</li>
+        		<li>Website: {{reg.getWebsite}}</li>
+        		<li>Cím: {{reg.getAddress}}</li>
+        		<li>Telefonszám: {{reg.getPhone}}</li>
+        	</ul>
+
+
+        </div>
+        <div class="col-sm-4">
+
+        	<ul class="list-unstyled">
+        		<li>Szerző: {{reg.getAuthor}}</li>
+        		<li>Dal címe: {{reg.getSongTitle}}</li>
+        		<li>Hossz: {{reg.getLength}}</li>
+        		<li>Kiadó: {{reg.getPublisher}}</li>
+        		<li>Dal megjelenés időpontja: {{reg.getSongPublishDate}}</li>
+        		<li>Klip megjelenés időpontja: {{reg.getVideoPublishDate}}</li>
+
+        	</ul>
+	
+		</div>
+        <div class="col-sm-4">
+
+        	<ul class="list-unstyled">
+	        	<li>Producer: {{reg.getProducer}}</li>
+	        	<li>Rendező: {{reg.getDirector}}</li>
+	        	<li>Operatőr: {{reg.getPhotographer}}</li>
+	        	<li>Látványtervező: {{reg.getDesigner}}</li>
+	        	<li>Vágó: {{reg.getEditor}}</li>
+
+        	</ul>
+	
+		</div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

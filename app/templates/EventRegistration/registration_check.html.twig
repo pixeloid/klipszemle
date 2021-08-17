@@ -1,0 +1,136 @@
+<h4>Személyes adatok:</h4>
+<div class="row">
+    <div class="col-sm-6">
+        <dl class="dl-horizontal">
+            <dt>Név: </dt>
+            <dd>{{ form.vars.data.firstname }} {{ form.vars.data.lastname }}</dd>
+            <dt>Pecsétszám: </dt>
+            <dd>{{ form.vars.data.regnumber }}</dd>
+            <dt>Munkahely: </dt>
+            <dd>{{ form.vars.data.institution }}</dd>
+            <dt>Levelezési cím: </dt>
+            <dd>{{ form.vars.data.postal }} {{ form.vars.data.city }}<br>{{ form.vars.data.address }}</dd>
+        </dl>
+    </div>
+    <div class="col-sm-6">
+        <dl class="dl-horizontal">
+            <dt>Telefonszám: </dt>
+            <dd>{{ form.vars.data.phone }}</dd>
+            <dt>Fax: </dt>
+            <dd>{{ form.vars.data.fax }}</dd>
+            <dt>Email: </dt>
+            <dd>{{ form.vars.data.email }}</dd>
+            <dt>Regisztráció tipusa:</dt>
+            <dd>{{ form.vars.data.getRegistrantType.getName }}</dd>
+            <dt>Regisztrációs díj: </dt>
+            <dd>{{ form.vars.data.getRegistrationFee|number_format(0, ' ', ' ' ) }} Ft</dd>
+        </dl>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+        <p>
+
+
+            
+                {% if form.vars.data.extra1 == 1 %}
+                    <b>Részt veszek a posztgraduális programon 2015. október 1-én</b> 
+                {% endif %}
+        </p>
+
+    </div>
+</div>
+
+<hr>
+<!-- <h4>Kiegészítő események</h4>
+    
+
+    <div class="row">
+        <div class="col-sm-4">
+            <p>
+                <b>Mentő oktatópont workshop:</b>
+                    {% if form.vars.data.extra2 %}
+                        <span class="glyphicon glyphicon-ok text-success"></span> 
+                    {% else %}
+                        <span class="glyphicon glyphicon-remove text-danger"></span> 
+                    {% endif %}
+            </p>
+
+        </div>
+        <div class="col-sm-4">
+            <p>
+                <b>UH oktatás workshop:</b>
+                    {% if form.vars.data.extra3 %}
+                        <span class="glyphicon glyphicon-ok text-success"></span> 
+                    {% else %}
+                        <span class="glyphicon glyphicon-remove text-danger"></span> 
+                    {% endif %}
+            </p>
+
+        </div>
+    </div>
+    <hr>
+
+ -->    <h4>Étkezés</h4>
+
+     {% set datesArray = [] %}
+    
+    {% for dining in event.getDinings %}
+        {% for date in dining.diningDates %}
+                {% if date.date not in datesArray %}
+                 {% set datesArray = datesArray|merge([date.date])  %}
+                {% endif %}
+        {% endfor %}
+
+
+    {% endfor %}
+    {% set datesArray = datesArray|sort %}
+
+
+     <table class="table table-decorated">
+        
+        <tr>
+            <th></th>
+            {% for date in datesArray %}
+                <th>{{date}}</th>
+            {% endfor %}
+        </tr>
+
+         {% for dining in event.getDinings %}
+             <tr>
+                 
+                
+                  <td> {{ dining.diningType.name }} ({{dining.price|number_format(0, ' ', ' ')}} Ft / fő)</td>
+
+                  {% for date in datesArray %}
+                      <td class="text-center">
+                          {% for diningDate in form.vars.data.getDiningReservation.getDiningDates %}
+                                {% if diningDate.date == date and diningDate.getDining == dining %} <span class="glyphicon glyphicon-ok text-success"></span>  {% endif %}
+                          {% endfor %}
+                      </td>
+                  {% endfor %}
+
+
+            </tr>
+        {% endfor %}
+    
+    
+    </table>
+
+    {% if form.vars.data.getDiningReservation.getSpecial %}
+    <p>Speciális igény: {{form.vars.data.getDiningReservation.getSpecial}}</p>
+    {% endif %}
+    {% if form.vars.data.getRoomReservation.getRoom %}
+<hr>
+    <h4>Szállás</h4>
+
+    {{form.vars.data.getRoomReservation.getRoom.getAccomodation.getName}}
+    {{form.vars.data.getRoomReservation.getRoom.getRoomType.getName}}
+    {{form.vars.data.getRoomReservation.getRoom.getPrice|number_format(0, ' ', ' ')}} Ft / fő / éj
+{% endif %}
+        <div class="row">
+
+    </div>
+    

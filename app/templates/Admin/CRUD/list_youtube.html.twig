@@ -1,0 +1,12 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+ 
+{% block field%}
+
+	<span class="text-success">
+		<a href="{{ object.videourl }}" target="_blank">
+			<img src="http://img.youtube.com/vi/{{ object.videourl|yt_id }}/sddefault.jpg" style="width: 120px !important">
+		</a>
+	</span>
+
+    
+{% endblock %}
