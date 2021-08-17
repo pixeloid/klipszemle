@@ -13,9 +13,9 @@ use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 final class PostAdmin extends AbstractAdmin
 {
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
-        $datagridMapper
+        $filter
             ->add('id')
             ->add('title')
             ->add('lead')
@@ -24,9 +24,9 @@ final class PostAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper): void
+    protected function configureListFields(ListMapper $list): void
     {
-        $listMapper
+        $list
             ->add('id')
             ->add('title')
             ->add('created')
@@ -40,9 +40,9 @@ final class PostAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureFormFields(FormMapper $formMapper): void
+    protected function configureFormFields(FormMapper $form): void
     {
-        $formMapper
+        $form
             ->add('title')
             ->add('lead')
             ->add('body', SimpleFormatterType::class, [
@@ -53,9 +53,9 @@ final class PostAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureShowFields(ShowMapper $showMapper): void
+    protected function configureShowFields(ShowMapper $show): void
     {
-        $showMapper
+        $show
             ->add('id')
             ->add('title')
             ->add('lead')

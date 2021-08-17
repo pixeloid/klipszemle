@@ -14,18 +14,18 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 final class ProgramAdmin extends AbstractAdmin
 {
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
-        $datagridMapper
+        $filter
             ->add('id')
             ->add('title')
             ->add('body')
             ;
     }
 
-    protected function configureListFields(ListMapper $listMapper): void
+    protected function configureListFields(ListMapper $list): void
     {
-        $listMapper
+        $list
             ->add('id')
             ->add('title')
             ->add('body')
@@ -38,9 +38,9 @@ final class ProgramAdmin extends AbstractAdmin
             ]);
     }
 
-    protected function configureFormFields(FormMapper $formMapper): void
+    protected function configureFormFields(FormMapper $form): void
     {
-        $formMapper
+        $form
             ->add('title')
             ->add('body', CKEditorType::class, array(
                 'config' => array('toolbar' => 'basic'),
@@ -48,9 +48,9 @@ final class ProgramAdmin extends AbstractAdmin
             ;
     }
 
-    protected function configureShowFields(ShowMapper $showMapper): void
+    protected function configureShowFields(ShowMapper $show): void
     {
-        $showMapper
+        $show
             ->add('id')
             ->add('title')
             ->add('body')

@@ -26,7 +26,7 @@ sonata_media:
       create:     true
 
   class:
-    media: App\Entity\SonataMedia
-    gallery: App\Entity\SonataGallery
-    gallery_has_media: App\Entity\SonataGalleryItem
+    media: App\Entity\Media
+    gallery: App\Entity\Gallery
+    gallery_has_media: App\Entity\GalleryItem
 

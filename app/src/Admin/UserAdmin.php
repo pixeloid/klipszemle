@@ -10,9 +10,9 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class UserAdmin extends AbstractAdmin
 {
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    protected function configureDatagridFilters(DatagridMapper $filter)
     {
-        $datagridMapper
+        $filter
             ->add('username')
             ->add('usernameCanonical')
             ->add('email')
@@ -30,9 +30,9 @@ class UserAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper)
+    protected function configureListFields(ListMapper $list)
     {
-        $listMapper
+        $list
             ->add('username')
             ->add('usernameCanonical')
             ->add('email')
@@ -57,9 +57,9 @@ class UserAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $form)
     {
-        $formMapper
+        $form
             ->add('username')
             ->add('usernameCanonical')
             ->add('email')
@@ -77,9 +77,9 @@ class UserAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureShowFields(ShowMapper $showMapper)
+    protected function configureShowFields(ShowMapper $show)
     {
-        $showMapper
+        $show
             ->add('username')
             ->add('usernameCanonical')
             ->add('email')

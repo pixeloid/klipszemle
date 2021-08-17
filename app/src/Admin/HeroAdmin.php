@@ -8,13 +8,14 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 final class HeroAdmin extends AbstractAdmin
 {
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
-        $datagridMapper
+        $filter
             ->add('id')
             ->add('title')
             ->add('description')
@@ -23,9 +24,9 @@ final class HeroAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper): void
+    protected function configureListFields(ListMapper $list): void
     {
-        $listMapper
+        $list
             ->add('id')
             ->add('title')
             ->add('description')
@@ -41,20 +42,20 @@ final class HeroAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureFormFields(FormMapper $formMapper): void
+    protected function configureFormFields(FormMapper $form): void
     {
-        $formMapper
+        $form
             ->add('title')
             ->add('description')
             ->add('url')
             ->add('button_text')
-            ->add('image', 'sonata_type_model_list')
+            ->add('image', ModelListType::class)
         ;
     }
 
-    protected function configureShowFields(ShowMapper $showMapper): void
+    protected function configureShowFields(ShowMapper $show): void
     {
-        $showMapper
+        $show
             ->add('id')
             ->add('title')
             ->add('description')

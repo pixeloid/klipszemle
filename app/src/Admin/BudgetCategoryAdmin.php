@@ -10,17 +10,17 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class BudgetCategoryAdmin extends AbstractAdmin
 {
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    protected function configureDatagridFilters(DatagridMapper $filter)
     {
-        $datagridMapper
+        $filter
             ->add('id')
             ->add('name')
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper)
+    protected function configureListFields(ListMapper $list)
     {
-        $listMapper
+        $list
             ->add('id')
             ->add('name')
             ->add('_action', null, [
@@ -33,17 +33,16 @@ class BudgetCategoryAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $form)
     {
-        $formMapper
-            ->add('id')
+        $form
             ->add('name')
         ;
     }
 
-    protected function configureShowFields(ShowMapper $showMapper)
+    protected function configureShowFields(ShowMapper $show)
     {
-        $showMapper
+        $show
             ->add('id')
             ->add('name')
         ;

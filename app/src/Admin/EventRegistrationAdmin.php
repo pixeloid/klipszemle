@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\ModelListType;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
@@ -13,6 +14,8 @@ use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 
 
 use App\Entity\BudgetCategory;
+use Sonata\Form\Type\CollectionType;
+
 class EventRegistrationAdmin extends AbstractAdmin
 {
 
@@ -29,9 +32,9 @@ class EventRegistrationAdmin extends AbstractAdmin
 
 
 
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    protected function configureDatagridFilters(DatagridMapper $filter)
     {
-        $datagridMapper
+        $filter
             ->add('categories')
             ->add('shortlist')
             ->add('onshow')
@@ -39,9 +42,9 @@ class EventRegistrationAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureListFields(ListMapper $listMapper)
+    protected function configureListFields(ListMapper $list)
     {
-        $listMapper
+        $list
             ->add('id')
             ->add('author', null, [
                 'header_style' => 'width: 120px',
@@ -84,13 +87,13 @@ class EventRegistrationAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $form)
     {
-        $formMapper
+        $form
             ->add('shortlist')
             ->add('name')
             ->add('video_url')
-            ->add('moviecategories', 'sonata_type_collection', array(
+            ->add('moviecategories', CollectionType::class, array(
                 'by_reference' => false,
                 'required' => false,
                 ),
@@ -100,7 +103,7 @@ class EventRegistrationAdmin extends AbstractAdmin
                         'inline' => 'table',
                   )
             )
-            ->add('keywords', 'sonata_type_model', array(
+            ->add('keywords', ModelType::class, array(
                 'property' => "name",
                 'multiple' => true,
             ))
@@ -136,9 +139,9 @@ class EventRegistrationAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureShowFields(ShowMapper $showMapper)
+    protected function configureShowFields(ShowMapper $show)
     {
-        $showMapper
+        $show
             ->add('id')
             ->add('number')
             ->add('name')
