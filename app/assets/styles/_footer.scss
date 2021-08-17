@@ -1,0 +1,15 @@
+footer {
+    background-color: $brand-secondary ;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: black;
+    padding: 50px 0;
+    p {
+        margin: 0;
+    }
+    a{
+    color: black;
+    text-decoration: none;
+    }
+}
