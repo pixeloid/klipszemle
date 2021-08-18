@@ -52,7 +52,7 @@ class Post
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\EntityGallery")
+     * @ORM\ManyToOne(targetEntity="Gallery")
      */
     private $gallery;
 
