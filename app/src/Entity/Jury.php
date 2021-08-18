@@ -89,11 +89,11 @@ class Jury
     /**
      * Set image.
      *
-     * @param \Application\Sonata\MediaBundle\Entity\Media|null $image
+     * @param Media|null $image
      *
      * @return Jury
      */
-    public function setImage(\Application\Sonata\MediaBundle\Entity\Media $image = null)
+    public function setImage(Media $image = null)
     {
         $this->image = $image;
 
@@ -103,7 +103,7 @@ class Jury
     /**
      * Get image.
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Media|null
+     * @return Media|null
      */
     public function getImage()
     {

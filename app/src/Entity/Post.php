@@ -2,8 +2,7 @@
 
 namespace App\Entity;
 
-use Application\Sonata\MediaBundle\Entity\Gallery;
-use Application\Sonata\MediaBundle\Entity\Media;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -53,7 +52,7 @@ class Post
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Gallery")
+     * @ORM\ManyToOne(targetEntity="App\EntityGallery")
      */
     private $gallery;
 
@@ -167,7 +166,7 @@ class Post
      */
     public function __construct()
     {
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     /**
@@ -209,11 +208,11 @@ class Post
     /**
      * Set gallery.
      *
-     * @param \Application\Sonata\MediaBundle\Entity\Gallery|null $gallery
+     * @param Gallery|null $gallery
      *
      * @return Post
      */
-    public function setGallery(\Application\Sonata\MediaBundle\Entity\Gallery $gallery = null)
+    public function setGallery(Gallery $gallery = null)
     {
         $this->gallery = $gallery;
 
@@ -223,7 +222,7 @@ class Post
     /**
      * Get gallery.
      *
-     * @return \Application\Sonata\MediaBundle\Entity\Gallery|null
+     * @return Gallery|null
      */
     public function getGallery()
     {
