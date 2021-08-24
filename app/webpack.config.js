@@ -7,6 +7,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
+    .configureDevServerOptions(options => ({
+        ...options,
+        allowedHosts: 'all',
+        client: {
+            webSocketURL: 'wss://localhost:8080/ws'
+        },
+    }))
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
@@ -39,6 +46,8 @@ Encore
      * list of features, see:
      * https://symfony.com/doc/current/frontend.html#adding-more-features
      */
+    //  .cleanupOutputBeforeBuild()
+    //  .enableBuildNotifications()
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
@@ -57,8 +66,10 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader()
+    //.enableSassLoader()
 
     // uncomment if you use TypeScript
+    // .enableTypeScriptLoader()
     //.enableTypeScriptLoader()
 
     // uncomment if you use React
@@ -69,7 +80,10 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
+
+//.autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
+
