@@ -70,6 +70,7 @@ Encore
 
     .copyFiles({
         from: './assets/images',
+        to: 'images/[path][name].[ext]',
      })
 
 // uncomment if you use TypeScript
