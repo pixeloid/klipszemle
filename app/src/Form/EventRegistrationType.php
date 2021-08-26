@@ -70,9 +70,9 @@ class EventRegistrationType extends AbstractType
                 ->add('extra_info', null, array('label' => 'Extra fontos információm van'))
                 ->add('premiere', null, array('label' => 'A Klipszemlén szeretném premierezni a klipet.'))
                 ->add('accept_terms', CheckboxType::class, array(
-                    'label' => 'Az <a href="/privacy" target="_blank" onclick="">adatvédelmi feltételeket</a> elolvastam és elfogadom <br>
-                    Rendelkezem a klip nevezéséhez szükséges jogokkal/engedélyekkel <br>
-                    A klip magyar vonatkozású, vagyis a rendező, az operatőr és/vagy az előadó magyar <br>
+                    'label' => 'Az Adatvédelmi feltételeket elolvastam és elfogadom;  
+                    Rendelkezem a klip nevezéséhez szükséges jogokkal/engedélyekkel; 
+                    A klip magyar vonatkozású, vagyis a rendező, az operatőr és/vagy az előadó magyar; 
                     A nevezéssel tudomásul veszem, hogy a klip vagy annak részlete a Klipszemlén készülő beszámolókban megjelenhet, felhasználásidíj-fizetésre a szervezőség nem kötelezhető.'
                 ))
 

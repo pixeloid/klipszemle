@@ -4,7 +4,11 @@
 @import 'grayscale';
 @import 'breadcrumbs';
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
-@import 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/brands';
+
+//@import 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox';
 @import 'bootstrap-sass-datepicker/sass/datepicker';
 @import 'bootstrap-select/sass/bootstrap-select';
 @import 'nav';
@@ -291,6 +295,11 @@ hr {
       color: $white;
     }
   }
+
+  img {
+    max-width: none;
+    width: 100%;
+  }
 }
 
 .cta {
@@ -301,7 +310,6 @@ hr {
 
   img {
     @media(min-width:$screen-sm) {
-      max-width: 450px;
       width: 100%;
     }
 
@@ -309,7 +317,6 @@ hr {
 
   &__text{
     @media(min-width:$screen-sm) {
-      max-width: 380px;
       margin-left: 3rem;
       height: 100%;
       display: flex;
@@ -421,7 +428,7 @@ body{
 }
 
 .sponsors {
-  background:$brand-primary;
+  background:$black;
   padding: 4rem 0;
   text-align: center;
 
@@ -499,7 +506,7 @@ body{
 
 .craue_formflow_button_last {
   background:$brand-secondary;
-  color: $white;
+  color: $black;
   order: 3;
 
   @media(max-width:$screen-sm) {

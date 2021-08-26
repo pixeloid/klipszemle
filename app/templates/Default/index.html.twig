@@ -9,18 +9,26 @@
         <div class="swiper-slide">
           <div class="hero">
               <div class="container">
-                  <div class="grid">
-                      <div class="col col--1">
-                          <div class="hero__content">
-                              <h1><span>{{ hero.title }}</span></h1>
-                              <p>{{ hero.description }}</p>
-                              <a href="{{ hero.url }}" class="btn btn-primary">{{ hero.buttontext }}</a>
+                  {% if hero.title %}
+                      <div class="grid">
+                          <div class="col col--1">
+                              <div class="hero__content">
+                                  <h1><span>{{ hero.title }}</span></h1>
+                                  <p>{{ hero.description }}</p>
+                                  <a href="{{ hero.url }}" class="btn btn-primary">{{ hero.buttontext }}</a>
+                              </div>
+                          </div>
+                          <div class="col col--2">
+                              {% media hero.image, 'big' with {'srcset': ['small', 'big'], class: "img-responsive"} %}
                           </div>
                       </div>
-                      <div class="col col--2">
-                         {% media hero.image, 'big' with {'srcset': ['small', 'big'], class: "img-responsive"} %}
-                      </div>
-                  </div>
+                      {% else %}
+                          <a href="{{ hero.url }}" >
+
+                          {% media hero.image, 'big' with {'srcset': ['small', 'big'], class: "img-responsive"} %}
+                          </a>
+                  {% endif %}
+
               </div>
           </div>
         </div>
@@ -30,53 +38,60 @@
 </div>
 {# 
 <div class="cta">
-    <a href="{{ path('eventregistration_new') }}" class="btn btn-black btn-lg">Nevezés <i class="fa fa-arrow-right"></i> </a>
+    <a href="{{ path('eventregistration_new') }}" class="btn btn-black btn-lg">Nevezés <i class="fas fa-arrow-right"></i> </a>
 </div>
  #}
 <div class="container content-section">
     <div class="grid about">
         <div class="col col--1">
-            <img src="{{ asset('bundles/pixeloidapp/images/2019/blue_1.png') }}" alt="" class="img-responsive">
+            <img src="{{ asset('build/klipsz_01.jpg') }}" alt="" class="img-responsive">
         </div>
         <div class="col col--2">
           <div class="about__text">
              <h2>MI AZ A KLIPSZEMLE?</h2>
-            <p>            A kérdést, hogy mi a francért nincs itthon a zenei videóknak rendes, országos versenye, eloször 2015-ben tették fel maguknak a szervezők.</p>
-            <p>Ezután két éven át a budapesti Toldi Moziban rendezték meg a szemlét. Két napos, maratoni klipnézos népünnepek voltak. Egy év kihagyás után, a harmadik verseny tavaly, az Anker’tben volt.</p>
-            <p>Az évente változó, független zsuri újságírókból, filmesekbol és zenei szakemberekből állt össze. Egy díjat azonban mindig a közönség szavazott meg. A korábbi feltörekvo nyertesek jó része azóta Los Angelestől Szabadkáig filmes, reklámos, vagy kreatív szakember lett.</p>
-            <p>Most érkeztünk el a negyedikig, de a cél azóta se változott: legyen platform a hazai zenei videóknak, legyen tétje jó klipet csinálni, hadd nézzük meg oket egyszer nagyvásznon!</p>
+              <p>A k&eacute;rd&eacute;st, hogy mi a franc&eacute;rt nincs itthon a zenei vide&oacute;knak rendes, orsz&aacute;gos versenye, elősz&ouml;r 2015-ben tett&eacute;k fel maguknak a szervezők.&nbsp;</p>
+
+              <p>Ezut&aacute;n k&eacute;t &eacute;ven &aacute;t a budapesti Toldi Moziban rendezt&eacute;k meg a szeml&eacute;t. K&eacute;tnapos, maratoni klipn&eacute;zős n&eacute;p&uuml;nnepek voltak. Egy &eacute;v kihagy&aacute;s ut&aacute;n, a harmadik verseny az Anker&rsquo;tben volt, azt&aacute;n az utols&oacute; 2019-ben, az Akv&aacute;riumban: n&eacute;gy helysz&iacute;nen, koncertekkel, előad&aacute;sokkal, kerekasztal-besz&eacute;lget&eacute;sekkel, 30 d&iacute;jazottal &eacute;s telth&aacute;zzal.</p>
+
+              <p>Az &eacute;vente v&aacute;ltoz&oacute;, f&uuml;ggetlen zsűri &uacute;js&aacute;g&iacute;r&oacute;kb&oacute;l, filmesekből &eacute;s zenei szakemberekből &aacute;ll &ouml;ssze. Egy d&iacute;jat azonban mindig a k&ouml;z&ouml;ns&eacute;g szavaz meg. A kor&aacute;bbi felt&ouml;rekvő nyertesek j&oacute; r&eacute;sze az&oacute;ta Los Angelestől Szabadk&aacute;ig filmes, rekl&aacute;mos vagy kreat&iacute;v szakember lett.&nbsp;</p>
+
+              <p>Most &eacute;rkezt&uuml;nk el az &ouml;t&ouml;dikig, de a c&eacute;l az&oacute;ta se v&aacute;ltozott: legyen platform a hazai zenei vide&oacute;knak, legyen t&eacute;tje j&oacute; klipet csin&aacute;lni, hadd n&eacute;zz&uuml;k meg őket egyszer nagyv&aacute;sznon!</p>
+
 
           </div>
         </div>
     </div>
 </div>
 
- <section class="container content-section jury">
-    <div class="row">
-        <div class="col-sm-12 col-md-7 col-lg-6">
-                         <h2>A ZSŰRI</h2>
+    {% if juries %}
+        <section class="container content-section jury">
+            <div class="row">
+                <div class="col-sm-12 col-md-7 col-lg-6">
+                    <h2>A ZSŰRI</h2>
 
-                        <div class="row">
+                    <div class="row">
 
-                          {% for jury in juries %}
-                              <div class="col-md-4 col-sm-4 col-xs-6 jury-person">
-                                  {% thumbnail jury.image, 'med' with { class: "img-responsive" } %}
-                                  <p>{{ jury.name }}</p>
-                                  <p><i>{{ jury.details }}</i></p>
-                              </div>
+                        {% for jury in juries %}
+                            <div class="col-md-4 col-sm-4 col-xs-6 jury-person">
+                                {% thumbnail jury.image, 'med' with { class: "img-responsive" } %}
+                                <p>{{ jury.name }}</p>
+                                <p><i>{{ jury.details }}</i></p>
+                            </div>
 
-                          {% endfor %}
+                        {% endfor %}
 
-                        </div>
-        </div>
+                    </div>
+                </div>
 
-        <div class="col-sm-12 col-md-5 col-lg-offset-1 image-holder">
-          <img src="{{ asset('bundles/pixeloidapp/images/2019/blue_2.png') }}" alt="" class="img-responsive">
-        </div>
+                <div class="col-sm-12 col-md-5 col-lg-offset-1 image-holder">
+                    <img src="{{ asset('bundles/pixeloidapp/images/2019/blue_2.png') }}" alt="" class="img-responsive">
+                </div>
 
-    </div>
+            </div>
 
-</section>
+        </section>
+    {% endif %}
+
 
 
 

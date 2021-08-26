@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * MovieCategory
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="\App\Repository\MovieCategoryRepository")
+ * @ORM\Entity()
  */
 class MovieCategory
 {

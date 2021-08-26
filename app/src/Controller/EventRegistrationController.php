@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\EventRegistrationFlow;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,15 +13,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\EventRegistration;
 use App\Entity\EventRegistrationCategory;
 use App\Form\EventRegistrationEditType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * EventRegistration controller.
  */
 class EventRegistrationController extends AbstractController
 {
+    private $passwordEncoder;
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
@@ -189,7 +194,7 @@ class EventRegistrationController extends AbstractController
      *
      * @Route("/shortlist-results", name="shortlist_results")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
 
     public function shortlistResultsAction()
@@ -239,7 +244,7 @@ class EventRegistrationController extends AbstractController
      *
      * @Route("/results", name="eventregistration_results")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
 
     public function indexResultsAction()
@@ -280,11 +285,15 @@ class EventRegistrationController extends AbstractController
     }
 
 
-
     /**
      * @Route("/create", name="eventregistration_create")
+     * @param Request $request
+     * @param EventRegistrationFlow $flow
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param \Swift_Mailer $mailer
+     * @return RedirectResponse|Response
      */
-    public function createAction(Request $request, EventRegistrationFlow $flow)
+    public function createAction(Request $request, EventRegistrationFlow $flow, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer)
     {
         $entity = new EventRegistration();
         $em = $this->getDoctrine()->getManager();
@@ -304,22 +313,23 @@ class EventRegistrationController extends AbstractController
                     $form = $flow->createForm();
                 } else {
                     // flow finished
-                    $userManager = $this->get('fos_user.user_manager');
                     $em = $this->getDoctrine()->getManager();
+                    $userRepository = $em->getRepository(User::class);
 
-                    $user = $userManager->findUserByEmail($entity->getEmail());
+                    $user = $userRepository->findOneBy(['email'=>$entity->getEmail()]);
                     $plainpass = null;
 
                     if (!$user) {
                         $plainpass = $this->generatePassword();
-                        $user = $userManager->createUser();
+                        $user = new User;
                         $user->setEmail($entity->getEmail());
-                        $user->setUsername($entity->getEmail());
-                        $user->setPlainPassword($plainpass);
+                        $user->setPassword($passwordEncoder->encodePassword(
+                            $user,
+                            $plainpass
+                        ));
+                        $user->setRoles(['ROLE_USER']);
                     }
 
-                    $user->setEnabled(true);
-                    $userManager->updateUser($user);
 
                     $entity->setUser($user);
                     $entity->setCreated(new \DateTime);
@@ -336,8 +346,7 @@ class EventRegistrationController extends AbstractController
                     // $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
                     // $this->get("security.context")->setToken($token);
 
-                    $message = \Swift_Message::newInstance()
-                        ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
+                    $message = (new \Swift_Message('Regisztráció visszaigazolása - Magyar Klipszemle nevezés'))
                         ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
                         ->setTo(array($entity->getUser()->getEmail()))
                         ->setBody(
@@ -347,11 +356,10 @@ class EventRegistrationController extends AbstractController
                             )), 'text/html'
                         );
 
-                    $this->get('mailer')->send($message);
+                    $mailer->send($message);
 
 
-                    $message = \Swift_Message::newInstance()
-                        ->setSubject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
+                    $message = (new \Swift_Message('Regisztráció visszaigazolása - Magyar Klipszemle nevezés'))
                         ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
                         ->setTo(array('info@klipszemle.com', 'olah.gergely@pixeloid.hu'))
                         ->setBody(
@@ -361,7 +369,7 @@ class EventRegistrationController extends AbstractController
                             )), 'text/html'
                         );
 
-                    $this->get('mailer')->send($message);
+                    $mailer->send($message);
 
 
                     return $this->redirect($this->generateUrl('eventregistration_success', array('id' => $entity->getId())));
@@ -417,7 +425,7 @@ class EventRegistrationController extends AbstractController
      * @Route("/registration", name="eventregistration_new")
      * @param Request $request
      * @param EventRegistrationFlow $flow
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
 
     public function newAction(Request $request, EventRegistrationFlow $flow)

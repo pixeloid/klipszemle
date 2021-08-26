@@ -1,8 +1,9 @@
 @font-face {
-    font-family: 'Agrandir Extra Wide';
-    src: url('../fonts/hinted-Agrandir-ExtraWideBoldE5.woff2') format('woff2'),
-        url('../fonts/hinted-Agrandir-ExtraWideBoldE5.woff') format('woff');
-    font-weight: bold;
+    font-family: 'PM Grotesk';
+    src: url('../fonts/PMGrotesk-Bold.woff2') format('woff2'),
+    url('../fonts/PMGrotesk-Bold.woff') format('woff');
+    font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 

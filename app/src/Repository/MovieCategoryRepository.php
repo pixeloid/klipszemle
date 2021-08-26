@@ -19,8 +19,7 @@ class MovieCategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, MovieCategory::class);
     }
-
-
+/*
     public function getMoviesForUser(User $user, \DateTime $from): ?Array
     {
         return $this->createQueryBuilder('mc')
@@ -54,7 +53,7 @@ class MovieCategoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-    }
+    }*/
 
 
     // /**

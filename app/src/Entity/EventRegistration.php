@@ -123,7 +123,7 @@ class EventRegistration
      * @ORM\Column(type="date", name="video_publish_date", nullable=false, length=150)
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      * @Assert\Range(
-     *      min = "2018-09-15",
+     *      min = "2019-09-15",
      *      max = "2019-10-10",
      *      groups={"flow_eventRegistration_step2"}
      * )

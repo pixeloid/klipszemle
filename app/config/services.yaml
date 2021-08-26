@@ -75,7 +75,7 @@ services:
         arguments: [~, App\Entity\EventRegistrationCategory, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Kategória-Klip }
-        public: false
+        public: true
 
 
     # pixeloid_app.admin.user:
@@ -140,4 +140,10 @@ services:
         arguments: [~, App\Entity\Program, Sonata\AdminBundle\Controller\CRUDController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Program }
+        public: true
+    pixeloid_app.admin.user_title:
+        class: App\Admin\UserTitleAdmin
+        arguments: [~, App\Entity\UserTitle, Sonata\AdminBundle\Controller\CRUDController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Jogcím }
         public: true

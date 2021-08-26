@@ -68,7 +68,11 @@ Encore
     .enableSassLoader()
     //.enableSassLoader()
 
-    // uncomment if you use TypeScript
+    .copyFiles({
+        from: './assets/images',
+     })
+
+// uncomment if you use TypeScript
     // .enableTypeScriptLoader()
     //.enableTypeScriptLoader()
 
@@ -80,9 +84,9 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    .autoProvidejQuery()
+   // .autoProvidejQuery()
 
-//.autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();

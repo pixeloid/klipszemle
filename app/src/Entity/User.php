@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -50,7 +51,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EventRegistration", mappedBy="user")
      **/
-    protected ArrayCollection $eventRegistrations;
+    protected Collection $eventRegistrations;
 
     /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
     protected string $facebook_id;
@@ -62,7 +63,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="user")
      */
-    protected ArrayCollection $votes;
+    protected Collection $votes;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\VoteSheet", mappedBy="user", cascade={"persist", "remove"})
@@ -72,7 +73,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\JuryVote", mappedBy="user", orphanRemoval=true)
      */
-    private ArrayCollection $juryVotes;
+    private Collection $juryVotes;
 
 
 
