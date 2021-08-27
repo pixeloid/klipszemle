@@ -205,7 +205,7 @@ class EventRegistration
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="eventRegistrations")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="eventRegistrations", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
