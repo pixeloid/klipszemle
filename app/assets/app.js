@@ -1,6 +1,7 @@
 const $ = require('jquery');
 window.$ = $;
 window.jQuery = $;
+import 'bootstrap/'
 import './styles/app.scss';
 
     const ESPCR = ESPCR || {};
@@ -75,13 +76,7 @@ import './styles/app.scss';
 
 
             init: function(){
-                $('input[type=checkbox]').iCheck({
-                    checkboxClass: 'icheckbox_minimal-grey',
-                    radioClass: 'iradio_minimal-grey',
-                });
-
                 $('input, select').removeAttr('required');
-                $('select').selectpicker();
                 $('.datepicker').datepicker({'language': 'hu', 'format': 'yyyy-mm-dd'});
 
             }
