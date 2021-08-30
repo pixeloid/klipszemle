@@ -286,7 +286,7 @@ class DefaultController extends AbstractController
     public function sendEmail(\Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email teszt 02 APP pass'))
-            ->setFrom('info.klipszemle@gmail.com')
+            ->setFrom('info@klipszemle.com')
             ->setTo('olahdzseri@gmail.com')
             ->setBody('You should see me from the profiler!')
         ;
