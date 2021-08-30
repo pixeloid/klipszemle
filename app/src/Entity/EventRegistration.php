@@ -124,7 +124,7 @@ class EventRegistration
      * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      * @Assert\Range(
      *      min = "2019-09-15",
-     *      max = "2019-10-10",
+     *      max = "2021-10-14",
      *      groups={"flow_eventRegistration_step2"}
      * )
      */
