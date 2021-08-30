@@ -361,7 +361,7 @@ class EventRegistrationController extends AbstractController
 
                     $message = (new \Swift_Message('Regisztráció visszaigazolása - Magyar Klipszemle nevezés'))
                         ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
-                        ->setTo(array('info@klipszemle.com', 'olah.gergely@pixeloid.hu'))
+                        ->setTo(array('info.klipszemle@gmail.com', 'olah.gergely@pixeloid.hu'))
                         ->setBody(
                             $this->renderView('EventRegistration/success-mail.html.twig', array(
                                 'entity'      => $entity,
