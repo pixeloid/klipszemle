@@ -49,7 +49,7 @@ class EventRegistrationType extends AbstractType
             $builder
                 ->add('author', null, array('label' => 'Előadó'))
                 ->add('songtitle', null, array('label' => 'Dal címe'))
-                ->add('video_publish_date', null, array('widget' => 'single_text', 'label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker')))
+                ->add('video_publish_date', null, array('widget' => 'single_text', 'label' => 'A klip megjelenése', 'attr' => array('class' => 'datepicker-input')))
                 ->add('producer', null, array('label' => 'Gyártócég'))
                 ->add('director', null, array('label' => 'Rendező'))
                 ->add('photographer', null, array('label' => 'Operatőr'))

@@ -1,7 +1,7 @@
 const $ = require('jquery');
 window.$ = $;
 window.jQuery = $;
-import 'bootstrap/'
+import { Datepicker } from 'vanillajs-datepicker';
 import './styles/app.scss';
 
     const ESPCR = ESPCR || {};
@@ -77,7 +77,11 @@ import './styles/app.scss';
 
             init: function(){
                 $('input, select').removeAttr('required');
-                $('.datepicker').datepicker({'language': 'hu', 'format': 'yyyy-mm-dd'});
+                const elem = document.querySelector('input.datepicker-input');
+                const datepicker = new Datepicker(elem, {'language': 'hu', 'format': 'yyyy-mm-dd',
+                'minDate': '2019-09-15',
+                    'maxDate': '2021-10-14'});
+
 
             }
         }
