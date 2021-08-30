@@ -280,4 +280,21 @@ class DefaultController extends AbstractController
 
     }
 
+    /**
+     * @Route("/mailtest", name="mailtest")
+     */
+    public function sendEmail(\Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Hello Email teszt 02 APP pass'))
+            ->setFrom('info.klipszemle@gmail.com')
+            ->setTo('olahdzseri@gmail.com')
+            ->setBody('You should see me from the profiler!')
+        ;
+
+        $mailer->send($message);
+
+        return $this->render('Default/privacy.html.twig');
+    }
+
+
 }
