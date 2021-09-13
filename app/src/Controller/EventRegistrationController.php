@@ -430,6 +430,8 @@ class EventRegistrationController extends AbstractController
 
     public function newAction(Request $request, EventRegistrationFlow $flow)
     {
+        return $this->redirectToRoute('default_home');
+
         $entity = new EventRegistration();
 
         $flow = $this->createCreateForm($entity, $flow);

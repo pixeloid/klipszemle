@@ -26,7 +26,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public const LOGIN_ROUTE = 'app_login';
 
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
@@ -39,13 +39,13 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         $credentials = [
             'email' => $request->request->get('email'),
@@ -100,7 +100,7 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     }
 
-    protected function getLoginUrl()
+    protected function getLoginUrl(): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
