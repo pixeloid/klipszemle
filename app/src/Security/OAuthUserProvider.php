@@ -65,17 +65,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
         return $user;
 
 
-        //if user exists - go with the HWIOAuth way
-        $user = parent::loadUserByOAuthUserResponse($response);
 
-        $serviceName = $response->getResourceOwner()->getName();
-        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
-
-        //update access token
-        $user->$setter($response->getAccessToken());
-        $this->userManager->updateUser($user);
-
-        return $user;
 
     }
 }
