@@ -11,10 +11,13 @@ use App\Form\JuryVoteType;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * @Route("/rate", name="rate_")
+ */
 class RateController extends Controller
 {
     /**
-     * @Route("/", name="rate_index")
+     * @Route("/", name="index")
      */
     public function index()
     {
@@ -24,7 +27,7 @@ class RateController extends Controller
 
 
 
-        $from = new \DateTime($this->container->getParameter('start_date'));
+        $from = new \DateTime('2021-06-01');
         return $this->render('rate/index.html.twig', [
             'cats' => $em->getRepository('App:MovieCategory')->getMoviesForUser($user, $from),
         ]);
