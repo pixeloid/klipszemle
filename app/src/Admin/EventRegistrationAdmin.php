@@ -14,6 +14,7 @@ use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 
 
 use App\Entity\BudgetCategory;
+use Sonata\DoctrineORMAdminBundle\Filter\ModelAutocompleteFilter;
 use Sonata\Form\Type\CollectionType;
 
 class EventRegistrationAdmin extends AbstractAdmin
@@ -35,7 +36,10 @@ class EventRegistrationAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $filter)
     {
         $filter
-            ->add('categories')
+            ->add('moviecategories', ModelAutocompleteFilter::class, [
+                // in related CategoryAdmin there must be datagrid filter on `title` field to make the autocompletion work
+                'field_options' => ['property'=>'category.eventRegistrationCategories.name'],
+            ])
             ->add('shortlist')
             ->add('onshow')
             ->add('premiere')

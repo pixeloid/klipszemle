@@ -6,8 +6,8 @@
 			<img src="http://img.youtube.com/vi/{{ video.videourl|yt_id }}/{{ size }}.jpg">
 
 			<div class="video-item__text-holder">
-				<h3 class="video-item__text video-item__text--author">{{ video.author|truncate(40, '...') }}
-				<h4 class="video-item__text video-item__text--song">{{ video.songtitle|truncate(60, '...')  }}</h4>
+				<h3 class="video-item__text video-item__text--author">{{ video.author }}
+				<h4 class="video-item__text video-item__text--song">{{ video.songtitle  }}</h4>
 			</div>
 			{% if is_granted('ROLE_ADMIN')  %}
 

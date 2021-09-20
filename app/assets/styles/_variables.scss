@@ -12,8 +12,8 @@ $icon-font-path: "/assets/fonts/bootstrap/";
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
-$black:					#000 !default;
-$white:         #fff !default;
+$black:					#231F20 !default;
+$white:         rgba(246,243,231,1) !default;
 $gray-base:              #000 !default;
 $gray-darker:            lighten($gray-base, 13.5%) !default; // #222
 $gray-dark:              lighten($gray-base, 20%) !default;   // #333
@@ -23,7 +23,7 @@ $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 $yellow:                rgba(253,241,80,1) !default;
 $orange:                rgba(234,107,44,1) !default;
 
-$brand-primary:         #f27f96; // #337ab7
+$brand-primary:         #566FE5; // #337ab7
 $brand-secondary:         $yellow;
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;

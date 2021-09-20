@@ -1,16 +1,28 @@
 <?php
 namespace App\Controller;
+use App\Entity\EventRegistration;
+use App\Entity\User;
+use App\Entity\Vote;
+use DateTime;
+use Knp\Snappy\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
+/**
+ * Class VoteController
+ * @package App\Controller
+ * @Route("/vote", name="vote_")
+ */
 class VoteController extends AbstractController
 {
+
+
     /**
-     * @Route("/", name="vote")
-     * @Template("App:Vote:index.html.twig")
+     * @Route("/", name="index")
+     * @Template("Vote/index.html.twig")
      */
      public function indexAction()
      {
@@ -19,11 +31,11 @@ class VoteController extends AbstractController
                  'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, COUNT(v.id) AS numvotes FROM App:EventRegistration e
                  LEFT JOIN e.votes v
                  WHERE 
-                         e.premiere != 1
+                         e.onshow = 1
                      AND e.created > :start
                  GROUP BY e.id'
              )
-             ->setParameter('start', new \DateTime($this->container->getParameter('start_date')));
+             ->setParameter('start', new DateTime('2021-08-01'));
 
     
          $videos = $query->getArrayResult();
@@ -36,17 +48,16 @@ class VoteController extends AbstractController
      }
 
     /**
-     * @Route("/show/{id}", name="vote_show")
-     * @Template("App:Vote:show.html.twig")
+     * @Route("/show/{id}", name="show")
+     * @Template("Vote/show.html.twig")
      */
      public function showAction($id)
      {
-
          $user = $this->get('security.token_storage')->getToken()->getUser();
 
          $em = $this->getDoctrine()->getManager();
 
-         $repo = $em->getRepository('App:EventRegistration');
+         $repo = $em->getRepository(EventRegistration::class);
 
          $video = $repo->findOneById($id);
 
@@ -54,7 +65,7 @@ class VoteController extends AbstractController
          $alreadyVoted = true;
 
          if ($user instanceof User) {
-             $alreadyVoted = $user && $repo->hasAlreadyVoted($user, $video);
+             $alreadyVoted = $repo->hasAlreadyVoted($user, $video);
          }
 
 
@@ -69,9 +80,9 @@ class VoteController extends AbstractController
      }
 
     /**
-     * @Route("/vote/{id}", name="vote_vote")
+     * @Route("/vote/{id}", name="vote")
      * @Security("is_granted(['ROLE_USER'])")
-     * @Template("App:Vote:thanks.html.twig")
+     * @Template("Vote/thanks.html.twig")
      */
      public function voteAction($id)
      {
@@ -116,9 +127,9 @@ class VoteController extends AbstractController
 
 
     /**
-     * @Route("toplist", name="vote_vote_toplist")
+     * @Route("toplist", name="vote_toplist")
      * @Security("is_granted(['ROLE_ADMIN'])")
-     * @Template("App:Vote:toplist.html.twig")
+     * @Template("Vote/toplist.html.twig")
      */
     public function voteToplistAction()
     {
@@ -168,7 +179,7 @@ class VoteController extends AbstractController
 
         /**
      * @Route("/test/{id}", name="vote_test")
-     * @Template("App:Vote:thanks.html.twig")
+     * @Template("Vote/thanks.html.twig")
      */
     public function testAction($id)
     {
@@ -186,14 +197,17 @@ class VoteController extends AbstractController
 
     /**
      * @Route("/fb_post_image/{id}", name="vote_fb_post_image")
-     * @Template("App:Vote:facebook_post_image_show.html.twig")
+     * @Template("Vote/facebook_post_image_show.html.twig")
+     * @param $id
+     * @param Image $knpSnappyImage
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function facebookPostImageAction($id)
+    public function facebookPostImageAction($id, \Knp\Snappy\Image $knpSnappyImage)
     {
         $em = $this->getDoctrine()->getManager();
         $video = $em->getRepository('App:EventRegistration')->findOneById($id);
         if (!$video->getPostImage() || !is_file($video->getPostImage())) {
-            $this->generatePostImage($video->getId());
+            $this->generatePostImage($video->getId(), $knpSnappyImage);
         }
 
 
@@ -217,7 +231,7 @@ class VoteController extends AbstractController
 
     /**
      * @Route("/fb_post_image_generator/{id}", name="vote_fb_post_image_generator")
-     * @Template("App:Vote:facebook_post_image.html.twig")
+     * @Template("Vote/facebook_post_image.html.twig")
      */
     public function facebookPostImageGeneratorAction($id)
     {
@@ -233,7 +247,7 @@ class VoteController extends AbstractController
 
     }
 
-    public function generatePostImage($id)
+    public function generatePostImage($id, $knpSnappyImage)
     {
 
         set_time_limit(100000);
@@ -245,7 +259,7 @@ class VoteController extends AbstractController
         $filename = 'fb_post_images/klipszemle2019_fb_post_' . $id .'-'.time().'.jpg';
 
         // $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
-        $this->get('knp_snappy.image')->generate(
+        $knpSnappyImage->generate(
             'http://klipszemle.com/vote/fb_post_image_generator/' . $video->getId()
             ,$filename
         );

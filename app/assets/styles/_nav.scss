@@ -4,7 +4,7 @@
     margin-bottom: 0;
     border-bottom: none;
     text-transform: uppercase;
-    background: rgba($yellow, 0.95);
+    background: rgba($black, 0.95);
 
     .navbar-toggle{
         font-size: 30px;
@@ -28,7 +28,7 @@
         .navbar-toggle {
             padding: 4px 6px;
             font-size: 16px;
-            color: $brand-primary;
+            color: $white;
             &:focus,
             &:active {
                 outline: none;
@@ -60,7 +60,7 @@
         li {
             a {
                 transition: all .3s ease-in-out;
-                color: $black;
+                color: $white;
                 text-decoration: none;
                 font-weight: bold;
                 font-size: 0.9em;
@@ -75,7 +75,7 @@
 
                 &.highlight{
                     color: $black;
-                    background: rgba(234,107,44,1);
+                    background: $brand-primary;
                     padding-top: 5px;
                     padding-bottom: 5px;
                     margin-top:3px;

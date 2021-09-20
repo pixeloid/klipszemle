@@ -129,8 +129,8 @@
     }
     .video-item__text--song{
         font-size: 9px;
-        background:white;
-        color: black;
+        background: $black;
+        color: $white;
         font-weight: 900;
         margin-top: 0.3em;
         .video-item--fb-post &{
@@ -150,6 +150,8 @@
     .video-item__text--author{
         font-size: 17px;
         text-align: left;
+        background: $white;
+        color: $black;
         .video-item--fb-post &{
             font-size: 45px;
         }

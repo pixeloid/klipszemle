@@ -147,3 +147,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Jogcím }
         public: true
+
+
+    app.provider.oauth:
+        class: App\Security\OAuthUserProvider
