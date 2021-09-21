@@ -177,7 +177,7 @@ class DefaultController extends AbstractController
      */
     public function generateRequests()
     {
-        $client = new Client('sl.A46kc-y1kEishzQ0OHLddWUeG8vAAcaT6413xYjfzkFU51BocAoCIngwqBugECRXRe51mysFbJh59rnkpUufjYQzmZtmrBppxfNzCin8KgAsNeIELB1EsILMR-63ARunnoyX8F_tNWU');
+        $client = new Client('-norBkZx5NsAAAAAAAAAAUYs90Z78Gt05NHGVPTpL6lbdgObVTb46DDMldMbuRl5');
 
         $em = $this->getDoctrine()->getManager();
        $from = new DateTime('2021-07-01');
