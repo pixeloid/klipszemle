@@ -272,7 +272,6 @@ class DefaultController extends AbstractController
                         );
                     echo $mailer->send($message);;
 
-                    exit;
 
                 }
 
