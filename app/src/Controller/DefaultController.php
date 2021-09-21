@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Hero;
 use App\Entity\Jury;
 use App\Entity\Post;
+use DateTime;
+use Http\Client\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -175,26 +177,27 @@ class DefaultController extends AbstractController
      */
     public function generateRequests()
     {
+        $client = new Client('sl.A46kc-y1kEishzQ0OHLddWUeG8vAAcaT6413xYjfzkFU51BocAoCIngwqBugECRXRe51mysFbJh59rnkpUufjYQzmZtmrBppxfNzCin8KgAsNeIELB1EsILMR-63ARunnoyX8F_tNWU');
 
         $em = $this->getDoctrine()->getManager();
-        $from = new \DateTime($this->container->getParameter('start_date'));
-
-        $client = new Client('dXvmksGbtSAAAAAAAAAAF_RqBRpK0EAWcFb2D5YlCGBZgEwYCOy-hXY2eC5MZthU');
-
-
-        // $body = $client->rpcEndpointRequest('file_requests/list');
-
-        // foreach ($body['file_requests'] as $req) {
-        //     $id = substr($req['destination'], 1, 4);
-        //     $m = $em->getRepository('App:EventRegistration')->findOneById($id);
-        //     if ($m) {
-        //        $m->setDropboxRequest($req['id']);
-        //        $em->persist($m);
-        //        $em->flush();
-
-        //     }
-        // }
-        // exit;
+       $from = new DateTime('2021-07-01');
+//
+       // //
+//
+       // $body = $client->rpcEndpointRequest('file_requests/list');
+//
+       // foreach ($body['file_requests'] as $req) {
+       //     $id = substr($req['destination'], 1, 4);
+       //     $m = $em->getRepository('App:EventRegistration')->findOneById($id);
+       //     if ($m) {
+       //        $m->setDropboxRequest($req['id']);
+       //        $em->persist($m);
+//
+       //     }
+       // }
+       // $em->flush();
+//
+       // exit;
 
 
 
@@ -206,17 +209,17 @@ class DefaultController extends AbstractController
                 'title' => 'Kedves ' . $event->getName() . '! Kérjük hogy a ' . $event->getAuthor() . ' – ' . $event->getSongtitle() . '  nagy méretű file-ját töltsd fel az alábbi linken! ',
                 'destination'  => '/' . $this->slugify( $event->getId() . ' - ' . $event->getAuthor() . ' – ' . substr($event->getSongtitle(), 0, 10)),
                 'deadline' => [
-                    'deadline' => '2019-10-02T00:00:00Z'
+                    'deadline' => '2021-09-28T00:00:00Z'
                 ],
                 'open' => true
             ];
 
             if (!$event->getDropboxRequest()) {
-                var_dump($event->getId());
                 try {
                     $body = $client->rpcEndpointRequest('file_requests/create', $parameters);
-                } catch (Exception $e) {
-                    var_dump($e);
+                } catch (\Exception $e) {
+                    dump($e);
+                    exit;
                 }
 
                 $event->setDropboxRequest($body['id']);
@@ -225,7 +228,6 @@ class DefaultController extends AbstractController
 
             }
 
-            
 
         }
 
@@ -236,18 +238,18 @@ class DefaultController extends AbstractController
     /**
      * @Route("/mt", name="send_requests")
      */
-    public function sendRequests()
+    public function sendRequests(\Swift_Mailer $mailer)
     {
 
-            $from = new \DateTime($this->container->getParameter('start_date'));
+        $from = new DateTime('2021-07-01');
     
 
             $em = $this->getDoctrine()->getManager();
 
 
                 $events = $em->getRepository('App:EventRegistration')->getOnshow($from);
-                var_dump($count($events));
-                exit;
+               // var_dump($count($events));
+               // exit;
 
                 foreach ($events as $event) {
 
@@ -261,18 +263,16 @@ class DefaultController extends AbstractController
 
                     $message = (new \Swift_Message('Töltsd fel a klip nagyméretű fileját!'))
                         ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
-                        //->setTo($event->getEmail())
-                        ->setTo('olah.gergely@pixeloid.hu')
+                       //->setTo($event->getEmail())
+                       ->setTo('olah.gergely@pixeloid.hu')
                         ->setBody(
                             $this->renderView('EventRegistration/request-mail.html.twig', array(
                                 'entity'      => $event,
                             )), 'text/html'
                         );
-                    try {
-                        echo $this->get('mailer')->send($message);
-                    } catch (Exception $e) {
-                        var_dump($e);
-                    }
+                    echo $mailer->send($message);;
+
+                    exit;
 
                 }
 

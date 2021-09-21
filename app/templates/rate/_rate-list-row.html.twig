@@ -1,0 +1,19 @@
+ {% set vote = false %}
+                          <tr data-id="{{ video.id }}" >
+
+                            <td>{{ video.id }}</td>
+                            <td>      <img src="http://img.youtube.com/vi/{{ video.video_url|yt_id }}/mqdefault.jpg" height="40">
+                    </td>
+                            <td>
+                                
+                                <a href="{{ video.video_url }}">{{ video.video_url }}</a>
+                            </td>
+
+                    <td>{{ video.author }} - {{ video.songtitle }}</td>
+                    <td>{{ video.numvotes }}</td>
+                    <td>{{ video.sumvotes }}</td>
+                    <td>{{ video.avgrating }}</td>
+                    <td>{{ video.sumbest }}</td>
+                    <td>{{ video.sumspecial }}</td>
+                    <td>{{ video.info }}</td>
+     </tr>

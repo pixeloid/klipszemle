@@ -56,7 +56,7 @@ class RateController extends Controller
     }
 
     /**
-     * @Route("/video/{id}", name="rate_video")
+     * @Route("/video/{id}", name="video")
      */
     public function videoAction($id, Request $request)
     {

@@ -127,6 +127,12 @@
             "ref": "d087df3e087f50da3955f2def05079380da5894b"
         }
     },
+    "graham-campbell/guzzle-factory": {
+        "version": "v5.0.0"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "7.3.0"
+    },
     "guzzlehttp/promises": {
         "version": "1.4.1"
     },
@@ -434,6 +440,9 @@
     },
     "sonata-project/twig-extensions": {
         "version": "1.7.0"
+    },
+    "spatie/dropbox-api": {
+        "version": "1.19.1"
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.7"
