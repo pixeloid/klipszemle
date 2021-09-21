@@ -264,19 +264,19 @@ class DefaultController extends AbstractController
 
                     $message = (new \Swift_Message('Töltsd fel a klip nagyméretű fileját!'))
                         ->setFrom('info@klipszemle.com')
-                       //->setTo($event->getEmail())
-                       ->setTo('olah.gergely@pixeloid.hu')
+                       ->setTo($event->getEmail())
+                       //->setTo('olah.gergely@pixeloid.hu')
                         ->setBody(
                             $this->renderView('EventRegistration/request-mail.html.twig', array(
                                 'entity'      => $event,
                             )), 'text/html'
                         );
-                    var_dump($message);
 
                     try {
                         $mailer->send($message);
                     } catch (TransportExceptionInterface $e) {
                     }
+                    return $this->render('Default/privacy.html.twig');
 
 
                 }
