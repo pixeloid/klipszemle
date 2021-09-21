@@ -271,10 +271,11 @@ class DefaultController extends AbstractController
                                 'entity'      => $event,
                             )), 'text/html'
                         );
+                    var_dump($message);
+
                     try {
                         $mailer->send($message);
                     } catch (TransportExceptionInterface $e) {
-                        var_dump($e->getMessage());
                     }
 
 
