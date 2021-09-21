@@ -8,6 +8,7 @@ use App\Entity\Post;
 use DateTime;
 use Http\Client\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -235,8 +236,10 @@ class DefaultController extends AbstractController
         exit;
 
     }
+
     /**
      * @Route("/mt", name="send_requests")
+     * @param \Swift_Mailer $mailer
      */
     public function sendRequests(\Swift_Mailer $mailer)
     {
@@ -260,7 +263,7 @@ class DefaultController extends AbstractController
                      ));
 
                     $message = (new \Swift_Message('Töltsd fel a klip nagyméretű fileját!'))
-                        ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
+                        ->setFrom('info@klipszemle.com')
                        //->setTo($event->getEmail())
                        ->setTo('olah.gergely@pixeloid.hu')
                         ->setBody(
@@ -268,7 +271,11 @@ class DefaultController extends AbstractController
                                 'entity'      => $event,
                             )), 'text/html'
                         );
-                    echo $mailer->send($message);;
+                    try {
+                        $mailer->send($message);
+                    } catch (TransportExceptionInterface $e) {
+                        var_dump($e->getMessage());
+                    }
 
 
                 }
