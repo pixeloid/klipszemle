@@ -248,8 +248,8 @@ class DefaultController extends AbstractController
 
 
                 $events = $em->getRepository('App:EventRegistration')->getOnshow($from);
-               // var_dump($count($events));
-               // exit;
+              var_dump(count($events));
+              exit;
 
                 foreach ($events as $event) {
 
