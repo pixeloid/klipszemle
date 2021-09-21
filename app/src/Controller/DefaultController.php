@@ -276,10 +276,12 @@ class DefaultController extends AbstractController
                         $mailer->send($message);
                     } catch (TransportExceptionInterface $e) {
                     }
-                    return $this->render('Default/privacy.html.twig');
 
 
                 }
+
+        return $this->render('Default/privacy.html.twig');
+
 
         exit;
 
