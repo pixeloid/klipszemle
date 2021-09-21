@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Route("/rate", name="rate_")
+ * @Route("/ratesdfvdsfv", name="rate_")
  */
 class RateController extends Controller
 {
