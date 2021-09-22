@@ -172,7 +172,49 @@ class DefaultController extends AbstractController
 
       return $text;
     }
+    /**
+     * @Route("/reinit", name="reinit-request")
+     */
+    public function reinit()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $from = new DateTime('2021-07-01');
+        $client = new Client('aURZZKlp2_IAAAAAAAAAAe2MGIIYK7bPtRrgeS0s6S5ohjrhW6Sp7XGLDV85O7ty');
+        $events = $em->getRepository('App:EventRegistration')->getOnshow($from);
 
+        foreach ($events as $event) {
+            $id = $event->getDropboxRequest();
+
+
+            $request = $client->rpcEndpointRequest('file_requests/get', [
+                'id' => $id
+            ]);
+
+            if($request['is_open'] === true){
+                $event->setCreated(new \DateTime('2010-01-01'));
+                $em->persist($event);
+                $em->flush();
+
+                continue;
+            };
+
+            try {
+                $result = $client->rpcEndpointRequest('file_requests/update', [
+                    'id' => $id,
+                    'open' => true,
+                ]);
+
+            } catch (\Exception $e) {
+                dump($e->getMessage());
+            }
+            $event->setHaveRights(true);
+            $em->persist($event);
+            $em->flush();
+
+
+        }
+
+    }
     /**
      * @Route("/gr", name="generate-request")
      */
@@ -180,8 +222,8 @@ class DefaultController extends AbstractController
     {
         $client = new Client('-norBkZx5NsAAAAAAAAAAUYs90Z78Gt05NHGVPTpL6lbdgObVTb46DDMldMbuRl5');
 
-        $em = $this->getDoctrine()->getManager();
-       $from = new DateTime('2021-07-01');
+      //  $em = $this->getDoctrine()->getManager();
+      // $from = new DateTime('2021-07-01');
 //
        // //
 //

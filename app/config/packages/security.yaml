@@ -22,7 +22,6 @@ security:
                     - App\Security\AppCustomAuthenticator
             logout:
                 path: app_logout
-
             oauth:
                 failure_path: /connect
                 login_path: /connect

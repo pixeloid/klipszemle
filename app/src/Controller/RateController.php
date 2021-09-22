@@ -12,7 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Route("/ratesdfvdsfv", name="rate_")
+ * @Route("/rate", name="rate_")
+ * @Security("has_role('ROLE_JURY')")
  */
 class RateController extends Controller
 {

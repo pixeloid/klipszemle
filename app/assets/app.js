@@ -292,7 +292,6 @@ extend(ESPCR, {
 
             $(document).on('show.bs.modal', '#confirm-finalize', function(e) {
                 $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-                alert('OK')
             });
 
             ESPCR.rate.calcPercents();
@@ -343,7 +342,10 @@ extend(ESPCR, {
 
 
 
-            $('#jury_vote_rate').rating({stars: 10, step: 1, min: 0, max: 10, size:'lg'});
+            $('#jury_vote_rate').barrating({
+                'theme': 'bars-1to10',
+                'showSelectedRating': false
+            });
 
             ESPCR.customFormElements.init();
             ESPCR.rate.calcPercents();
