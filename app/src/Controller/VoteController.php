@@ -145,7 +145,7 @@ class VoteController extends AbstractController
              e.created > :start
         GROUP BY e.id
         ORDER BY numvote DESC')
-        ->setParameter('start', new \DateTime($this->container->getParameter('start_date')));
+        ->setParameter('start', new \DateTime('2021-05-01'));
 
 
         $votes = $query->getArrayResult();
