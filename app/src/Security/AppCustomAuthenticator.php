@@ -95,8 +95,15 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
+        $user = $token->getUser();
+
+        if (in_array('ROLE_JURY', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('rate_index'));
+        }
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
+        }
+        return new RedirectResponse($this->urlGenerator->generate('default_home'));
 
     }
 
