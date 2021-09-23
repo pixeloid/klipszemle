@@ -35,11 +35,12 @@ class RateController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/list", name="rate_list")
      */
     public function list()
     {
-      $from = new \DateTime($this->container->getParameter('start_date'));
+      $from = new \DateTime('2021-05-01');
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -48,9 +49,11 @@ class RateController extends Controller
         
         $result = [];
 
+
         foreach ($categories as $cat) {
           $result[$cat->getName()] = $em->getRepository('App:EventRegistration')->getRatings($from, $cat);
         }
+
         return $this->render('rate/list.html.twig', [
             'result' => $result,
         ]);
