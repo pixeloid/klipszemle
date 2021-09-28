@@ -81,6 +81,19 @@ class EventRegistrationRepository extends EntityRepository
 
 	    return $res;
 	}
+	public function getPremiere(\DateTime $from): ?Array
+	{
+	    $res = $this->createQueryBuilder('er')
+	        ->select('er')
+	        ->andWhere('er.created > :created')
+	        ->andWhere('er.premiere = 1')
+	        ->setParameter('created', $from)
+	        ->getQuery()
+	        ->getResult()
+	    ;
+
+	    return $res;
+	}
 
 
 }

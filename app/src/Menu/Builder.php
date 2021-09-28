@@ -94,7 +94,7 @@ class Builder implements ContainerAwareInterface
       $menu->addChild('Zsűri', array('route' => 'rate_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
     }
 
-       $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+     //  $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
      //   $menu->addChild('Nevezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
         // $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
         // $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');

@@ -22,6 +22,7 @@ class VoteController extends AbstractController
 
     /**
      * @Route("/", name="index")
+     * @Security("is_granted(['ROLE_ADMIN'])")
      * @Template("Vote/index.html.twig")
      */
      public function indexAction()
@@ -81,7 +82,7 @@ class VoteController extends AbstractController
 
     /**
      * @Route("/vote/{id}", name="vote")
-     * @Security("is_granted(['ROLE_USER'])")
+     * @Security("is_granted(['ROLE_ADMIN'])")
      * @Template("Vote/thanks.html.twig")
      */
      public function voteAction($id)

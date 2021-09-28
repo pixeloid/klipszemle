@@ -222,8 +222,8 @@ class DefaultController extends AbstractController
     {
         $client = new Client('-norBkZx5NsAAAAAAAAAAUYs90Z78Gt05NHGVPTpL6lbdgObVTb46DDMldMbuRl5');
 
-      //  $em = $this->getDoctrine()->getManager();
-      // $from = new DateTime('2021-07-01');
+      $em = $this->getDoctrine()->getManager();
+      $from = new DateTime('2021-07-01');
 //
        // //
 //
@@ -245,14 +245,14 @@ class DefaultController extends AbstractController
 
 
 
-        $events = $em->getRepository('App:EventRegistration')->getOnshow($from);
+        $events = $em->getRepository('App:EventRegistration')->getPremiere($from);
 
         foreach ($events as $event) {
             $parameters = [
                 'title' => 'Kedves ' . $event->getName() . '! Kérjük hogy a ' . $event->getAuthor() . ' – ' . $event->getSongtitle() . '  nagy méretű file-ját töltsd fel az alábbi linken! ',
                 'destination'  => '/' . $this->slugify( $event->getId() . ' - ' . $event->getAuthor() . ' – ' . substr($event->getSongtitle(), 0, 10)),
                 'deadline' => [
-                    'deadline' => '2021-09-28T00:00:00Z'
+                    'deadline' => '2021-10-01T00:00:00Z'
                 ],
                 'open' => true
             ];
