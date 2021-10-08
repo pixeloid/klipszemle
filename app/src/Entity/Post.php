@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,38 +31,22 @@ class Post
      */
     private $title;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lead", type="string", length=255)
-     */
-    private $lead;
 
     /**
      * @var string
      *
      * @ORM\Column(name="body", type="text")
      */
-    private $body;
+    private string $body;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created", type="datetime")
-     */
-    private $created;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Gallery")
-     */
-    private $gallery;
 
     /**
      * Get id.
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -141,7 +126,7 @@ class Post
     /**
      * Set created.
      *
-     * @param \DateTime $created
+     * @param DateTime $created
      *
      * @return Post
      */
@@ -155,7 +140,7 @@ class Post
     /**
      * Get created.
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreated()
     {
@@ -166,7 +151,6 @@ class Post
      */
     public function __construct()
     {
-        $this->images = new ArrayCollection();
     }
 
     /**

@@ -101,7 +101,7 @@ class Builder implements ContainerAwareInterface
         //$menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
         // $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
         $menu->addChild('Program', array('route' => 'program'));
-     //   $menu->addChild('Hírek', array('route' => 'news'));
+        $menu->addChild('Shortlist', array('route' => 'news'));
         // $menu->addChild('Rólunk írták', array('uri' => '#'));
         // $menu->addChild('Cuccok', array('uri' => '#'));
         $menu->addChild('Faq', array('route' => 'faq'));

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -18,9 +19,7 @@ final class PostAdmin extends AbstractAdmin
         $filter
             ->add('id')
             ->add('title')
-            ->add('lead')
             ->add('body')
-            ->add('created')
         ;
     }
 
@@ -29,7 +28,6 @@ final class PostAdmin extends AbstractAdmin
         $list
             ->add('id')
             ->add('title')
-            ->add('created')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -44,12 +42,9 @@ final class PostAdmin extends AbstractAdmin
     {
         $form
             ->add('title')
-            ->add('lead')
-            ->add('body', SimpleFormatterType::class, [
-                'format' => 'richhtml',
-            ])
-            ->add('gallery', 'sonata_type_model_list')
-            ->add('created')
+            ->add('body', CKEditorType::class, array(
+                'config' => array('toolbar' => 'basic'),
+            ))
         ;
     }
 
@@ -58,9 +53,7 @@ final class PostAdmin extends AbstractAdmin
         $show
             ->add('id')
             ->add('title')
-            ->add('lead')
             ->add('body')
-            ->add('created')
         ;
     }
 }

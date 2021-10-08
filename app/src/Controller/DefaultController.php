@@ -89,7 +89,7 @@ class DefaultController extends AbstractController
     public function newsAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository(Post::class)->findBy(array(), array('created' => 'DESC'));
+        $posts = $em->getRepository(Post::class)->findBy(array());
         /*
                 $imageprovider = $this->get('sonata.media.provider.image');
                 foreach ($posts as $key => $post) {
