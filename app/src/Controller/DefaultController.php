@@ -21,6 +21,17 @@ use Spatie\Dropbox\Client;
 
 class DefaultController extends AbstractController
 {
+    private \Swift_Mailer $mailer;
+
+    /**
+     * DefaultController constructor.
+     * @param \Swift_Mailer $mailer
+     */
+    public function __construct(\Swift_Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
 
     /**
      * @Route("/", name="default_home")
@@ -279,12 +290,14 @@ class DefaultController extends AbstractController
 
     }
 
-    /**
-     * @Route("/mt", name="send_requests")
-     * @param \Swift_Mailer $mailer
-     */
     public function sendRequests(\Swift_Mailer $mailer)
     {
+
+
+        $this->readCsv();
+
+        return $this->render('Default/privacy.html.twig');
+
 
         $from = new DateTime('2021-07-01');
     
@@ -329,9 +342,6 @@ class DefaultController extends AbstractController
 
     }
 
-    /**
-     * @Route("/mailtest", name="mailtest")
-     */
     public function sendEmail(\Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email teszt 02 APP pass'))
@@ -345,5 +355,37 @@ class DefaultController extends AbstractController
         return $this->render('Default/privacy.html.twig');
     }
 
+    private function readCsv()
+    {
+        if (($fp = fopen("../public/uploads/shortlist.csv", "r")) !== FALSE) {
+            while (($row = fgetcsv($fp, 1000, ",")) !== FALSE) {
+//                dump($row);
+                $this->sendShortlistMail($row);
 
+            }
+            fclose($fp);
+        }
+
+    }
+
+    private function sendShortlistMail($row)
+    {
+        $message = (new \Swift_Message('EMLÉKEZTETŐ: Holnap 05. Magyar Klipszemle díjtadó gála!'))
+            ->setFrom('info.klipszemle@gmail.com')
+ ->setTo($row[1])
+            ->setBody(
+                $this->renderView('EventRegistration/shortlist-mail.html.twig', array(
+                    'row'      => $row,
+                )), 'text/html'
+            );
+
+        try {
+            $this->mailer->send($message);
+//
+        //    dump($message);
+        //    dump($row);
+        } catch (TransportExceptionInterface $e) {
+            dump($e);
+        }
+    }
 }
