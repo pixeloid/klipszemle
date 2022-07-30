@@ -103,7 +103,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var array
      *
-     * @ORM\Column(name="roles", type="jsontype", length=0, nullable=false)
+     * @ORM\Column(name="roles", type="json", length=0, nullable=false)
      */
     private $roles = [];
 
