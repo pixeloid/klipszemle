@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\Timestampable;
 
 /**
  * Vote
@@ -12,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Vote
 {
+
+    use Timestampable;
+
     /**
      * @var integer
      *

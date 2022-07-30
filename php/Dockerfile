@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.1.0-fpm
 
 RUN apt update \
     && apt install -y zlib1g-dev g++ git libicu-dev zip libzip-dev libpng-dev libfreetype6-dev  libjpeg62-turbo-dev zip \
@@ -10,6 +10,11 @@ RUN apt update \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-enable gd
+
+RUN  pecl install xdebug \
+        && docker-php-ext-enable xdebug
+
+
 
 WORKDIR /var/www/project
 

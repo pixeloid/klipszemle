@@ -16,4 +16,9 @@ class Gallery extends BaseGallery
      * @ORM\Column(type="integer")
      */
     protected $id;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }

@@ -2,40 +2,127 @@
 
 namespace App\Entity;
 
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use App\Repository\UserRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
+use Doctrine\ORM\Mapping\OrderBy;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
+    use TimestampableEntity;
+
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private ?int $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=180, nullable=false)
+     * @Groups({"user:read", "user:write"})
      */
-    private ?string $email;
+    private $username;
 
     /**
-     * @ORM\Column(type="json")
+     * @var string
+     *
+     * @ORM\Column(name="username_canonical", type="string", length=180, nullable=false)
      */
-    private array $roles = [];
+    private $usernameCanonical;
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=180, nullable=false)
+     * @Groups({"user:read", "user:write"})
      */
-    private string $password;
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email_canonical", type="string", length=180, nullable=false)
+     */
+    private $emailCanonical;
+
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+     */
+    private $salt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @Groups({"user:write"})
+     */
+    private $password;
+
+    /**
+     * @var DateTime|null
+     *
+     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="confirmation_token", type="string", length=180, nullable=true)
+     */
+    private $confirmationToken;
+
+    /**
+     * @var DateTime|null
+     *
+     * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="roles", type="jsontype", length=0, nullable=false)
+     */
+    private $roles = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EventRegistration", mappedBy="user")
+     * @OrderBy({"created" = "DESC"})
+     **/
+    protected $eventRegistrations;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+    public function __construct()
+    {
+        $this->eventRegistrations = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -47,49 +134,6 @@ class User implements UserInterface
         return $this->email;
     }
 
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\EventRegistration", mappedBy="user")
-     **/
-    protected Collection $eventRegistrations;
-
-    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
-    protected string $facebook_id;
-
-    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
-    protected string $facebook_access_token;
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="user")
-     */
-    protected Collection $votes;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\VoteSheet", mappedBy="user", cascade={"persist", "remove"})
-     */
-    private ?VoteSheet $voteSheet;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\JuryVote", mappedBy="user", orphanRemoval=true)
-     */
-    private Collection $juryVotes;
-
-
-
-
-    public function __construct()
-    {
-        $this->eventRegistrations = new ArrayCollection();
-        $this->votes = new ArrayCollection();
-        $this->juryVotes = new ArrayCollection();
-        // your own logic
-    }
-
-    /**
-     * @param string $email
-     * @return $this
-     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -161,158 +205,143 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-
     /**
-     * Add eventRegistrations
-     *
-     * @param EventRegistration $eventRegistrations
-     * @return User
+     * @return Collection|EventRegistration[]
      */
-    public function addEventRegistration(EventRegistration $eventRegistrations): User
-    {
-        $this->eventRegistrations[] = $eventRegistrations;
-
-        return $this;
-    }
-
-    /**
-     * Remove eventRegistrations
-     *
-     * @param EventRegistration $eventRegistrations
-     */
-    public function removeEventRegistration(EventRegistration $eventRegistrations)
-    {
-        $this->eventRegistrations->removeElement($eventRegistrations);
-    }
-
-    /**
-     * Get eventRegistrations
-     *
-     * @return Collection
-     */
-    public function getEventRegistrations()
+    public function getEventRegistrations(): Collection
     {
         return $this->eventRegistrations;
     }
 
-    /**
-     * @param string $facebookId
-     * @return User
-     */
-    public function setFacebookId(string $facebookId): User
+    public function addEventRegistration(EventRegistration $eventRegistration): self
     {
-        $this->facebook_id = $facebookId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFacebookId(): string
-    {
-        return $this->facebook_id;
-    }
-
-    /**
-     * @param string $facebookAccessToken
-     * @return User
-     */
-    public function setFacebookAccessToken(string $facebookAccessToken): User
-    {
-        $this->facebook_access_token = $facebookAccessToken;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFacebookAccessToken(): string
-    {
-        return $this->facebook_access_token;
-    }
-
-
-    /**
-     * Add vote
-     *
-     * @param Vote $vote
-     *
-     * @return User
-     */
-    public function addVote(Vote $vote): User
-    {
-        $this->votes[] = $vote;
-
-        return $this;
-    }
-
-    /**
-     * Remove vote
-     *
-     * @param Vote $vote
-     */
-    public function removeVote(Vote $vote)
-    {
-        $this->votes->removeElement($vote);
-    }
-
-    /**
-     * Get votes
-     *
-     * @return Collection
-     */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
-
-    public function getVoteSheet(): ?VoteSheet
-    {
-        return $this->voteSheet;
-    }
-
-    public function setVoteSheet(VoteSheet $voteSheet): self
-    {
-        $this->voteSheet = $voteSheet;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $voteSheet->getUser()) {
-            $voteSheet->setUser($this);
+        if (!$this->eventRegistrations->contains($eventRegistration)) {
+            $this->eventRegistrations[] = $eventRegistration;
+            $eventRegistration->setUser($this);
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|JuryVote[]
-     */
-    public function getJuryVotes(): Collection
+    public function removeEventRegistration(EventRegistration $eventRegistration): self
     {
-        return $this->juryVotes;
-    }
-
-    public function addJuryVote(JuryVote $juryVote): self
-    {
-        if (!$this->juryVotes->contains($juryVote)) {
-            $this->juryVotes[] = $juryVote;
-            $juryVote->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeJuryVote(JuryVote $juryVote): self
-    {
-        if ($this->juryVotes->contains($juryVote)) {
-            $this->juryVotes->removeElement($juryVote);
+        if ($this->eventRegistrations->removeElement($eventRegistration)) {
             // set the owning side to null (unless already changed)
-            if ($juryVote->getUser() === $this) {
-                $juryVote->setUser(null);
+            if ($eventRegistration->getUser() === $this) {
+                $eventRegistration->setUser(null);
             }
         }
 
         return $this;
     }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getUsernameCanonical(): ?string
+    {
+        return $this->usernameCanonical;
+    }
+
+    public function setUsernameCanonical(string $usernameCanonical): self
+    {
+        $this->usernameCanonical = $usernameCanonical;
+
+        return $this;
+    }
+
+    public function getEmailCanonical(): ?string
+    {
+        return $this->emailCanonical;
+    }
+
+    public function setEmailCanonical(string $emailCanonical): self
+    {
+        $this->emailCanonical = $emailCanonical;
+
+        return $this;
+    }
+
+
+
+    public function setSalt(?string $salt): self
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): self
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    public function getPasswordRequestedAt(): ?DateTimeInterface
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt(?DateTimeInterface $passwordRequestedAt): self
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
 }

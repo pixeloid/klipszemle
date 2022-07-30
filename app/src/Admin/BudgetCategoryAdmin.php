@@ -8,9 +8,13 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class BudgetCategoryAdmin extends AbstractAdmin
+final class BudgetCategoryAdmin extends AbstractAdmin
 {
-    protected function configureDatagridFilters(DatagridMapper $filter)
+    /**
+     * @param DatagridMapper $filter
+     * @return void
+     */
+    protected function configureDatagridFilters(DatagridMapper $filter):void
     {
         $filter
             ->add('id')
@@ -18,33 +22,34 @@ class BudgetCategoryAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureListFields(ListMapper $list)
+    protected function configureListFields(ListMapper $list):void
     {
         $list
             ->add('id')
             ->add('name')
-            ->add('_action', null, [
-                'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                ],
-            ])
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ))
         ;
     }
 
-    protected function configureFormFields(FormMapper $form)
+    protected function configureFormFields(FormMapper $form):void
     {
         $form
             ->add('name')
         ;
     }
 
-    protected function configureShowFields(ShowMapper $show)
+    protected function configureShowFields(ShowMapper $show):void
     {
         $show
             ->add('id')
             ->add('name')
         ;
     }
+
 }

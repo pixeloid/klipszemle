@@ -7,7 +7,7 @@
                     <div class="swiper-slide">
                         <div class="sponsor">
                             <a href="{{ sponsor.url }}" target="_blank">
-                                {% thumbnail sponsor.image, 'med' %}
+                                {{ sonata_thumbnail(sponsor.image, 'med', { class: "img-responsive" }) }}
                                 <p>{{ sponsor.name }}</p>
                             </a>
                         </div>

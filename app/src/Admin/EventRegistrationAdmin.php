@@ -5,25 +5,19 @@ namespace App\Admin;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Form\Type\ModelListType;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
-use Sonata\CoreBundle\Form\Type\DateTimePickerType;
-
-
-use App\Entity\BudgetCategory;
 use Sonata\DoctrineORMAdminBundle\Filter\ModelAutocompleteFilter;
 use Sonata\Form\Type\CollectionType;
 
 class EventRegistrationAdmin extends AbstractAdmin
 {
 
-    public function createQuery($context = 'list')
+    public function configureQuery($query):ProxyQueryInterface
     {
 
-        $query = parent::createQuery($context);
 
         $query->andWhere($query->getRootAliases()[0] . '.created > :created');
 
@@ -33,11 +27,12 @@ class EventRegistrationAdmin extends AbstractAdmin
 
 
 
-    protected function configureDatagridFilters(DatagridMapper $filter)
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
             ->add('moviecategories', ModelAutocompleteFilter::class, [
-                // in related CategoryAdmin there must be datagrid filter on `title` field to make the autocompletion work
+                // in related CategoryAdmin there must be datagrid filter on `title`
+                // field to make the autocompletion work
                 'field_options' => ['property'=>'category.eventRegistrationCategories.name'],
             ])
             ->add('shortlist')
@@ -46,7 +41,7 @@ class EventRegistrationAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureListFields(ListMapper $list)
+    protected function configureListFields(ListMapper $list): void
     {
         $list
             ->add('id')
@@ -56,10 +51,10 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('songtitle', null, [
                 'header_style' => 'width: 120px',
             ])
-            ->add('video_url', null, array(
+            ->add('video_url', null, [
                 'template' => 'Admin/CRUD/list_youtube.html.twig',
                 'header_style' => 'width: 120px',
-            ))
+            ])
             ->add('moviecategories', null, [
                 'header_style' => 'width: 120px',
             ])
@@ -81,36 +76,39 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('shortlist', null, [
                 "editable" => true,
             ])
-            ->add('_action', null, [
-                'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                ],
-            ])
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ))
         ;
     }
 
-    protected function configureFormFields(FormMapper $form)
+    protected function configureFormFields(FormMapper $form): void
     {
         $form
             ->add('shortlist')
             ->add('name')
             ->add('video_url')
-            ->add('moviecategories', CollectionType::class, array(
+            ->add(
+                'moviecategories',
+                CollectionType::class,
+                [
                 'by_reference' => false,
                 'required' => false,
-                ),
-                array(
+                ],
+                [
                        'edit' => 'inline',
                        'sortable' => 'position',
                         'inline' => 'table',
-                  )
+                  ]
             )
-            ->add('keywords', ModelType::class, array(
+            ->add('keywords', ModelType::class, [
                 'property' => "name",
                 'multiple' => true,
-            ))
+            ])
             ->add('producer')
             ->add('director')
             ->add('photographer')
@@ -125,8 +123,8 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('songtitle')
             ->add('length')
             ->add('publisher')
-            ->add('song_publish_date', null,[
-                'required' => false
+            ->add('song_publish_date', null, [
+                'required' => false,
             ])
             ->add('video_publish_date')
             ->add('description')
@@ -135,7 +133,7 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('description')
             ->add('email')
             ->add('created', null, [
-                'data' => new \DateTime
+                'data' => new \DateTime,
             ])
             ->add('winner')
             ->add('onshow')
@@ -143,7 +141,7 @@ class EventRegistrationAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureShowFields(ShowMapper $show)
+    protected function configureShowFields(ShowMapper $show): void
     {
         $show
             ->add('id')
@@ -182,22 +180,19 @@ class EventRegistrationAdmin extends AbstractAdmin
         ;
     }
 
-    protected $perPageOptions = array(1000, 500, 100);
-    
-    protected $maxPerPage = 100;
 
 
-    public function prePersist($object)
+    public function prePersist($object): void
     {
-        $object->setKeywords(array());
+        $object->setKeywords([]);
         foreach ($object->getKeywords() as $keyword) {
             $keyword->addEventRegistration($object);
         }
     }
 
-    public function preUpdate($object)
+    public function preUpdate($object): void
     {
-        $object->setKeywords(array());
+        $object->setKeywords([]);
 
         foreach ($object->getKeywords() as $keyword) {
             $keyword->addEventRegistration($object);

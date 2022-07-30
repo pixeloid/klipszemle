@@ -2,13 +2,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sonata\MediaBundle\Entity\BaseGalleryHasMedia;
+use Sonata\MediaBundle\Entity\BaseGalleryItem;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="media__gallery_item")
  */
-class GalleryItem extends BaseGalleryHasMedia
+class GalleryItem extends BaseGalleryItem
 {
     /**
      * @ORM\Id
@@ -17,4 +17,8 @@ class GalleryItem extends BaseGalleryHasMedia
      */
     protected $id;
 
+    public function getId()
+    {
+        return $this->id;
+    }
 }

@@ -10,7 +10,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 final class PostAdmin extends AbstractAdmin
 {
@@ -28,7 +27,7 @@ final class PostAdmin extends AbstractAdmin
         $list
             ->add('id')
             ->add('title')
-            ->add('_action', null, [
+            ->add('_action', 'actions', [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
@@ -42,9 +41,9 @@ final class PostAdmin extends AbstractAdmin
     {
         $form
             ->add('title')
-            ->add('body', CKEditorType::class, array(
-                'config' => array('toolbar' => 'basic'),
-            ))
+            ->add('body', CKEditorType::class, [
+                'config' => ['toolbar' => 'basic'],
+            ])
         ;
     }
 

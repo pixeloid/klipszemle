@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class EventRegistrationCategoryAdmin extends AbstractAdmin
 {
-    protected function configureDatagridFilters(DatagridMapper $filter)
+    protected function configureDatagridFilters(DatagridMapper $filter):void
     {
         $filter
             ->add('id')
@@ -18,23 +18,23 @@ class EventRegistrationCategoryAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureListFields(ListMapper $list)
+    protected function configureListFields(ListMapper $list):void
     {
         $list
             ->add('id')
             ->add('shortlist')
             ->add('category.name')
-            ->add('_action', null, [
-                'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                ],
-            ])
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ))
         ;
     }
 
-    protected function configureFormFields(FormMapper $form)
+    protected function configureFormFields(FormMapper $form):void
     {
         $form
             ->add('category')
@@ -42,7 +42,7 @@ class EventRegistrationCategoryAdmin extends AbstractAdmin
         ;
     }
 
-    protected function configureShowFields(ShowMapper $show)
+    protected function configureShowFields(ShowMapper $show):void
     {
         $show
             ->add('id')

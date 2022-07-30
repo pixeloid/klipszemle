@@ -4,6 +4,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\Timestampable;
 use Symfony\Component\Validator\Constraints as Assert;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 use App\Validator\Constraints as AppAssert;
@@ -19,6 +20,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 class EventRegistration
 {
+    use Timestampable;
+
     /**
      * @var integer
      *
@@ -323,7 +326,9 @@ class EventRegistration
         $result = false;
 
         foreach ($this->getMovieCategories() as $cat) {
-            if($cat->getShortlist()) return true;
+            if ($cat->getShortlist()) {
+                return true;
+            }
         }
     }
 
@@ -332,27 +337,35 @@ class EventRegistration
         $result = array();
 
         foreach ($this->getMovieCategories() as $cat) {
-            if($cat->getShortlist()) $result[] = $cat;
+            if ($cat->getShortlist()) {
+                $result[] = $cat;
+            }
         }
 
         return $result;
     }
 
-    public function getYtId(){
+    public function getYtId()
+    {
         $value = $this->getVideoUrl();
         if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/', $value, $id)) {
-          $values = $id[1];
-        } else if (preg_match('/youtube\.com\/embed\/([^\&\?\/]+)/', $value, $id)) {
-          $values = $id[1];
-        } else if (preg_match('/youtube\.com\/v\/([^\&\?\/]+)/', $value, $id)) {
-          $values = $id[1];
-        } else if (preg_match('/youtu\.be\/([^\&\?\/]+)/', $value, $id)) {
-          $values = $id[1];
-        }
-        else if (preg_match('/youtube\.com\/verify_age\?next_url=\/watch%3Fv%3D([^\&\?\/]+)/', $value, $id)) {
             $values = $id[1];
-        } else {   
-        // not an youtube video
+        } elseif (preg_match('/youtube\.com\/embed\/([^\&\?\/]+)/', $value, $id)) {
+            $values = $id[1];
+        } elseif (preg_match('/youtube\.com\/v\/([^\&\?\/]+)/', $value, $id)) {
+            $values = $id[1];
+        } elseif (preg_match(
+            '/youtu\.be\/([^\&\?\/]+)/',
+            $value,
+            $id
+        )) {
+            $values = $id[1];
+        } elseif (preg_match(
+            '/youtube\.com\/verify_age\?next_url=\/watch%3Fv%3D([^\&\?\/]+)/',
+            $value,
+            $id
+        )) {
+            $values = $id[1];
         }
         return $values;
     }
@@ -384,7 +397,7 @@ class EventRegistration
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -407,7 +420,7 @@ class EventRegistration
     /**
      * Get firstname
      *
-     * @return string 
+     * @return string
      */
     public function getFirstname()
     {
@@ -430,7 +443,7 @@ class EventRegistration
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -453,7 +466,7 @@ class EventRegistration
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -476,7 +489,7 @@ class EventRegistration
     /**
      * Get institution
      *
-     * @return string 
+     * @return string
      */
     public function getInstitution()
     {
@@ -499,7 +512,7 @@ class EventRegistration
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -522,7 +535,7 @@ class EventRegistration
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -545,7 +558,7 @@ class EventRegistration
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -568,7 +581,7 @@ class EventRegistration
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -591,7 +604,7 @@ class EventRegistration
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -614,7 +627,7 @@ class EventRegistration
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -637,7 +650,7 @@ class EventRegistration
     /**
      * Get postal
      *
-     * @return string 
+     * @return string
      */
     public function getPostal()
     {
@@ -660,7 +673,7 @@ class EventRegistration
     /**
      * Get regnumber
      *
-     * @return string 
+     * @return string
      */
     public function getRegnumber()
     {
@@ -683,7 +696,7 @@ class EventRegistration
     /**
      * Get user
      *
-     * @return User 
+     * @return User
      */
     public function getUser()
     {
@@ -707,7 +720,7 @@ class EventRegistration
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -1391,7 +1404,7 @@ class EventRegistration
     /**
      * Get onshow
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOnshow()
     {
@@ -1414,7 +1427,7 @@ class EventRegistration
     /**
      * Get premiere
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPremiere()
     {
@@ -1437,7 +1450,7 @@ class EventRegistration
     /**
      * Get post_image
      *
-     * @return string 
+     * @return string
      */
     public function getPostImage()
     {
@@ -1470,7 +1483,7 @@ class EventRegistration
     /**
      * Get votes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVotes()
     {

@@ -29,13 +29,13 @@ final class ProgramAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('body')
-            ->add('_action', null, [
-                'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                    'delete' => [],
-                ],
-            ]);
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ));
     }
 
     protected function configureFormFields(FormMapper $form): void

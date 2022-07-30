@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\Timestampable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -10,6 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class JuryVote
 {
+
+    use Timestampable;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

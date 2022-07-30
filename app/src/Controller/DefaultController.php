@@ -5,90 +5,63 @@ namespace App\Controller;
 use App\Entity\Hero;
 use App\Entity\Jury;
 use App\Entity\Post;
+use App\Entity\Sponsor;
 use DateTime;
-use Http\Client\Exception;
+use Doctrine\ORM\EntityManagerInterface;
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
-use MediaMonks\SonataMediaBundle\Generator\ImageUrlGenerator;
-use MediaMonks\SonataMediaBundle\ParameterBag\ImageParameterBag;
-use MediaMonks\SonataMediaBundle\Utility\ImageUtility;
 
 use Spatie\Dropbox\Client;
 
 class DefaultController extends AbstractController
 {
-    private \Swift_Mailer $mailer;
+    private Swift_Mailer $mailer;
+    private EntityManagerInterface $em;
 
     /**
      * DefaultController constructor.
-     * @param \Swift_Mailer $mailer
+     * @param Swift_Mailer $mailer
+     * @param EntityManagerInterface $em
      */
-    public function __construct(\Swift_Mailer $mailer)
+    public function __construct(Swift_Mailer $mailer, EntityManagerInterface $em)
     {
         $this->mailer = $mailer;
+        $this->em = $em;
     }
 
 
     /**
      * @Route("/", name="default_home")
      */
-    public function indexAction(Request $request): Response
+    public function indexAction(): Response
     {
 
-        $em = $this->getDoctrine()->getManager();
-        $hero = $em->getRepository(Hero::class)->findAll();
-        $jury = $em->getRepository(Jury::class)->findAll();
+        $hero = $this->em->getRepository(Hero::class)->findAll();
+        $jury = $this->em->getRepository(Jury::class)->findAll();
 
-        return $this->render('Default/index.html.twig', array(
+        return $this->render('Default/index.html.twig', [
             'heroes' => $hero,
             'juries' => $jury,
-            )
-        );
-
-
-
-
+            ]);
     }
 
-    public function sponsorsAction()
+    public function sponsorsAction(): Response
     {
 
-        $em = $this->getDoctrine()->getManager();
 
-        $sponsors = $em->getRepository('App:Sponsor')->findAll();
+        $sponsors = $this->em->getRepository(Sponsor::class)->findAll();
 
-        return $this->render('Default/sponsors.html.twig', array(
-            'sponsors' => $sponsors));
+        return $this->render('Default/sponsors.html.twig', [
+            'sponsors' => $sponsors, ]);
     }
 
-    public function mapAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
 
-        $event = $em->getRepository('App:Event')->findOneById(4);
-
-        $qb = $em->createQueryBuilder();
-        $qb->select('a, r')
-            ->from('App:Accomodation', 'a')
-            ->join('a.rooms', 'r')
-            ->where('r.event = :event')
-            ->setParameter('event', $event)
-            ->distinct(true)
-        ;
-
-        $accomodations =$qb->getQuery()->getResult();
-
-        return $this->render('Default/map.html.twig', array(
-            'accomodations' => $accomodations
-        ));
-    }
-
-    public function registerAction()
+    public function registerAction(): Response
     {
         return $this->render('Default/register.html.twig');
     }
@@ -97,10 +70,9 @@ class DefaultController extends AbstractController
     /**
      * @Route("/hirek", name="news")
      */
-    public function newsAction()
+    public function newsAction(): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository(Post::class)->findBy(array());
+        $posts = $this->em->getRepository(Post::class)->findBy([]);
         /*
                 $imageprovider = $this->get('sonata.media.provider.image');
                 foreach ($posts as $key => $post) {
@@ -127,10 +99,9 @@ class DefaultController extends AbstractController
     /**
      * @Route("/program", name="program")
      */
-    public function programAction()
+    public function programAction(): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('App:Program')->findBy(array(), array('id' => 'ASC'));
+        $posts = $this->em->getRepository('App:Program')->findBy([], ['id' => 'ASC']);
 
         return $this->render('Default/program.html.twig', ['posts' => $posts]);
     }
@@ -148,7 +119,12 @@ class DefaultController extends AbstractController
      */
     public function faqAction()
     {
-        $faq = Yaml::parse(file_get_contents($this->getParameter('kernel.project_dir') . '/src/Resources/config/faq.yml'));
+        $faq = Yaml::parse(
+            file_get_contents(sprintf(
+                "%s/src/Resources/config/faq.yml",
+                $this->getParameter('kernel.project_dir')
+            ))
+        );
         return $this->render('Default/faq.html.twig', ['faq' => $faq]);
     }
 
@@ -160,51 +136,50 @@ class DefaultController extends AbstractController
     private function slugify($text)
     {
       // replace non letter or digits by -
-      $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
 
       // transliterate
-      $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
 
       // remove unwanted characters
-      $text = preg_replace('~[^-\w]+~', '', $text);
+        $text = preg_replace('~[^-\w]+~', '', $text);
 
       // trim
-      $text = trim($text, '-');
+        $text = trim($text, '-');
 
       // remove duplicate -
-      $text = preg_replace('~-+~', '-', $text);
+        $text = preg_replace('~-+~', '-', $text);
 
       // lowercase
-      $text = strtolower($text);
+        $text = strtolower($text);
 
-      if (empty($text)) {
-        return 'n-a';
-      }
+        if (empty($text)) {
+            return 'n-a';
+        }
 
-      return $text;
+        return $text;
     }
     /**
      * @Route("/reinit", name="reinit-request")
      */
     public function reinit()
     {
-        $em = $this->getDoctrine()->getManager();
         $from = new DateTime('2021-07-01');
         $client = new Client('aURZZKlp2_IAAAAAAAAAAe2MGIIYK7bPtRrgeS0s6S5ohjrhW6Sp7XGLDV85O7ty');
-        $events = $em->getRepository('App:EventRegistration')->getOnshow($from);
+        $events = $this->em->getRepository('App:EventRegistration')->getOnshow($from);
 
         foreach ($events as $event) {
             $id = $event->getDropboxRequest();
 
 
             $request = $client->rpcEndpointRequest('file_requests/get', [
-                'id' => $id
+                'id' => $id,
             ]);
 
-            if($request['is_open'] === true){
+            if ($request['is_open'] === true) {
                 $event->setCreated(new \DateTime('2010-01-01'));
-                $em->persist($event);
-                $em->flush();
+                $this->em->persist($event);
+                $this->em->flush();
 
                 continue;
             };
@@ -214,17 +189,13 @@ class DefaultController extends AbstractController
                     'id' => $id,
                     'open' => true,
                 ]);
-
             } catch (\Exception $e) {
                 dump($e->getMessage());
             }
             $event->setHaveRights(true);
-            $em->persist($event);
-            $em->flush();
-
-
+            $this->em->persist($event);
+            $this->em->flush();
         }
-
     }
     /**
      * @Route("/gr", name="generate-request")
@@ -233,8 +204,7 @@ class DefaultController extends AbstractController
     {
         $client = new Client('-norBkZx5NsAAAAAAAAAAUYs90Z78Gt05NHGVPTpL6lbdgObVTb46DDMldMbuRl5');
 
-      $em = $this->getDoctrine()->getManager();
-      $from = new DateTime('2021-07-01');
+        $from = new DateTime('2021-07-01');
 //
        // //
 //
@@ -256,16 +226,28 @@ class DefaultController extends AbstractController
 
 
 
-        $events = $em->getRepository('App:EventRegistration')->getPremiere($from);
+        $events = $this->em->getRepository('App:EventRegistration')->getPremiere($from);
 
         foreach ($events as $event) {
             $parameters = [
-                'title' => 'Kedves ' . $event->getName() . '! Kérjük hogy a ' . $event->getAuthor() . ' – ' . $event->getSongtitle() . '  nagy méretű file-ját töltsd fel az alábbi linken! ',
-                'destination'  => '/' . $this->slugify( $event->getId() . ' - ' . $event->getAuthor() . ' – ' . substr($event->getSongtitle(), 0, 10)),
+                'title' => sprintf(
+                    "Kedves %s! Kérjük hogy a %s – %s  nagy méretű file-ját töltsd fel az alábbi linken! ",
+                    $event->getName(),
+                    $event->getAuthor(),
+                    $event->getSongtitle()
+                ),
+                'destination'  => "/{$this->slugify(
+                    sprintf(
+                            "%s - %s – %s",
+                            $event->getId(),
+                            $event->getAuthor(),
+                            substr($event->getSongtitle(), 0, 10)
+                        )
+                )}",
                 'deadline' => [
-                    'deadline' => '2021-10-01T00:00:00Z'
+                    'deadline' => '2021-10-01T00:00:00Z',
                 ],
-                'open' => true
+                'open' => true,
             ];
 
             if (!$event->getDropboxRequest()) {
@@ -277,35 +259,30 @@ class DefaultController extends AbstractController
                 }
 
                 $event->setDropboxRequest($body['id']);
-                $em->persist($event);
-                $em->flush();
-
+                $this->em->persist($event);
+                $this->em->flush();
             }
-
-
         }
 
 
         exit;
-
     }
 
-    public function sendRequests(\Swift_Mailer $mailer)
+    public function sendRequests(Swift_Mailer $mailer)
     {
 
 
         $this->readCsv();
 
         return $this->render('Default/privacy.html.twig');
-
+/*
 
         $from = new DateTime('2021-07-01');
-    
-
-            $em = $this->getDoctrine()->getManager();
 
 
-                $events = $em->getRepository('App:EventRegistration')->getOnshow($from);
+
+
+                $events = $this->em->getRepository('App:EventRegistration')->getOnshow($from);
 
                 foreach ($events as $event) {
 
@@ -336,13 +313,10 @@ class DefaultController extends AbstractController
                 }
 
         return $this->render('Default/privacy.html.twig');
-
-
-        exit;
-
+*/
     }
 
-    public function sendEmail(\Swift_Mailer $mailer)
+    public function sendEmail(Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email teszt 02 APP pass'))
             ->setFrom('info@klipszemle.com')
@@ -357,26 +331,25 @@ class DefaultController extends AbstractController
 
     private function readCsv()
     {
-        if (($fp = fopen("../public/uploads/shortlist.csv", "r")) !== FALSE) {
-            while (($row = fgetcsv($fp, 1000, ",")) !== FALSE) {
+        if (($fp = fopen("../public/uploads/shortlist.csv", "r")) !== false) {
+            while (($row = fgetcsv($fp, 1000, ",")) !== false) {
 //                dump($row);
                 $this->sendShortlistMail($row);
-
             }
             fclose($fp);
         }
-
     }
 
     private function sendShortlistMail($row)
     {
         $message = (new \Swift_Message('EMLÉKEZTETŐ: Holnap 05. Magyar Klipszemle díjtadó gála!'))
             ->setFrom('info.klipszemle@gmail.com')
- ->setTo($row[1])
+        ->setTo($row[1])
             ->setBody(
-                $this->renderView('EventRegistration/shortlist-mail.html.twig', array(
+                $this->renderView('EventRegistration/shortlist-mail.html.twig', [
                     'row'      => $row,
-                )), 'text/html'
+                ]),
+                'text/html'
             );
 
         try {

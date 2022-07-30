@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Entity\EventRegistration;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\VoteSheet;
 use App\Entity\JuryVote;
 use App\Form\JuryVoteType;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  * @Route("/rate", name="rate_")
  * @Security("has_role('ROLE_JURY')")
  */
-class RateController extends Controller
+class RateController extends AbstractController
 {
     /**
      * @Route("/", name="index")
@@ -66,21 +66,22 @@ class RateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $video = $em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $em->getRepository(EventRegistration::class)->findOneById($id);
 
 
 
         $success = false;
 
         $query = $em->createQuery(
-          ' SELECT v
+            ' SELECT v
             FROM App:JuryVote v 
-            WHERE v.user = :user AND v.eventRegistration = :er')
+            WHERE v.user = :user AND v.eventRegistration = :er'
+        )
 
-        ->setParameters(array(
+        ->setParameters([
             'user' => $user,
-            'er' => $video
-        ));
+            'er' => $video,
+        ]);
 
         $vote = $query->getOneOrNullResult();
 
@@ -102,14 +103,14 @@ class RateController extends Controller
           $em->flush();
           if ($request->isXmlHttpRequest()) {
               return $this->render('rate/_rate-row.html.twig', [
-                  'video' => $vote->getEventRegistration()
+                  'video' => $vote->getEventRegistration(),
               ]);
           }
         }
 
         if ($request->isXmlHttpRequest() && $form->isSubmitted()) {
             $html = $this->render('rate/_form.html.twig', [
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]);
 
             return new Response($html, 400);

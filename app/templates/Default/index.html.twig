@@ -19,13 +19,13 @@
                               </div>
                           </div>
                           <div class="col col--2">
-                              {% media hero.image, 'big' with {'srcset': ['small', 'big'], class: "img-responsive"} %}
+                              {{ sonata_media(hero.image, 'big',{'srcset': ['small', 'big'], class: "img-responsive"}) }}
                           </div>
                       </div>
                       {% else %}
                           <a href="{{ hero.url }}" >
 
-                          {% media hero.image, 'big' with {'srcset': ['small', 'big'], class: "img-responsive"} %}
+                          {{ sonata_media(hero.image, 'big',{'srcset': ['small', 'big'], class: "img-responsive"}) }}
                           </a>
                   {% endif %}
 
@@ -73,7 +73,7 @@
 
                         {% for jury in juries %}
                             <div class="col-md-4 col-sm-4 col-xs-6 jury-person">
-                                {% thumbnail jury.image, 'med' with { class: "img-responsive" } %}
+                                {{ sonata_thumbnail(jury.image, 'med', { class: "img-responsive" }) }}
                                 <p>{{ jury.name }}</p>
                                 <p><i>{{ jury.details }}</i></p>
                             </div>

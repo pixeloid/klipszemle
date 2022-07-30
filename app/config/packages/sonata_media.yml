@@ -28,5 +28,5 @@ sonata_media:
   class:
     media: App\Entity\Media
     gallery: App\Entity\Gallery
-    gallery_has_media: App\Entity\GalleryItem
+    gallery_item: App\Entity\GalleryItem
 
