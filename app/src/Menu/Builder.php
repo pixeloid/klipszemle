@@ -3,6 +3,7 @@
 namespace App\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -14,11 +15,11 @@ class Builder implements ContainerAwareInterface
     use ContainerAwareTrait;
 
 
-    private $factory;
+    private FactoryInterface $factory;
     /**
      * @var AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     /**
      * Builder constructor.
@@ -38,13 +39,10 @@ class Builder implements ContainerAwareInterface
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttributes(['class' => 'nav navbar-nav']);
 
-        $menu = $this->buildChildren($menu);
-
-
-        return $menu;
+        return $this->buildChildren($menu);
     }
 
-    public function createSecondaryMenu(RequestStack $requestStack)
+    public function createSecondaryMenu(RequestStack $requestStack): ItemInterface
     {
 
         $menu = $this->factory->createItem('root');
@@ -52,7 +50,8 @@ class Builder implements ContainerAwareInterface
       // $menu->addChild('Nevezési Határidő 09.03.',
         // array('route' => 'eventregistration_new', 'routeParameters' => array()));
   //    $menu->addChild('Jelentkezés',
-        // array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', 'highlight');;
+        // array('route' => 'eventregistration_new', 'routeParameters' => array()))
+        //->setLinkAttribute('class', 'highlight');;
 
      // $menu->addChild('A nevezés lezárult!',
         // array('uri' => '/#'))->setLinkAttribute('class', 'highlight animated page-scroll');
@@ -60,7 +59,7 @@ class Builder implements ContainerAwareInterface
         return $menu;
     }
 
-    public function createTopMenu(RequestStack $requestStack): \Knp\Menu\ItemInterface
+    public function createTopMenu(RequestStack $requestStack): ItemInterface
     {
 
         $menu = $this->factory->createItem('root');
@@ -87,22 +86,41 @@ class Builder implements ContainerAwareInterface
     {
 
         if ($this->authorizationChecker->isGranted('ROLE_JURY')) {
-       //   $menu->addChild('Zsűri', array('route' => 'rate_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
+            //   $menu->addChild('Zsűri', array('route' => 'rate_index', 'routeParameters' => array()))
+            //->setLinkAttribute('class', ' highlight');;
+        }
+        if ($this->authorizationChecker->isGranted('ROLE_USER')) {
+           $menu->addChild('Profilom, nevezéseim', ['route' => 'app_profile']);
+            $menu->addChild('Kijelentkezés', ['route' => 'app_logout']);
+        } else {
+            $menu->addChild('Belépés', ['route' => 'app_login']);
+            $menu->addChild('Regisztráció', ['route' => 'app_register']);
         }
 
-       //  $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
-       //   $menu->addChild('Nevezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))->setLinkAttribute('class', ' highlight');;
-        // $menu->addChild('Mi a klipszemle?', array('uri' => '/#about'))->setLinkAttribute('class', 'animated page-scroll hidden-sm');
-        // $menu->addChild('Zsűri & Szervezők', array('uri' => '/#jury'))->setLinkAttribute('class', 'animated page-scroll');
-        //$menu->addChild('Program', array('uri' => '/#program'))->setLinkAttribute('class', 'animated page-scroll');
-        // $menu->addChild('Kapcsolat', array('uri' => '/#contact'))->setLinkAttribute('class', 'animated page-scroll');
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $menu->addChild('Toplista', array('route' => 'vote_vote_toplist'));
+        }
+
+        if ($this->authorizationChecker->isGranted('EVENTREGISTRATION_VOTE')) {
+            $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))
+                ->setLinkAttribute('class', ' highlight');
+            ;
+        }
+        
+        if ($this->authorizationChecker->isGranted('EVENTREGISTRATION_CREATE')) {
+            $menu->addChild('Nevezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))
+                ->setLinkAttribute('class', ' highlight');
+            ;
+        }
         $menu->addChild('Program', ['route' => 'program']);
         $menu->addChild('Shortlist', ['route' => 'news']);
         // $menu->addChild('Rólunk írták', array('uri' => '#'));
         // $menu->addChild('Cuccok', array('uri' => '#'));
         $menu->addChild('Faq', ['route' => 'faq']);
-        // $menu->addChild('Facebook', array('uri' => 'https://facebook.com/klipszemle'))->setLinkAttribute('class', 'fa fa-facebook-official fb')->setAttribute('icon', 'icon-class');;
-        // $menu->addChild('Instagram', array('uri' => 'https://instagram.com/klipszemle'))->setLinkAttribute('class', 'fa fa-instagram fb');
+        // $menu->addChild('Facebook', array('uri' => 'https://facebook.com/klipszemle'))
+        //->setLinkAttribute('class', 'fa fa-facebook-official fb')->setAttribute('icon', 'icon-class');;
+        // $menu->addChild('Instagram', array('uri' => 'https://instagram.com/klipszemle'))
+        //->setLinkAttribute('class', 'fa fa-instagram fb');
 
 
 

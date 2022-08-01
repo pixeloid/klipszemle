@@ -5,6 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\Timestampable;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 use App\Validator\Constraints as AppAssert;
@@ -683,10 +684,10 @@ class EventRegistration
     /**
      * Set user
      *
-     * @param User $user
+     * @param UserInterface|null $user
      * @return EventRegistration
      */
-    public function setUser(User $user = null)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

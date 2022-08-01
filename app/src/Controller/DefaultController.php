@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hero;
 use App\Entity\Jury;
 use App\Entity\Post;
+use App\Entity\Program;
 use App\Entity\Sponsor;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -101,7 +102,7 @@ class DefaultController extends AbstractController
      */
     public function programAction(): Response
     {
-        $posts = $this->em->getRepository('App:Program')->findBy([], ['id' => 'ASC']);
+        $posts = $this->em->getRepository(Program::class)->findBy([], ['id' => 'ASC']);
 
         return $this->render('Default/program.html.twig', ['posts' => $posts]);
     }
@@ -342,7 +343,7 @@ class DefaultController extends AbstractController
 
     private function sendShortlistMail($row)
     {
-        $message = (new \Swift_Message('EMLÉKEZTETŐ: Holnap 05. Magyar Klipszemle díjtadó gála!'))
+        $message = (new \Swift_Message('EMLÉKEZTETŐ: Holnap 06. Magyar Klipszemle díjtadó gála!'))
             ->setFrom('info.klipszemle@gmail.com')
         ->setTo($row[1])
             ->setBody(

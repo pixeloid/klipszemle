@@ -5,6 +5,7 @@ use App\Entity\User;
 use App\Entity\Vote;
 use DateTime;
 use Knp\Snappy\Image;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -22,7 +23,7 @@ class VoteController extends AbstractController
 
     /**
      * @Route("/", name="index")
-     * @Security("is_granted(['ROLE_ADMIN'])")
+     * @IsGranted("EVENTREGISTRATION_VOTE")
      * @Template("Vote/index.html.twig")
      */
      public function indexAction()
@@ -82,7 +83,7 @@ class VoteController extends AbstractController
 
     /**
      * @Route("/vote/{id}", name="vote")
-     * @Security("is_granted(['ROLE_ADMIN'])")
+     * @IsGranted("EVENTREGISTRATION_VOTE")
      * @Template("Vote/thanks.html.twig")
      */
      public function voteAction($id)
@@ -91,7 +92,7 @@ class VoteController extends AbstractController
 
          $em = $this->getDoctrine()->getManager();
         
-         $video = $em->getRepository('App:EventRegistration')->findOneById($id);
+         $video = $em->getRepository(EventRegistration::class)->findOneById($id);
 
          $success = false;
 
@@ -129,7 +130,7 @@ class VoteController extends AbstractController
 
     /**
      * @Route("toplist", name="vote_toplist")
-     * @Security("is_granted(['ROLE_ADMIN'])")
+     * @IsGranted("ROLE_ADMIN")
      * @Template("Vote/toplist.html.twig")
      */
     public function voteToplistAction()

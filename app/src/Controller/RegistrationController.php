@@ -12,8 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
@@ -31,7 +31,7 @@ class RegistrationController extends AbstractController
      */
     public function register(
         Request                      $request,
-        UserPasswordEncoderInterface $userPasswordEncoder,
+        UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface       $entityManager
     ): Response {
         $user = new User();
@@ -41,12 +41,14 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-                $userPasswordEncoder->encodePassword(
+                $passwordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setUsername($form->get('email')->getData());
+            $user->setUsernameCanonical($form->get('email')->getData());
+            $user->setEmailCanonical($form->get('email')->getData());
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -62,7 +64,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_register_success');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -70,13 +72,24 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/register-success", name="app_register_success")
+     */
+    public function registerSuccess(): Response
+    {
+        return $this->render('registration/register-success.html.twig', [
+        ]);
+    }
+
     /**
      * @Route("/verify/email", name="app_verify_email")
      */
-    public function verifyUserEmail(Request             $request,
-                                    TranslatorInterface $translator,
-                                    UserRepository      $userRepository): Response
-    {
+    public function verifyUserEmail(
+        Request             $request,
+        TranslatorInterface $translator,
+        UserRepository      $userRepository
+    ): Response {
         $id = $request->get('id');
 
         if (null === $id) {
@@ -101,6 +114,6 @@ class RegistrationController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_login');
     }
 }
