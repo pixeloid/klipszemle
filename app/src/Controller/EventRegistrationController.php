@@ -44,7 +44,6 @@ class EventRegistrationController extends AbstractController
     /**
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/stat", name="eventregistration_stat")
-     * @Method("GET")
      */
     public function statAction()
     {
@@ -369,7 +368,7 @@ class EventRegistrationController extends AbstractController
      *
      * @return EventRegistrationFlow The form
      */
-    private function createCreateForm(EventRegistration $entity, EventRegistrationFlow $flow)
+    private function createCreateForm(EventRegistration $entity, EventRegistrationFlow $flow): EventRegistrationFlow
     {
 
 

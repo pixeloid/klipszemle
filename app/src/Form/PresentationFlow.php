@@ -4,6 +4,7 @@ namespace App\Form;
 
 use Craue\FormFlowBundle\Form\FormFlow;
 use Craue\FormFlowBundle\Form\FormFlowInterface;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormInterface;
 
@@ -17,15 +18,16 @@ use Craue\FormFlowBundle\Event\PostBindSavedDataEvent;
 use Craue\FormFlowBundle\Event\PostValidateEvent;
 use Craue\FormFlowBundle\Event\PreBindEvent;
 
-
-class PresentationFlow extends FormFlow implements EventSubscriberInterface{
+class PresentationFlow extends FormFlow implements EventSubscriberInterface
+{
 
     /**
      * @var FormTypeInterface
      */
     protected $formType;
 
-    public function setFormType(FormTypeInterface $formType) {
+    public function setFormType(FormTypeInterface $formType)
+    {
         $this->formType = $formType;
     }
 
@@ -41,11 +43,13 @@ class PresentationFlow extends FormFlow implements EventSubscriberInterface{
     // }
 
 
-    public function getName() {
+    public function getName(): string
+    {
         return 'presentation';
     }
 
-    protected function loadStepsConfig() {
+    protected function loadStepsConfig(): array
+    {
         return array(
             array(
                 'label' => 'Személyes adatok, szerzők',
@@ -63,12 +67,19 @@ class PresentationFlow extends FormFlow implements EventSubscriberInterface{
         );
     }
 
-    public function setEventDispatcher(EventDispatcherInterface $dispatcher) {
+    public function setEventDispatcher(EventDispatcherInterface $dispatcher)
+    {
         parent::setEventDispatcher($dispatcher);
         $dispatcher->addSubscriber($this);
     }
 
-    public static function getSubscribedEvents() {
+    #[ArrayShape([FormFlowEvents::PRE_BIND => "string",
+        FormFlowEvents::GET_STEPS => "string",
+        FormFlowEvents::POST_BIND_SAVED_DATA => "string",
+        FormFlowEvents::POST_BIND_FLOW => "string",
+        FormFlowEvents::POST_BIND_REQUEST => "string",
+        FormFlowEvents::POST_VALIDATE => "string"])] public static function getSubscribedEvents(): array
+    {
         return array(
             FormFlowEvents::PRE_BIND => 'onPreBind',
             FormFlowEvents::GET_STEPS => 'onGetSteps',
@@ -77,33 +88,34 @@ class PresentationFlow extends FormFlow implements EventSubscriberInterface{
             FormFlowEvents::POST_BIND_REQUEST => 'onPostBindRequest',
             FormFlowEvents::POST_VALIDATE => 'onPostValidate',
         );
-    }
+        }
 
-    public function onPreBind(PreBindEvent $event) {
-        // ...
+        public function onPreBind(PreBindEvent $event)
+        {
+            // ...
+        }
 
+        public function onGetSteps(GetStepsEvent $event)
+        {
+            // ...
+        }
 
-        
-    }
+        public function onPostBindSavedData(PostBindSavedDataEvent $event)
+        {
+            // ...
+        }
 
-    public function onGetSteps(GetStepsEvent $event) {
-        // ...
-    }
+        public function onPostBindFlow(PostBindFlowEvent $event)
+        {
+            // ...
+        }
 
-    public function onPostBindSavedData(PostBindSavedDataEvent $event) {
-        // ...
-    }
+        public function onPostBindRequest(PostBindRequestEvent $event)
+        {
+            // ...
+        }
 
-    public function onPostBindFlow(PostBindFlowEvent $event) {
-        // ...
-    }
-
-    public function onPostBindRequest(PostBindRequestEvent $event) {
-        // ...
-    }
-
-    public function onPostValidate(PostValidateEvent $event) {
-    }
-
-
+        public function onPostValidate(PostValidateEvent $event)
+        {
+        }
 }

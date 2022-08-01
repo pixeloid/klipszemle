@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Yaml;
@@ -20,15 +21,15 @@ use Spatie\Dropbox\Client;
 
 class DefaultController extends AbstractController
 {
-    private Swift_Mailer $mailer;
+    private MailerInterface $mailer;
     private EntityManagerInterface $em;
 
     /**
      * DefaultController constructor.
-     * @param Swift_Mailer $mailer
+     * @param MailerInterface $mailer
      * @param EntityManagerInterface $em
      */
-    public function __construct(Swift_Mailer $mailer, EntityManagerInterface $em)
+    public function __construct(MailerInterface $mailer, EntityManagerInterface $em)
     {
         $this->mailer = $mailer;
         $this->em = $em;

@@ -37,7 +37,7 @@ class SonataClassificationCollection extends BaseCollection
      */
     protected ?ContextInterface $context;
 
-    public function getId()
+    public function getId(): int|string|null
     {
         return $this->id;
     }

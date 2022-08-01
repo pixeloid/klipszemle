@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Craue\FormFlowBundle\Form\FormFlow;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Craue\FormFlowBundle\Form\FormFlowEvents;
@@ -13,8 +14,8 @@ use Craue\FormFlowBundle\Event\PostBindSavedDataEvent;
 use Craue\FormFlowBundle\Event\PostValidateEvent;
 use Craue\FormFlowBundle\Event\PreBindEvent;
 
-
-class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface{
+class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
+{
 
 
     // public function getFormOptions($step, array $options = array()) {
@@ -29,11 +30,13 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
     // }
 
 
-    public function getName() {
+    public function getName(): string
+    {
         return 'eventRegistration';
     }
 
-    protected function loadStepsConfig() {
+    protected function loadStepsConfig(): array
+    {
         return array(
             array(
                 'label' => 'Nevező adatai',
@@ -47,12 +50,14 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
         );
     }
 
-    public function setEventDispatcher(EventDispatcherInterface $dispatcher) {
+    public function setEventDispatcher(EventDispatcherInterface $dispatcher)
+    {
         parent::setEventDispatcher($dispatcher);
         $dispatcher->addSubscriber($this);
     }
 
-    public static function getSubscribedEvents() {
+    #[ArrayShape([FormFlowEvents::PRE_BIND => "string", FormFlowEvents::GET_STEPS => "string", FormFlowEvents::POST_BIND_SAVED_DATA => "string", FormFlowEvents::POST_BIND_FLOW => "string", FormFlowEvents::POST_BIND_REQUEST => "string", FormFlowEvents::POST_VALIDATE => "string"])] public static function getSubscribedEvents(): array
+    {
         return array(
             FormFlowEvents::PRE_BIND => 'onPreBind',
             FormFlowEvents::GET_STEPS => 'onGetSteps',
@@ -63,31 +68,32 @@ class EventRegistrationFlow extends FormFlow implements EventSubscriberInterface
         );
     }
 
-    public function onPreBind(PreBindEvent $event) {
-        // ...
-
-
-        
-    }
-
-    public function onGetSteps(GetStepsEvent $event) {
+    public function onPreBind(PreBindEvent $event)
+    {
         // ...
     }
 
-    public function onPostBindSavedData(PostBindSavedDataEvent $event) {
+    public function onGetSteps(GetStepsEvent $event)
+    {
         // ...
     }
 
-    public function onPostBindFlow(PostBindFlowEvent $event) {
+    public function onPostBindSavedData(PostBindSavedDataEvent $event)
+    {
         // ...
     }
 
-    public function onPostBindRequest(PostBindRequestEvent $event) {
+    public function onPostBindFlow(PostBindFlowEvent $event)
+    {
         // ...
     }
 
-    public function onPostValidate(PostValidateEvent $event) {
+    public function onPostBindRequest(PostBindRequestEvent $event)
+    {
+        // ...
     }
 
-
+    public function onPostValidate(PostValidateEvent $event)
+    {
+    }
 }

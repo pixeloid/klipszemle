@@ -204,7 +204,7 @@ class VoteController extends AbstractController
      * @param Image $knpSnappyImage
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function facebookPostImageAction($id, \Knp\Snappy\Image $knpSnappyImage)
+    public function facebookPostImageAction($id, \Knp\Snappy\Image $knpSnappyImage): array|\Symfony\Component\HttpFoundation\RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $video = $em->getRepository('App:EventRegistration')->findOneById($id);

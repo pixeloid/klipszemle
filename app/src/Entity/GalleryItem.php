@@ -17,7 +17,7 @@ class GalleryItem extends BaseGalleryItem
      */
     protected $id;
 
-    public function getId()
+    public function getId(): int|string|null
     {
         return $this->id;
     }

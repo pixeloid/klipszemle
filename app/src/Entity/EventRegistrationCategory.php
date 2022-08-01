@@ -30,7 +30,7 @@ class EventRegistrationCategory
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="EventRegistration")
+     * @ORM\ManyToOne(targetEntity="EventRegistration", inversedBy="moviecategories")
      */
     protected $eventregistration;
     /**

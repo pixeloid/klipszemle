@@ -37,7 +37,7 @@ class SonataClassificationTag extends BaseTag
      */
     protected ?ContextInterface $context;
 
-    public function getId()
+    public function getId(): int|string|null
     {
         return $this->id;
     }

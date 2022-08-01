@@ -1,6 +1,6 @@
 security:
     enable_authenticator_manager: true
-    encoders:
+    password_hashers:
         App\Entity\User:
             algorithm: auto
     role_hierarchy:
@@ -31,15 +31,15 @@ security:
                 check_path: app_login
             logout:
                 path: app_logout
-            oauth:
-                failure_path: /connect
-                login_path: /connect
-                check_path: /connect
-                default_target_path: /vote/
-                resource_owners:
-                    facebook:           "/login/check-facebook"
-                oauth_user_provider:
-                    service: app.provider.oauth
+        #    oauth:
+        #        failure_path: /connect
+        #        login_path: /connect
+        #        check_path: /connect
+        #        default_target_path: /vote/
+        #        resource_owners:
+        #            facebook:           "/login/check-facebook"
+        #        oauth_user_provider:
+        #            service: app.provider.oauth
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:

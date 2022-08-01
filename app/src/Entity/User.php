@@ -109,9 +109,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EventRegistration", mappedBy="user")
-     * @OrderBy({"created" = "DESC"})
+     * @OrderBy({"created": "DESC"})
      **/
     protected $eventRegistrations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="user")
+     **/
+    protected $votes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\JuryVote", mappedBy="user")
+     **/
+    protected $juryVotes;
 
     /**
      * @ORM\Column(type="boolean")
@@ -342,6 +352,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * @param mixed $votes
+     */
+    public function setVotes($votes): void
+    {
+        $this->votes = $votes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJuryVotes()
+    {
+        return $this->juryVotes;
+    }
+
+    /**
+     * @param mixed $juryVotes
+     */
+    public function setJuryVotes($juryVotes): void
+    {
+        $this->juryVotes = $juryVotes;
     }
 
 }

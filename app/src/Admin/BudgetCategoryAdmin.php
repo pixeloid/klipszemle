@@ -14,7 +14,7 @@ final class BudgetCategoryAdmin extends AbstractAdmin
      * @param DatagridMapper $filter
      * @return void
      */
-    protected function configureDatagridFilters(DatagridMapper $filter):void
+    protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
             ->add('id')

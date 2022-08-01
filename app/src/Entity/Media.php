@@ -17,7 +17,7 @@ class Media extends BaseMedia
     */
     protected $id;
 
-    public function getId()
+    public function getId(): int|string|null
     {
         return $this->id;
     }
