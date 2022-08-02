@@ -1,8 +1,7 @@
 ###> symfony/framework-bundle ###
-/.env.local.php
 /.env.local
+/.env.local.php
 /.env.*.local
-/.env
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
@@ -18,7 +17,6 @@
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
-/public/upload/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
@@ -32,3 +30,4 @@ yarn-error.log
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
+/public/upload

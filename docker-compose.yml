@@ -62,15 +62,19 @@ services:
         networks:
             - nginx-php81-mysql8-node
 
-    # node
-    node-service:
-        build: ./frontend
+    frontend-builder:
+        build:
+            context: .
+            dockerfile: ./frontend/Dockerfile
+        command: yarn dev-server
+        working_dir: /usr/src
         ports:
             - "8080:8080"
-            - "8081:8081"
         volumes:
-            - ./app:/var/www/front:delegated
-            - /var/www/front/node_modules/
+            - ./app:/usr/src
+        depends_on:
+            - nginx
+
 
     mailhog:
         image: 'mailhog/mailhog:latest'

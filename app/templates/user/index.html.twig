@@ -15,16 +15,18 @@
     {% if app.user.eventRegistrations.count %}
         <p>Nevezett klipjeim:</p>
 
-        <table class="table-condensed">
+        <table class="table">
             {% for reg in app.user.eventRegistrations %}
                 <tr>
                     <td>
-                        {{ reg.title }}
+                        {{ reg.songtitle }}
                     </td>
                 </tr>
             {% endfor %}
         </table>
 
     {% endif %}
+
+    <a href="{{ path('eventregistration_new') }}" class="btn btn-default">Klip nevezése</a>
 </div>
 {% endblock %}

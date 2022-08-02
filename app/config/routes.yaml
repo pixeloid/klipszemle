@@ -9,3 +9,14 @@ facebook_login:
 craue_config_settings:
   resource: "@CraueConfigBundle/Resources/config/routing/settings.xml"
   prefix: /settings
+
+_translation_webui:
+  resource: '@TranslationBundle/Resources/config/routing_webui.yaml'
+  prefix: /trans
+
+_translation_profiler:
+  resource: '@TranslationBundle/Resources/config/routing_symfony_profiler.yaml'
+# config/routes/php_translation.yaml
+_translation_edit_in_place:
+  resource: '@TranslationBundle/Resources/config/routing_edit_in_place.yaml'
+  prefix: /trans

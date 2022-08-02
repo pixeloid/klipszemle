@@ -9,6 +9,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     .configureDevServerOptions(options => ({
         ...options,
+        https: true,
         allowedHosts: 'all',
         client: {
             webSocketURL: 'wss://localhost:8080/ws'
@@ -54,9 +55,6 @@ Encore
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
 
-    .configureBabel((config) => {
-        config.plugins.push('@babel/plugin-proposal-class-properties');
-    })
 
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
@@ -68,10 +66,6 @@ Encore
     .enableSassLoader()
     //.enableSassLoader()
 
-    .copyFiles({
-        from: './assets/images',
-        to: 'images/[path][name].[ext]',
-     })
 
 // uncomment if you use TypeScript
     // .enableTypeScriptLoader()

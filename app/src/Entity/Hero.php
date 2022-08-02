@@ -6,55 +6,25 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Hero
- *
- * @ORM\Table(name="hero")
- * @ORM\Entity
  */
+#[ORM\Table(name: 'hero')]
+#[ORM\Entity]
 class Hero
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
-     */
-    private $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255, nullable=true)
-     */
-    private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="button_text", type="string", length=40, nullable=true)
-     */
-    private $button_text;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", length=255, nullable=true)
-     */
-    private $url;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media")
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'title', type: 'string', length: 255, nullable: true)]
+    private string $title;
+    #[ORM\Column(name: 'description', type: 'string', length: 255, nullable: true)]
+    private string $description;
+    #[ORM\Column(name: 'button_text', type: 'string', length: 40, nullable: true)]
+    private string $button_text;
+    #[ORM\Column(name: 'url', type: 'string', length: 255, nullable: true)]
+    private string $url;
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Media')]
     private $image;
-
-
     /**
      * Get id.
      *
@@ -64,7 +34,6 @@ class Hero
     {
         return $this->id;
     }
-
     /**
      * Set title.
      *
@@ -78,7 +47,6 @@ class Hero
 
         return $this;
     }
-
     /**
      * Get title.
      *
@@ -88,7 +56,6 @@ class Hero
     {
         return $this->title;
     }
-
     /**
      * Set description.
      *
@@ -102,7 +69,6 @@ class Hero
 
         return $this;
     }
-
     /**
      * Get description.
      *
@@ -112,7 +78,6 @@ class Hero
     {
         return $this->description;
     }
-
     /**
      * Set url.
      *
@@ -126,7 +91,6 @@ class Hero
 
         return $this;
     }
-
     /**
      * Get url.
      *
@@ -136,7 +100,6 @@ class Hero
     {
         return $this->url;
     }
-
     /**
      * Set image.
      *
@@ -150,7 +113,6 @@ class Hero
 
         return $this;
     }
-
     /**
      * Get image.
      *
@@ -160,7 +122,6 @@ class Hero
     {
         return $this->image;
     }
-
     /**
      * Set buttonText.
      *
@@ -174,7 +135,6 @@ class Hero
 
         return $this;
     }
-
     /**
      * Get buttonText.
      *

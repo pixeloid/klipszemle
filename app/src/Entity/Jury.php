@@ -6,51 +6,25 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Jury
- *
- * @ORM\Table(name="jury")
- * @ORM\Entity
  */
+#[ORM\Table(name: 'jury')]
+#[ORM\Entity]
 class Jury
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="details", type="string", length=255)
-     */
-    private $details;
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media")
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    private string $name;
+    #[ORM\Column(name: 'details', type: 'string', length: 255)]
+    private string $details;
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Media')]
     private $image;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $password;
-
-
     /**
      * Get id.
      *
@@ -60,7 +34,6 @@ class Jury
     {
         return $this->id;
     }
-
     /**
      * Set name.
      *
@@ -74,7 +47,6 @@ class Jury
 
         return $this;
     }
-
     /**
      * Get name.
      *
@@ -84,7 +56,6 @@ class Jury
     {
         return $this->name;
     }
-
     /**
      * Set image.
      *
@@ -98,7 +69,6 @@ class Jury
 
         return $this;
     }
-
     /**
      * Get image.
      *
@@ -108,7 +78,6 @@ class Jury
     {
         return $this->image;
     }
-
     /**
      * Set details.
      *
@@ -122,7 +91,6 @@ class Jury
 
         return $this;
     }
-
     /**
      * Get details.
      *
@@ -132,24 +100,20 @@ class Jury
     {
         return $this->details;
     }
-
     public function getEmail(): ?string
     {
         return $this->email;
     }
-
     public function setEmail(?string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
-
     public function getPassword(): ?string
     {
         return $this->password;
     }
-
     public function setPassword(?string $password): self
     {
         $this->password = $password;

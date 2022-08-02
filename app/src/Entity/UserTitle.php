@@ -6,29 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * UserTitle
- *
- * @ORM\Table()
- * @ORM\Entity
  */
+#[ORM\Table]
+#[ORM\Entity]
 class UserTitle
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
-
-
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    private string $name;
     /**
      * Get id
      *
@@ -38,7 +26,6 @@ class UserTitle
     {
         return $this->id;
     }
-
     /**
      * Set name
      *
@@ -52,7 +39,6 @@ class UserTitle
 
         return $this;
     }
-
     /**
      * Get name
      *

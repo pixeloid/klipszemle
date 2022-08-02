@@ -9,48 +9,29 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Post
- *
- * @ORM\Table(name="post")
- * @ORM\Entity
  */
+#[ORM\Table(name: 'post')]
+#[ORM\Entity]
 class Post
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'title', type: 'string', length: 255)]
+    private string $title;
     /**
      * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
      */
-    private $title;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="body", type="text")
-     */
+    #[ORM\Column(name: 'body', type: 'text')]
     private string $body;
-
-
-
     /**
      * Get id.
-     *
-     * @return int
      */
     public function getId(): int
     {
         return $this->id;
     }
-
     /**
      * Set title.
      *
@@ -64,7 +45,6 @@ class Post
 
         return $this;
     }
-
     /**
      * Get title.
      *
@@ -74,7 +54,6 @@ class Post
     {
         return $this->title;
     }
-
     /**
      * Set lead.
      *
@@ -88,7 +67,6 @@ class Post
 
         return $this;
     }
-
     /**
      * Get lead.
      *
@@ -98,7 +76,6 @@ class Post
     {
         return $this->lead;
     }
-
     /**
      * Set body.
      *
@@ -112,7 +89,6 @@ class Post
 
         return $this;
     }
-
     /**
      * Get body.
      *
@@ -122,7 +98,6 @@ class Post
     {
         return $this->body;
     }
-
     /**
      * Set created.
      *
@@ -136,7 +111,6 @@ class Post
 
         return $this;
     }
-
     /**
      * Get created.
      *
@@ -152,11 +126,9 @@ class Post
     public function __construct()
     {
     }
-
     /**
      * Add image.
      *
-     * @param Media $image
      *
      * @return Post
      */
@@ -166,11 +138,9 @@ class Post
 
         return $this;
     }
-
     /**
      * Remove image.
      *
-     * @param Media $image
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
@@ -178,7 +148,6 @@ class Post
     {
         return $this->images->removeElement($image);
     }
-
     /**
      * Get images.
      *
@@ -188,7 +157,6 @@ class Post
     {
         return $this->images;
     }
-
     /**
      * Set gallery.
      *
@@ -202,7 +170,6 @@ class Post
 
         return $this;
     }
-
     /**
      * Get gallery.
      *

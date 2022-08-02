@@ -1,6 +1,11 @@
 #!/bin/sh
+COPY yarn.lock .
+COPY package.json .
 
-# Install angular dependancies
-npm i
+RUN yarn --prod --frozen-lockfile
 
-npm run dev-server --hot
+COPY . .
+
+EXPOSE 8080
+
+CMD [ "yarn", "start" ]

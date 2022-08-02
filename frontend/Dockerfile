@@ -1,10 +1,27 @@
-FROM node:12-alpine
 
-ADD custom-entrypoint.sh /var/www/custom-entrypoint.sh
-RUN chmod +x /var/www/custom-entrypoint.sh
+# Frontend code builder
+FROM  --platform=linux/amd64 node:12-alpine
 
-WORKDIR /var/www/front/
+RUN apk add --update \
+    bash \
+    lcms2-dev \
+    libpng-dev \
+    gcc \
+    g++ \
+    make \
+    autoconf \
+    automake \
+  && rm -rf /var/cache/apk/*
+
+WORKDIR /usr/src
+
+COPY ../app /usr/src
+
+WORKDIR /usr/src/app
+
+RUN yarn install
+
+
 EXPOSE 8080
-
-ENTRYPOINT ["/var/www/custom-entrypoint.sh"]
+#CMD yarn dev-server
 

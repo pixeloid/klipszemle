@@ -13,304 +13,124 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * EventRegistration
- *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="App\Entity\EventRegistrationRepository")
- * @UniqueEntity("video_url",groups={"flow_eventRegistration_step2"}, message="Ez a video már nevezésre került!")
  */
-
+#[UniqueEntity('video_url', groups: ['flow_eventRegistration_step2'], message: 'Ez a video már nevezésre került!')]
+#[ORM\Table]
+#[ORM\Entity(repositoryClass: 'App\Entity\EventRegistrationRepository')]
 class EventRegistration
 {
     use Timestampable;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="integer", name="number", unique=false, nullable=true)
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(type: 'integer', name: 'number', unique: false, nullable: true)]
     protected $number = null;
-    
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-    */
-    private $name;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
-     */
-    private $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="company", type="string", length=50, nullable=true)
-     */
-    private $company;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="website", type="string", length=100, nullable= true)
-     */
-    private $website;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255, nullable= true)
-     */
-    private $address;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=20)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-     */
-    private $phone;
-
-
-
-
-    /**
-     * @ORM\Column(type="string", name="author", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
-     */
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step1'])]
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    private string $name;
+    #[ORM\Column(name: 'title', type: 'string', length: 255, nullable: true)]
+    private string $title;
+    #[ORM\Column(name: 'company', type: 'string', length: 50, nullable: true)]
+    private string $company;
+    #[ORM\Column(name: 'website', type: 'string', length: 100, nullable: true)]
+    private string $website;
+    #[ORM\Column(name: 'address', type: 'string', length: 255, nullable: true)]
+    private string $address;
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step1'])]
+    #[ORM\Column(name: 'phone', type: 'string', length: 20)]
+    private string $phone;
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[ORM\Column(type: 'string', name: 'author', nullable: false, length: 150)]
     protected $author;
-    
-
-
-
-    /**
-     * @ORM\Column(type="string", name="song_title", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
-     */
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[ORM\Column(type: 'string', name: 'song_title', nullable: false, length: 150)]
     protected $songtitle;
-    
-
-
-
-    /**
-     * @ORM\Column(type="string", name="length", nullable=true, length=50)
-     */
+    #[ORM\Column(type: 'string', name: 'length', nullable: true, length: 50)]
     protected $length;
-
-
-
-
-    /**
-     * @ORM\Column(type="string", name="publisher", length=150, nullable=true)
-     */
+    #[ORM\Column(type: 'string', name: 'publisher', length: 150, nullable: true)]
     protected $publisher;
-    
-
-    /**
-     * @ORM\Column(type="text", name="song_publish_date", nullable=true, length=150)
-     */
+    #[ORM\Column(type: 'text', name: 'song_publish_date', nullable: true, length: 150)]
     protected $song_publish_date;
-    
-    /**
-     * @ORM\Column(type="date", name="video_publish_date", nullable=false, length=150)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
-     * @Assert\Range(
-     *      min = "2019-09-15",
-     *      max = "2021-10-14",
-     *      groups={"flow_eventRegistration_step2"}
-     * )
-     */
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[Assert\Range(min: '2019-09-15', max: '2021-10-14', groups: ['flow_eventRegistration_step2'])]
+    #[ORM\Column(type: 'date', name: 'video_publish_date', nullable: false, length: 150)]
     protected $video_publish_date;
-    
-    /**
-     * @ORM\Column(type="string", name="producer", length=150, nullable=true)
-     */
+    #[ORM\Column(type: 'string', name: 'producer', length: 150, nullable: true)]
     protected $producer;
-
-    /**
-     * @ORM\Column(type="string", name="director", length=150, nullable=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
-     */
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[ORM\Column(type: 'string', name: 'director', length: 150, nullable: true)]
     protected $director;
-
-    /**
-     * @ORM\Column(type="string", name="photographer", length=150, nullable=true)
-     */
+    #[ORM\Column(type: 'string', name: 'photographer', length: 150, nullable: true)]
     protected $photographer;
-
-    /**
-     * @ORM\Column(type="string", name="designer", length=150, nullable=true)
-     */
+    #[ORM\Column(type: 'string', name: 'designer', length: 150, nullable: true)]
     protected $designer;
-    /**
-     * @ORM\Column(type="string", name="editor", length=150, nullable=true)
-     */
+    #[ORM\Column(type: 'string', name: 'editor', length: 150, nullable: true)]
     protected $editor;
-
-    /**
-     * @ORM\Column(type="string", name="technology", nullable=true, length=150)
-     */
+    #[ORM\Column(type: 'string', name: 'technology', nullable: true, length: 150)]
     protected $technology;
-
-    /**
-     * @ORM\Column(type="array", name="categories", nullable=true)
-     */
+    #[ORM\Column(type: 'array', name: 'categories', nullable: true)]
     protected $categories;
-
-
-
-    /**
-     * @ORM\Column(type="string", name="budget", nullable=true, length=150)
-     */
+    #[ORM\Column(type: 'string', name: 'budget', nullable: true, length: 150)]
     protected $budget;
-    /**
-     * @ORM\Column(type="string", name="dropbox_request", nullable=true, length=255)
-     */
+    #[ORM\Column(type: 'string', name: 'dropbox_request', nullable: true, length: 255)]
     protected $dropbox_request;
-
-
-
-    /**
-     * @ORM\Column(type="text", name="description", nullable=true)
-     */
+    #[ORM\Column(type: 'text', name: 'description', nullable: true)]
     protected $description;
-
     /**
-     * @ORM\Column(type="string", name="video_url", nullable=false, unique=true)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
      * @AppAssert\Youtube(groups={"flow_eventRegistration_step2"})
      */
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[ORM\Column(type: 'string', name: 'video_url', nullable: false, unique: true)]
     protected $video_url;
-
-    
-
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=100)
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step1"})
-     * @Assert\Email(groups={"flow_eventRegistration_step1"})
-     */
-    private $email;
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="eventRegistrations", cascade={"persist"})
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step1'])]
+    #[Assert\Email(groups: ['flow_eventRegistration_step1'])]
+    #[ORM\Column(name: 'email', type: 'string', length: 100)]
+    private string $email;
+    #[ORM\ManyToOne(targetEntity: 'User', inversedBy: 'eventRegistrations', cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private $user;
-
-
-
-
-    /**
-     * @ORM\Column(type="date", name="created", nullable=false)
-     */
+    #[ORM\Column(type: 'date', name: 'created', nullable: true)]
     protected $created = null;
-    
-
-
-
-
     /**
      * @Recaptcha\IsTrue(groups={"xxxxx_flow_eventRegistration_step3"})
      */
     public $recaptcha;
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="UserTitle")
-     * @Assert\NotBlank(groups={"flow_eventRegistration_step2"})
-     */
+    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[ORM\ManyToOne(targetEntity: 'UserTitle')]
     protected $user_title = null;
-    /**
-     * @ORM\ManyToOne(targetEntity="BudgetCategory")
-     * @ORM\JoinColumn(name="budget_category_id", referencedColumnName="id", nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: 'BudgetCategory')]
+    #[ORM\JoinColumn(name: 'budget_category_id', referencedColumnName: 'id', nullable: true)]
     protected $budget_category = null;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="EventRegistrationCategory", mappedBy="eventregistration", cascade={"persist","remove"}, orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: 'EventRegistrationCategory', mappedBy: 'eventregistration', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected $moviecategories;
-    
-    /**
-     * @ORM\ManyToMany(targetEntity="Keyword", mappedBy="eventregistrations", cascade={"persist","remove"})
-     */
+    #[ORM\ManyToMany(targetEntity: 'Keyword', mappedBy: 'eventregistrations', cascade: ['persist', 'remove'])]
     protected $keywords;
-    
-
-
-    /**
-     * @ORM\Column(name="have_rights", type="boolean", nullable=true)
-     * @Assert\IsTrue(groups={"flow_eventRegistration_step3"},message = "Kötelező mező")
-     */
+    #[Assert\IsTrue(groups: ['flow_eventRegistration_step3'], message: 'Kötelező mező')]
+    #[ORM\Column(name: 'have_rights', type: 'boolean', nullable: true)]
     protected $have_rights = null;
-    /**
-     * @ORM\Column(name="winner", type="integer", nullable=true)
-     */
+    #[ORM\Column(name: 'winner', type: 'integer', nullable: true)]
     protected $winner = null;
-    
-    /**
-     * @ORM\Column(type="string", name="post_image", nullable=true)
-     */
+    #[ORM\Column(type: 'string', name: 'post_image', nullable: true)]
     protected $post_image = true;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Vote", mappedBy="eventRegistration")
-     */
+    #[ORM\OneToMany(targetEntity: 'Vote', mappedBy: 'eventRegistration')]
     protected $votes;
-
-
-    /**
-     * @ORM\Column(name="accept_terms", type="boolean", nullable=true)
-     * @Assert\IsTrue(groups={"flow_eventRegistration_step2"}, message = "Kötelező mező")
-     */
+    #[Assert\IsTrue(groups: ['flow_eventRegistration_step2'], message: 'Kötelező mező')]
+    #[ORM\Column(name: 'accept_terms', type: 'boolean', nullable: true)]
     protected $accept_terms = null;
-    
-
-    /**
-     * @ORM\Column(type="boolean", name="shortlist")
-     */
+    #[ORM\Column(type: 'boolean', name: 'shortlist')]
     protected $shortlist = false;
-    
-
-    /**
-     * @ORM\Column(type="boolean", name="onshow")
-     */
+    #[ORM\Column(type: 'boolean', name: 'onshow')]
     protected $onshow = false;
-    
-
-    /**
-     * @ORM\Column(type="boolean", name="premiere", nullable=true)
-     */
+    #[ORM\Column(type: 'boolean', name: 'premiere', nullable: true)]
     protected $premiere = false;
-    
-    /**
-     * @ORM\Column(type="text", name="extra_info", nullable=true)
-     */
+    #[ORM\Column(type: 'text', name: 'extra_info', nullable: true)]
     protected $extra_info = false;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\JuryVote", mappedBy="eventRegistration", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\JuryVote', mappedBy: 'eventRegistration', orphanRemoval: true)]
     private $juryvotes;
-    
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $yt_id = null;
     /**
      * Constructor
      */
@@ -321,7 +141,6 @@ class EventRegistration
         $this->moviecategories = new ArrayCollection();
         $this->votes = new ArrayCollection();
     }
-
     public function isShortlisted()
     {
         $result = false;
@@ -332,10 +151,9 @@ class EventRegistration
             }
         }
     }
-
     public function getShortlistCategories()
     {
-        $result = array();
+        $result = [];
 
         foreach ($this->getMovieCategories() as $cat) {
             if ($cat->getShortlist()) {
@@ -345,9 +163,9 @@ class EventRegistration
 
         return $result;
     }
-
     public function getYtId()
     {
+        $values = null;
         $value = $this->getVideoUrl();
         if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/', $value, $id)) {
             $values = $id[1];
@@ -370,7 +188,6 @@ class EventRegistration
         }
         return $values;
     }
-
     /**
      * Gets the value of recaptcha.
      *
@@ -380,7 +197,6 @@ class EventRegistration
     {
         return $this->recaptcha;
     }
-
     /**
      * Sets the value of recaptcha.
      *
@@ -394,7 +210,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get id
      *
@@ -404,7 +219,6 @@ class EventRegistration
     {
         return $this->id;
     }
-
     /**
      * Set firstname
      *
@@ -417,7 +231,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get firstname
      *
@@ -427,7 +240,6 @@ class EventRegistration
     {
         return $this->firstname;
     }
-
     /**
      * Set lastname
      *
@@ -440,7 +252,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get lastname
      *
@@ -450,7 +261,6 @@ class EventRegistration
     {
         return $this->lastname;
     }
-
     /**
      * Set title
      *
@@ -463,7 +273,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get title
      *
@@ -473,7 +282,6 @@ class EventRegistration
     {
         return $this->title;
     }
-
     /**
      * Set institution
      *
@@ -486,7 +294,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get institution
      *
@@ -496,7 +303,6 @@ class EventRegistration
     {
         return $this->institution;
     }
-
     /**
      * Set country
      *
@@ -509,7 +315,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get country
      *
@@ -519,7 +324,6 @@ class EventRegistration
     {
         return $this->country;
     }
-
     /**
      * Set address
      *
@@ -532,7 +336,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get address
      *
@@ -542,7 +345,6 @@ class EventRegistration
     {
         return $this->address;
     }
-
     /**
      * Set city
      *
@@ -555,7 +357,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get city
      *
@@ -565,7 +366,6 @@ class EventRegistration
     {
         return $this->city;
     }
-
     /**
      * Set phone
      *
@@ -578,7 +378,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get phone
      *
@@ -588,7 +387,6 @@ class EventRegistration
     {
         return $this->phone;
     }
-
     /**
      * Set fax
      *
@@ -601,7 +399,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get fax
      *
@@ -611,7 +408,6 @@ class EventRegistration
     {
         return $this->fax;
     }
-
     /**
      * Set email
      *
@@ -624,7 +420,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get email
      *
@@ -634,7 +429,6 @@ class EventRegistration
     {
         return $this->email;
     }
-
     /**
      * Set postal
      *
@@ -647,7 +441,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get postal
      *
@@ -657,7 +450,6 @@ class EventRegistration
     {
         return $this->postal;
     }
-
     /**
      * Set regnumber
      *
@@ -670,7 +462,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get regnumber
      *
@@ -680,7 +471,6 @@ class EventRegistration
     {
         return $this->regnumber;
     }
-
     /**
      * Set user
      *
@@ -693,7 +483,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get user
      *
@@ -703,8 +492,6 @@ class EventRegistration
     {
         return $this->user;
     }
-
-
     /**
      * Set created
      *
@@ -717,7 +504,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get created
      *
@@ -727,7 +513,6 @@ class EventRegistration
     {
         return $this->created;
     }
-
     /**
      * Set name
      *
@@ -741,7 +526,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get name
      *
@@ -751,7 +535,6 @@ class EventRegistration
     {
         return $this->name;
     }
-
     /**
      * Set company
      *
@@ -765,7 +548,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get company
      *
@@ -775,7 +557,6 @@ class EventRegistration
     {
         return $this->company;
     }
-
     /**
      * Set website
      *
@@ -789,7 +570,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get website
      *
@@ -799,7 +579,6 @@ class EventRegistration
     {
         return $this->website;
     }
-
     /**
      * Set author
      *
@@ -813,7 +592,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get author
      *
@@ -823,7 +601,6 @@ class EventRegistration
     {
         return $this->author;
     }
-
     /**
      * Set songTitle
      *
@@ -837,7 +614,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get songTitle
      *
@@ -847,7 +623,6 @@ class EventRegistration
     {
         return $this->songtitle;
     }
-
     /**
      * Set length
      *
@@ -861,7 +636,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get length
      *
@@ -871,7 +645,6 @@ class EventRegistration
     {
         return $this->length;
     }
-
     /**
      * Set publisher
      *
@@ -885,7 +658,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get publisher
      *
@@ -895,7 +667,6 @@ class EventRegistration
     {
         return $this->publisher;
     }
-
     /**
      * Set songPublishDate
      *
@@ -909,7 +680,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get songPublishDate
      *
@@ -919,7 +689,6 @@ class EventRegistration
     {
         return $this->song_publish_date;
     }
-
     /**
      * Set videoPublishDate
      *
@@ -933,7 +702,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get videoPublishDate
      *
@@ -943,7 +711,6 @@ class EventRegistration
     {
         return $this->video_publish_date;
     }
-
     /**
      * Set producer
      *
@@ -957,7 +724,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get producer
      *
@@ -967,7 +733,6 @@ class EventRegistration
     {
         return $this->producer;
     }
-
     /**
      * Set director
      *
@@ -981,7 +746,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get director
      *
@@ -991,7 +755,6 @@ class EventRegistration
     {
         return $this->director;
     }
-
     /**
      * Set photographer
      *
@@ -1005,7 +768,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get photographer
      *
@@ -1015,7 +777,6 @@ class EventRegistration
     {
         return $this->photographer;
     }
-
     /**
      * Set designer
      *
@@ -1029,7 +790,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get designer
      *
@@ -1039,7 +799,6 @@ class EventRegistration
     {
         return $this->designer;
     }
-
     /**
      * Set editor
      *
@@ -1053,7 +812,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get editor
      *
@@ -1063,7 +821,6 @@ class EventRegistration
     {
         return $this->editor;
     }
-
     /**
      * Set technology
      *
@@ -1077,7 +834,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get technology
      *
@@ -1087,7 +843,6 @@ class EventRegistration
     {
         return $this->technology;
     }
-
     /**
      * Set budget
      *
@@ -1101,7 +856,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get budget
      *
@@ -1111,7 +865,6 @@ class EventRegistration
     {
         return $this->budget;
     }
-
     /**
      * Set description
      *
@@ -1125,7 +878,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get description
      *
@@ -1135,7 +887,6 @@ class EventRegistration
     {
         return $this->description;
     }
-
     /**
      * Set videoUrl
      *
@@ -1149,7 +900,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get videoUrl
      *
@@ -1159,7 +909,6 @@ class EventRegistration
     {
         return $this->video_url;
     }
-
     /**
      * Set categories
      *
@@ -1173,7 +922,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get categories
      *
@@ -1183,11 +931,9 @@ class EventRegistration
     {
         return $this->categories;
     }
-
     /**
      * Set userTitle
      *
-     * @param \App\Entity\UserTitle $userTitle
      *
      * @return EventRegistration
      */
@@ -1197,7 +943,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get userTitle
      *
@@ -1207,11 +952,9 @@ class EventRegistration
     {
         return $this->user_title;
     }
-
     /**
      * Set budgetCategory
      *
-     * @param \App\Entity\BudgetCategory $budgetCategory
      *
      * @return EventRegistration
      */
@@ -1221,7 +964,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get budgetCategory
      *
@@ -1231,8 +973,6 @@ class EventRegistration
     {
         return $this->budget_category;
     }
-
-
     /**
      * Gets the value of have_rights.
      *
@@ -1242,7 +982,6 @@ class EventRegistration
     {
         return $this->have_rights;
     }
-
     /**
      * Sets the value of have_rights.
      *
@@ -1256,7 +995,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Gets the value of accept_terms.
      *
@@ -1266,7 +1004,6 @@ class EventRegistration
     {
         return $this->accept_terms;
     }
-
     /**
      * Sets the value of accept_terms.
      *
@@ -1280,7 +1017,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Set shortlist
      *
@@ -1294,7 +1030,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get shortlist
      *
@@ -1304,11 +1039,9 @@ class EventRegistration
     {
         return $this->shortlist;
     }
-
     /**
      * Add movieCategory
      *
-     * @param \App\Entity\EventRegistrationCategory $movieCategory
      *
      * @return EventRegistration
      */
@@ -1320,17 +1053,13 @@ class EventRegistration
         
         return $this;
     }
-
     /**
      * Remove movieCategory
-     *
-     * @param \App\Entity\EventRegistrationCategory $movieCategory
      */
     public function removeMovieCategory(\App\Entity\EventRegistrationCategory $movieCategory)
     {
         $this->moviecategories->removeElement($movieCategory);
     }
-
     /**
      * Get movieCategories
      *
@@ -1340,7 +1069,6 @@ class EventRegistration
     {
         return $this->moviecategories;
     }
-
     /**
      * Set number
      *
@@ -1354,7 +1082,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get number
      *
@@ -1364,7 +1091,6 @@ class EventRegistration
     {
         return $this->number;
     }
-
     /**
      * Set winner
      *
@@ -1378,7 +1104,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get winner
      *
@@ -1388,7 +1113,6 @@ class EventRegistration
     {
         return $this->winner;
     }
-
     /**
      * Set onshow
      *
@@ -1401,7 +1125,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get onshow
      *
@@ -1411,7 +1134,6 @@ class EventRegistration
     {
         return $this->onshow;
     }
-
     /**
      * Set premiere
      *
@@ -1424,7 +1146,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get premiere
      *
@@ -1434,7 +1155,6 @@ class EventRegistration
     {
         return $this->premiere;
     }
-
     /**
      * Set post_image
      *
@@ -1447,7 +1167,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get post_image
      *
@@ -1457,11 +1176,9 @@ class EventRegistration
     {
         return $this->post_image;
     }
-
     /**
      * Add votes
      *
-     * @param \App\Entity\Vote $votes
      * @return EventRegistration
      */
     public function addVote(\App\Entity\Vote $votes)
@@ -1470,17 +1187,13 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Remove votes
-     *
-     * @param \App\Entity\Vote $votes
      */
     public function removeVote(\App\Entity\Vote $votes)
     {
         $this->votes->removeElement($votes);
     }
-
     /**
      * Get votes
      *
@@ -1490,11 +1203,9 @@ class EventRegistration
     {
         return $this->votes;
     }
-
     /**
      * Add keyword
      *
-     * @param \App\Entity\Keyword $keyword
      *
      * @return EventRegistration
      */
@@ -1505,7 +1216,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Add keyword
      *
@@ -1521,17 +1231,13 @@ class EventRegistration
         
         return $this;
     }
-
     /**
      * Remove keyword
-     *
-     * @param \App\Entity\Keyword $keyword
      */
     public function removeKeyword(\App\Entity\Keyword $keyword)
     {
         $this->keywords->removeElement($keyword);
     }
-
     /**
      * Get keywords
      *
@@ -1551,7 +1257,6 @@ class EventRegistration
         $this->keywords = $keywords;
         return $this;
     }
-
     /**
      * Set extraInfo.
      *
@@ -1565,7 +1270,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get extraInfo.
      *
@@ -1575,7 +1279,6 @@ class EventRegistration
     {
         return $this->extra_info;
     }
-
     /**
      * @return Collection|JuryVote[]
      */
@@ -1583,7 +1286,6 @@ class EventRegistration
     {
         return $this->juryvotes;
     }
-
     public function addJuryvote(JuryVote $juryvote): self
     {
         if (!$this->juryvotes->contains($juryvote)) {
@@ -1593,7 +1295,6 @@ class EventRegistration
 
         return $this;
     }
-
     public function removeJuryvote(JuryVote $juryvote): self
     {
         if ($this->juryvotes->contains($juryvote)) {
@@ -1606,7 +1307,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Set dropboxRequest.
      *
@@ -1620,7 +1320,6 @@ class EventRegistration
 
         return $this;
     }
-
     /**
      * Get dropboxRequest.
      *
@@ -1629,5 +1328,12 @@ class EventRegistration
     public function getDropboxRequest()
     {
         return $this->dropbox_request;
+    }
+
+    public function setYtId(?string $yt_id): self
+    {
+        $this->yt_id = $yt_id;
+
+        return $this;
     }
 }

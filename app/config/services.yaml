@@ -131,3 +131,7 @@ services:
     app.provider.oauth:
         class: App\Security\OAuthUserProvider
 
+    admin.faq:
+        class: App\Admin\FaqAdmin
+        tags:
+            - { name: sonata.admin, model_class: App\Entity\Faq, controller: ~, manager_type: orm, group: Tartalom, label: FAQ }

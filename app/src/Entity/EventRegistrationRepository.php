@@ -38,10 +38,7 @@ class EventRegistrationRepository extends EntityRepository
 					e = :e 
 				AND u = :u ')
 
-			->setParameters(array(
-				'e' => $video,
-				'u' => $user,
-			))
+			->setParameters(['e' => $video, 'u' => $user])
 		                 ->getArrayResult();
 		     return count($result) > 0;
 	}

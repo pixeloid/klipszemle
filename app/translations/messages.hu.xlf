@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="hu" trgLang="hu">
+  <file id="messages.hu">
+    <unit id="Y9zriAC" name="Phone">
+      <segment>
+        <source>Phone</source>
+        <target>Telefonszám</target>
+      </segment>
+    </unit>
+    <unit id="588_9PF" name="Password">
+      <segment>
+        <source>Password</source>
+        <target>Jelszó</target>
+      </segment>
+    </unit>
+    <unit id="Hkmh4Tp" name="Repeat Password">
+      <segment>
+        <source>Repeat Password</source>
+        <target>Jelszó újra</target>
+      </segment>
+    </unit>
+    <unit id="e0iIBJR" name="Last name">
+      <segment>
+        <source>Last name</source>
+        <target>Vezetéknév</target>
+      </segment>
+    </unit>
+    <unit id="cC75Ie0" name="First name">
+      <segment>
+        <source>First name</source>
+        <target>Keresztnév</target>
+      </segment>
+    </unit>
+    <unit id="KcvuSnT" name="Faq">
+      <segment>
+        <source>Faq</source>
+        <target>FAQ</target>
+      </segment>
+    </unit>
+    <unit id="lpzL089" name="Email">
+      <segment>
+        <source>Email</source>
+        <target>Email cím</target>
+      </segment>
+    </unit>
+    <unit id="Zc7YH4c" name="Shortlist">
+      <segment>
+        <source>Shortlist</source>
+        <target>Shortlist</target>
+      </segment>
+    </unit>
+    <unit id="kJINk_L" name="Program">
+      <segment>
+        <source>Program</source>
+        <target>Program</target>
+      </segment>
+    </unit>
+    <unit id="kdW5oNc" name="Regisztráció">
+      <segment>
+        <source>Regisztráció</source>
+        <target>Regisztráció</target>
+      </segment>
+    </unit>
+    <unit id="chpUd9f" name="Belépés">
+      <segment>
+        <source>Belépés</source>
+        <target>Belépés</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

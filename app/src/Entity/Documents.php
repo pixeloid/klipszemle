@@ -6,36 +6,19 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Documents
- *
- * @ORM\Table()
- * @ORM\Entity
  */
+#[ORM\Table]
+#[ORM\Entity]
 class Documents
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text")
-     */
-    private $content;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=20)
-     */
-    private $name;
-
-
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'content', type: 'text')]
+    private string $content;
+    #[ORM\Column(name: 'name', type: 'string', length: 20)]
+    private string $name;
     /**
      * Get id
      *
@@ -45,7 +28,6 @@ class Documents
     {
         return $this->id;
     }
-
     /**
      * Set content
      *
@@ -59,7 +41,6 @@ class Documents
 
         return $this;
     }
-
     /**
      * Get content
      *
@@ -69,7 +50,6 @@ class Documents
     {
         return $this->content;
     }
-
     /**
      * Set name
      *
@@ -83,7 +63,6 @@ class Documents
 
         return $this;
     }
-
     /**
      * Get name
      *

@@ -5,24 +5,36 @@ namespace App\Controller;
 use App\Entity\BudgetCategory;
 use App\Entity\UserTitle;
 use App\Form\EventRegistrationFlow;
+use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\ArrayShape;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swift_Mailer;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\EventRegistration;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * EventRegistration controller.
  */
 class EventRegistrationController extends AbstractController
 {
+    private EntityManagerInterface $entityManager;
+
+    /**
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
@@ -30,7 +42,6 @@ class EventRegistrationController extends AbstractController
      */
     public function shortlistAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
 
         $datatable = $this->get('pixeloid_app.datatable.shortlist');
@@ -47,14 +58,13 @@ class EventRegistrationController extends AbstractController
      */
     public function statAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
-       // $registrations = $em->getRepository('App:EventRegistration')->findAll();
-        $categories = $em->getRepository('App:MovieCategory')->findAll();
+       // $registrations = $this->entityManager->getRepository('App:EventRegistration')->findAll();
+        $categories = $this->entityManager->getRepository('App:MovieCategory')->findAll();
         $stat = array(
-            'shortlist' => $em->getRepository('App:EventRegistration')->findBy(array('shortlist' => true)),
-            'onshow' => $em->getRepository('App:EventRegistration')->findBy(array('onshow' => true)),
-            'premiere' => $em->getRepository('App:EventRegistration')->findBy(array('premiere' => true)),
+            'shortlist' => $this->entityManager->getRepository('App:EventRegistration')->findBy(array('shortlist' => true)),
+            'onshow' => $this->entityManager->getRepository('App:EventRegistration')->findBy(array('onshow' => true)),
+            'premiere' => $this->entityManager->getRepository('App:EventRegistration')->findBy(array('premiere' => true)),
 
         );
 
@@ -71,11 +81,9 @@ class EventRegistrationController extends AbstractController
 
     public function votesheetsAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $registrations = $em->getRepository('App:EventRegistration')->findAll();
-        
-        $qb = $em->createQueryBuilder();
+
+        $qb = $this->entityManager->createQueryBuilder();
         $qb->select(array('r')) // string 'u' is converted to array internally
            ->from('App:EventRegistration', 'r')
            ->where("r.created > :date")
@@ -107,8 +115,7 @@ class EventRegistrationController extends AbstractController
     {
 
 
-        $em = $this->getDoctrine()->getManager();
-        $video = $em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $this->entityManager->getRepository('App:EventRegistration')->findOneById($id);
 
 
         return [
@@ -122,8 +129,7 @@ class EventRegistrationController extends AbstractController
 
         set_time_limit(100000);
 
-        $em = $this->getDoctrine()->getManager();
-        $video = $em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $this->entityManager->getRepository('App:EventRegistration')->findOneById($id);
 
 
         $filename = sprintf(
@@ -168,21 +174,20 @@ class EventRegistrationController extends AbstractController
     }
 
 
-
     /**
      * @Route("/create", name="eventregistration_create")
      * @param Request $request
      * @param EventRegistrationFlow $flow
-     * @param Swift_Mailer $mailer
      * @return RedirectResponse|Response
+     * @throws TransportExceptionInterface
      */
     public function createAction(
         Request                      $request,
         EventRegistrationFlow        $flow,
-        Swift_Mailer                $mailer
-    ) {
+        MailerInterface                $mailer,
+        EntityManagerInterface $entityManager
+    ): RedirectResponse|Response {
         $entity = new EventRegistration();
-        $em = $this->getDoctrine()->getManager();
 
 
         $flow = $this->createCreateForm($entity, $flow);
@@ -200,55 +205,40 @@ class EventRegistrationController extends AbstractController
                 // flow finished
 
                 $entity->setUser($this->getUser());
+                preg_match(
+                    '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+                    $entity->getVideoUrl(),
+                    $match
+                );
+                $youtube_id = $match[1];
+
+                $entity->setYtId($youtube_id);
                     
-                $em->persist($entity);
-                $em->flush();
+                $entityManager->persist($entity);
+                $entityManager->flush();
 
 
                 $flow->reset(); // remove step data from the session
 
-                // $userManager = $this->get('fos_user.user_manager');
 
-                // $user = $userManager->findUserByEmail($entity->getUser()->getEmail());
-                // $token = new UsernamePasswordToken($user, $user->getPassword(), "public", $user->getRoles());
-                // $this->get("security.context")->setToken($token);
+                $email = (new TemplatedEmail())
+                    ->subject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
+                    ->from('klipszemle.info@gmail.com')
+                    ->to($entity->getUser()->getEmail())
+                    ->htmlTemplate('EventRegistration/success-mail.html.twig')
+                    ->context([
+                        'entity'      => $entity,
+                    ])
+                ;
+                $mailer->send($email);
 
-                $message = (new \Swift_Message('Regisztráció visszaigazolása - Magyar Klipszemle nevezés'))
-                    ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
-                    ->setTo(array($entity->getUser()->getEmail()))
-                    ->setBody(
-                        $this->renderView('EventRegistration/success-mail.html.twig', array(
-                            'entity'      => $entity,
-                            'plainpass' => $plainpass,
-                        )),
-                        'text/html'
-                    );
-
-                $mailer->send($message);
-
-
-                $message = (new \Swift_Message('Regisztráció visszaigazolása - Magyar Klipszemle nevezés'))
-                    ->setFrom(['info@klipszemle.com' => "Magyar Klipszemle"])
-                    ->setTo(array('info.klipszemle@gmail.com', 'olah.gergely@pixeloid.hu'))
-                    ->setBody(
-                        $this->renderView('EventRegistration/success-mail.html.twig', array(
-                            'entity'      => $entity,
-                            'plainpass' => $plainpass,
-                        )),
-                        'text/html'
-                    );
-
-                $mailer->send($message);
-
+                
 
                 return $this->redirect(
                     $this->generateUrl('eventregistration_success', ['id' => $entity->getId()])
                 );
             }
         }
-
-
-
 
         return $this->render('EventRegistration/new_flow.html.twig', array(
             'entity' => $entity,
@@ -260,22 +250,22 @@ class EventRegistrationController extends AbstractController
 
     public function rebuildAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em;
 
-        $regs = $em->getRepository('App:EventRegistration')->findAll();
+        $regs = $this->entityManager->getRepository('App:EventRegistration')->findAll();
         foreach ($regs as $reg) {
-            $budget = $em->getRepository(BudgetCategory::class)->findOneById($reg->getBudget() + 1);
-            $title = $em->getRepository(UserTitle::class)->findOneById($reg->getTitle() + 1);
+            $budget = $this->entityManager->getRepository(BudgetCategory::class)->findOneById($reg->getBudget() + 1);
+            $title = $this->entityManager->getRepository(UserTitle::class)->findOneById($reg->getTitle() + 1);
             $reg->setBudgetCategory($budget);
             $reg->setUserTitle($title);
             foreach ($reg->getCategories() as $cat) {
-                $category = $em->getRepository('App:MovieCategory')->findOneById($cat + 1);
+                $category = $this->entityManager->getRepository('App:MovieCategory')->findOneById($cat + 1);
                 $reg->addMovieCategory($category);
             }
-            $em->persist($reg);
+            $this->entityManager->persist($reg);
         }
 
-        $em->flush();
+        $this->entityManager->flush();
     }
 
 
@@ -309,12 +299,11 @@ class EventRegistrationController extends AbstractController
      */
     public function showAction($id, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
 
-        $entity = $em->getRepository('App:EventRegistration')->find($id);
+        $entity = $this->entityManager->getRepository('App:EventRegistration')->find($id);
 
         if (!$entity || $entity->getUser() !== $user
             && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
@@ -331,8 +320,8 @@ class EventRegistrationController extends AbstractController
 
         if ($form->isValid()) {
             // perform some action, such as saving the task to the database
-            $em->persist($entity);
-            $em->flush();
+            $this->entityManager->persist($entity);
+            $this->entityManager->flush();
             return $this->redirectToRoute('eventregistration_show', array('id' => $entity->getId()));
         }
 
@@ -353,9 +342,8 @@ class EventRegistrationController extends AbstractController
      */
     public function registrationSuccessAction($id): Response
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('App:EventRegistration')->findOneById($id);
+        $entity = $this->entityManager->getRepository(EventRegistration::class)->findOneById($id);
         return $this->render('EventRegistration/success.html.twig', array(
           'reg' => $entity,
         ));
@@ -385,13 +373,12 @@ class EventRegistrationController extends AbstractController
 
     public function addToShortlistAction(Request $request, $id, $flag): RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('App:EventRegistrationCategory')->find($id);
+        $entity = $this->entityManager->getRepository('App:EventRegistrationCategory')->find($id);
         
         $entity->setShortlist($flag);
-        $em->persist($entity);
-        $em->flush();
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
 
         $referer = $request->headers->get('referer');
         return new RedirectResponse($referer);

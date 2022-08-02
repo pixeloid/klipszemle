@@ -6,43 +6,26 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
-class VoteSheet
+#[ORM\Entity]
+class VoteSheet implements \Stringable
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\JuryVote", mappedBy="votesheet", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\JuryVote', mappedBy: 'votesheet', orphanRemoval: true)]
     private $votes;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="voteSheet", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\OneToOne(targetEntity: 'App\Entity\User', inversedBy: 'voteSheet', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private $user;
-
-
-
     public function __construct()
     {
         $this->votes = new ArrayCollection();
     }
-
     public function getId(): ?int
     {
         return $this->id;
     }
-
-
     /**
      * @return Collection|JuryVote[]
      */
@@ -50,7 +33,6 @@ class VoteSheet
     {
         return $this->votes;
     }
-
     public function addVote(JuryVote $vote): self
     {
         if (!$this->votes->contains($vote)) {
@@ -60,7 +42,6 @@ class VoteSheet
 
         return $this;
     }
-
     public function removeVote(JuryVote $vote): self
     {
         if ($this->votes->contains($vote)) {
@@ -73,22 +54,18 @@ class VoteSheet
 
         return $this;
     }
-
     public function getUser(): ?User
     {
         return $this->user;
     }
-
     public function setUser(User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
-
     public function __toString(): string
     {
         return $this->id;
     }
-
 }

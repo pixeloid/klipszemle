@@ -12,6 +12,9 @@
     <h1 class="h3 mb-3 font-weight-normal">Regisztráció</h1>
 
     {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.last_name) }}
+        {{ form_row(registrationForm.first_name) }}
+        {{ form_row(registrationForm.phone) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'

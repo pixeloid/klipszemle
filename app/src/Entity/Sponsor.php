@@ -6,41 +6,21 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Sponsor
- *
- * @ORM\Table(name="sponsor")
- * @ORM\Entity
  */
+#[ORM\Table(name: 'sponsor')]
+#[ORM\Entity]
 class Sponsor
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", length=255)
-     */
-    private $url;
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media")
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    private string $name;
+    #[ORM\Column(name: 'url', type: 'string', length: 255)]
+    private string $url;
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Media')]
     private $image;
-    
     /**
      * Get id.
      *
@@ -50,7 +30,6 @@ class Sponsor
     {
         return $this->id;
     }
-
     /**
      * Set name.
      *
@@ -64,7 +43,6 @@ class Sponsor
 
         return $this;
     }
-
     /**
      * Get name.
      *
@@ -74,7 +52,6 @@ class Sponsor
     {
         return $this->name;
     }
-
     /**
      * Set url.
      *
@@ -88,7 +65,6 @@ class Sponsor
 
         return $this;
     }
-
     /**
      * Get url.
      *
@@ -98,7 +74,6 @@ class Sponsor
     {
         return $this->url;
     }
-
     /**
      * Set image.
      *
@@ -112,7 +87,6 @@ class Sponsor
 
         return $this;
     }
-
     /**
      * Get image.
      *

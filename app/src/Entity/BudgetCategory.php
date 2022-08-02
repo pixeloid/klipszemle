@@ -6,29 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * BudgetCategory
- *
- * @ORM\Table()
- * @ORM\Entity
  */
-class BudgetCategory
+#[ORM\Table]
+#[ORM\Entity]
+class BudgetCategory implements \Stringable
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
-
-
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    private string $name;
     /**
      * Get id
      *
@@ -38,7 +26,6 @@ class BudgetCategory
     {
         return $this->id;
     }
-
     /**
      * Set name
      *
@@ -52,7 +39,6 @@ class BudgetCategory
 
         return $this;
     }
-
     /**
      * Get name
      *
@@ -62,8 +48,7 @@ class BudgetCategory
     {
         return $this->name;
     }
-
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name;
     }

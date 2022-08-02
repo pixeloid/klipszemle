@@ -13,74 +13,52 @@ use Sonata\ClassificationBundle\Model\ContextInterface;
 use Sonata\MediaBundle\Model\MediaInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="classification__category")
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'classification__category')]
+#[ORM\HasLifecycleCallbacks]
 class SonataClassificationCategory extends BaseCategory
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * // Serializer\Groups(groups={"sonata_api_read", "sonata_api_write", "sonata_search"})
      *
      * @var int
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected $id;
-
     /**
-     * @ORM\OneToMany(
-     *     targetEntity="App\Entity\SonataClassificationCategory",
-     *     mappedBy="parent", cascade={"persist"}, orphanRemoval=true
-     * )
-     * @ORM\OrderBy({"position"="ASC"})
      *
      * @var Collection
      */
+    #[ORM\OneToMany(targetEntity: 'App\Entity\SonataClassificationCategory', mappedBy: 'parent', cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     protected Collection $children;
-
     /**
-     * @ORM\ManyToOne(
-     *     targetEntity="App\Entity\SonataClassificationCategory",
-     *     inversedBy="children", cascade={"persist", "refresh", "merge", "detach"}
-     * )
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      *
      * @var CategoryInterface|null
      */
-    protected ?CategoryInterface $parent;
-
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\SonataClassificationCategory', inversedBy: 'children', cascade: ['persist', 'refresh', 'merge', 'detach'])]
+    #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    protected ?CategoryInterface $parent = null;
     /**
-     * @ORM\ManyToOne(
-     *     targetEntity="App\Entity\SonataClassificationContext",
-     *     cascade={"persist"}
-     * )
-     * @ORM\JoinColumn(name="context", referencedColumnName="id", nullable=false)
-     * @Assert\NotNull()
      *
      * @var ContextInterface|null
      */
-    protected ?ContextInterface $context;
-
+    #[Assert\NotNull]
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\SonataClassificationContext', cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'context', referencedColumnName: 'id', nullable: false)]
+    protected ?ContextInterface $context = null;
     public function getId(): int|string|null
     {
         return $this->id;
     }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function prePersist(): void
+    #[ORM\PrePersist]
+    public function prePersist() : void
     {
         parent::prePersist();
     }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function preUpdate(): void
+    #[ORM\PreUpdate]
+    public function preUpdate() : void
     {
         parent::preUpdate();
     }

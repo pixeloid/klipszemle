@@ -4,45 +4,26 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\Timestampable;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Vote
- *
- * @ORM\Table()
- * @ORM\Entity
  */
+#[ORM\Table]
+#[ORM\Entity]
 class Vote
 {
-
     use Timestampable;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created", type="datetime")
-     */
-    private $created;
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="EventRegistration", inversedBy="votes")
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'created', type: 'datetime')]
+    private \DateTime $created;
+    #[ORM\ManyToOne(targetEntity: 'EventRegistration', inversedBy: 'votes')]
     protected $eventRegistration;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="votes")
-     */
+    #[ORM\ManyToOne(targetEntity: 'User', inversedBy: 'votes')]
     protected $user;
-
     /**
      * Get id
      *
@@ -52,7 +33,6 @@ class Vote
     {
         return $this->id;
     }
-
     /**
      * Set created
      *
@@ -66,7 +46,6 @@ class Vote
 
         return $this;
     }
-
     /**
      * Get created
      *
@@ -76,11 +55,9 @@ class Vote
     {
         return $this->created;
     }
-
     /**
      * Set eventRegistration
      *
-     * @param \App\Entity\EventRegistration $eventRegistration
      *
      * @return Vote
      */
@@ -90,7 +67,6 @@ class Vote
 
         return $this;
     }
-
     /**
      * Get eventRegistration
      *
@@ -100,21 +76,18 @@ class Vote
     {
         return $this->eventRegistration;
     }
-
     /**
      * Set user
      *
-     * @param User $user
      *
      * @return Vote
      */
-    public function setUser(User $user = null)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 
         return $this;
     }
-
     /**
      * Get user
      *

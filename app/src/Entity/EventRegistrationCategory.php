@@ -6,40 +6,21 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * EventRegistrationCategory
- *
- * @ORM\Table()
- * @ORM\Entity
  */
-class EventRegistrationCategory
+#[ORM\Table]
+#[ORM\Entity]
+class EventRegistrationCategory implements \Stringable
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="shortlist", type="boolean", nullable=true)
-     */
-    private $shortlist;
-
-
-    /**
-     * @ORM\ManyToOne(targetEntity="EventRegistration", inversedBy="moviecategories")
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'shortlist', type: 'boolean', nullable: true)]
+    private bool $shortlist;
+    #[ORM\ManyToOne(targetEntity: 'EventRegistration', inversedBy: 'moviecategories')]
     protected $eventregistration;
-    /**
-     * @ORM\ManyToOne(targetEntity="MovieCategory")
-     */
+    #[ORM\ManyToOne(targetEntity: 'MovieCategory')]
     protected $category;
-    
-
-
     /**
      * Get id
      *
@@ -49,7 +30,6 @@ class EventRegistrationCategory
     {
         return $this->id;
     }
-
     /**
      * Set shortlist
      *
@@ -63,7 +43,6 @@ class EventRegistrationCategory
 
         return $this;
     }
-
     /**
      * Get shortlist
      *
@@ -73,11 +52,9 @@ class EventRegistrationCategory
     {
         return $this->shortlist;
     }
-
     /**
      * Set eventregistration
      *
-     * @param \App\Entity\EventRegistration $eventregistration
      *
      * @return EventRegistrationCategory
      */
@@ -87,7 +64,6 @@ class EventRegistrationCategory
 
         return $this;
     }
-
     /**
      * Get eventregistration
      *
@@ -97,11 +73,9 @@ class EventRegistrationCategory
     {
         return $this->eventregistration;
     }
-
     /**
      * Set category
      *
-     * @param \App\Entity\MovieCategory $category
      *
      * @return EventRegistrationCategory
      */
@@ -111,7 +85,6 @@ class EventRegistrationCategory
 
         return $this;
     }
-
     /**
      * Get category
      *
@@ -121,13 +94,8 @@ class EventRegistrationCategory
     {
         return $this->category;
     }
-
-        public function __toString()
-    {
-        return $this->category ? $this->category->getName() : '';
-    }
-
-
-
-
+    public function __toString(): string
+{
+    return (string) ($this->category ? $this->category->getName() : '');
+}
 }

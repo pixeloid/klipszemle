@@ -8,38 +8,22 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * MovieCategory
- *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="App\Repository\MovieCategoryRepository")
  */
-class MovieCategory
+#[ORM\Table]
+#[ORM\Entity(repositoryClass: 'App\Repository\MovieCategoryRepository')]
+class MovieCategory implements \Stringable
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @ORM\OneToMany(targetEntity="EventRegistrationCategory", mappedBy="category", cascade={"persist","remove"}, orphanRemoval=true)
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    private int $id;
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    private string $name;
+    #[ORM\OneToMany(targetEntity: 'EventRegistrationCategory', mappedBy: 'category', cascade: ['persist', 'remove'], orphanRemoval: true)]
     protected $eventRegistrationCategories;
-        
-
-
     public function getShortlisted(): array
     {   
-        $result = array();
+        $result = [];
         $deadline = new \DateTime('2016-05-01');
         foreach ($this->getEventRegistrationCategories() as $cat) {
             // var_dump($cat->getEventRegistration()->getCreated());
@@ -51,7 +35,6 @@ class MovieCategory
         }
         return $result;
     }
-
     /**
      * Get id
      *
@@ -61,7 +44,6 @@ class MovieCategory
     {
         return $this->id;
     }
-
     /**
      * Set name
      *
@@ -75,7 +57,6 @@ class MovieCategory
 
         return $this;
     }
-
     /**
      * Get name
      *
@@ -92,13 +73,10 @@ class MovieCategory
     {
         $this->eventRegistrationCategories = new ArrayCollection();
     }
-
     /**
      * Add eventRegistrationCategory
      *
-     * @param EventRegistrationCategory $eventRegistrationCategory
      *
-     * @return MovieCategory
      */
     public function addEventRegistrationCategory(EventRegistrationCategory $eventRegistrationCategory): MovieCategory
     {
@@ -106,17 +84,13 @@ class MovieCategory
 
         return $this;
     }
-
     /**
      * Remove eventRegistrationCategory
-     *
-     * @param EventRegistrationCategory $eventRegistrationCategory
      */
     public function removeEventRegistrationCategory(EventRegistrationCategory $eventRegistrationCategory)
     {
         $this->eventRegistrationCategories->removeElement($eventRegistrationCategory);
     }
-
     /**
      * Get eventRegistrationCategories
      *
@@ -127,11 +101,8 @@ class MovieCategory
 
         return $this->eventRegistrationCategories;
     }
-
-    
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->name ? $this->name : "";
+        return $this->name ?: "";
     }
-
 }

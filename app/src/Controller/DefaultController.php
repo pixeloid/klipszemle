@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Faq;
 use App\Entity\Hero;
 use App\Entity\Jury;
 use App\Entity\Post;
@@ -121,13 +122,16 @@ class DefaultController extends AbstractController
      */
     public function faqAction()
     {
-        $faq = Yaml::parse(
-            file_get_contents(sprintf(
-                "%s/src/Resources/config/faq.yml",
-                $this->getParameter('kernel.project_dir')
-            ))
-        );
-        return $this->render('Default/faq.html.twig', ['faq' => $faq]);
+        $faq = $this->em->getRepository(Faq::class)->findAll();
+        
+        $result = [];
+
+        /** @var Faq $item */
+        foreach ($faq as $item) {
+            $result[$item->getCollection()->getName()][] = $item;
+        }
+        
+        return $this->render('Default/faq.html.twig', ['faq' => $result]);
     }
 
     public function splashAction()

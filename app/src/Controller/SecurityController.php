@@ -17,8 +17,10 @@ class SecurityController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function ps($pass, UserPasswordEncoderInterface $encoder): Response
-    {
+    public function ps(
+        $pass,
+        UserPasswordEncoderInterface $encoder
+    ): Response {
         $user = new User();
         $encoded = $encoder->encodePassword($user, $pass);
 

@@ -1,16 +1,17 @@
 <?php
 namespace App\Controller;
+
 use App\Entity\EventRegistration;
 use App\Entity\User;
 use App\Entity\Vote;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Snappy\Image;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 
 /**
  * Class VoteController
@@ -19,6 +20,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class VoteController extends AbstractController
 {
+    private EntityManagerInterface $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
 
 
     /**
@@ -26,105 +33,103 @@ class VoteController extends AbstractController
      * @IsGranted("EVENTREGISTRATION_VOTE")
      * @Template("Vote/index.html.twig")
      */
-     public function indexAction()
-     {
-         $em = $this->getDoctrine()->getManager();
-         $query = $em->createQuery(
-                 'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, COUNT(v.id) AS numvotes FROM App:EventRegistration e
+    public function indexAction()
+    {
+         
+        $query = $this->em->createQuery(
+            'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, COUNT(v.id) AS numvotes FROM App:EventRegistration e
                  LEFT JOIN e.votes v
                  WHERE 
                          e.onshow = 1
                      AND e.created > :start
                  GROUP BY e.id'
-             )
-             ->setParameter('start', new DateTime('2021-08-01'));
+        )
+            ->setParameter('start', new DateTime('2021-08-01'));
 
     
-         $videos = $query->getArrayResult();
-         shuffle($videos);
+        $videos = $query->getArrayResult();
+        shuffle($videos);
 
-         return array(
-             'videos' => $videos,
-         );
-    
-     }
+        return array(
+            'videos' => $videos,
+        );
+    }
 
     /**
      * @Route("/show/{id}", name="show")
      * @Template("Vote/show.html.twig")
      */
-     public function showAction($id)
-     {
-         $user = $this->get('security.token_storage')->getToken()->getUser();
-
-         $em = $this->getDoctrine()->getManager();
-
-         $repo = $em->getRepository(EventRegistration::class);
-
-         $video = $repo->findOneById($id);
+    public function showAction($id): array
+    {
+        $user = $this->getUser();
 
 
-         $alreadyVoted = true;
+        $repo = $this->em->getRepository(EventRegistration::class);
 
-         if ($user instanceof User) {
-             $alreadyVoted = $repo->hasAlreadyVoted($user, $video);
-         }
+        $video = $repo->findOneById($id);
+
+
+        $alreadyVoted = true;
+
+        if ($user instanceof User) {
+            $alreadyVoted = $repo->hasAlreadyVoted($user, $video);
+        }
 
 
         
 
 
-         return array(
-             'user' => ($user instanceof User),
-             'video' => $video,
-             'alreadyVoted' => $alreadyVoted
-         );
-     }
+        return array(
+            'user' => ($user instanceof User),
+            'video' => $video,
+            'alreadyVoted' => $alreadyVoted
+        );
+    }
 
     /**
      * @Route("/vote/{id}", name="vote")
      * @IsGranted("EVENTREGISTRATION_VOTE")
      * @Template("Vote/thanks.html.twig")
      */
-     public function voteAction($id)
-     {
-         $user = $this->get('security.token_storage')->getToken()->getUser();
-
-         $em = $this->getDoctrine()->getManager();
-        
-         $video = $em->getRepository(EventRegistration::class)->findOneById($id);
-
-         $success = false;
-
-         $query = $em->createQuery(
-         'SELECT v FROM App:Vote v WHERE v.user = :user AND v.eventRegistration = :er')
-
-         ->setParameters(array(
-             'user' => $user,
-             'er' => $video
-         ));
-
-         $votes = $query->getResult();
-
-         if (count($votes) === 0) {
-             $vote = new Vote;
-
-             $vote->setUser($user);
-             $vote->setEventRegistration($video);
-             $vote->setCreated(new \DateTime);
-
-             $em->persist($vote);
-             $em->flush();
-             $success = true;
-         }
+    public function voteAction($id): array
+    {
+        $user = $this->getUser();
 
 
+        $video = $this->em->getRepository(EventRegistration::class)->findOneById($id);
+
+        $success = false;
+
+        $query = $this->em->createQuery(
+            'SELECT v FROM App:Vote v WHERE v.user = :user AND v.eventRegistration = :er'
+        )
+
+        ->setParameters(array(
+            'user' => $user,
+            'er' => $video
+        ));
+
+        $votes = $query->getResult();
+
+        if (count($votes) === 0) {
+            $vote = new Vote;
+
+            $vote->setUser($user);
+            $vote->setEventRegistration($video);
+            $vote->setCreated(new DateTime);
+
+            $this->em->persist($vote);
+            $this->em->flush();
+            $success = true;
+        }
 
 
-         return    array(
-                  'video' => $video,
-             );
-     }
+
+
+        return    array(
+                 'video' => $video,
+            );
+    }
 
 
 
@@ -136,18 +141,18 @@ class VoteController extends AbstractController
     public function voteToplistAction()
     {
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
-        $em = $this->getDoctrine()->getManager();
-        
-        $query = $em->createQuery(
-        'SELECT e, COUNT(vote.id) numvote FROM App:EventRegistration e LEFT JOIN e.votes vote
+
+        $query = $this->em->createQuery(
+            'SELECT e, COUNT(vote.id) numvote FROM App:EventRegistration e LEFT JOIN e.votes vote
 
         WHERE 
              e.created > :start
         GROUP BY e.id
-        ORDER BY numvote DESC')
-        ->setParameter('start', new \DateTime('2021-05-01'));
+        ORDER BY numvote DESC'
+        )
+        ->setParameter('start', new DateTime('2021-05-01'));
 
 
         $votes = $query->getArrayResult();
@@ -185,16 +190,15 @@ class VoteController extends AbstractController
      */
     public function testAction($id)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
-        $em = $this->getDoctrine()->getManager();
-        
-        $video = $em->getRepository('App:EventRegistration')->findOneById($id);
+
+        $video = $this->em->getRepository('App:EventRegistration')->findOneById($id);
 
      
         $this->generatePostImage($video->getId());
     
-        exit;    
+        exit;
     }
 
     /**
@@ -202,9 +206,9 @@ class VoteController extends AbstractController
      * @Template("Vote/facebook_post_image_show.html.twig")
      * @param $id
      * @param Image $knpSnappyImage
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|RedirectResponse
      */
-    public function facebookPostImageAction($id, \Knp\Snappy\Image $knpSnappyImage): array|\Symfony\Component\HttpFoundation\RedirectResponse
+    public function facebookPostImageAction($id, Image $knpSnappyImage): array|RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $video = $em->getRepository('App:EventRegistration')->findOneById($id);
@@ -213,22 +217,16 @@ class VoteController extends AbstractController
         }
 
 
-        if (strpos($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") !== false ||          
-            strpos($_SERVER["HTTP_USER_AGENT"], "Facebot") !== false
+        if (str_contains($_SERVER["HTTP_USER_AGENT"], "facebookexternalhit/") ||
+            str_contains($_SERVER["HTTP_USER_AGENT"], "Facebot")
         ) {
-
-
-
             return                 array(
                          'video' => $video,
                     );
-        }
-        else {
+        } else {
             $url = $this->generateUrl('default_home');
             return $this->redirect($url);
         }
-
-
     }
 
     /**
@@ -239,14 +237,12 @@ class VoteController extends AbstractController
     {
 
 
-        $em = $this->getDoctrine()->getManager();
-        $video = $em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $this->em->getRepository('App:EventRegistration')->findOneById($id);
 
 
         return                 array(
                      'video' => $video,
                 );
-
     }
 
     public function generatePostImage($id, $knpSnappyImage)
@@ -254,32 +250,36 @@ class VoteController extends AbstractController
 
         set_time_limit(100000);
         
-        $em = $this->getDoctrine()->getManager();
-        $video = $em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $this->em->getRepository('App:EventRegistration')->findOneById($id);
 
 
         $filename = 'fb_post_images/klipszemle2019_fb_post_' . $id .'-'.time().'.jpg';
 
         // $this->get('knp_snappy.image')->getInternalGenerator()->setTimeout(300);
         $knpSnappyImage->generate(
-            'http://klipszemle.com/vote/fb_post_image_generator/' . $video->getId()
-            ,$filename
+            'http://klipszemle.com/vote/fb_post_image_generator/' . $video->getId(),
+            $filename
         );
 
         $file = imagecreatefromjpeg($filename);
-        $cropped = imagecreatetruecolor( 1180, 620 );
+        $cropped = imagecreatetruecolor(1180, 620);
         
-        imagecopyresampled($cropped,
-                           $file ,-10,-5,0,0,1200, 630, 1200, 630
-                          );
+        imagecopyresampled(
+            $cropped,
+            $file,
+            -10,
+            -5,
+            0,
+            0,
+            1200,
+            630,
+            1200,
+            630
+        );
         imagejpeg($cropped, $filename, 100);
 
         $video->setPostImage($filename);
-        $em->persist($video);
-        $em->flush();
-
+        $this->em->persist($video);
+        $this->em->flush();
     }
-
-
-
 }
