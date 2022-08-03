@@ -41,10 +41,8 @@ class VoteController extends AbstractController
                  LEFT JOIN e.votes v
                  WHERE 
                          e.onshow = 1
-                     AND e.created > :start
                  GROUP BY e.id'
-        )
-            ->setParameter('start', new DateTime('2021-08-01'));
+        );
 
     
         $videos = $query->getArrayResult();
