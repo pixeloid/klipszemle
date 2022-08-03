@@ -3,7 +3,7 @@
 
 <div class="rate-form">
   <div class="video-item video-item--vote" data-current-id="{{ video.id }}">
-    <div id="player" data-video-id="{{ video.getVideoUrl|yt_id }}">     </div>
+    <div id="player" data-video-id="{{ video.ytId }}">     </div>
 
       {% set size = 'hqdefault' %}
         
@@ -11,8 +11,8 @@
           <img src="http://img.youtube.com/vi/{{ video.videourl|yt_id }}/{{ size }}.jpg">
 
           <div class="video-item__text-holder">
-            <h5 class="video-item__text video-item__text--cat">{{ video.moviecategories.first.category.name  }}</h>
-            <h3 class="video-item__text video-item__text--author">{{ video.author}}
+            <h5 class="video-item__text video-item__text--cat">{{ video.moviecategories.first.category.name  }}</h5>
+            <h3 class="video-item__text video-item__text--author">{{ video.author}}</h3>
             <h4 class="video-item__text video-item__text--song">{{ video.songtitle  }}</h4>
           </div>
           {% if is_granted('ROLE_ADMIN')  %}

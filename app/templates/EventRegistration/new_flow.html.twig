@@ -4,27 +4,17 @@
 {% block body -%}
 
 <div class="container">
+
+    <div class="text-center">
+        <br><br><br>
+        <h2>Nevezés</h2>
+    </div>
 <div class="row">
     <div class="col-sm-12">
 
-        <div class="">
-            {% include 'FormFlow/stepList.html.twig' %}
-        </div>
 
         {{ form_start(form, {attr: { 'class': 'eventregistration-form' }}) }}
 
-        {% if flow.getCurrentStepNumber() == 1 %}
-
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-4">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.email) }}
-                    {{ form_row(form.phone) }}
-                    {{ form_row(form.user_title) }}
-                </div>
-            </div>
-
-        {% elseif flow.getCurrentStepNumber() == 2 %}
 
 
             <div class="row">
@@ -33,9 +23,6 @@
                     {{ form_row(form.author) }}
                     {{ form_row(form.songtitle) }}
                     {{ form_row(form.video_publish_date) }}
-                    <div class="form-help">
-                        <i class="fas fa-info-circle"></i>
-                        2019. szeptember 15. óta megjelent klipek nevezhetők!</div>
                     {{ form_row(form.description) }}
                 </div>
                 <div class="col-sm-4">
@@ -43,59 +30,27 @@
                     {{ form_row(form.director) }}
                     {{ form_row(form.photographer) }}
                     {{ form_row(form.designer) }}
+                    {{ form_row(form.stylist) }}
                     {{ form_row(form.editor) }}
                     {{ form_row(form.budget_category) }}
+                    {{ form_row(form.extra_info) }}
                 </div>
 
                 <div class="col-sm-4">
-                    {{ form_row(form.extra_info) }}
                     {{ form_row(form.premiere) }}
-                    <div class="well">
-
-                        <div class="form-help">
-                            A klip előadója, stábja, a menedzsment, a kiadó és minden érintett tudomásul veszi, hogy 2021.10.14. előtt nem kerülhet nyilvánosságra a videó (ezért a klip a közönségszavazáson sem vesz részt), a végleges változatot pedig legkésőbb 2021.09.20-ig el kell juttatniuk a szemle szervezőségének.
-                        </div>
-
-                    </div>
-
+                    {{ form_row(form.no_premiere) }}
                     {{ form_row(form.accept_terms) }}
+                    {{ form_row(form.submit) }}
 
                 </div>
 
             </div>
 
-        {% elseif flow.getCurrentStepNumber() == 3 %}
 
-
-
-            <div class="row">
-                <div class="col-sm-6">
-                    {{ form_row(form.have_rights) }}
-                </div>
-
-                <div class="col-sm-6">
-                    {{ form_row(form.accept_terms) }}
-                </div>
-
-            </div>
-{#
-            <div class="row">
-
-                <div class="col-sm-8">
-                <div class="">
-                <h4>Ellenőrzés</h4>
-                <p>Kérünk, az alábbi mezőt piáld ki, hogy megbizonyosodunk róla, te nem vagy egy robot!</p>
-                {{ form_widget(form.recaptcha) }}
-                {{ form_errors(form.recaptcha) }}
-                </div>
-                </div>
-            </div>      #}
-        {% endif %}
 
         {{ form_rest(form) }}
         <hr>
 
-        {% include 'FormFlow/buttons.html.twig' %}
 
         {{ form_end(form) }}
 

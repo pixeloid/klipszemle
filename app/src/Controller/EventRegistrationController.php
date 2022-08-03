@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\BudgetCategory;
 use App\Entity\UserTitle;
 use App\Form\EventRegistrationFlow;
+use App\Form\EventRegistrationType;
+use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\ArrayShape;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -182,68 +184,24 @@ class EventRegistrationController extends AbstractController
      * @throws TransportExceptionInterface
      */
     public function createAction(
-        Request                      $request,
-        EventRegistrationFlow        $flow,
         MailerInterface                $mailer,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        Request $request
     ): RedirectResponse|Response {
         $entity = new EventRegistration();
 
 
-        $flow = $this->createCreateForm($entity, $flow);
-
-        $form = $flow->createForm();
-
-
-        if ($flow->isValid($form)) {
-            $flow->saveCurrentStepData($form);
-
-            if ($flow->nextStep()) {
-                // form for the next step
-                $form = $flow->createForm();
-            } else {
-                // flow finished
-
-                $entity->setUser($this->getUser());
-                preg_match(
-                    '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
-                    $entity->getVideoUrl(),
-                    $match
-                );
-                $youtube_id = $match[1];
-
-                $entity->setYtId($youtube_id);
-                    
-                $entityManager->persist($entity);
-                $entityManager->flush();
+        $form = $this->createForm(EventRegistrationType::class, $entity, [
+            'action' => $this->generateUrl('eventregistration_create'),
+            'method' => 'POST',
+        ]);
 
 
-                $flow->reset(); // remove step data from the session
 
-
-                $email = (new TemplatedEmail())
-                    ->subject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
-                    ->from('klipszemle.info@gmail.com')
-                    ->to($entity->getUser()->getEmail())
-                    ->htmlTemplate('EventRegistration/success-mail.html.twig')
-                    ->context([
-                        'entity'      => $entity,
-                    ])
-                ;
-                $mailer->send($email);
-
-                
-
-                return $this->redirect(
-                    $this->generateUrl('eventregistration_success', ['id' => $entity->getId()])
-                );
-            }
-        }
 
         return $this->render('EventRegistration/new_flow.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'flow'   => $flow,
         ));
     }
 
@@ -272,24 +230,60 @@ class EventRegistrationController extends AbstractController
     /**
      * @IsGranted("EVENTREGISTRATION_CREATE")
      * @Route("/registration", name="eventregistration_new")
-     * @param Request $request
-     * @param EventRegistrationFlow $flow
      * @return Response
+     * @throws TransportExceptionInterface
      */
 
-    public function newAction(Request $request, EventRegistrationFlow $flow): Response
+    public function newAction(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
 
         $entity = new EventRegistration();
 
-        $flow = $this->createCreateForm($entity, $flow);
+        $form = $this->createForm(EventRegistrationType::class, $entity, [
+            'action' => $this->generateUrl('eventregistration_new'),
+            'method' => 'POST',
+        ]);
 
-        $form = $flow->createForm();
-        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entity->setUser($this->getUser());
+            preg_match(
+                '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+                $entity->getVideoUrl(),
+                $match
+            );
+            $youtube_id = $match[1];
+
+            $entity->setYtId($youtube_id);
+
+            $entityManager->persist($entity);
+            $entityManager->flush();
+
+
+
+
+            $email = (new TemplatedEmail())
+                ->subject('Regisztráció visszaigazolása - Magyar Klipszemle nevezés')
+                ->from('klipszemle.info@gmail.com')
+                ->to($entity->getUser()->getEmail())
+                ->htmlTemplate('EventRegistration/success-mail.html.twig')
+                ->context([
+                    'entity'      => $entity,
+                ])
+            ;
+            $mailer->send($email);
+
+
+
+            return $this->redirect(
+                $this->generateUrl('eventregistration_success', ['id' => $entity->getId()])
+            );
+        }
+
         return $this->render('EventRegistration/new_flow.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'flow'   => $flow,
         ));
     }
 

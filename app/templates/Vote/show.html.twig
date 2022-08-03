@@ -2,7 +2,7 @@
 {% block body %}
 
 		<div class="video-item video-item--vote" data-current-id="{{ video.id }}">
-			<div id="player" data-video-id="{{ video.getVideoUrl|yt_id }}">			</div>
+			<div id="player" data-video-id="{{ video.ytId }}">			</div>
 
 				{% include 'Vote/_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
 			<a href="#" class="video-item__btn video-item__btn--play">Lejátszom</a>
@@ -14,8 +14,8 @@
 					<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok</a>
 				{% endif %}
 			{% else %}
-			<a class="video-item__btn video-item__btn--already-vote fb-login" href="{{ hwi_oauth_login_url('facebook') }}">
-			    <i class="fas fa-facebook"></i> A szavazáshoz <br>lépj be Facebookkal!
+			<a class="video-item__btn video-item__btn--already-vote fb-login" href="{{ path('app_login') }}">
+			    <i class="fas fa-facebook"></i> A szavazáshoz <br>lépj be, vagy regisztrálj!
 			</a>
 			{% endif %}
 

@@ -37,7 +37,7 @@ class VoteController extends AbstractController
     {
          
         $query = $this->em->createQuery(
-            'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, COUNT(v.id) AS numvotes FROM App:EventRegistration e
+            'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, e.yt_id AS ytId, COUNT(v.id) AS numvotes FROM App:EventRegistration e
                  LEFT JOIN e.votes v
                  WHERE 
                          e.onshow = 1
@@ -190,10 +190,9 @@ class VoteController extends AbstractController
      */
     public function testAction($id)
     {
-        $user = $this->getUser();
 
 
-        $video = $this->em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $this->em->getRepository(EventRegistration::class)->findOneById($id);
 
      
         $this->generatePostImage($video->getId());

@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * EventRegistration
  */
-#[UniqueEntity('video_url', groups: ['flow_eventRegistration_step2'], message: 'Ez a video már nevezésre került!')]
+#[UniqueEntity('video_url', message: 'Ez a video már nevezésre került!')]
 #[ORM\Table]
 #[ORM\Entity(repositoryClass: 'App\Entity\EventRegistrationRepository')]
 class EventRegistration
@@ -26,8 +26,8 @@ class EventRegistration
     private int $id;
     #[ORM\Column(type: 'integer', name: 'number', unique: false, nullable: true)]
     protected $number = null;
-    #[Assert\NotBlank(groups: ['flow_eventRegistration_step1'])]
-    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+
+    #[ORM\Column(name: 'name', type: 'string', length: 255, nullable: true)]
     private string $name;
     #[ORM\Column(name: 'title', type: 'string', length: 255, nullable: true)]
     private string $title;
@@ -38,12 +38,12 @@ class EventRegistration
     #[ORM\Column(name: 'address', type: 'string', length: 255, nullable: true)]
     private string $address;
     #[Assert\NotBlank(groups: ['flow_eventRegistration_step1'])]
-    #[ORM\Column(name: 'phone', type: 'string', length: 20)]
+    #[ORM\Column(name: 'phone', type: 'string', length: 20, nullable: true)]
     private string $phone;
-    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'string', name: 'author', nullable: false, length: 150)]
     protected $author;
-    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'string', name: 'song_title', nullable: false, length: 150)]
     protected $songtitle;
     #[ORM\Column(type: 'string', name: 'length', nullable: true, length: 50)]
@@ -52,13 +52,13 @@ class EventRegistration
     protected $publisher;
     #[ORM\Column(type: 'text', name: 'song_publish_date', nullable: true, length: 150)]
     protected $song_publish_date;
-    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
-    #[Assert\Range(min: '2019-09-15', max: '2021-10-14', groups: ['flow_eventRegistration_step2'])]
+    #[Assert\NotBlank]
+    #[Assert\Range(min: '2019-09-15', max: '2021-10-14', )]
     #[ORM\Column(type: 'date', name: 'video_publish_date', nullable: false, length: 150)]
     protected $video_publish_date;
     #[ORM\Column(type: 'string', name: 'producer', length: 150, nullable: true)]
     protected $producer;
-    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'string', name: 'director', length: 150, nullable: true)]
     protected $director;
     #[ORM\Column(type: 'string', name: 'photographer', length: 150, nullable: true)]
@@ -76,16 +76,15 @@ class EventRegistration
     #[ORM\Column(type: 'string', name: 'dropbox_request', nullable: true, length: 255)]
     protected $dropbox_request;
     #[ORM\Column(type: 'text', name: 'description', nullable: true)]
+    #[Assert\Length(max: 250)]
     protected $description;
-    /**
-     * @AppAssert\Youtube(groups={"flow_eventRegistration_step2"})
-     */
-    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+
+    #[AppAssert\Youtube]
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'string', name: 'video_url', nullable: false, unique: true)]
     protected $video_url;
-    #[Assert\NotBlank(groups: ['flow_eventRegistration_step1'])]
-    #[Assert\Email(groups: ['flow_eventRegistration_step1'])]
-    #[ORM\Column(name: 'email', type: 'string', length: 100)]
+
+    #[ORM\Column(name: 'email', type: 'string', length: 100, nullable: true)]
     private string $email;
     #[ORM\ManyToOne(targetEntity: 'User', inversedBy: 'eventRegistrations', cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
@@ -96,7 +95,7 @@ class EventRegistration
      * @Recaptcha\IsTrue(groups={"xxxxx_flow_eventRegistration_step3"})
      */
     public $recaptcha;
-    #[Assert\NotBlank(groups: ['flow_eventRegistration_step2'])]
+
     #[ORM\ManyToOne(targetEntity: 'UserTitle')]
     protected $user_title = null;
     #[ORM\ManyToOne(targetEntity: 'BudgetCategory')]
@@ -115,7 +114,7 @@ class EventRegistration
     protected $post_image = true;
     #[ORM\OneToMany(targetEntity: 'Vote', mappedBy: 'eventRegistration')]
     protected $votes;
-    #[Assert\IsTrue(groups: ['flow_eventRegistration_step2'], message: 'Kötelező mező')]
+    #[Assert\IsTrue(message: 'Kötelező mező')]
     #[ORM\Column(name: 'accept_terms', type: 'boolean', nullable: true)]
     protected $accept_terms = null;
     #[ORM\Column(type: 'boolean', name: 'shortlist')]
@@ -131,6 +130,12 @@ class EventRegistration
 
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $yt_id = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $stylist = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $no_premiere = null;
     /**
      * Constructor
      */
@@ -533,7 +538,7 @@ class EventRegistration
      */
     public function getName()
     {
-        return $this->name;
+        return sprintf("%s %s", $this->getUser()->getLastName(), $this->getUser()->getFirstName());
     }
     /**
      * Set company
@@ -1333,6 +1338,30 @@ class EventRegistration
     public function setYtId(?string $yt_id): self
     {
         $this->yt_id = $yt_id;
+
+        return $this;
+    }
+
+    public function getStylist(): ?string
+    {
+        return $this->stylist;
+    }
+
+    public function setStylist(?string $stylist): self
+    {
+        $this->stylist = $stylist;
+
+        return $this;
+    }
+
+    public function isNoPremiere(): ?bool
+    {
+        return $this->no_premiere;
+    }
+
+    public function setNoPremiere(?bool $no_premiere): self
+    {
+        $this->no_premiere = $no_premiere;
 
         return $this;
     }
