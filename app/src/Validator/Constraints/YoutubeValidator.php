@@ -2,6 +2,8 @@
 
 namespace App\Validator\Constraints;
 
+use App\Entity\EventRegistration;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -11,8 +13,16 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class YoutubeValidator extends ConstraintValidator
 {
-	
-	public function validate($value, Constraint $constraint)
+
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function validate($value, Constraint $constraint)
 	{
 
 		if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/', $value, $id)) {
@@ -30,10 +40,19 @@ class YoutubeValidator extends ConstraintValidator
 		// not an youtube video
 		}
 
+
 		if(!isset($values)){
 			$this->context->buildViolation($constraint->message)
 			    ->addViolation();
 		}
+
+        $dupe = $this->entityManager->getRepository(EventRegistration::class)->findOneBy(['yt_id' => $id[1]]);
+
+        if($dupe) {
+            $this->context->buildViolation('Ez a video már nevezésre került!')
+                ->addViolation();
+
+        }
 
 	}
 
