@@ -1,11 +1,33 @@
-<h1>Hi! Please confirm your email!</h1>
+<h3>
+    Hello!
+</h3>
 
 <p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    Ezt a levelet azért kapod, mert elindítottad a regisztrációd a Klipszemle x Hajógyár oldalon.
+
+</p>
+<p>
+    Az e-mail címed megerősítésére és a regisztráció véglegesítésére mindenképp szükség van ahhoz, hogy klipet tudj nevezni.
+
 </p>
 
 <p>
-    Cheers!
+    A regisztrációd véglegesítéséhez kattints ide: <br>
+    <a href="{{ signedUrl }}">E-MAIL CÍM MEGERŐSÍTÉSE</a>
+
+
 </p>
+
+<p>
+    Üdv: <br>
+A szervezők
+</p>
+
+
+<b>
+    Ha nem jelenik meg rendesen az “E-mail cím megerősítése” gomb, másold ki és illeszd be a böngészőbe ezt a webcímet:
+    <br>
+    {{ signedUrl }}
+
+</b>
+
