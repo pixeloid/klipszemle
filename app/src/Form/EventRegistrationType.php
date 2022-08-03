@@ -31,7 +31,9 @@ class EventRegistrationType extends AbstractType
     {
         
             $builder
-                ->add('author', null, array('label' => 'Előadó'))
+                ->add('author', null, ['label' => 'Előadó',
+                    'help' => 'Ahogyan a YouTube-on szerepel. Pont úgy. Kopipészt.
+'])
                 ->add('songtitle', null, array('label' => 'Dal címe'))
                 ->add('video_publish_date', null, ['widget' => 'single_text',
                     'label' => 'A klip megjelenése',
