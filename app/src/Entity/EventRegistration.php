@@ -53,7 +53,7 @@ class EventRegistration
     #[ORM\Column(type: 'text', name: 'song_publish_date', nullable: true, length: 150)]
     protected $song_publish_date;
     #[Assert\NotBlank]
-    #[Assert\Range(min: '2019-09-15', max: '2021-10-14', )]
+    #[Assert\Range(min: '2021-09-13', max: '2022-10-14', )]
     #[ORM\Column(type: 'date', name: 'video_publish_date', nullable: false, length: 150)]
     protected $video_publish_date;
     #[ORM\Column(type: 'string', name: 'producer', length: 150, nullable: true)]
