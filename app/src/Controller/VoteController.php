@@ -144,13 +144,9 @@ class VoteController extends AbstractController
 
         $query = $this->em->createQuery(
             'SELECT e, COUNT(vote.id) numvote FROM App:EventRegistration e LEFT JOIN e.votes vote
-
-        WHERE 
-             e.created > :start
         GROUP BY e.id
         ORDER BY numvote DESC'
-        )
-        ->setParameter('start', new DateTime('2021-05-01'));
+        );
 
 
         $votes = $query->getArrayResult();
