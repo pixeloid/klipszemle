@@ -121,9 +121,14 @@ body{
   text-decoration: none;
   font-weight: 600;
   font-family: $headings-font-family;
+  margin-top: 1em;
 }
 body.modal-open {
   overflow: visible;
+}
+
+.user-form {
+  margin-top: 3rem;
 }
 
 .wrapper {
@@ -328,6 +333,7 @@ hr {
     border: 1px solid black;
     color: $black;
     padding: 1rem 2rem;
+    margin-top: 1em;
     &:hover {
       background: $black;
       color: $white;

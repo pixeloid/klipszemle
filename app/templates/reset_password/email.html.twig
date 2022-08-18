@@ -1,0 +1,20 @@
+<h3>Hello!</h3>
+
+<p>
+    Jelszavadat az
+    <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">alábbi linkre kattintva</a>
+    tudod megváltoztatni. <br>
+
+
+
+    A link érvényességi ideje
+    {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+
+
+</p>
+
+<p>
+    Üdv: <br>
+    A szervezők
+
+</p>
