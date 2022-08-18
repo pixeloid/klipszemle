@@ -89,22 +89,14 @@ class Builder implements ContainerAwareInterface
             //   $menu->addChild('Zsűri', array('route' => 'rate_index', 'routeParameters' => array()))
             //->setLinkAttribute('class', ' highlight');;
         }
-        if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-           $menu->addChild('Profilom, nevezéseim', ['route' => 'app_profile']);
-            $menu->addChild('Kijelentkezés', ['route' => 'app_logout']);
-        } else {
-            $menu->addChild('Belépés', ['route' => 'app_login']);
-            $menu->addChild('Regisztráció', ['route' => 'app_register']);
-        }
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $menu->addChild('Toplista', array('route' => 'vote_vote_toplist'));
+          //  $menu->addChild('Toplista', array('route' => 'vote_vote_toplist'));
         }
 
         if ($this->authorizationChecker->isGranted('EVENTREGISTRATION_VOTE')) {
-            $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))
-                ->setLinkAttribute('class', ' highlight');
-            ;
+           // $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))
+           //     ->setLinkAttribute('class', ' highlight');
         }
         
         if ($this->authorizationChecker->isGranted('EVENTREGISTRATION_CREATE')) {
@@ -112,8 +104,8 @@ class Builder implements ContainerAwareInterface
                 ->setLinkAttribute('class', ' highlight');
             ;
         }
-        $menu->addChild('Program', ['route' => 'program']);
-        $menu->addChild('Shortlist', ['route' => 'news']);
+      //  $menu->addChild('Program', ['route' => 'program']);
+      //  $menu->addChild('Shortlist', ['route' => 'news']);
         // $menu->addChild('Rólunk írták', array('uri' => '#'));
         // $menu->addChild('Cuccok', array('uri' => '#'));
         $menu->addChild('Faq', ['route' => 'faq']);
@@ -122,6 +114,13 @@ class Builder implements ContainerAwareInterface
         // $menu->addChild('Instagram', array('uri' => 'https://instagram.com/klipszemle'))
         //->setLinkAttribute('class', 'fa fa-instagram fb');
 
+        if ($this->authorizationChecker->isGranted('ROLE_USER')) {
+            $menu->addChild('Profilom, nevezéseim', ['route' => 'app_profile']);
+            $menu->addChild('Kijelentkezés', ['route' => 'app_logout']);
+        } else {
+            $menu->addChild('Belépés', ['route' => 'app_login']);
+            $menu->addChild('Regisztráció', ['route' => 'app_register']);
+        }
 
 
         return $menu;
