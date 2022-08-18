@@ -231,7 +231,7 @@ body.modal-open {
 
 .heroes {
   position: relative;
-
+  z-index: 20;
   img {
 
     &.desktop {
