@@ -391,6 +391,17 @@ hr {
     font-weight: bold;
   }
 
+  h4 {
+    margin: 2em 0 .5em 0;
+    color: $brand-primary;
+  }
+
+  h2 {
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 1px solid $brand-primary;
+  }
+
   .panel-body {
     font-size: 1.5rem;
   }
