@@ -19,6 +19,7 @@ use App\Entity\EventRegistration;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -265,7 +266,8 @@ class EventRegistrationController extends AbstractController
 
             $email = (new TemplatedEmail())
                 ->subject('Nevezés visszaigazolása - 06. Magyar Klipszemle')
-                ->from('klipszemle.info@gmail.com')
+                ->from(new Address('info@klipszemle.com', 'Hajógyár x 06. Magyar Klipszemle'))
+                ->replyTo('klipszemle.info@gmail.com')
                 ->to($entity->getUser()->getEmail())
                 ->htmlTemplate('EventRegistration/success-mail.html.twig')
                 ->context([
@@ -278,7 +280,8 @@ class EventRegistrationController extends AbstractController
 
             $email = (new TemplatedEmail())
                 ->subject('Nevezés visszaigazolása - 06. Magyar Klipszemle')
-                ->from('klipszemle.info@gmail.com')
+                ->from(new Address('info@klipszemle.com', 'Hajógyár x 06. Magyar Klipszemle'))
+                ->replyTo('klipszemle.info@gmail.com')
                 ->to('klipszemle.info@gmail.com')
                 ->htmlTemplate('EventRegistration/success-mail.html.twig')
                 ->context([
