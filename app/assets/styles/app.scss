@@ -20,15 +20,13 @@
 html, body {
   height: 100%;
   width: 100%;
-  background-color: rgba(246,243,231,1);
+  background-color: black;
+  color: $white;
 }
 
 
 h1 {
-  font-size: 1.7rem;
-  @media(min-width:$screen-sm) {
-    font-size: 2rem;
-  }
+  font-size: 3rem;
   @media(min-width:$screen-md) {
     font-size: 4rem;
   }
@@ -107,7 +105,7 @@ h1 {
 }
 
 body{
-  padding-top: 100px;
+  padding-top: 70px;
   position:relative;
   @media(min-width:768px) {
     padding-top: 90px;
@@ -129,19 +127,37 @@ body.modal-open {
 }
 
 .wrapper {
+  width: 100%;
+  overflow-x: hidden !important;
+}
+
+@media(min-width:768px) {
+
+.wrapper {
   min-height: 100%;
   /* equal to footer height */
-  margin-bottom: -130px;
+  margin-bottom: -90px;
 }
-.wrapper:after {
-  content: "";
-  display: block;
+
+  .wrapper:after {
+    content: "";
+    display: block;
+  }
+  footer, .wrapper:after {
+    height: 90px;
+  }
 }
-footer, .wrapper:after {
-  height: 130px;
-}
-footer {
-}
+
+  footer .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: column;
+    @media(min-width:768px) {
+      flex-direction: row;
+    }
+  }
 
 .navbar-toggle{
   margin: 0;
@@ -215,7 +231,30 @@ footer {
 
 .heroes {
   position: relative;
-  z-index: 2;
+
+  img {
+
+    &.desktop {
+      display: none;
+      @media(min-width:$screen-sm) {
+        margin-top: -23%;
+        margin-right: -23%;
+        margin-bottom: -16%;
+        display: block;
+      }
+    }
+
+    &.mobile {
+      display: block;
+      margin-top: 0;
+      margin-left: -29%;
+      margin-right: -41%;
+      margin-bottom: -16%;
+      @media(min-width:$screen-sm) {
+        display: none;
+      }
+    }
+  }
 }
 .cta {
   position: relative;
@@ -316,11 +355,9 @@ hr {
 
   &__text{
     @media(min-width:$screen-sm) {
-      margin-left: 3rem;
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
     }
 
     p {
@@ -328,6 +365,21 @@ hr {
       margin-bottom: 0.5em;
     }
 
+    h2 {
+      @extend h1;
+    }
+
+  }
+
+  .col--1 .about__text {
+    @media(min-width: $screen-sm) {
+      margin-right: 3rem;
+    }
+  }
+  .col--2 .about__text {
+    @media(min-width: $screen-sm) {
+      margin-left: 3rem;
+    }
   }
 }
 
@@ -345,7 +397,6 @@ hr {
 }
 
 body{
-  padding-top: 85px;
 
   &.blank{
     background: #fff;
@@ -498,8 +549,9 @@ body{
 }
 
 .help-block {
-  font-size: .9em;
+  font-size: .8em;
   font-weight: 300;
+  color: $white;
 }
 
 

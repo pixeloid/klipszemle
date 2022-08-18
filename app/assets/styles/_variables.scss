@@ -12,7 +12,7 @@ $icon-font-path: "/assets/fonts/bootstrap/";
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
-$black:					#231F20 !default;
+$black:					#000000 !default;
 $white:         rgba(255,255,255,1) !default;
 $gray-base:              #000 !default;
 $gray-darker:            lighten($gray-base, 13.5%) !default; // #222
@@ -23,7 +23,7 @@ $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 $yellow:                rgba(253,241,80,1) !default;
 $orange:                rgba(234,107,44,1) !default;
 
-$brand-primary:         #566FE5; // #337ab7
+$brand-primary:         #EDB2CC; // #337ab7
 $brand-secondary:         $yellow;
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;
@@ -51,7 +51,7 @@ $link-hover-decoration: underline !default;
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  "PM Grotesk", Arial, sans-serif !default;
+$font-family-sans-serif:  "Roobert", Arial, sans-serif !default;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
@@ -61,8 +61,8 @@ $font-size-base:          14px !default;
 $font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
 
-$font-size-h1:            floor(($font-size-base * 2.6)) !default; // ~36px
-$font-size-h2:            floor(($font-size-base * 2.15)) !default; // ~30px
+$font-size-h1:            floor(($font-size-base * 2.8)) !default; // ~36px
+$font-size-h2:            floor(($font-size-base * 2.45)) !default; // ~30px
 $font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
 $font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
 $font-size-h5:            $font-size-base !default;
@@ -74,10 +74,10 @@ $line-height-base:        1.428571429 !default; // 20/14
 $line-height-computed:    floor(($font-size-base * $line-height-base)) !default; // ~20px
 
 //** By default, this inherits from the `<body>`.
-$headings-font-family:    'Helvetica', sans-serif !default;
+$headings-font-family:    $font-family-sans-serif;
 $headings-font-weight:    500 !default;
 $headings-line-height:    1.1 !default;
-$headings-color:          $orange;
+$headings-color:          $white;
 
 
 //== Iconography
@@ -375,7 +375,7 @@ $navbar-margin-bottom:             $line-height-computed !default;
 $navbar-border-radius:             $border-radius-base !default;
 $navbar-padding-horizontal:        floor(($grid-gutter-width / 2)) !default;
 $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2) !default;
-$navbar-collapse-max-height:       340px !default;
+$navbar-collapse-max-height:       80vh !default;
 
 $navbar-default-color:             #777 !default;
 $navbar-default-bg:                #f8f8f8 !default;

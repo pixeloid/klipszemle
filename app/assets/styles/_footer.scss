@@ -1,15 +1,53 @@
 footer {
-    background: $black ;
+    background: $brand-primary ;
     font-size: 1.6rem;
     text-transform: uppercase;
     font-weight: bold;
-    color: $white;
-    padding: 50px 0;
+    height: auto;
+    color: $black;
+    padding: 20px 0;
     p {
         margin: 0;
     }
     a{
-    color: $white;
+        color: $black;
     text-decoration: none;
+    }
+
+    .logos {
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        margin-bottom: 2em;
+        svg {
+            display: block;
+            height: 40px;
+            width: auto;
+            &:first-child {
+                height: 16px;
+                margin-right: 30px;
+            }
+        }
+
+    }
+
+    @media(min-width:768px) {
+
+        .logos {
+            margin-bottom: 0;
+        }
+
+        .logos svg {
+            height: 45px;
+            -webkit-transition: height .3s ease-in-out;
+            -moz-transition: height .3s ease-in-out;
+            transition: height .3s ease-in-out;
+
+            &:first-child {
+                height: 16px;
+            }
+
+        }
     }
 }
