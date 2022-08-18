@@ -7,9 +7,12 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-<div class="container">
+<div class="container user-form">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
-    <h1 class="h3 mb-3 font-weight-normal">Regisztráció</h1>
+
+        <h3>Regisztráció</h3>
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.last_name) }}
@@ -21,8 +24,9 @@
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-primary">Regisztráció</button>
     {{ form_end(registrationForm) }}
-
+        </div>
+    </div>
 </div>
 {% endblock %}

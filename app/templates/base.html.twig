@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="hu">
     <head>
-        <title>06. Magyar Klipszemle!{% block title %}{% endblock %}</title>
+        <title>Hajógyár x 06. Magyar Klipszemle! {% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta property="og:site_name" content="06. Magyar Klipszemle"/>
+        <meta property="og:site_name" content="Hajógyár x 06. Magyar Klipszemle"/>
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="hu_HU" />            <!-- Default -->
-        <meta property="fb:app_id" content="{{ app.request.server.get('FB_APP_ID') }}" />            <!-- Default -->
-        
+
         {% block og_title %}
-        <meta property="og:title" content="06. Magyar Klipszemle" />
+        <meta property="og:title" content="Hajógyár x 06. Magyar Klipszemle" />
         {% endblock %}
 
         {% block og_image %}
         <meta property="og:image"
-        content="https://www.klipszemle.com/images/klipszemle_cover.jpg" />
+        content="https://klipszemle.hajogyar.hu/images/cover.png" />
         {% endblock %}
 
         {% block og_description %}
@@ -26,23 +25,6 @@
         <meta property="og:url" content="https://www.klipszemle.com" />
         {% endblock %}
 
-        <link rel="apple-touch-icon" sizes="57x57" href="/icon/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/icon/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/icon/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/icon/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/icon/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/icon/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/icon/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/icon/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192"  href="/icon/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
-        <link rel="manifest" href="/icon/manifest.json">
-        <meta name="msapplication-TileColor" content="#f37e98">
-        <meta name="msapplication-TileImage" content="/icon/ms-icon-144x144.png">
-        <meta name="theme-color" content="#f37e98">
 
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
@@ -56,30 +38,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/themes/bars-1to10.min.css" integrity="sha512-E7Bt0q6McnLvkWUwj4g0LFYdNRE/ZodCpYHZwQF617MRAve15giBXTxE/nY3IlfqVQZ0uVbFI8ax3SGHEYZrgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 <body class="{% block bodyclass %}{% endblock %}">
-    <div id="fb-root"></div>
 
     
-    <script>
-        window.fbAsyncInit = function() {
-            // init the FB JS SDK
-            FB.init({
-                appId      : '646741755492022',                        // App ID from the app dashboard
-                status     : true,                                 // Check Facebook Login status
-                xfbml      : true                                  // Look for social plugins on the page
-            });
-        };
 
-        // Load the SDK asynchronously
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-
-    </script>
 
 
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">

@@ -59,7 +59,7 @@ class EventRegistrationType extends AbstractType
                     'attr' => array('rows' => 5)))
                 ->add('video_url', TextType::class, [
                     'label' => 'A klip youtube linkje',
-                    'help' => 'Ha a szemlén premiereztetsz, vagy még félkész a klip és egy egy kamu link, ne felejtsd el kipipálni az erre vonatkozó részt később!'])
+                    'help' => 'Ha a szemlén premiereztetsz, vagy még félkész a klip és ez egy kamu link, ne felejtsd el kipipálni az erre vonatkozó részt később!'])
                 ->add('extra_info', null, array('label' => 'Extra fontos információm van'))
                 ->add('premiere', null, ['label' => 'A Klipszemlén szeretném premierezni a klipet.',
                     'help' => 'A klip előadója, stábja, a menedzsment, a kiadó és minden érintett tudomásul veszi, hogy 2022.10.13. előtt nem kerülhet nyilvánosságra a videó, ezért a klip a közönségszavazáson sem vesz részt. Ha nem pipálod ezt be, kikerül közönségszavazásra a linkelt videó.

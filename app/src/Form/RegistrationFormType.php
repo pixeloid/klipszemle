@@ -25,6 +25,7 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'Az adatkezelési szabályzatot elfogadom',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
