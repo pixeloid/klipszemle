@@ -18,11 +18,13 @@
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
-        svg {
-            display: block;
-            height: 40px;
-            width: auto;
-            &:first-child {
+        a {
+            svg {
+                display: block;
+                height: 40px;
+                width: auto;
+            }
+            &:first-child svg{
                 height: 16px;
                 margin-right: 30px;
             }
