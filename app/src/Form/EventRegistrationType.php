@@ -68,7 +68,8 @@ A végleges változatot LEGKÉSŐBB 2022.09.20-ig kérjük eljuttatni az info.kl
                     'help' => 'Ha kamu linket vagy nem végleges verziót adtál meg a YouTube-linknél, ezt mindenképp pipáld, nehogy kimenjen véletlenül közönségszavazásra.
 És várjuk a végleges változatot LEGKÉSŐBB 2022.09.08-ig az info.klipszemle@gmail.com címre. Amennyiben ezt nem tudod tartani, úgy nem áll módunkban a szemlén premierezni a videót. Ugyanitt szeretnénk jelezni, hogy nem minden premieres nevezést vetítünk le a szemlén. A beérkező klipekből csinálunk egy válogatást, ami bemutatásra kerül. Erről későbbiekben értesítünk.'])
                 ->add('accept_terms', null, array(
-                    'label' => 'A Magyar Klipszemle adatvédelmi feltételeit elolvastam és elfogadom.',
+                    'label' => 'Az <a href="/klipszemle_adatkezelesi_tajekoztato_0823_2.pdf" target="_blank">adatkezelési tájékoztatót</a> tudomásul vettem, és elfogadom',
+                    'label_html' => true,
                     'help' => 'Rendelkezem a klip nevezéséhez szükséges jogokkal/engedélyekkel. A klip magyar vonatkozású, vagyis a rendező, az operatőr és/vagy az előadó magyar. A nevezéssel tudomásul veszem, hogy a klip, vagy annak részlete a Klipszemlén készülő beszámolókban megjelenhet, felhasználásidíj-fizetésre a szervezőség nem kötelezhető.'
                 ))
                 ->add('submit', SubmitType::class, [

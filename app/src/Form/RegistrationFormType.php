@@ -18,6 +18,7 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
             ->add('last_name')
             ->add('first_name')
@@ -25,7 +26,8 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => 'Az adatkezelési szabályzatot elfogadom',
+                'label' => 'Az <a href="/klipszemle_adatkezelesi_tajekoztato_0823_2.pdf" target="_blank">adatkezelési tájékoztatót</a> tudomásul vettem, és elfogadom',
+                'label_html' => true,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
