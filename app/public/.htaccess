@@ -11,6 +11,13 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+
+	RewriteCond %{HTTP_HOST} ^klipszemle.com [NC,OR]
+	RewriteCond %{HTTP_HOST} ^www.klipszemle.com [NC]
+	RewriteRule ^(.*)$ https://klipszemle.hajogyar.hu/$1 [L,R=301,NC]
+
+
+
     # Redirect to URI without front controller to prevent duplicate content
     # (with and without `/index.php`). Only do this redirect on the initial
     # rewrite by Apache and not on subsequent cycles. Otherwise we would get an
