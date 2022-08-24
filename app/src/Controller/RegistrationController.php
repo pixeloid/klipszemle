@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
                 $user,
                 (new TemplatedEmail())
                     ->from(new Address('info@klipszemle.com', 'Hajógyár x 06. Magyar Klipszemle'))
-                    ->replyTo('klipszemle.info@gmail.com')
+                    ->replyTo('info.klipszemle@gmail.com')
                     ->to($user->getEmail())
                     ->subject('Klipszemle x Hajógyár regisztráció')
                     ->htmlTemplate('registration/confirmation_email.html.twig')

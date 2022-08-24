@@ -267,7 +267,7 @@ class EventRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->subject('Nevezés visszaigazolása - 06. Magyar Klipszemle')
                 ->from(new Address('info@klipszemle.com', 'Hajógyár x 06. Magyar Klipszemle'))
-                ->replyTo('klipszemle.info@gmail.com')
+                ->replyTo('info.klipszemle@gmail.com')
                 ->to($entity->getUser()->getEmail())
                 ->htmlTemplate('EventRegistration/success-mail.html.twig')
                 ->context([
@@ -281,8 +281,8 @@ class EventRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->subject('Nevezés visszaigazolása - 06. Magyar Klipszemle')
                 ->from(new Address('info@klipszemle.com', 'Hajógyár x 06. Magyar Klipszemle'))
-                ->replyTo('klipszemle.info@gmail.com')
-                ->to('klipszemle.info@gmail.com')
+                ->replyTo('info.klipszemle@gmail.com')
+                ->to('info.klipszemle@gmail.com')
                 ->htmlTemplate('EventRegistration/success-mail.html.twig')
                 ->context([
                     'entity'      => $entity,
