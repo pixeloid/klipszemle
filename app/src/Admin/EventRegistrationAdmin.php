@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -14,17 +15,6 @@ use Sonata\Form\Type\CollectionType;
 
 class EventRegistrationAdmin extends AbstractAdmin
 {
-
-    public function configureQuery($query):ProxyQueryInterface
-    {
-
-
-        $query->andWhere($query->getRootAliases()[0] . '.created > :created');
-
-        $query->setParameter('created', '2019-08-16');
-        return $query;
-    }
-
 
 
     protected function configureDatagridFilters(DatagridMapper $filter): void
@@ -58,23 +48,42 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('moviecategories', null, [
                 'header_style' => 'width: 120px',
             ])
-            ->add('director', null, [
+            ->add('director', FieldDescriptionInterface::TYPE_HTML, [
+                'truncate' => [
+                    'length' => 50
+                ],
                 'header_style' => 'width: 120px',
             ])
-            ->add('description', null, [
+            ->add('description', FieldDescriptionInterface::TYPE_HTML, [
+                'truncate' => [
+                    'length' => 150
+                ],
                 'header_style' => 'width: 120px',
             ])
-            ->add('extra_info', null, [
+            ->add('extra_info', FieldDescriptionInterface::TYPE_HTML, [
+                'truncate' => [
+                    'length' => 150
+                ],
                 'header_style' => 'width: 120px',
             ])
             ->add('premiere', null, [
                 "editable" => true,
-            ])
-            ->add('onshow', null, [
-                "editable" => true,
+                'label' => 'Premieres'
             ])
             ->add('shortlist', null, [
                 "editable" => true,
+            ])
+            ->add('onshow', null, [
+                "editable" => true,
+                'label' => 'Vetítés'
+            ])
+            ->add('is_problematic', null, [
+                "editable" => true,
+                'label' => 'Problémás'
+            ])
+            ->add('is_votable', null, [
+                "editable" => true,
+                'label' => 'Közönségszavazás'
             ])
             ->add('_action', 'actions', array(
                 'actions' => array(
