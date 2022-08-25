@@ -2,6 +2,7 @@
 
 namespace App\Admin;
 
+use App\Entity\MovieCategory;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -45,8 +46,9 @@ class EventRegistrationAdmin extends AbstractAdmin
                 'template' => 'Admin/CRUD/list_youtube.html.twig',
                 'header_style' => 'width: 120px',
             ])
-            ->add('moviecategories', null, [
-                'header_style' => 'width: 120px',
+            ->add('moviecategories', FieldDescriptionInterface::TYPE_ONE_TO_MANY, [
+                "editable" => true,
+
             ])
             ->add('director', FieldDescriptionInterface::TYPE_HTML, [
                 'truncate' => [

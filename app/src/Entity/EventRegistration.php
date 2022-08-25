@@ -139,7 +139,7 @@ class EventRegistration
     #[ORM\Column(nullable: true)]
     private ?bool $is_problematic = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $is_votable = null;
 
     #[ORM\Column(nullable: true)]
