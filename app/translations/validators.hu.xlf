@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="hu" trgLang="hu">
+  <file id="validators.hu">
+    <unit id="IaE5GBl" name="You should agree to our terms.">
+      <segment>
+        <source>You should agree to our terms.</source>
+        <target>Az adatkezelési tájékoztató elfogadása kötelező</target>
+      </segment>
+    </unit>
+    <unit id="YXZ26gK" name="Please enter a password">
+      <segment>
+        <source>Please enter a password</source>
+        <target>Adj meg egy jelszót</target>
+      </segment>
+    </unit>
+    <unit id="HQt7pPu" name="Your password must include at least one letter.">
+      <segment>
+        <source>Your password must include at least one letter.</source>
+        <target>A jelszónak legalább egy betűt kell tartalmaznia.</target>
+      </segment>
+    </unit>
+    <unit id="4kGnTpC" name="Your password must include both upper and lower case letters.">
+      <segment>
+        <source>Your password must include both upper and lower case letters.</source>
+        <target>A jelszónak kis- és nagybetűt is tartalmaznia kell.</target>
+      </segment>
+    </unit>
+    <unit id=".1LWj9Y" name="Your password must include at least one number.">
+      <segment>
+        <source>Your password must include at least one number.</source>
+        <target>A jelszavának tartalmaznia kell legalább egy számot.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

@@ -45,6 +45,7 @@ class YoutubeValidator extends ConstraintValidator
 			$this->context->buildViolation($constraint->message)
 			    ->addViolation();
 		}
+        if (!isset($id[1])) return;
 
         $dupe = $this->entityManager->getRepository(EventRegistration::class)->findOneBy(['yt_id' => $id[1]]);
 

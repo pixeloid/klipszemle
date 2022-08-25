@@ -20,3 +20,4 @@ _translation_profiler:
 _translation_edit_in_place:
   resource: '@TranslationBundle/Resources/config/routing_edit_in_place.yaml'
   prefix: /trans
+

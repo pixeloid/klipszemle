@@ -340,7 +340,7 @@ $grid-columns:              12 !default;
 $grid-gutter-width:         30px !default;
 // Navbar collapse
 //** Point at which the navbar becomes uncollapsed.
-$grid-float-breakpoint:     $screen-sm-min !default;
+$grid-float-breakpoint:     $screen-md-min !default;
 //** Point at which the navbar begins collapsing.
 $grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
 
@@ -521,9 +521,9 @@ $state-warning-text:             #8a6d3b !default;
 $state-warning-bg:               #fcf8e3 !default;
 $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
-$state-danger-text:              $brand-primary !default;
-$state-danger-bg:                #f2dede !default;
-$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+$state-danger-text:              $white !default;
+$state-danger-bg: #c91d1d !default;
+$state-danger-border:            $white !default;
 
 
 //== Tooltips

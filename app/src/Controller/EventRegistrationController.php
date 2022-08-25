@@ -22,6 +22,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * EventRegistration controller.
@@ -229,14 +230,18 @@ class EventRegistrationController extends AbstractController
 
 
     /**
-     * @IsGranted("EVENTREGISTRATION_CREATE")
      * @Route("/registration", name="eventregistration_new")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param MailerInterface $mailer
      * @return Response
      * @throws TransportExceptionInterface
      */
-
-    public function newAction(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
-    {
+    public function newAction(
+        Request                $request,
+        EntityManagerInterface $entityManager,
+        MailerInterface        $mailer
+    ): Response {
 
         $entity = new EventRegistration();
 
@@ -350,10 +355,15 @@ class EventRegistrationController extends AbstractController
     /**
      * @Route("/success/{id}", name="eventregistration_success")
      */
-    public function registrationSuccessAction($id): Response
+    public function registrationSuccessAction($id, AuthorizationCheckerInterface $authorizationChecker): Response
     {
 
         $entity = $this->entityManager->getRepository(EventRegistration::class)->findOneById($id);
+
+        if (!$entity || $entity->getUser() !== $this->getUser()) {
+            throw $this->createNotFoundException('Not found.');
+        }
+
         return $this->render('EventRegistration/success.html.twig', array(
           'reg' => $entity,
         ));

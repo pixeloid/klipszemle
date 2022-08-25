@@ -67,5 +67,11 @@
         <target>Belépés</target>
       </segment>
     </unit>
+    <unit id="PdnfREH" name="New password">
+      <segment>
+        <source>New password</source>
+        <target>Új jelszó</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

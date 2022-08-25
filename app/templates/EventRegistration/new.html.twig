@@ -3,6 +3,9 @@
 {% block body -%}
     <h1><span>Event Registration</span></h1>
 
+    {% if is_granted('EVENTREGISTRATION_CREATE') %}
+
+
 {{ form_start(form, {attr: {'data-calculate-url': path('eventregistration_calculate') }}) }}
     <div class="row">
         <div class="col-sm-1">
@@ -128,27 +131,4 @@
 
 {{ form_end(form) }}
 
-<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="mapModalLabel">New message</h4>
-      </div>
-      <div class="modal-body">
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!--         <ul class="record_actions">
-    <li>
-        <a href="{{ path('eventregistration') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
- -->{% endblock %}
+{% endblock %}
