@@ -729,6 +729,12 @@ body{
   }
 }
 
+.has-error {
+  background: #d22222;;
+    padding: .3em;
+}
+
+
 .rate-form {
   text-align: left;
   form {
@@ -745,3 +751,5 @@ body{
     }
   }
 }
+
+
