@@ -236,6 +236,7 @@ class EventRegistrationController extends AbstractController
      * @param MailerInterface $mailer
      * @return Response
      * @throws TransportExceptionInterface
+     * @IsGranted("EVENTREGISTRATION_CREATE")
      */
     public function newAction(
         Request                $request,

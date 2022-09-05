@@ -4,7 +4,7 @@
 
 <div class="heroes">
 
-    {% if true %}
+    {% if is_granted('EVENTREGISTRATION_CREATE') %}
         <a href="{{ path('eventregistration_new') }}">Nevezés</a>
     {% endif %}
 

@@ -31,7 +31,7 @@ class EventRegistrationVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         if ($attribute == self::CREATE) {
             $today = new DateTime();
-            $deadline = new DateTime('2031-01-03 17:13:00');
+            $deadline = new DateTime('2022-09-04 17:13:00');
 
             return $today < $deadline;
         }

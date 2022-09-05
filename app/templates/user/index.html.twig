@@ -26,7 +26,9 @@
         </table>
 
     {% endif %}
+    {% if is_granted('EVENTREGISTRATION_CREATE') %}
+        <a href="{{ path('eventregistration_new') }}" class="btn btn-default">Klip nevezése</a>
+    {% endif %}
 
-    <a href="{{ path('eventregistration_new') }}" class="btn btn-default">Klip nevezése</a>
 </div>
 {% endblock %}
