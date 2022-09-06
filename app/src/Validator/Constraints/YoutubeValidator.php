@@ -24,6 +24,8 @@ class YoutubeValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
 	{
+        /** @var EventRegistration $obj */
+        $obj = $this->context->getObject();
 
 		if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/', $value, $id)) {
 		  $values = $id[1];
@@ -49,7 +51,7 @@ class YoutubeValidator extends ConstraintValidator
 
         $dupe = $this->entityManager->getRepository(EventRegistration::class)->findOneBy(['yt_id' => $id[1]]);
 
-        if($dupe) {
+        if($dupe && $obj->getId() !== $dupe->getId()) {
             $this->context->buildViolation('Ez a video már nevezésre került!')
                 ->addViolation();
 

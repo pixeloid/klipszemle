@@ -28,6 +28,8 @@ class EventRegistrationAdmin extends AbstractAdmin
                 'field_options' => ['property'=>'category.eventRegistrationCategories.name'],
             ])
             ->add('shortlist')
+            ->add('is_votable')
+            ->add('is_problematic')
             ->add('onshow')
             ->add('premiere')
         ;
@@ -250,6 +252,7 @@ class EventRegistrationAdmin extends AbstractAdmin
             'premiere',
             'is_votable',
             'is_problematic',
+            'no_premiere',
 
         ];
     }
