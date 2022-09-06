@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Filter\ModelAutocompleteFilter;
@@ -100,7 +101,7 @@ class EventRegistrationAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('shortlist')
+            ->add('user', AdminType::class)
             ->add('name')
             ->add('video_url')
             ->add(
@@ -129,7 +130,6 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('company')
             ->add('website')
             ->add('address')
-            ->add('phone')
             ->add('author')
             ->add('songtitle')
             ->add('length')
@@ -146,9 +146,20 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('created', null, [
                 'data' => new \DateTime,
             ])
-            ->add('winner')
-            ->add('onshow')
-            ->add('premiere')
+            ->add('premiere', null, [
+                'label' => 'Premieres'
+            ])
+            ->add('shortlist', null, [
+            ])
+            ->add('onshow', null, [
+                'label' => 'Vetítés'
+            ])
+            ->add('is_problematic', null, [
+                'label' => 'Problémás'
+            ])
+            ->add('is_votable', null, [
+                'label' => 'Közönségszavazás'
+            ])
         ;
     }
 
@@ -158,11 +169,6 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('id')
             ->add('number')
             ->add('name')
-            ->add('title')
-            ->add('company')
-            ->add('website')
-            ->add('address')
-            ->add('phone')
             ->add('author')
             ->add('songtitle')
             ->add('length')
@@ -179,7 +185,6 @@ class EventRegistrationAdmin extends AbstractAdmin
             ->add('budget')
             ->add('description')
             ->add('video_url')
-            ->add('email')
             ->add('created')
             ->add('have_rights')
             ->add('winner')
@@ -208,6 +213,45 @@ class EventRegistrationAdmin extends AbstractAdmin
         foreach ($object->getKeywords() as $keyword) {
             $keyword->addEventRegistration($object);
         }
+    }
+
+    protected function configureExportFields(): array
+    {
+        return [
+            'id',
+            'user.lastname',
+            'user.firstname',
+            'user.phone',
+            'user.email',
+            'author',
+            'author',
+            'songtitle',
+            'length',
+            'publisher',
+            'song_publish_date',
+            'video_publish_date',
+            'producer',
+            'director',
+            'photographer',
+            'designer',
+            'editor',
+            'technology',
+            'categories',
+            'budget',
+            'description',
+            'video_url',
+            'created',
+            'have_rights',
+            'winner',
+            'post_image',
+            'accept_terms',
+            'shortlist',
+            'onshow',
+            'premiere',
+            'is_votable',
+            'is_problematic',
+
+        ];
     }
 
 

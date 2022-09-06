@@ -51,20 +51,10 @@ class UserAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('username')
-            ->add('usernameCanonical')
+            ->add('lastname')
+            ->add('firstname')
+            ->add('phone')
             ->add('email')
-            ->add('emailCanonical')
-            ->add('enabled')
-            ->add('salt')
-            ->add('password')
-            ->add('lastLogin')
-            ->add('confirmationToken')
-            ->add('passwordRequestedAt')
-            ->add('roles')
-            ->add('id')
-            ->add('facebook_id')
-            ->add('facebook_access_token')
         ;
     }
 
