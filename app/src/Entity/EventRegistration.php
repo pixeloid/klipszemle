@@ -1381,7 +1381,7 @@ class EventRegistration
 
     public function isIsProblematic(): ?bool
     {
-        return $this->is_problematic ||  $this->no_premiere;
+        return $this->is_problematic;
     }
 
     public function setIsProblematic(?bool $is_problematic): self
