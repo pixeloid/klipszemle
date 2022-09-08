@@ -40,7 +40,7 @@ class VoteController extends AbstractController
             'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, e.yt_id AS ytId, COUNT(v.id) AS numvotes FROM App:EventRegistration e
                  LEFT JOIN e.votes v
                  WHERE 
-                         e.onshow = 1
+                         e.is_votable = 1
                  GROUP BY e.id'
         );
 
