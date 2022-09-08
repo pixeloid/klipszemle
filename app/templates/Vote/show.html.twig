@@ -7,16 +7,16 @@
 				{% include 'Vote/_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
 			<a href="#" class="video-item__btn video-item__btn--play">Lejátszom</a>
 			
-			{% if user %}
+			{% if is_granted('EVENTREGISTRATION_VOTE') %}
 				{% if  alreadyVoted %}
 					<span class="video-item__btn  video-item__btn--already-vote">Már szavaztál</span>
 				{% else %}
 					<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok</a>
 				{% endif %}
 			{% else %}
-			<a class="video-item__btn video-item__btn--already-vote fb-login" href="{{ path('app_login') }}">
-			    <i class="fas fa-facebook"></i> A szavazáshoz <br>lépj be, vagy regisztrálj!
-			</a>
+				<a class="video-item__btn video-item__btn--already-vote fb-login" href="{{ path('app_login') }}">
+					<i class="fas fa-facebook"></i> A szavazáshoz <br>lépj be, vagy regisztrálj!
+				</a>
 			{% endif %}
 
 			<a href="#" class="video-item__btn video-item__btn--close"><i class="fas fa-times" aria-hidden="true"></i></a>
