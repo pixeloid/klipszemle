@@ -30,7 +30,6 @@ class VoteController extends AbstractController
 
     /**
      * @Route("/", name="index")
-     * @IsGranted("EVENTREGISTRATION_VOTE")
      * @Template("Vote/index.html.twig")
      */
     public function indexAction()
