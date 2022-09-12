@@ -21,6 +21,7 @@ security:
             security: false
         main:
             lazy: true
+            entry_point: form_login
             provider: app_user_provider
             form_login:
                 # "app_login" is the name of the route created previously
@@ -28,6 +29,15 @@ security:
                 check_path: app_login
             logout:
                 path: app_logout
+            oauth:
+                resource_owners:
+                    facebook: /check-facebook
+                login_path:   /oauth-login
+                use_forward:  false
+                failure_path: /oauth-login
+                default_target_path: /vote/
+                oauth_user_provider:
+                    service: app.provider.oauth
         #    oauth:
         #        failure_path: /connect
         #        login_path: /connect

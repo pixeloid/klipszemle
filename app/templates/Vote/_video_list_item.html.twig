@@ -1,19 +1,19 @@
 {% if size is not defined %}
 	{% set size = 'maxresdefault' %}
 {% endif %}
-		
+
 		<div class="video-item__image">
-			<img src="http://img.youtube.com/vi/{{ video.ytId }}/{{ size }}.jpg">
+			<img src="https://img.youtube.com/vi/{{ video.ytId }}/{{ size }}.jpg">
 
 			<div class="video-item__text-holder">
 				<h3 class="video-item__text video-item__text--author">{{ video.author }}</h3>
 				<h4 class="video-item__text video-item__text--song">{{ video.songtitle  }}</h4>
 			</div>
 			{% if is_granted('ROLE_ADMIN')  %}
-
+				{% if video.numvotes is defined and video.numvotes %}
 			<span class="video-item__text video-item__text--numvotes">
-				{% if video.numvotes is defined %}{{video.numvotes}}{% endif %}
+				{{video.numvotes}} szavazat
 			</span>
-			
+				{% endif %}
 			{% endif %}
 		</div>

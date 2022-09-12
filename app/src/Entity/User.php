@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use App\Repository\UserRepository;
 use DateTimeInterface;
@@ -18,7 +19,7 @@ use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksP
 
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User  implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampableEntity;
     #[ORM\Column(name: 'id', type: 'integer', nullable: false)]
@@ -98,6 +99,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $terms_accepted_at = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $facebook_id = null;
 
 
     public function __construct()
@@ -377,6 +381,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTermsAcceptedAt(?\DateTimeImmutable $terms_accepted_at): self
     {
         $this->terms_accepted_at = $terms_accepted_at;
+
+        return $this;
+    }
+
+    public function getFacebookId(): ?string
+    {
+        return $this->facebook_id;
+    }
+
+    public function setFacebookId(?string $facebook_id): self
+    {
+        $this->facebook_id = $facebook_id;
 
         return $this;
     }

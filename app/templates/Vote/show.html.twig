@@ -6,45 +6,35 @@
 
 				{% include 'Vote/_video_list_item.html.twig' with {video: video, size: 'hqdefault'} only %}
 			<a href="#" class="video-item__btn video-item__btn--play">Lejátszom</a>
-			
-			{% if is_granted('EVENTREGISTRATION_VOTE') %}
-				{% if  alreadyVoted %}
-					<span class="video-item__btn  video-item__btn--already-vote">Már szavaztál</span>
-				{% else %}
-					<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok</a>
-				{% endif %}
-			{% else %}
-				<a class="video-item__btn video-item__btn--already-vote fb-login" href="{{ path('app_login') }}">
-					<i class="fas fa-facebook"></i> A szavazáshoz <br>lépj be, vagy regisztrálj!
-				</a>
-			{% endif %}
+
 
 			<a href="#" class="video-item__btn video-item__btn--close"><i class="fas fa-times" aria-hidden="true"></i></a>
-			<a href="#" class="video-item__btn video-item__btn--stop"><i class="fas fa-stop" aria-hidden="true"></i></a>
 
 		{#	<a href="#" class="btn btn-primary share-btn">Megosztom Facebookon!</a>
 #}
 
-			<script>
-
-			$(document).ready(function(){
-				$('.share-btn').click(function(e){
-					e.preventDefault();
-					FB.ui({
-					  method: 'share',
-					  mobile_iframe: true,
-					  display: 'dialog',
-					  href: '{{ app.request.getSchemeAndHttpHost() }}/vote/fb_post_image/{{video.getId}}',
-					}, function(response){
-						$('#main-modal').modal('hide')
-					});
-				})
-			})
-
-			</script>
-
 
 		</div>
+	{% if not is_granted('EVENTREGISTRATION_VOTE') %}
+
+				<h4>
+					Szavazás csak azonosított felhasználók számára lehetséges!
+				</h4>
+					<a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" class="fb btn">
+            <span>
+            <i class="fab fa-facebook-f"></i>
+            </span>
+						Lépj be Facebookkal!
+					</a>
+
+	{% else %}
+		{% if  alreadyVoted %}
+			<span class="video-item__btn  video-item__btn--already-vote">Már szavaztál erre a klipre</span>
+		{% else %}
+			<a href="{{path('vote_vote', {'id' : video.id})}}" class="video-item__btn video-item__btn--vote">Szavazok erre a klipre!</a>
+		{% endif %}
+	{% endif %}
+
 
 {% endblock %}
 

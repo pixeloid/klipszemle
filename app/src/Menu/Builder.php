@@ -2,12 +2,15 @@
 
 namespace App\Menu;
 
+use App\Entity\User;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 class Builder implements ContainerAwareInterface
 {
@@ -20,16 +23,20 @@ class Builder implements ContainerAwareInterface
      * @var AuthorizationCheckerInterface
      */
     private AuthorizationCheckerInterface $authorizationChecker;
+    private Security $security;
 
     /**
      * Builder constructor.
      * @param FactoryInterface $factory
      * @param AuthorizationCheckerInterface $authorizationChecker
      */
-    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(FactoryInterface              $factory,
+                                AuthorizationCheckerInterface $authorizationChecker,
+                                Security                      $security)
     {
         $this->factory = $factory;
         $this->authorizationChecker = $authorizationChecker;
+        $this->security = $security;
     }
 
 
@@ -90,15 +97,14 @@ class Builder implements ContainerAwareInterface
             //->setLinkAttribute('class', ' highlight');;
         }
 
+
+        $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))
+            ->setLinkAttribute('class', ' highlight');
+
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-          //  $menu->addChild('Toplista', array('route' => 'vote_vote_toplist'));
+            $menu->addChild('Toplista', array('route' => 'vote_vote_toplist'));
         }
 
-        if ($this->authorizationChecker->isGranted('EVENTREGISTRATION_VOTE')) {
-           // $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))
-           //     ->setLinkAttribute('class', ' highlight');
-        }
-        
         if ($this->authorizationChecker->isGranted('EVENTREGISTRATION_CREATE')) {
             $menu->addChild('Nevezés', array('route' => 'eventregistration_new', 'routeParameters' => array()))
                 ->setLinkAttribute('class', ' highlight');
@@ -115,11 +121,16 @@ class Builder implements ContainerAwareInterface
         //->setLinkAttribute('class', 'fa fa-instagram fb');
 
         if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-            $menu->addChild('Profilom, nevezéseim', ['route' => 'app_profile']);
+
+            $user = $this->security->getUser();
+            /** @var User $user */
+            if ($user->getEventRegistrations()->count()) {
+                $menu->addChild('Profilom, nevezéseim', ['route' => 'app_profile']);
+            }
             $menu->addChild('Kijelentkezés', ['route' => 'app_logout']);
         } else {
             $menu->addChild('Belépés', ['route' => 'app_login']);
-            $menu->addChild('Regisztráció', ['route' => 'app_register']);
+          //  $menu->addChild('Regisztráció', ['route' => 'app_register']);
         }
 
 
