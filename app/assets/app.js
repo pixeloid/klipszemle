@@ -120,7 +120,7 @@ extend(ESPCR, {
 
             // if(videoid != null) {
             //    console.log("video id = ",videoid[1]);
-            //    $('#yt-player').append('<img class="img-responsive" src="http://img.youtube.com/vi/'+videoid[1]+'/hqdefault.jpg" />').click(function(){
+            //    $('#yt-player').append('<img class="img-responsive" src="https://img.youtube.com/vi/'+videoid[1]+'/hqdefault.jpg" />').click(function(){
             //     $('#yt-player').empty().player({video: videoid[1], width: '100%'})
             //    })
             // } else {
