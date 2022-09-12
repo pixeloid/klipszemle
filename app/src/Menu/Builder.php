@@ -98,10 +98,9 @@ class Builder implements ContainerAwareInterface
         }
 
 
-        if ($this->authorizationChecker->isGranted('EVENTREGISTRATION_VOTE')) {
-            $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))
-              ->setLinkAttribute('class', ' highlight');
-        }
+        $menu->addChild('Szavazás', array('route' => 'vote_index', 'routeParameters' => array()))
+            ->setLinkAttribute('class', ' highlight');
+
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $menu->addChild('Toplista', array('route' => 'vote_vote_toplist'));
         }

@@ -51,7 +51,7 @@ class EventRegistrationVoter extends Voter
             $today = new DateTime();
             $deadline = new DateTime('2022-09-10');
 
-            return $today < $deadline;
+            return $today > $deadline;
         }
 
         return false;
