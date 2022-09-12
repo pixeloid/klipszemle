@@ -196,6 +196,7 @@ extend(ESPCR, {
 
             $('.video-item__btn--play').click(function(e){
 
+                $(this).hide();
                 e.preventDefault();
 
                 $('#player').show();
@@ -223,6 +224,7 @@ extend(ESPCR, {
             function onPlayerStateChange(event) {
                 if (event.data == YT.PlayerState.ENDED) {
                     $('#player').fadeOut();
+                    $('.video-item__btn--play').fadeIn();
                 }
                 if (event.data == YT.PlayerState.PLAYING) {
                     $('.video-item__btn--stop').fadeIn();
@@ -465,8 +467,15 @@ extend(ESPCR, {
                 // passing YT as a parameter
                 YTdeferred.resolve(window.YT);
 
-                var id = window.location.hash.replace('#video-', '');
+                if (window.location.hash.indexOf('#video') > 0) {
+                    var id = window.location.hash.replace('#video-', '');
+                }
+
+                if (vote_id) {
+                    var id = vote_id;
+                }
                 if(id){
+
                     $('.votes, .rate').find("[data-id='" + id + "']").click();
                     window.location.href.split('#')[0]
                 }

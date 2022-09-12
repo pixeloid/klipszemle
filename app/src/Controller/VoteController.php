@@ -10,6 +10,8 @@ use Knp\Snappy\Image;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -21,20 +23,30 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class VoteController extends AbstractController
 {
     private EntityManagerInterface $em;
+    private RequestStack $requestStack;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, RequestStack $requestStack)
     {
         $this->em = $em;
+        $this->requestStack = $requestStack;
     }
 
 
     /**
-     * @Route("/", name="index")
+     * @Route("/{id?}", name="index", requirements={"id": "\d+"})
      * @Template("Vote/index.html.twig")
      */
-    public function indexAction()
+    public function indexAction(int $id = null, Request $request)
     {
-         
+        $vote_id = $this->requestStack->getSession()->get('vote_id');
+
+        if($id) {
+            $vote_id = $id;
+            $this->requestStack->getSession()->set('vote_id', $id);
+        } else {
+            $this->requestStack->getSession()->remove('vote_id');
+        }
+
         $query = $this->em->createQuery(
             'SELECT e.id, e.author, e.songtitle, e.video_url AS videourl, e.yt_id AS ytId, COUNT(v.id) AS numvotes FROM App:EventRegistration e
                  LEFT JOIN e.votes v
@@ -49,6 +61,7 @@ class VoteController extends AbstractController
 
         return array(
             'videos' => $videos,
+            'vote_id' => $vote_id,
         );
     }
 

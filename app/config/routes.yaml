@@ -3,7 +3,7 @@ media:
   prefix: /media
 
 facebook_login:
-  path: /login/check-facebook
+  path: /check-facebook
 
 # in app/config/routing.yml
 craue_config_settings:
@@ -20,4 +20,16 @@ _translation_profiler:
 _translation_edit_in_place:
   resource: '@TranslationBundle/Resources/config/routing_edit_in_place.yaml'
   prefix: /trans
+
+hwi_oauth_redirect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/redirect.php"
+  prefix:   /oauth-connect
+
+hwi_oauth_connect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/connect.php"
+  prefix:   /oauth-connect
+
+hwi_oauth_login:
+  resource: "@HWIOAuthBundle/Resources/config/routing/login.php"
+  prefix:   /oauth-login
 

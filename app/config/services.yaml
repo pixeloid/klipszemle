@@ -129,7 +129,7 @@ services:
 
 
     app.provider.oauth:
-        class: App\Security\OAuthUserProvider
+        class: App\Security\User\Provider\FacebookUserProvider
 
     admin.faq:
         class: App\Admin\FaqAdmin

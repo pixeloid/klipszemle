@@ -15,6 +15,7 @@
         "excelwebzone/recaptcha-bundle": "^1.5",
         "friendsofsymfony/ckeditor-bundle": "^2.3",
         "guzzlehttp/promises": "^1.4",
+        "hwi/oauth-bundle": "2.0.x-dev",
         "knplabs/knp-menu-bundle": "^3.1",
         "knplabs/knp-paginator-bundle": "^5.6",
         "knplabs/knp-snappy-bundle": "^1.8",
