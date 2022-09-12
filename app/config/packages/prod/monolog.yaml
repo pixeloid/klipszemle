@@ -36,7 +36,7 @@ monolog:
             type: deduplication
             # the time in seconds during which duplicate entries are discarded (default: 60)
             time: 10
-            handler: swift
+            handler: symfony_mailer
 
 # monolog:
 #     handlers:
