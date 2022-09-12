@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="hu" trgLang="hu">
+  <file id="SonataAdminBundle.hu">
+    <unit id="KDq8Tu." name="title_batch_confirmation">
+      <segment>
+        <source>title_batch_confirmation</source>
+        <target>Tömeges művelet megerősítése: %action%</target>
+      </segment>
+    </unit>
+    <unit id="ZsBdzPk" name="message_batch_confirmation">
+      <segment>
+        <source>message_batch_confirmation</source>
+        <target>Biztosan végre akarja hajtani a műveletet %count% kijelölt elemen?	</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

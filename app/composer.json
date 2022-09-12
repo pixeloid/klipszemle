@@ -61,7 +61,8 @@
         "symfonycasts/reset-password-bundle": "^1.14",
         "symfonycasts/verify-email-bundle": "^1.11",
         "twig/extra-bundle": "^3.4.0",
-        "twig/twig": "^3.4.1"
+        "twig/twig": "^3.4.1",
+      "ext-pdo": "*"
     },
     "require-dev": {
         "escapestudios/symfony2-coding-standard": "3.x-dev",

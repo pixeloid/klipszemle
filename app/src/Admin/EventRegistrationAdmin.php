@@ -2,11 +2,9 @@
 
 namespace App\Admin;
 
-use App\Entity\MovieCategory;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
@@ -17,6 +15,21 @@ use Sonata\Form\Type\CollectionType;
 
 class EventRegistrationAdmin extends AbstractAdmin
 {
+    protected function configureBatchActions(array $actions): array
+    {
+
+        if (
+            $this->hasRoute('edit') && $this->hasAccess('edit') &&
+            $this->hasRoute('delete') && $this->hasAccess('delete')
+        ) {
+            $actions['voteMail'] = [
+                'ask_confirmation' => true,
+                'label' => 'Vote email',
+            ];
+        }
+
+        return $actions;
+    }
 
 
     protected function configureDatagridFilters(DatagridMapper $filter): void
