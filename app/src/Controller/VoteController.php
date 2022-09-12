@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Vote;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Http\Discovery\Exception\NotFoundException;
 use Knp\Snappy\Image;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -76,7 +77,12 @@ class VoteController extends AbstractController
 
         $repo = $this->em->getRepository(EventRegistration::class);
 
+        /** @var EventRegistration $video */
         $video = $repo->findOneById($id);
+        
+        if (true !== $video->isIsVotable()) {
+            throw new NotFoundException();
+        }
 
 
         $alreadyVoted = true;

@@ -471,7 +471,7 @@ extend(ESPCR, {
                     var id = window.location.hash.replace('#video-', '');
                 }
 
-                if (vote_id) {
+                if (typeof vote_id !== 'undefined') {
                     var id = vote_id;
                 }
                 if(id){

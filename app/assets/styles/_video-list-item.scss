@@ -9,7 +9,6 @@
 
         &.video-item--highlight{
             position: relative;
-            background: $brand-secondary;
             display: block;
             img{
                 
@@ -17,7 +16,7 @@
         }
         overflow: hidden;
 
-        background: $brand-secondary;
+        background: $brand-primary;
         position: relative;
         font-weight: 900;
         @include clearfix;
@@ -120,6 +119,14 @@
         .video-item--vote &{
             text-overflow: none;
             max-width: none;
+        }
+
+        &--numvotes {
+            color: $black;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 20;
         }
     }
 
