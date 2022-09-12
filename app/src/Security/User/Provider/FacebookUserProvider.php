@@ -29,6 +29,9 @@ class FacebookUserProvider implements \HWI\Bundle\OAuthBundle\Security\Core\User
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
+        
+        $email = $response->getEmail() ?? $response->getUserIdentifier();
+        
         $user = $this->em->getRepository(User::class)->createQueryBuilder('u')
             ->where('u.facebook_id = :fbId OR u.email = :email')
             ->setParameters([
@@ -43,10 +46,10 @@ class FacebookUserProvider implements \HWI\Bundle\OAuthBundle\Security\Core\User
         if ($user === null) {
             $user = new User();
             $user->setFacebookId($response->getUserIdentifier());
-            $user->setEmail($response->getEmail());
-            $user->setEmailCanonical($response->getEmail());
-            $user->setUsername($response->getEmail());
-            $user->setUsernameCanonical($response->getEmail());
+            $user->setEmail($email);
+            $user->setEmailCanonical($email);
+            $user->setUsername($email);
+            $user->setUsernameCanonical($email);
             $user->setFirstName($response->getFirstName());
             $user->setLastName($response->getLastName());
 
