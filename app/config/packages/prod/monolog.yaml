@@ -22,8 +22,8 @@ monolog:
             handler: deprecation
             max_level: info
             channels: ["php"]
-        swift:
-            type:       swift_mailer
+        symfony_mailer:
+            type:       symfony_mailer
             from_email: 'info.klipszemle@gmail.com'
             to_email:   'olah.gergely@pixeloid.hu'
             # or list of recipients

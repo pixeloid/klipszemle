@@ -59,7 +59,7 @@ services:
     pixeloid_app.admin.event_registration:
         class: App\Admin\EventRegistrationAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Nevezett klipek, model_class: App\Entity\EventRegistration }
+            - { name: sonata.admin, manager_type: orm, group: Tartalom, label: Nevezett klipek, model_class: App\Entity\EventRegistration, controller: App\Controller\EventRegistrationAdminController }
 
     pixeloid_app.admin.budget_category:
         class: App\Admin\BudgetCategoryAdmin
