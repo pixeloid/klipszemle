@@ -22,8 +22,8 @@ monolog:
             handler: deprecation
             max_level: info
             channels: ["php"]
-        swift:
-            type:       swift_mailer
+        symfony_mailer:
+            type:       symfony_mailer
             from_email: 'info.klipszemle@gmail.com'
             to_email:   'olah.gergely@pixeloid.hu'
             # or list of recipients
@@ -36,7 +36,7 @@ monolog:
             type: deduplication
             # the time in seconds during which duplicate entries are discarded (default: 60)
             time: 10
-            handler: swift
+            handler: symfony_mailer
 
 # monolog:
 #     handlers:
