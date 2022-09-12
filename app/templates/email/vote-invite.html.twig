@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="hu">
+<head>
+    <title></title>
+</head>
+<body>
+
+
+
+<h3>Hello {{ er.user.lastName }} {{ er.user.firstName }} !</h3>
+
+<p>Elindult a Haj&oacute;gy&aacute;r x 06. Magyar Klipszemle k&ouml;z&ouml;ns&eacute;gszavaz&aacute;sa.</p>
+
+<p>Te az al&aacute;bbi klippel nevezt&eacute;l:<br />
+    <strong>{{ er.author }}, {{ er.songTitle }}</strong></p>
+
+<p>Az ehhez kapcsol&oacute;d&oacute; szavaz&aacute;si linket itt tal&aacute;lod:<br />
+    <a href="{{ url('vote_index', {id: er.id}) }}">{{ url('vote_index', {id: er.id}) }}</a>
+</p>
+
+<p>Oszd meg &eacute;s buzd&iacute;tsd a fejeket a voksol&aacute;sra! Gyors regisztr&aacute;ci&oacute;, azt&aacute;n mehet minden.</p>
+
+<p>Okt&oacute;ber 13-&aacute;n tal&aacute;lkozunk az Akv&aacute;rium klubban, ahol a d&iacute;j&aacute;tad&oacute; mellett lesz maratoni klipn&eacute;z&eacute;s &oacute;ri&aacute;s v&aacute;sznon, szakmai programok, koncertek &eacute;s l&aacute;rif&aacute;ri.</p>
+
+<p>B&aacute;rmi k&eacute;rd&eacute;sed van, olvasd el a FAQ-t, &eacute;s ha ott se tal&aacute;lsz r&aacute; v&aacute;laszt, &iacute;rj nek&uuml;nk ide: <a href="mailto:info.klipszemle@gmail.com">info.klipszemle@gmail.com</a></p>
+
+<p>&Uuml;dv,<br />
+    a Szervezős&eacute;g</p>
+
+
+</body>
+</html>
+
