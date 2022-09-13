@@ -8,7 +8,7 @@
       {% set size = 'hqdefault' %}
         
         <div class="video-item__image">
-          <img src="https://img.youtube.com/vi/{{ video.videourl|yt_id }}/{{ size }}.jpg">
+          <img src="https://img.youtube.com/vi/{{ video.ytId }}/{{ size }}.jpg">
 
           <div class="video-item__text-holder">
             <h5 class="video-item__text video-item__text--cat">{{ video.moviecategories.first.category.name  }}</h5>

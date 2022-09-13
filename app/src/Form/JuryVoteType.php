@@ -20,8 +20,9 @@ class JuryVoteType extends AbstractType
             ->add('best')
             ->add('specialprize')
             ->add('info')
-            ->add('Szavazok!', SubmitType::class, [
+            ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success'],
+                'label' => 'Szavazok!',
             ]);
         ;
     }

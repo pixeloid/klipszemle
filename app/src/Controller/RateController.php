@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\EventRegistration;
+use App\Entity\MovieCategory;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,24 +15,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/rate", name="rate_")
- * @Security("has_role('ROLE_JURY')")
+ * @Security("is_granted('ROLE_JURY')")
  */
 class RateController extends AbstractController
 {
+    private $em;
+
+    /**
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
+
     /**
      * @Route("/", name="index")
      */
     public function index()
     {
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
 
 
         $from = new \DateTime('2021-06-01');
         return $this->render('rate/index.html.twig', [
-            'cats' => $em->getRepository('App:MovieCategory')->getMoviesForUser($user, $from),
+            'cats' => $this->em->getRepository(MovieCategory::class)->getMoviesForUser($user, $from),
         ]);
     }
 
@@ -40,18 +52,15 @@ class RateController extends AbstractController
      */
     public function list()
     {
-      $from = new \DateTime('2021-05-01');
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-
-        $categories = $em->getRepository('App:MovieCategory')->getCategoriesForRating($from);
+        $from = new \DateTime('2021-05-01');
+      
+        $categories = $this->em->getRepository(MovieCategory::class)->getCategoriesForRating($from);
         
         $result = [];
 
 
         foreach ($categories as $cat) {
-          $result[$cat->getName()] = $em->getRepository('App:EventRegistration')->getRatings($from, $cat);
+            $result[$cat->getName()] = $this->em->getRepository(EventRegistration::class)->getRatings($from, $cat);
         }
 
         return $this->render('rate/list.html.twig', [
@@ -64,15 +73,14 @@ class RateController extends AbstractController
      */
     public function videoAction($id, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $video = $em->getRepository(EventRegistration::class)->findOneById($id);
+        $user = $this->getUser();
+        $video = $this->em->getRepository(EventRegistration::class)->findOneById($id);
 
 
 
         $success = false;
 
-        $query = $em->createQuery(
+        $query = $this->em->createQuery(
             ' SELECT v
             FROM App:JuryVote v 
             WHERE v.user = :user AND v.eventRegistration = :er'
@@ -85,10 +93,10 @@ class RateController extends AbstractController
 
         $vote = $query->getOneOrNullResult();
 
-        if(!$vote) {
-          $vote = new JuryVote;
-          $vote->setUser($user);
-          $vote->setEventRegistration($video);
+        if (!$vote) {
+            $vote = new JuryVote;
+            $vote->setUser($user);
+            $vote->setEventRegistration($video);
         }
 
         $form = $this->createForm(JuryVoteType::class, $vote, [
@@ -99,13 +107,13 @@ class RateController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          $em->persist($vote);
-          $em->flush();
-          if ($request->isXmlHttpRequest()) {
-              return $this->render('rate/_rate-row.html.twig', [
+            $this->em->persist($vote);
+            $this->em->flush();
+            if ($request->isXmlHttpRequest()) {
+                return $this->render('rate/_rate-row.html.twig', [
                   'video' => $vote->getEventRegistration(),
-              ]);
-          }
+                ]);
+            }
         }
 
         if ($request->isXmlHttpRequest() && $form->isSubmitted()) {
@@ -122,7 +130,6 @@ class RateController extends AbstractController
           'user' => $user,
           'form' => $form->createView(),
         ]);
-
     }
 
     /**

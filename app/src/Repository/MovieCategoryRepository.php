@@ -6,6 +6,7 @@ use App\Entity\MovieCategory;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method MovieCategory|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,7 +20,7 @@ class MovieCategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, MovieCategory::class);
     }
-    public function getMoviesForUser(User $user, \DateTime $from): ?Array
+    public function getMoviesForUser(UserInterface $user, \DateTime $from): ?Array
     {
         return $this->createQueryBuilder('mc')
                 ->select('mc, erc, er, juryvotes, user')

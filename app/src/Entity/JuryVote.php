@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\Timestampable;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: 'App\Repository\JuryVoteRepository')]
@@ -98,7 +99,7 @@ class JuryVote
     {
         return $this->user;
     }
-    public function setUser(?User $user): self
+    public function setUser(?UserInterface $user): self
     {
         $this->user = $user;
 
