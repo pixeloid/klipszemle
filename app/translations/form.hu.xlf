@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="hu" trgLang="hu">
+  <file id="form.hu">
+    <unit id="41IoyOv" name="Specialprize">
+      <segment>
+        <source>Specialprize</source>
+        <target>Különdíj</target>
+      </segment>
+    </unit>
+    <unit id="xH0hxkP" name="Best">
+      <segment>
+        <source>Best</source>
+        <target>Legjobb klip</target>
+      </segment>
+    </unit>
+    <unit id="FwMioy8" name="Info">
+      <segment>
+        <source>Info</source>
+        <target>Megjegyzés</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
