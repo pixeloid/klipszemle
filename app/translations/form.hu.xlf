@@ -4,19 +4,25 @@
     <unit id="41IoyOv" name="Specialprize">
       <segment>
         <source>Specialprize</source>
-        <target>Különdíj</target>
+        <target>Különdíjra jelölöm</target>
       </segment>
     </unit>
     <unit id="xH0hxkP" name="Best">
       <segment>
         <source>Best</source>
-        <target>Legjobb klip</target>
+        <target>Legjobb klipnek jelölöm</target>
       </segment>
     </unit>
     <unit id="FwMioy8" name="Info">
       <segment>
         <source>Info</source>
-        <target>Megjegyzés</target>
+        <target>Extra fontos megjegyzésem van</target>
+      </segment>
+    </unit>
+    <unit id="RbY..QG" name="Rate">
+      <segment>
+        <source>Rate</source>
+        <target>Pontozom</target>
       </segment>
     </unit>
   </file>
