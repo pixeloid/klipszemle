@@ -47,7 +47,7 @@ class RateController extends AbstractController
     }
 
     /**
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_ADMIN')")
      * @Route("/list", name="rate_list")
      */
     public function list()

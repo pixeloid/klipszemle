@@ -2,11 +2,11 @@
                           <tr data-id="{{ video.id }}" >
 
                             <td>{{ video.id }}</td>
-                            <td>      <img src="https://img.youtube.com/vi/{{ video.ytId }}/mqdefault.jpg" height="40">
+                            <td>      <img src="https://img.youtube.com/vi/{{ video.yt_id }}/mqdefault.jpg" height="80">
                     </td>
                             <td>
                                 
-                                <a href="{{ video.video_url }}">{{ video.video_url }}</a>
+                                <a href="https://youtube.com/watch/{{ video.yt_id }}">https://youtube.com/watch/{{ video.yt_id }}</a>
                             </td>
 
                     <td>{{ video.author }} - {{ video.songtitle }}</td>

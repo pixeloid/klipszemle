@@ -12,24 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventRegistrationRepository extends EntityRepository
 {
-	public function getAllForVoting()
-	{
-		return $this->getEntityManager()
-		    ->createQuery(
-		        'SELECT e FROM App:EventRegistration e WHERE e.voteable = TRUE'
-		    )
-		    ->getResult();
-	}
-	public function get()
-	{
-		return $this->_em->createQuery('SELECT e FROM App:EventRegistration e WHERE e.winner > 0 ORDER BY e.winner ASC')
-		                 ->getResult();
-	}
+    public function getAllForVoting()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT e FROM App:EventRegistration e WHERE e.voteable = TRUE'
+            )
+            ->getResult();
+    }
+    public function get()
+    {
+        return $this->_em->createQuery('SELECT e FROM App:EventRegistration e WHERE e.winner > 0 ORDER BY e.winner ASC')
+                         ->getResult();
+    }
 
 
-	public function hasAlreadyVoted(User $user, EventRegistration $video )
-	{
-		$result = $this->_em->createQuery('
+    public function hasAlreadyVoted(User $user, EventRegistration $video)
+    {
+        $result = $this->_em->createQuery('
 			SELECT v
 			FROM App:Vote v 
 			LEFT JOIN v.eventRegistration e
@@ -38,59 +38,54 @@ class EventRegistrationRepository extends EntityRepository
 					e = :e 
 				AND u = :u ')
 
-			->setParameters(['e' => $video, 'u' => $user])
-		                 ->getArrayResult();
-		     return count($result) > 0;
-	}
+            ->setParameters(['e' => $video, 'u' => $user])
+                         ->getArrayResult();
+             return count($result) > 0;
+    }
 
-	public function getRatings(\DateTime $from, MovieCategory $cat): ?Array
-	{
-	    $res = $this->createQueryBuilder('er')
-	        ->select('er.id, er.video_url, er.author,  er.songtitle, count(juryvotes.id) AS numvotes, sum(juryvotes.rate) AS sumvotes, sum(juryvotes.specialprize) AS sumspecial, sum(juryvotes.best) AS sumbest, avg(juryvotes.rate) AS avgrating')
-	        ->leftJoin('er.juryvotes', 'juryvotes')
-	        ->leftJoin('er.moviecategories', 'erc')
-	        ->leftJoin('erc.category', 'mc')
-	        ->andWhere('er.created > :created')
-	        ->andWhere('er.shortlist = 1')
-	        ->andWhere('mc = :cat')
-	        ->setParameter('created', $from)
-	        ->setParameter('cat', $cat)
-	        ->groupBy('er.id')
-	        ->orderBy('sumvotes', 'DESC')
-	        ->getQuery()
-	        ->getResult()
-	    ;
-
-	    return $res;
-	}
+    public function getRatings(\DateTime $from, MovieCategory $cat): ?Array
+    {
+        return $this->createQueryBuilder('er')
+            ->select('er.id, er.yt_id, er.author,  er.songtitle, count(juryvotes.id) AS numvotes, sum(juryvotes.rate) AS sumvotes, sum(juryvotes.specialprize) AS sumspecial, sum(juryvotes.best) AS sumbest, avg(juryvotes.rate) AS avgrating')
+            ->leftJoin('er.juryvotes', 'juryvotes')
+            ->leftJoin('er.moviecategories', 'erc')
+            ->leftJoin('erc.category', 'mc')
+            ->andWhere('er.created > :created')
+            ->andWhere('er.shortlist = 1')
+            ->andWhere('mc = :cat')
+            ->setParameter('created', $from)
+            ->setParameter('cat', $cat)
+            ->groupBy('er.id')
+            ->orderBy('sumvotes', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
 
-	public function getOnshow(\DateTime $from): ?Array
-	{
-	    $res = $this->createQueryBuilder('er')
-	        ->select('er')
-	        ->andWhere('er.created > :created')
-	        ->andWhere('er.onshow = 1')
-	        ->setParameter('created', $from)
-	        ->getQuery()
-	        ->getResult()
-	    ;
+    public function getOnshow(\DateTime $from): ?Array
+    {
+        $res = $this->createQueryBuilder('er')
+            ->select('er')
+            ->andWhere('er.created > :created')
+            ->andWhere('er.onshow = 1')
+            ->setParameter('created', $from)
+            ->getQuery()
+            ->getResult()
+        ;
 
-	    return $res;
-	}
-	public function getPremiere(\DateTime $from): ?Array
-	{
-	    $res = $this->createQueryBuilder('er')
-	        ->select('er')
-	        ->andWhere('er.created > :created')
-	        ->andWhere('er.premiere = 1')
-	        ->setParameter('created', $from)
-	        ->getQuery()
-	        ->getResult()
-	    ;
+        return $res;
+    }
+    public function getPremiere(\DateTime $from): ?Array
+    {
+        $res = $this->createQueryBuilder('er')
+            ->select('er')
+            ->andWhere('er.created > :created')
+            ->andWhere('er.premiere = 1')
+            ->setParameter('created', $from)
+            ->getQuery()
+            ->getResult()
+        ;
 
-	    return $res;
-	}
-
-
+        return $res;
+    }
 }

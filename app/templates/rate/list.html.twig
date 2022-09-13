@@ -16,7 +16,7 @@
 
   <ul class="nav nav-tabs" role="tablist">
     {% for cat,item in result %}
-      <li class="">
+      <li class="{{ loop.index == 1 ? 'active' }}">
           <a href="#tab-{{ loop.index }}" role="tab" data-toggle="tab">
               {{ cat }}
           </a>
@@ -28,7 +28,7 @@
   <!-- Tab panes -->
   <div class="tab-content">
     {% for cat,movies in result %}
-      <div class="tab-pane fade" id="tab-{{ loop.index }}">
+      <div class="tab-pane {{ loop.index == 1 ? 'active' : 'fade'}}" id="tab-{{ loop.index }}">
         <table class="table">
           <tr>
             <td>ID</td>
