@@ -93,8 +93,8 @@ class Builder implements ContainerAwareInterface
     {
 
         if ($this->authorizationChecker->isGranted('ROLE_JURY')) {
-            //   $menu->addChild('Zsűri', array('route' => 'rate_index', 'routeParameters' => array()))
-            //->setLinkAttribute('class', ' highlight');;
+            $menu->addChild('Zsűri', array('route' => 'rate_index', 'routeParameters' => array()))
+            ->setLinkAttribute('class', ' highlight');;
         }
 
 
