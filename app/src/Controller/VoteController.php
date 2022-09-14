@@ -79,7 +79,12 @@ class VoteController extends AbstractController
 
         /** @var EventRegistration $video */
         $video = $repo->findOneById($id);
-        
+
+        if (!$video) {
+            throw new NotFoundException(sprintf("Video with id #%s is not found", $video->getId()));
+        }
+
+
         if (true !== $video->isIsVotable()) {
             throw new NotFoundException(sprintf("%s is not Votable", $video->getId()));
         }
