@@ -34,6 +34,7 @@ class VoteController extends AbstractController
 
 
     /**
+     * @IsGranted("EVENTREGISTRATION_VOTE")
      * @Route("/{id?}", name="index", requirements={"id": "\d+"})
      * @Template("Vote/index.html.twig")
      */
@@ -67,6 +68,7 @@ class VoteController extends AbstractController
     }
 
     /**
+     * @IsGranted("EVENTREGISTRATION_VOTE")
      * @Route("/show/{id}", name="show")
      * @Template("Vote/show.html.twig")
      */

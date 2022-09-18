@@ -49,9 +49,9 @@ class EventRegistrationVoter extends Voter
 
         if ($attribute == self::VOTE) {
             $today = new DateTime();
-            $deadline = new DateTime('2022-09-10');
+            $deadline = new DateTime('2022-09-19');
 
-            return $today > $deadline;
+            return $today < $deadline;
         }
 
         return false;
