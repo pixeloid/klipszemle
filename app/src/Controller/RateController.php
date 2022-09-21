@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/rate", name="rate_")
- * @Security("is_granted('ROLE_JURY')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class RateController extends AbstractController
 {

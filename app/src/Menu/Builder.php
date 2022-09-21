@@ -92,7 +92,7 @@ class Builder implements ContainerAwareInterface
     private function buildChildren($menu)
     {
 
-        if ($this->authorizationChecker->isGranted('ROLE_JURY')) {
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $menu->addChild('Zsűri', array('route' => 'rate_index', 'routeParameters' => array()))
             ->setLinkAttribute('class', ' highlight');;
         }
