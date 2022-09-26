@@ -26,6 +26,10 @@ class EventRegistrationAdmin extends AbstractAdmin
                 'ask_confirmation' => true,
                 'label' => 'Vote email',
             ];
+            $actions['fileRequestMail'] = [
+                'ask_confirmation' => true,
+                'label' => 'File request email',
+            ];
         }
 
         return $actions;

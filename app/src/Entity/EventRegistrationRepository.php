@@ -62,13 +62,11 @@ class EventRegistrationRepository extends EntityRepository
     }
 
 
-    public function getOnshow(\DateTime $from): ?Array
+    public function getOnshow(): ?Array
     {
         $res = $this->createQueryBuilder('er')
             ->select('er')
-            ->andWhere('er.created > :created')
             ->andWhere('er.onshow = 1')
-            ->setParameter('created', $from)
             ->getQuery()
             ->getResult()
         ;

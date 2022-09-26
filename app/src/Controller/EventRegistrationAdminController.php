@@ -44,7 +44,7 @@ class EventRegistrationAdminController extends CRUDController
     ): RedirectResponse {
         $admin->checkAccess('edit');
         $admin->checkAccess('delete');
-        
+
         $qb = $query->getQueryBuilder();
         $qb->select('DISTINCT '.current($qb->getRootAliases()));
 
@@ -52,6 +52,34 @@ class EventRegistrationAdminController extends CRUDController
             $this->sendMail(
                 'email/vote-invite.html.twig',
                 'Elindult a közönségszavazás!',
+                $object
+            );
+        }
+
+        $this->addFlash('sonata_flash_success', 'Sikeres küldés!');
+
+        return $this->redirectToList();
+    }
+
+    /**
+     * @throws ModelManagerException
+     * @throws \Sonata\AdminBundle\Exception\ModelManagerThrowable
+     */
+    public function batchActionFileRequestMail(
+        ProxyQueryInterface $query,
+        AdminInterface      $admin,
+        Request             $request
+    ): RedirectResponse {
+        $admin->checkAccess('edit');
+        $admin->checkAccess('delete');
+
+        $qb = $query->getQueryBuilder();
+        $qb->select('DISTINCT '.current($qb->getRootAliases()));
+
+        foreach ($qb->getQuery()->toIterable() as $object) {
+            $this->sendMail(
+                'email/file-request.html.twig',
+                'Bejutott a kliped a Klipszemlére, 09.30. 24:00-ig töltsd fel!',
                 $object
             );
         }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\EventRegistration;
 use App\Entity\Faq;
 use App\Entity\Hero;
 use App\Entity\Jury;
@@ -10,7 +11,6 @@ use App\Entity\Program;
 use App\Entity\Sponsor;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -22,17 +22,14 @@ use Spatie\Dropbox\Client;
 
 class DefaultController extends AbstractController
 {
-    private MailerInterface $mailer;
     private EntityManagerInterface $em;
 
     /**
      * DefaultController constructor.
-     * @param MailerInterface $mailer
      * @param EntityManagerInterface $em
      */
-    public function __construct(MailerInterface $mailer, EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->mailer = $mailer;
         $this->em = $em;
     }
 
@@ -203,36 +200,30 @@ class DefaultController extends AbstractController
             $this->em->flush();
         }
     }
-    /**
-     * @Route("/gr", name="generate-request")
-     */
-    public function generateRequests()
+
+    public function generateRequests(EntityManagerInterface $em)
     {
-        $client = new Client('-norBkZx5NsAAAAAAAAAAUYs90Z78Gt05NHGVPTpL6lbdgObVTb46DDMldMbuRl5');
+        $client = new Client('sl.BP97SZVnVfZyWJxokmKNR1sXJxhAyvaBuQw380WRSJz_4I-GZHGz9cEQsa3cNXsNfKNmQt1WvmcCsWVfG13VPLuTA_dBlumjVhrvYs9i1qpx7PxMlpmd0L9omVkhJo8H1Dw-YM-10jI');
 
         $from = new DateTime('2021-07-01');
-//
-       // //
-//
-       // $body = $client->rpcEndpointRequest('file_requests/list');
-//
-       // foreach ($body['file_requests'] as $req) {
-       //     $id = substr($req['destination'], 1, 4);
-       //     $m = $em->getRepository('App:EventRegistration')->findOneById($id);
-       //     if ($m) {
-       //        $m->setDropboxRequest($req['id']);
-       //        $em->persist($m);
-//
-       //     }
-       // }
-       // $em->flush();
-//
-       // exit;
+       //  $body = $client->rpcEndpointRequest('file_requests/list');
+       //
+       //  foreach ($body['file_requests'] as $req) {
+       //      $id = substr($req['destination'], 1, 4);
+       //      $m = $em->getRepository('App:EventRegistration')->findOneById($id);
+       //      if ($m) {
+       //         $m->setDropboxRequest($req['id']);
+       //         $em->persist($m);
+       //
+       //      }
+       //  }
+       //  $em->flush();
 
 
 
 
-        $events = $this->em->getRepository('App:EventRegistration')->getPremiere($from);
+
+        $events = $this->em->getRepository(EventRegistration::class)->getOnshow();
 
         foreach ($events as $event) {
             $parameters = [
@@ -244,19 +235,21 @@ class DefaultController extends AbstractController
                 ),
                 'destination'  => "/{$this->slugify(
                     sprintf(
-                            "%s - %s – %s",
+                            "%s-%s–%s",
                             $event->getId(),
-                            $event->getAuthor(),
-                            substr($event->getSongtitle(), 0, 10)
+                            $this->slugify($event->getAuthor()),
+                            substr($this->slugify($event->getSongtitle()), 0, 10)
                         )
                 )}",
                 'deadline' => [
-                    'deadline' => '2021-10-01T00:00:00Z',
+                    'deadline' => '2022-10-08T00:00:00Z',
                 ],
                 'open' => true,
             ];
 
-            if (!$event->getDropboxRequest()) {
+            $existing = $client->rpcEndpointRequest('file_requests/get', ['id' => $event->getDropboxRequest()]);
+
+            if ($existing['destination'] === '/n-a') {
                 try {
                     $body = $client->rpcEndpointRequest('file_requests/create', $parameters);
                 } catch (\Exception $e) {
@@ -267,104 +260,19 @@ class DefaultController extends AbstractController
                 $event->setDropboxRequest($body['id']);
                 $this->em->persist($event);
                 $this->em->flush();
+                sprintf(
+                    "%s-%s–%s \n",
+                    $event->getId(),
+                    $event->getAuthor(),
+                    substr($event->getSongtitle(), 0, 10)
+                );
             }
         }
+
 
 
         exit;
     }
 
-    public function sendRequests(Swift_Mailer $mailer)
-    {
 
-
-        $this->readCsv();
-
-        return $this->render('Default/privacy.html.twig');
-/*
-
-        $from = new DateTime('2021-07-01');
-
-
-
-
-                $events = $this->em->getRepository('App:EventRegistration')->getOnshow($from);
-
-                foreach ($events as $event) {
-
-                    if (!$event->getDropboxRequest()) {
-                        continue;
-                    }
-                    echo $event->getEmail();
-                    echo $this->renderView('EventRegistration/request-mail.html.twig', array(
-                         'entity'      => $event,
-                     ));
-
-                    $message = (new \Swift_Message('Töltsd fel a klip nagyméretű fileját!'))
-                        ->setFrom('info@klipszemle.com')
-                       ->setTo($event->getEmail())
-                       //->setTo('olah.gergely@pixeloid.hu')
-                        ->setBody(
-                            $this->renderView('EventRegistration/request-mail.html.twig', array(
-                                'entity'      => $event,
-                            )), 'text/html'
-                        );
-
-                    try {
-                        $mailer->send($message);
-                    } catch (TransportExceptionInterface $e) {
-                    }
-
-
-                }
-
-        return $this->render('Default/privacy.html.twig');
-*/
-    }
-
-    public function sendEmail(Swift_Mailer $mailer)
-    {
-        $message = (new \Swift_Message('Hello Email teszt 02 APP pass'))
-            ->setFrom('info@klipszemle.com')
-            ->setTo('olahdzseri@gmail.com')
-            ->setBody('You should see me from the profiler!')
-        ;
-
-        $mailer->send($message);
-
-        return $this->render('Default/privacy.html.twig');
-    }
-
-    private function readCsv()
-    {
-        if (($fp = fopen("../public/uploads/shortlist.csv", "r")) !== false) {
-            while (($row = fgetcsv($fp, 1000, ",")) !== false) {
-//                dump($row);
-                $this->sendShortlistMail($row);
-            }
-            fclose($fp);
-        }
-    }
-
-    private function sendShortlistMail($row)
-    {
-        $message = (new \Swift_Message('EMLÉKEZTETŐ: Holnap 06. Magyar Klipszemle díjtadó gála!'))
-            ->setFrom('info.klipszemle@gmail.com')
-        ->setTo($row[1])
-            ->setBody(
-                $this->renderView('EventRegistration/shortlist-mail.html.twig', [
-                    'row'      => $row,
-                ]),
-                'text/html'
-            );
-
-        try {
-            $this->mailer->send($message);
-//
-        //    dump($message);
-        //    dump($row);
-        } catch (TransportExceptionInterface $e) {
-            dump($e);
-        }
-    }
 }
