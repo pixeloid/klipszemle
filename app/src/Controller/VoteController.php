@@ -42,7 +42,7 @@ class VoteController extends AbstractController
     {
         $vote_id = $this->requestStack->getSession()->get('vote_id');
 
-        if($id) {
+        if ($id) {
             $vote_id = $id;
             $this->requestStack->getSession()->set('vote_id', $id);
         } else {
@@ -226,9 +226,11 @@ class VoteController extends AbstractController
      * @param Image $knpSnappyImage
      * @return array|RedirectResponse
      */
-    public function facebookPostImageAction($id, Image $knpSnappyImage): array|RedirectResponse
-    {
-        $em = $this->getDoctrine()->getManager();
+    public function facebookPostImageAction(
+        $id,
+        Image $knpSnappyImage,
+        EntityManagerInterface $em
+    ): array|RedirectResponse {
         $video = $em->getRepository('App:EventRegistration')->findOneById($id);
         if (!$video->getPostImage() || !is_file($video->getPostImage())) {
             $this->generatePostImage($video->getId(), $knpSnappyImage);
