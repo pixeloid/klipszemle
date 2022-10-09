@@ -111,7 +111,7 @@ class Builder implements ContainerAwareInterface
                 ->setLinkAttribute('class', ' highlight');
             ;
         }
-      //  $menu->addChild('Program', ['route' => 'program']);
+        $menu->addChild('Program', ['route' => 'program']);
       //  $menu->addChild('Shortlist', ['route' => 'news']);
         // $menu->addChild('Rólunk írták', array('uri' => '#'));
         // $menu->addChild('Cuccok', array('uri' => '#'));

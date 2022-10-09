@@ -73,7 +73,7 @@ services:
         volumes:
             - ./app:/usr/src
         depends_on:
-            - nginx
+            - nginx-service
 
 
     mailhog:
