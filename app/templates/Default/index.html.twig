@@ -4,9 +4,7 @@
 
 <div class="heroes">
 
-    {% if is_granted('EVENTREGISTRATION_CREATE') %}
-        <a href="{{ path('eventregistration_new') }}">Nevezés</a>
-    {% endif %}
+    <a href="{{ path('program') }}">Program</a>
 
     <img src="/images/hero_dt.svg" alt="Hajógyár x 06. Magyar Klipszemle" class="desktop">
     <img src="/images/hero_mo.svg" alt="Hajógyár x 06. Magyar Klipszemle" class="mobile">
