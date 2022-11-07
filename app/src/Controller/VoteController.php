@@ -231,7 +231,7 @@ class VoteController extends AbstractController
         Image $knpSnappyImage,
         EntityManagerInterface $em
     ): array|RedirectResponse {
-        $video = $em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $em->getRepository(EventRegistration::class)->findOneById($id);
         if (!$video->getPostImage() || !is_file($video->getPostImage())) {
             $this->generatePostImage($video->getId(), $knpSnappyImage);
         }
@@ -257,7 +257,7 @@ class VoteController extends AbstractController
     {
 
 
-        $video = $this->em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $this->em->getRepository(EventRegistration::class)->findOneById($id);
 
 
         return                 array(
@@ -270,7 +270,7 @@ class VoteController extends AbstractController
 
         set_time_limit(100000);
         
-        $video = $this->em->getRepository('App:EventRegistration')->findOneById($id);
+        $video = $this->em->getRepository(EventRegistration::class)->findOneById($id);
 
 
         $filename = 'fb_post_images/klipszemle2019_fb_post_' . $id .'-'.time().'.jpg';
